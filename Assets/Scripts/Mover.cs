@@ -14,7 +14,7 @@ public class Mover : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetMouseButtonDown(1)) {
+        if (Input.GetMouseButton(1)) {
             MoveToCursor();
         }
 
@@ -37,8 +37,6 @@ public class Mover : MonoBehaviour {
         float speed = localVelocity.z;
 
         animator.SetFloat(FORWARDSPEED, speed);
-
-        Debug.Log($"Velocity: {velocity} - Local velocity: {localVelocity}");
     }
 
 }
