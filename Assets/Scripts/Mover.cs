@@ -14,21 +14,21 @@ public class Mover : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetMouseButton(1)) {
-            MoveToCursor();
-        }
-
         UpdateAnimator();
     }
 
-    private void MoveToCursor() {
+    public void MoveToCursor() {
         Ray lastRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         bool hasHit = Physics.Raycast(lastRay, out hit);
 
         if (hasHit) {
-            navMeshAgent.destination = hit.point;
+            MoveTo(hit.point);
         }
+    }
+
+    public void MoveTo(Vector3 position) {
+        navMeshAgent.destination = position;
     }
 
     private void UpdateAnimator() {
