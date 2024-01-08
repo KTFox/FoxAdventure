@@ -19,6 +19,11 @@ namespace RPG.Movement {
 
         public void MoveTo(Vector3 position) {
             navMeshAgent.destination = position;
+            navMeshAgent.isStopped = false;
+        }
+
+        public void Stop() {
+            navMeshAgent.isStopped = true;
         }
 
         private void UpdateAnimator() {
