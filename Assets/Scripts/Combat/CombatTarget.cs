@@ -5,4 +5,3 @@ namespace RPG.Combat {
 
     }
 }
-

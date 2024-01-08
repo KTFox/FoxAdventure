@@ -13,11 +13,13 @@ namespace RPG.Control {
         }
 
         private void Update() {
-            InteractWithMovement();
-            InteractWithCombat();
+            if (InteractWithCombat()) return;
+            if (InteractWithMovement()) return;
+
+            print("Nothing to do");
         }
 
-        private void InteractWithCombat() {
+        private bool InteractWithCombat() {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
 
             foreach (RaycastHit hit in hits) {
@@ -27,22 +29,26 @@ namespace RPG.Control {
                 if (Input.GetMouseButtonDown(1)) {
                     fighter.Attack(target);
                 }
+
+                return true;
             }
+
+            return false;
         }
 
-        private void InteractWithMovement() {
-            if (Input.GetMouseButton(1)) {
-                MoveToCursor();
-            }
-        }
-
-        private void MoveToCursor() {
+        private bool InteractWithMovement() {
             RaycastHit hit;
             bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
 
             if (hasHit) {
-                mover.MoveTo(hit.point);
+                if (Input.GetMouseButton(1)) {
+                    mover.MoveTo(hit.point);
+                }
+
+                return true;
             }
+
+            return false;
         }
 
         private static Ray GetMouseRay() {
@@ -50,4 +56,3 @@ namespace RPG.Control {
         }
     }
 }
-
