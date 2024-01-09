@@ -18,9 +18,17 @@ namespace RPG.Combat {
             Debug.Log($"Current currentHealth: {currentHealth}");
 
             if (currentHealth <= 0f && !isDeath) {
-                isDeath = true;
-                animator.SetTrigger(DEATH);
+                Die();
             }
+        }
+
+        private void Die() {
+            isDeath = true;
+            animator.SetTrigger(DEATH);
+        }
+
+        public bool IsDeath() {
+            return isDeath;
         }
     }
 }

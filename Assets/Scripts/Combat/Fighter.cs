@@ -5,6 +5,7 @@ using RPG.Core;
 namespace RPG.Combat {
     public class Fighter : MonoBehaviour, IAction {
         private const string ATTACK = "attack";
+        private const string STOPATTACK = "stopAttack";
 
         [SerializeField] private float weaponRange = 5f;
         [SerializeField] private float timeBetweenAttacks = 2f;
@@ -13,7 +14,7 @@ namespace RPG.Combat {
         private ActionScheduler actionScheduler;
         private Animator animator;
         private Mover mover;
-        private Transform target;
+        private Health target;
         private float timeSinceLastAttack = 0f;
 
         private void Awake() {
@@ -26,9 +27,10 @@ namespace RPG.Combat {
             timeSinceLastAttack += Time.deltaTime;
 
             if (target == null) return;
+            if (target.IsDeath()) return;
 
             if (!GetIsInRange()) {
-                mover.MoveTo(target.position);
+                mover.MoveTo(target.transform.position);
             } else {
                 mover.Cancel();
                 AttackBehaviour();
@@ -37,7 +39,7 @@ namespace RPG.Combat {
 
         public void Attack(CombatTarget combatTarget) {
             actionScheduler.StartAction(this);
-            target = combatTarget.transform;
+            target = combatTarget.GetComponent<Health>();
         }
 
         private void AttackBehaviour() {
@@ -49,19 +51,19 @@ namespace RPG.Combat {
         }
 
         public void Cancel() {
+            animator.SetTrigger(STOPATTACK);
             target = null;
         }
 
         private bool GetIsInRange() {
-            return Vector3.Distance(transform.position, target.position) < weaponRange;
+            return Vector3.Distance(transform.position, target.transform.position) < weaponRange;
         }
 
 
 
         // Animation events
         public void Hit() {
-            Health targetHealth = target.GetComponent<Health>();
-            targetHealth.TakeDamage(weaponDamage);
+            target.TakeDamage(weaponDamage);
         }
     }
 }
