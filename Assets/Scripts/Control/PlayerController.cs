@@ -23,16 +23,14 @@ namespace RPG.Control {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
 
             foreach (RaycastHit hit in hits) {
-                CombatTarget target = hit.transform.GetComponent<CombatTarget>();
-                if (target == null) continue; // Skip all the rest of the body and go on to the next hit
+                CombatTarget combatTarget = hit.transform.GetComponent<CombatTarget>();
+                if (!fighter.CanAttack(combatTarget)) continue; // Skip all the rest of the body and go on to the next hit
 
                 if (Input.GetMouseButtonDown(1)) {
-                    fighter.Attack(target);
+                    fighter.Attack(combatTarget);
                 }
-
                 return true;
             }
-
             return false;
         }
 
@@ -44,10 +42,8 @@ namespace RPG.Control {
                 if (Input.GetMouseButton(1)) {
                     mover.StartMoveAction(hit.point);
                 }
-
                 return true;
             }
-
             return false;
         }
 
