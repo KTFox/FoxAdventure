@@ -1,18 +1,21 @@
 using UnityEngine;
 using UnityEngine.AI;
 using RPG.Combat;
+using RPG.Core;
 
 namespace RPG.Movement {
     public class Mover : MonoBehaviour {
         private const string FORWARDSPEED = "forwardSpeed";
 
+        private ActionScheduler actionScheduler;
         private NavMeshAgent navMeshAgent;
         private Fighter fighter;
         private Animator animator;
 
         private void Awake() {
+            actionScheduler = GetComponent<ActionScheduler>();
             navMeshAgent = GetComponent<NavMeshAgent>();
-            fighter = GetComponent<Fighter>();  
+            fighter = GetComponent<Fighter>();
             animator = GetComponent<Animator>();
         }
 
@@ -21,6 +24,7 @@ namespace RPG.Movement {
         }
 
         public void StartMoveAction(Vector3 destination) {
+            actionScheduler.StartAction(this);
             fighter.Cancel();
             MoveTo(destination);
         }
