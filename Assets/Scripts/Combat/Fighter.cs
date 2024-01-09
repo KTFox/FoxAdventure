@@ -4,15 +4,19 @@ using RPG.Core;
 
 namespace RPG.Combat {
     public class Fighter : MonoBehaviour, IAction {
+        private const string ATTACK = "attack";
+
         [SerializeField] private float weaponRange = 5f;
 
         private ActionScheduler actionScheduler;
-        private Transform target;
+        private Animator animator;
         private Mover mover;
+        private Transform target;
 
         private void Awake() {
-            mover = GetComponent<Mover>();
             actionScheduler = GetComponent<ActionScheduler>();
+            animator = GetComponent<Animator>();
+            mover = GetComponent<Mover>();
         }
 
         private void Update() {
@@ -22,6 +26,7 @@ namespace RPG.Combat {
                 mover.MoveTo(target.position);
             } else {
                 mover.Cancel();
+                AttackBehaviour();
             }
         }
 
@@ -34,8 +39,17 @@ namespace RPG.Combat {
             target = combatTarget.transform;
         }
 
+        private void AttackBehaviour() {
+            animator.SetTrigger(ATTACK);
+        }
+
         public void Cancel() {
             target = null;
+        }
+
+        // Animation events
+        public void Hit() {
+            Debug.Log("Hit");
         }
     }
 }
