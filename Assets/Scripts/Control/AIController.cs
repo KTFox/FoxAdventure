@@ -1,4 +1,5 @@
 using RPG.Combat;
+using RPG.Core;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -10,13 +11,17 @@ namespace RPG.Control {
 
         private Fighter fighter;
         private GameObject player;
+        private Health health;
 
         private void Start() {
             fighter = GetComponent<Fighter>();
             player = GameObject.FindGameObjectWithTag("Player");
+            health = GetComponent<Health>();
         }
 
         private void Update() {
+            if (health.IsDeath()) return;
+
             if (PlayerInAttackRange() && fighter.CanAttack(player)) {
                 fighter.Attack(player);
             } else {

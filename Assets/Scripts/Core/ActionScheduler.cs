@@ -19,5 +19,11 @@ namespace RPG.Core {
             currentAction = action;
         }
 
+        /// <summary>
+        /// Set ActionScheduler.currentAction = null
+        /// </summary>
+        public void CancelCurrentAction() {
+            StartAction(null);
+        }
     }
 }

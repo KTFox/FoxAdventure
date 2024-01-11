@@ -15,7 +15,7 @@ namespace RPG.Combat {
 
         [SerializeField]
         private float timeBetweenAttacks;
-        private float timeSinceLastAttack;
+        private float timeSinceLastAttack = Mathf.Infinity;
 
         [SerializeField]
         private float weaponDamage;
