@@ -13,7 +13,7 @@ namespace RPG.Control {
             }
         }
 
-        private int GetNextIndex(int index) {
+        public int GetNextIndex(int index) {
             if (index == transform.childCount - 1) {
                 return 0;
             } else {
@@ -21,8 +21,12 @@ namespace RPG.Control {
             }
         }
 
-        private Vector3 GetWaypointPosition(int index) {
+        public Vector3 GetWaypointPosition(int index) {
             return transform.GetChild(index).position;
+        }
+
+        public int GetWaypointCount() {
+            return transform.childCount;    
         }
     }
 }

@@ -183,6 +183,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseDistance: 3
   suspiciousTime: 3
+  patrolPath: {fileID: 0}
+  waypointDwellingTime: 1
 --- !u!4 &5422913865980319978 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6281042690639228794, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
