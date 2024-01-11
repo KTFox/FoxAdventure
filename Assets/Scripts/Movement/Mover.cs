@@ -5,13 +5,15 @@ using RPG.Core;
 namespace RPG.Movement {
     public class Mover : MonoBehaviour, IAction {
 
+        #region Animation strings
         private const string FORWARDSPEED = "forwardSpeed";
+        #endregion
 
         private ActionScheduler actionScheduler;
         private NavMeshAgent navMeshAgent;
         private Animator animator;
 
-        private void Awake() {
+        private void Start() {
             actionScheduler = GetComponent<ActionScheduler>();
             navMeshAgent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
@@ -19,6 +21,14 @@ namespace RPG.Movement {
 
         private void Update() {
             UpdateAnimator();
+        }
+
+        private void UpdateAnimator() {
+            Vector3 velocity = navMeshAgent.velocity;
+            Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+            float speed = localVelocity.z;
+
+            animator.SetFloat(FORWARDSPEED, speed);
         }
 
         /// <summary>
@@ -39,20 +49,15 @@ namespace RPG.Movement {
             navMeshAgent.isStopped = false;
         }
 
+        #region IAction Interface implements
         /// <summary>
         /// Set navMeshAgent.isStopped = true
         /// </summary>
         public void Cancel() {
             navMeshAgent.isStopped = true;
         }
+        #endregion
 
-        private void UpdateAnimator() {
-            Vector3 velocity = navMeshAgent.velocity;
-            Vector3 localVelocity = transform.InverseTransformDirection(velocity);
-            float speed = localVelocity.z;
-
-            animator.SetFloat(FORWARDSPEED, speed);
-        }
     }
 }
 

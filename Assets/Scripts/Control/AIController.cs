@@ -3,7 +3,9 @@ using static UnityEngine.GraphicsBuffer;
 
 namespace RPG.Control {
     public class AIController : MonoBehaviour {
-        [SerializeField] private float chaseDistance;
+
+        [SerializeField]
+        private float chaseDistance;
 
         private void Update() {
             if (GetDistanceToPlayer() <= chaseDistance) {

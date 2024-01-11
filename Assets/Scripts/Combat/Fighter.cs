@@ -45,13 +45,9 @@ namespace RPG.Combat {
             }
         }
 
-        /// <summary>
-        /// Call actionScheduler.StartAction() and Set fighter.target equal combatTarget
-        /// </summary>
-        /// <param name="combatTarget"></param>
-        public void Attack(CombatTarget combatTarget) {
-            actionScheduler.StartAction(this);
-            target = combatTarget.GetComponent<Health>();
+        private bool GetIsInRange() {
+            float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+            return distanceToTarget < weaponRange;
         }
 
         private void AttackBehaviour() {
@@ -70,15 +66,13 @@ namespace RPG.Combat {
             animator.SetTrigger(ATTACK);
         }
 
-        public void Cancel() {
-            animator.SetTrigger(STOPATTACK);
-            target = null;
-        }
-
-        private bool GetIsInRange() {
-            float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-
-            return distanceToTarget < weaponRange;
+        /// <summary>
+        /// Call actionScheduler.StartAction() and Set fighter.target equal combatTarget
+        /// </summary>
+        /// <param name="combatTarget"></param>
+        public void Attack(CombatTarget combatTarget) {
+            actionScheduler.StartAction(this);
+            target = combatTarget.GetComponent<Health>();
         }
 
         /// <summary>
@@ -95,6 +89,13 @@ namespace RPG.Combat {
 
             return targetHealth != null && !targetHealth.IsDeath();
         }
+
+        #region IAction interface implements
+        public void Cancel() {
+            animator.SetTrigger(STOPATTACK);
+            target = null;
+        }
+        #endregion
 
         #region Animation Events
         public void Hit() {

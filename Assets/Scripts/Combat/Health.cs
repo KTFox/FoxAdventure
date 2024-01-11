@@ -3,14 +3,17 @@ using UnityEngine;
 namespace RPG.Combat {
     public class Health : MonoBehaviour {
 
+        #region Animation strings
         private const string DEATH = "death";
+        #endregion
 
-        [SerializeField] private float currentHealth;
+        [SerializeField] 
+        private float currentHealth;
 
         private Animator animator;
         private bool isDeath;
 
-        private void Awake() {
+        private void Start() {
             animator = GetComponent<Animator>();
         }
 
