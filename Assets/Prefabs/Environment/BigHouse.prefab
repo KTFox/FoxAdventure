@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3326866}
   - component: {fileID: 2372794}
   m_Layer: 0
-  m_Name: SM_Bld_House_Base_01
+  m_Name: BigHouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

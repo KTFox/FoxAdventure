@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3338814}
   - component: {fileID: 2314512}
   m_Layer: 0
-  m_Name: SM_Env_TreeLog_01
+  m_Name: TreeLog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
