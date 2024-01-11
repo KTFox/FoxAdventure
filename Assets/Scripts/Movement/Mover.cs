@@ -4,6 +4,7 @@ using RPG.Core;
 
 namespace RPG.Movement {
     public class Mover : MonoBehaviour, IAction {
+
         private const string FORWARDSPEED = "forwardSpeed";
 
         private ActionScheduler actionScheduler;
@@ -20,16 +21,27 @@ namespace RPG.Movement {
             UpdateAnimator();
         }
 
+        /// <summary>
+        /// Call ActionScheduler.StartAction() and MoveTo(destination) functions
+        /// </summary>
+        /// <param name="destination"></param>
         public void StartMoveAction(Vector3 destination) {
             actionScheduler.StartAction(this);
             MoveTo(destination);
         }
 
+        /// <summary>
+        /// Set navMeshAgent.destination equal position
+        /// </summary>
+        /// <param name="position"></param>
         public void MoveTo(Vector3 position) {
             navMeshAgent.destination = position;
             navMeshAgent.isStopped = false;
         }
 
+        /// <summary>
+        /// Set navMeshAgent.isStopped = true
+        /// </summary>
         public void Cancel() {
             navMeshAgent.isStopped = true;
         }

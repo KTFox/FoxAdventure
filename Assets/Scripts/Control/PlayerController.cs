@@ -4,10 +4,11 @@ using RPG.Combat;
 
 namespace RPG.Control {
     public class PlayerController : MonoBehaviour {
+
         private Mover mover;
         private Fighter fighter;
 
-        private void Awake() {
+        private void Start() {
             mover = GetComponent<Mover>();
             fighter = GetComponent<Fighter>();
         }
@@ -15,25 +16,34 @@ namespace RPG.Control {
         private void Update() {
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
-
-            print("Nothing to do");
         }
 
+        /// <summary>
+        /// Return true if combatTarget is not null and fighter.CanAttack(combatTarget)
+        /// </summary>
+        /// <returns></returns>
         private bool InteractWithCombat() {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
 
             foreach (RaycastHit hit in hits) {
                 CombatTarget combatTarget = hit.transform.GetComponent<CombatTarget>();
-                if (!fighter.CanAttack(combatTarget)) continue; // Skip all the rest of the body and go on to the next hit
+
+                if (!fighter.CanAttack(combatTarget)) continue; 
 
                 if (Input.GetMouseButtonDown(1)) {
                     fighter.Attack(combatTarget);
                 }
+
                 return true;
             }
+
             return false;
         }
 
+        /// <summary>
+        /// Return Physics.Raycast(GetMouseRay())
+        /// </summary>
+        /// <returns></returns>
         private bool InteractWithMovement() {
             RaycastHit hit;
             bool hasHit = Physics.Raycast(GetMouseRay(), out hit);

@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace RPG.Combat {
     public class Health : MonoBehaviour {
+
         private const string DEATH = "death";
 
         [SerializeField] private float currentHealth;
