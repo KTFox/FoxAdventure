@@ -6,7 +6,7 @@ namespace RPG.Core {
         private IAction currentAction;
 
         /// <summary>
-        /// Set currentAction equal action and call Cancel() function
+        /// Call currentAction.Cancel() and set currentAction = action
         /// </summary>
         /// <param name="action"></param>
         public void StartAction(IAction action) {
