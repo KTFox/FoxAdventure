@@ -23,7 +23,7 @@ namespace RPG.Combat {
         private ActionScheduler actionScheduler;
         private Animator animator;
         private Mover mover;
-        private Health target;
+        private Health targetHealth;
 
         private void Start() {
             actionScheduler = GetComponent<ActionScheduler>();
@@ -34,11 +34,11 @@ namespace RPG.Combat {
         private void Update() {
             timeSinceLastAttack += Time.deltaTime;
 
-            if (target == null) return;
-            if (target.IsDeath()) return;
+            if (targetHealth == null) return;
+            if (targetHealth.IsDeath()) return;
 
             if (!GetIsInRange()) {
-                mover.MoveTo(target.transform.position);
+                mover.MoveTo(targetHealth.transform.position);
             } else {
                 mover.Cancel();
                 AttackBehaviour();
@@ -46,12 +46,12 @@ namespace RPG.Combat {
         }
 
         private bool GetIsInRange() {
-            float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+            float distanceToTarget = Vector3.Distance(transform.position, targetHealth.transform.position);
             return distanceToTarget < weaponRange;
         }
 
         private void AttackBehaviour() {
-            transform.LookAt(target.transform);
+            transform.LookAt(targetHealth.transform);
 
             if (timeSinceLastAttack > timeBetweenAttacks) {
                 TriggerAttack();
@@ -67,41 +67,41 @@ namespace RPG.Combat {
         }
 
         /// <summary>
-        /// Call actionScheduler.StartAction() and Set fighter.target equal combatTarget
+        /// return true if targetObject is not null and !targetObject.Health.IsDeath()
         /// </summary>
-        /// <param name="combatTarget"></param>
-        public void Attack(CombatTarget combatTarget) {
-            actionScheduler.StartAction(this);
-            target = combatTarget.GetComponent<Health>();
-        }
-
-        /// <summary>
-        /// return true if combatTarget is not null and !combatTarget.Health.IsDeath()
-        /// </summary>
-        /// <param name="combatTarget"></param>
+        /// <param name="targetObject"></param>
         /// <returns></returns>
-        public bool CanAttack(CombatTarget combatTarget) {
-            if (combatTarget == null) {
+        public bool CanAttack(GameObject targetObject) {
+            if (targetObject == null) {
                 return false;
             }
 
-            Health targetHealth = combatTarget.GetComponent<Health>();
+            Health targetToTest = targetObject.GetComponent<Health>();
 
-            return targetHealth != null && !targetHealth.IsDeath();
+            return targetToTest != null && !targetToTest.IsDeath();
+        }
+
+        /// <summary>
+        /// Call actionScheduler.StartAction() and Set fighter.targetHealth equal targetObject
+        /// </summary>
+        /// <param name="targetObject"></param>
+        public void Attack(GameObject targetObject) {
+            actionScheduler.StartAction(this);
+            targetHealth = targetObject.GetComponent<Health>();
         }
 
         #region IAction interface implements
         public void Cancel() {
             animator.SetTrigger(STOPATTACK);
-            target = null;
+            targetHealth = null;
         }
         #endregion
 
         #region Animation Events
         public void Hit() {
-            if (target == null) return;
+            if (targetHealth == null) return;
 
-            target.TakeDamage(weaponDamage);
+            targetHealth.TakeDamage(weaponDamage);
         }
         #endregion
     }
