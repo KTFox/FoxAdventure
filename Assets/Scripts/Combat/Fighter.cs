@@ -85,7 +85,7 @@ namespace RPG.Combat {
         /// Call actionScheduler.StartAction() and Set fighter.targetHealth equal targetObject
         /// </summary>
         /// <param name="targetObject"></param>
-        public void Attack(GameObject targetObject) {
+        public void StartAttackAction(GameObject targetObject) {
             actionScheduler.StartAction(this);
             targetHealth = targetObject.GetComponent<Health>();
         }

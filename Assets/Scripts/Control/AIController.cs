@@ -1,5 +1,6 @@
 using RPG.Combat;
 using RPG.Core;
+using RPG.Movement;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -10,22 +11,28 @@ namespace RPG.Control {
         private float chaseDistance;
 
         private Fighter fighter;
+        private Mover mover;
         private GameObject player;
         private Health health;
 
+        private Vector3 guardPosition;
+
         private void Start() {
             fighter = GetComponent<Fighter>();
+            mover = GetComponent<Mover>();
             player = GameObject.FindGameObjectWithTag("Player");
             health = GetComponent<Health>();
+
+            guardPosition = transform.position;
         }
 
         private void Update() {
             if (health.IsDeath()) return;
 
             if (PlayerInAttackRange() && fighter.CanAttack(player)) {
-                fighter.Attack(player);
+                fighter.StartAttackAction(player);
             } else {
-                fighter.Cancel();
+                mover.StartMoveAction(guardPosition);
             }
         }
 
