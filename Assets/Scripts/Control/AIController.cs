@@ -1,10 +1,7 @@
 using RPG.Combat;
 using RPG.Core;
 using RPG.Movement;
-using System;
-using System.IO;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace RPG.Control {
     public class AIController : MonoBehaviour {
@@ -15,15 +12,18 @@ namespace RPG.Control {
         [SerializeField]
         private float suspiciousTime;
         private float timeSinceLastSawPlayer = Mathf.Infinity;
+        
+        [SerializeField]
+        [Tooltip("If patrolPath equal null, the enemy will not patrol and stay at guardPosition.")]
+        private PatrolPath patrolPath;
 
         [SerializeField]
-        private PatrolPath patrolPath;
-        [SerializeField]
         private float waypointDwellTime;
-        private int currentWaypointIndex;
+
         private float waypointTolerance = 1f;
-        private Vector3 guardPosition;
         private float timeSinceArrivedAtWaypoint = Mathf.Infinity;
+        private int currentWaypointIndex;
+        private Vector3 guardPosition;
 
         #region Caching variables
         private ActionScheduler actionScheduler;
