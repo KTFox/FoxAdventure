@@ -9,10 +9,15 @@ namespace RPG.Movement {
         private const string FORWARDSPEED = "forwardSpeed";
         #endregion
 
+        #region Caching variables
         private ActionScheduler actionScheduler;
         private NavMeshAgent navMeshAgent;
         private Animator animator;
         private Health health;
+        #endregion
+
+        [SerializeField]
+        private float maxSpeed;
 
         private void Start() {
             actionScheduler = GetComponent<ActionScheduler>();
@@ -39,17 +44,18 @@ namespace RPG.Movement {
         /// Call ActionScheduler.StartAction() and MoveTo(destination) functions
         /// </summary>
         /// <param name="destination"></param>
-        public void StartMoveAction(Vector3 destination) {
+        public void StartMoveAction(Vector3 destination, float moveSpeedFraction) {
             actionScheduler.StartAction(this);
-            MoveTo(destination);
+            MoveTo(destination, moveSpeedFraction);
         }
 
         /// <summary>
         /// Set navMeshAgent.destination equal position
         /// </summary>
         /// <param name="position"></param>
-        public void MoveTo(Vector3 position) {
+        public void MoveTo(Vector3 position, float moveSpeedFraction) {
             navMeshAgent.destination = position;
+            navMeshAgent.speed = maxSpeed * Mathf.Clamp01(moveSpeedFraction);
             navMeshAgent.isStopped = false;
         }
 

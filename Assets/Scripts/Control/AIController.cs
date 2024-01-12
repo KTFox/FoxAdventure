@@ -6,25 +6,6 @@ using UnityEngine;
 namespace RPG.Control {
     public class AIController : MonoBehaviour {
 
-        [SerializeField]
-        private float chaseDistance;
-
-        [SerializeField]
-        private float suspiciousTime;
-        private float timeSinceLastSawPlayer = Mathf.Infinity;
-        
-        [SerializeField]
-        [Tooltip("If patrolPath equal null, the enemy will not patrol and stay at guardPosition.")]
-        private PatrolPath patrolPath;
-
-        [SerializeField]
-        private float waypointDwellTime;
-
-        private float waypointTolerance = 1f;
-        private float timeSinceArrivedAtWaypoint = Mathf.Infinity;
-        private int currentWaypointIndex;
-        private Vector3 guardPosition;
-
         #region Caching variables
         private ActionScheduler actionScheduler;
         private Fighter fighter;
@@ -32,6 +13,29 @@ namespace RPG.Control {
         private GameObject player;
         private Health health;
         #endregion
+
+        [SerializeField]
+        private float chaseDistance;
+
+        [SerializeField]
+        private float suspiciousTime;
+
+        [SerializeField]
+        [Tooltip("If patrolPath equal null, the enemy will not patrol and stay at guardPosition.")]
+        private PatrolPath patrolPath;
+
+        [SerializeField]
+        [Range(0f, 1f)] 
+        private float patrolSpeedFraction;
+
+        [SerializeField]
+        private float waypointDwellTime;
+
+        private float waypointTolerance = 1f;
+        private float timeSinceLastSawPlayer = Mathf.Infinity;
+        private float timeSinceArrivedAtWaypoint = Mathf.Infinity;
+        private int currentWaypointIndex;
+        private Vector3 guardPosition;
 
         private void Start() {
             actionScheduler = GetComponent<ActionScheduler>();
@@ -83,7 +87,7 @@ namespace RPG.Control {
             }
 
             if (timeSinceArrivedAtWaypoint > waypointDwellTime) {
-                mover.StartMoveAction(nextPosition);
+                mover.StartMoveAction(nextPosition, patrolSpeedFraction);
             }
         }
 

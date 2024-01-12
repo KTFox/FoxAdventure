@@ -38,7 +38,7 @@ namespace RPG.Combat {
             if (targetHealth.IsDeath()) return;
 
             if (!GetIsInRange()) {
-                mover.MoveTo(targetHealth.transform.position);
+                mover.MoveTo(targetHealth.transform.position, 1f);
             } else {
                 mover.Cancel();
                 AttackBehaviour();

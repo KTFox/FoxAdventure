@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: weaponRange
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8651850123553397496, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: maxSpeed
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -181,9 +185,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9250e3176db3d4c45812331b2a7ae14c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseDistance: 3
+  chaseDistance: 4
   suspiciousTime: 3
   patrolPath: {fileID: 0}
+  patrolSpeedFraction: 0.5
   waypointDwellTime: 1
 --- !u!4 &5422913865980319978 stripped
 Transform:
