@@ -94,6 +94,7 @@ namespace RPG.Combat {
         public void Cancel() {
             animator.SetTrigger(STOPATTACK);
             targetHealth = null;
+            mover.Cancel();
         }
         #endregion
 
