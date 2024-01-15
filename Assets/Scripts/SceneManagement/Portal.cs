@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,6 +18,13 @@ namespace RPG.SceneManagement {
         private int sceneToLoad;
 
         [SerializeField]
+        private float fadeOutTime;
+        [SerializeField]
+        private float fadeInTime;
+        [SerializeField]
+        private float fadeWaitTime;
+
+        [SerializeField]
         private Transform spawnPoint;
 
         private void OnTriggerEnter(Collider collistion) {
@@ -28,15 +34,25 @@ namespace RPG.SceneManagement {
         }
 
         IEnumerator SceneTransition() {
+            Fader fader = FindObjectOfType<Fader>();
+
             DontDestroyOnLoad(gameObject);
+            yield return fader.FadeOut(fadeOutTime);
+
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
 
             Portal otherPortal = GetOtherPortal();
             UpdatePlayer(otherPortal);
+            yield return new WaitForSeconds(fadeWaitTime);
+            yield return fader.FadeIn(fadeInTime);
 
             Destroy(gameObject);
         }
 
+        /// <summary>
+        /// Return the portal that has the same identifier with this
+        /// </summary>
+        /// <returns></returns>
         private Portal GetOtherPortal() {
             Portal[] portals = GameObject.FindObjectsOfType<Portal>();
 

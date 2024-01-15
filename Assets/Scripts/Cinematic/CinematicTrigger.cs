@@ -5,6 +5,7 @@ namespace RPG.Cinematic {
     public class CinematicTrigger : MonoBehaviour {
 
         private PlayableDirector playableDirector;
+
         private bool alreadyTriggered;
 
         private void Start() {
