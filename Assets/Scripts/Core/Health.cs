@@ -3,15 +3,14 @@ using UnityEngine;
 namespace RPG.Core {
     public class Health : MonoBehaviour {
 
-        #region Animation strings
         private const string DEATH = "death";
-        #endregion
 
         [SerializeField]
         private float currentHealth;
 
         private ActionScheduler actionScheduler;
         private Animator animator;
+
         private bool isDeath;
 
         private void Start() {
