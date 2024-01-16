@@ -11,14 +11,9 @@ namespace RPG.Combat {
         #endregion
 
         [SerializeField]
-        private float weaponRange;
-
-        [SerializeField]
         private float timeBetweenAttacks;
         private float timeSinceLastAttack = Mathf.Infinity;
 
-        [SerializeField]
-        private float weaponDamage;
         [SerializeField]
         private WeaponSO weaponSO;
         [SerializeField]
@@ -62,7 +57,7 @@ namespace RPG.Combat {
 
         private bool GetIsInRange() {
             float distanceToTarget = Vector3.Distance(transform.position, targetHealth.transform.position);
-            return distanceToTarget < weaponRange;
+            return distanceToTarget < weaponSO.GetWeaponRange();
         }
 
         private void AttackBehaviour() {
@@ -117,7 +112,7 @@ namespace RPG.Combat {
         public void Hit() {
             if (targetHealth == null) return;
 
-            targetHealth.TakeDamage(weaponDamage);
+            targetHealth.TakeDamage(weaponSO.GetWeaponDamage());
         }
         #endregion
     }
