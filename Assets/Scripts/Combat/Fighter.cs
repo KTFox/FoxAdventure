@@ -23,6 +23,8 @@ namespace RPG.Combat {
         private GameObject weaponPrefab = null;
         [SerializeField]
         private Transform handTransform = null;
+        [SerializeField]
+        private AnimatorOverrideController animatorOverrideController = null;
 
         private ActionScheduler actionScheduler;
         private Animator animator;
@@ -41,6 +43,7 @@ namespace RPG.Combat {
 
         private void SpawnWeapon() {
             Instantiate(weaponPrefab, handTransform);
+            animator.runtimeAnimatorController = animatorOverrideController;
         }
 
         private void Update() {

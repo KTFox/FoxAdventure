@@ -163,6 +163,10 @@ PrefabInstance:
       propertyPath: handTransform
       value: 
       objectReference: {fileID: 3830110662817649927}
+    - target: {fileID: 8380802605935938911, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: animatorOverrideController
+      value: 
+      objectReference: {fileID: 22100000, guid: d68143d433ec79b4cb8470f72fab0f5d, type: 2}
     - target: {fileID: 8651850123553397496, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       propertyPath: maxSpeed
       value: 6
