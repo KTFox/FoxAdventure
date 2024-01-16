@@ -19,6 +19,10 @@ namespace RPG.Combat {
 
         [SerializeField]
         private float weaponDamage;
+        [SerializeField]
+        private GameObject weaponPrefab = null;
+        [SerializeField]
+        private Transform handTransform = null;
 
         private ActionScheduler actionScheduler;
         private Animator animator;
@@ -29,6 +33,14 @@ namespace RPG.Combat {
             actionScheduler = GetComponent<ActionScheduler>();
             animator = GetComponent<Animator>();
             mover = GetComponent<Mover>();
+        }
+
+        private void Start() {
+            SpawnWeapon();
+        }
+
+        private void SpawnWeapon() {
+            Instantiate(weaponPrefab, handTransform);
         }
 
         private void Update() {
