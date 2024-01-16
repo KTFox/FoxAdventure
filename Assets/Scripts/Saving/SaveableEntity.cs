@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -8,6 +9,8 @@ namespace RPG.Saving {
 
         [SerializeField]
         private string uniqueIdentifier = "";
+
+        private static Dictionary<string, SaveableEntity> globalLookup = new Dictionary<string, SaveableEntity>();
 
         public Dictionary<string, object> CaptureISaveableState() {
             Dictionary<string, object> result = new Dictionary<string, object>();
@@ -36,7 +39,6 @@ namespace RPG.Saving {
         }
 
         /// <summary>
-        /// Auto generate unique identifier in Edit Mode.
         /// This Update will be not included in Build Project
         /// </summary>
         private void Update() {
@@ -47,13 +49,33 @@ namespace RPG.Saving {
             SerializedObject serializedObject = new SerializedObject(this);
             SerializedProperty property = serializedObject.FindProperty("uniqueIdentifier");
 
-            //Generate unique identifier 
-            if (string.IsNullOrEmpty(property.stringValue)) {
+            //Auto generate unique identifier 
+            if (string.IsNullOrEmpty(property.stringValue) || !IsUnique(property.stringValue)) {
                 property.stringValue = System.Guid.NewGuid().ToString();
                 serializedObject.ApplyModifiedProperties();
             }
 
+            globalLookup[property.stringValue] = this;
+
             Debug.Log("Editting");
+        }
+
+        private bool IsUnique(string candidate) {
+            if (!globalLookup.ContainsKey(candidate)) return true;
+
+            if (globalLookup[candidate] == this) return true;
+
+            if (globalLookup[candidate] == null) {
+                globalLookup.Remove(candidate);
+                return true;
+            }
+
+            if (globalLookup[candidate].GetUniqueIdentifier() != candidate) {
+                globalLookup.Remove(candidate);
+                return true;
+            }
+
+            return false;
         }
     }
 }
