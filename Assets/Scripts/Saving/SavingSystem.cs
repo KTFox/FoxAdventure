@@ -1,11 +1,27 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RPG.Saving {
     public class SavingSystem : MonoBehaviour {
+
+        public IEnumerator LoadLastScene(string saveFile) {
+            Dictionary<string, object> state = LoadFile(saveFile);
+
+            if (state.ContainsKey("LastSceneIndex")) {
+                int buildIndex = (int)state["LastSceneIndex"];
+
+                if (buildIndex != SceneManager.GetActiveScene().buildIndex) {
+                    yield return SceneManager.LoadSceneAsync(buildIndex);
+                }
+            }
+
+            RestoreSaveableEntityState(state);
+        }
 
         /// <summary>
         /// Save all SaveableEntity states into saveFile
@@ -61,6 +77,8 @@ namespace RPG.Saving {
             foreach (SaveableEntity saveableEntity in saveableEntities) {
                 state[saveableEntity.GetUniqueIdentifier()] = saveableEntity.CaptureISaveableState();
             }
+
+            state["LastSceneIndex"] = SceneManager.GetActiveScene().buildIndex;
         }
 
         private void RestoreSaveableEntityState(Dictionary<string, object> state) {
