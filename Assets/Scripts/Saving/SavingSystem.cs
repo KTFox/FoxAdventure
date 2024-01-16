@@ -14,7 +14,7 @@ namespace RPG.Saving {
         public void Save(string saveFile) {
             Dictionary<string, object> state = LoadFile(saveFile);
 
-            CaptureAllSaveableEntityState(state);
+            CaptureSaveableEntityState(state);
             SaveFile(saveFile, state);
         }
 
@@ -23,7 +23,7 @@ namespace RPG.Saving {
         /// </summary>
         /// <param name="saveFile"></param>
         public void Load(string saveFile) {
-            RestoreAllSaveableEntityState(LoadFile(saveFile));
+            RestoreSaveableEntityState(LoadFile(saveFile));
         }
 
         private void SaveFile(string saveFile, Dictionary<string, object> state) {
@@ -55,22 +55,22 @@ namespace RPG.Saving {
             }
         }
 
-        private void CaptureAllSaveableEntityState(Dictionary<string, object> state) {
+        private void CaptureSaveableEntityState(Dictionary<string, object> state) {
             SaveableEntity[] saveableEntities = FindObjectsOfType<SaveableEntity>();
 
             foreach (SaveableEntity saveableEntity in saveableEntities) {
-                state[saveableEntity.GetUniqueIdentifier()] = saveableEntity.CaptureState();
+                state[saveableEntity.GetUniqueIdentifier()] = saveableEntity.CaptureISaveableState();
             }
         }
 
-        private void RestoreAllSaveableEntityState(Dictionary<string, object> state) {
+        private void RestoreSaveableEntityState(Dictionary<string, object> state) {
             SaveableEntity[] saveableEntities = FindObjectsOfType<SaveableEntity>();
 
             foreach (SaveableEntity saveableEntity in saveableEntities) {
                 string identifier = saveableEntity.GetUniqueIdentifier();
 
                 if (state.ContainsKey(identifier)) {
-                    saveableEntity.RestoreState(state[identifier]);
+                    saveableEntity.RestoreISaveableState(state[identifier]);
                 }
             }
         }

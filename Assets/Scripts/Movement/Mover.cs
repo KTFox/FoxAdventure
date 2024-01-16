@@ -1,20 +1,17 @@
 using UnityEngine;
 using UnityEngine.AI;
 using RPG.Core;
+using RPG.Saving;
 
 namespace RPG.Movement {
-    public class Mover : MonoBehaviour, IAction {
+    public class Mover : MonoBehaviour, IAction, ISaveable {
 
-        #region Animation strings
         private const string FORWARDSPEED = "forwardSpeed";
-        #endregion
 
-        #region Caching variables
         private ActionScheduler actionScheduler;
         private NavMeshAgent navMeshAgent;
         private Animator animator;
         private Health health;
-        #endregion
 
         [SerializeField]
         private float maxSpeed;
@@ -68,6 +65,18 @@ namespace RPG.Movement {
         }
         #endregion
 
+        #region ISaveable Interface implements
+        public object CaptureState() {
+            return new SerializableVector3(transform.position);
+        }
+
+        public void RestoreState(object state) {
+            GetComponent<NavMeshAgent>().enabled = false;
+            transform.position = ((SerializableVector3)(state)).ToVector();
+            GetComponent<NavMeshAgent>().enabled = true;
+            GetComponent<ActionScheduler>().CancelCurrentAction();
+        }
+        #endregion
     }
 }
 

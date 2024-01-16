@@ -1,7 +1,6 @@
-using RPG.Core;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace RPG.Saving {
     [ExecuteAlways]
@@ -10,15 +9,26 @@ namespace RPG.Saving {
         [SerializeField]
         private string uniqueIdentifier = "";
 
-        public object CaptureState() {
-            return new SerializableVector3(transform.position);
+        public Dictionary<string, object> CaptureISaveableState() {
+            Dictionary<string, object> result = new Dictionary<string, object>();
+
+            foreach (ISaveable saveable in GetComponents<ISaveable>()) {
+                result[saveable.GetType().ToString()] = saveable.CaptureState();
+            }
+
+            return result;
         }
 
-        public void RestoreState(object state) {
-            transform.position = ((SerializableVector3)state).ToVector();
-            GetComponent<NavMeshAgent>().enabled = false;
-            GetComponent<NavMeshAgent>().enabled = true;
-            GetComponent<ActionScheduler>().CancelCurrentAction();
+        public void RestoreISaveableState(object state) {
+            Dictionary<string, object> stateDict = (Dictionary<string, object>)state;
+
+            foreach (ISaveable saveable in GetComponents<ISaveable>()) {
+                string typeString = saveable.GetType().ToString();
+
+                if (stateDict.ContainsKey(typeString)) {
+                    saveable.RestoreState(stateDict[typeString]);
+                }
+            }
         }
 
         public string GetUniqueIdentifier() {
