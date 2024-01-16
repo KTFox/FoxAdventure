@@ -1,3 +1,4 @@
+using RPG.Saving;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -35,12 +36,15 @@ namespace RPG.SceneManagement {
 
         IEnumerator SceneTransition() {
             Fader fader = FindObjectOfType<Fader>();
+            SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();    
 
             DontDestroyOnLoad(gameObject);
             yield return fader.FadeOut(fadeOutTime);
+            savingWrapper.SaveGame();
 
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
 
+            savingWrapper.LoadGame();
             Portal otherPortal = GetOtherPortal();
             UpdatePlayer(otherPortal);
             yield return new WaitForSeconds(fadeWaitTime);
@@ -54,7 +58,7 @@ namespace RPG.SceneManagement {
         /// </summary>
         /// <returns></returns>
         private Portal GetOtherPortal() {
-            Portal[] portals = GameObject.FindObjectsOfType<Portal>();
+            Portal[] portals = FindObjectsOfType<Portal>();
 
             foreach (Portal portal in portals) {
                 if (portal == this) continue;

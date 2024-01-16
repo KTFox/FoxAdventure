@@ -5,19 +5,25 @@ namespace RPG.Saving {
 
         private const string fileName = "KTFox_SavingFile";
 
-        private SavingSystem savingSystem;
-
         private void Start() {
-            savingSystem = GetComponent<SavingSystem>();
+            LoadGame();
         }
 
         private void Update() {
             if (Input.GetKeyDown(KeyCode.S)) {
-                savingSystem.Save(fileName);
+                SaveGame();
             }
             if (Input.GetKeyUp(KeyCode.L)) {
-                savingSystem.Load(fileName);
+                LoadGame();
             }
+        }
+
+        public void LoadGame() {
+            GetComponent<SavingSystem>().Load(fileName);
+        }
+
+        public void SaveGame() {
+            GetComponent<SavingSystem>().Save(fileName);
         }
     }
 }
