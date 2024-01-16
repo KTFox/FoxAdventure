@@ -38,9 +38,7 @@ namespace RPG.Saving {
             return uniqueIdentifier;
         }
 
-        /// <summary>
-        /// This Update will be not included in Build Project
-        /// </summary>
+#if UNITY_EDITOR
         private void Update() {
             if (Application.IsPlaying(gameObject)) return;
             if (string.IsNullOrEmpty(gameObject.scene.path)) return; //path will be null or empty when gameObject is in prefab folder 
@@ -59,6 +57,7 @@ namespace RPG.Saving {
 
             Debug.Log("Editting");
         }
+#endif
 
         private bool IsUnique(string candidate) {
             if (!globalLookup.ContainsKey(candidate)) return true;
