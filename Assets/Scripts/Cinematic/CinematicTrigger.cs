@@ -8,7 +8,7 @@ namespace RPG.Cinematic {
 
         private bool alreadyTriggered;
 
-        private void Start() {
+        private void Awake() {
             playableDirector = GetComponent<PlayableDirector>();
         }
 

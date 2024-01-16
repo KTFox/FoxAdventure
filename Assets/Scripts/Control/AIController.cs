@@ -37,13 +37,16 @@ namespace RPG.Control {
         private int currentWaypointIndex;
         private Vector3 guardPosition;
 
-        private void Start() {
+        private void Awake() {
             actionScheduler = GetComponent<ActionScheduler>();
             fighter = GetComponent<Fighter>();
             mover = GetComponent<Mover>();
-            player = GameObject.FindGameObjectWithTag("Player");
             health = GetComponent<Health>();
 
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+
+        private void Start() {
             guardPosition = transform.position;
         }
 

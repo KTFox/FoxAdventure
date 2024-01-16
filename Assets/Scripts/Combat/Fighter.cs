@@ -25,7 +25,7 @@ namespace RPG.Combat {
         private Mover mover;
         private Health targetHealth;
 
-        private void Start() {
+        private void Awake() {
             actionScheduler = GetComponent<ActionScheduler>();
             animator = GetComponent<Animator>();
             mover = GetComponent<Mover>();

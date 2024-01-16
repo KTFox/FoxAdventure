@@ -16,7 +16,7 @@ namespace RPG.Movement {
         [SerializeField]
         private float maxSpeed;
 
-        private void Start() {
+        private void Awake() {
             actionScheduler = GetComponent<ActionScheduler>();
             navMeshAgent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
