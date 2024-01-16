@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6281042690639228794}
   - component: {fileID: 7507677628003247557}
+  - component: {fileID: 5871057081033245054}
   - component: {fileID: 4903757346782678814}
   - component: {fileID: 8312479813795661304}
   - component: {fileID: 6184661106116606224}
@@ -82,6 +83,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &5871057081033245054
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348450288652152666}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!136 &4903757346782678814
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -185,9 +213,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d41ef25658242ff49b7daa48e2d15be7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponRange: 2
   timeBetweenAttacks: 2
-  weaponDamage: 10
+  defaultWeaponSO: {fileID: 0}
+  handTransform: {fileID: 0}
 --- !u!114 &5257418737176178497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,3 +241,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6b90ac07c10ec469a385ba949c38a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueIdentifier: 

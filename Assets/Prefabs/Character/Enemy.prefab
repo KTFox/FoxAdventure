@@ -151,6 +151,10 @@ PrefabInstance:
       propertyPath: handTransform
       value: 
       objectReference: {fileID: 1170784055618951659}
+    - target: {fileID: 8380802605935938911, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: defaultWeaponSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 69dde7e5d74ced440a6acfe3dd509b16, type: 2}
     - target: {fileID: 8651850123553397496, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       propertyPath: maxSpeed
       value: 4

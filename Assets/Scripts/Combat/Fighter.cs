@@ -15,7 +15,8 @@ namespace RPG.Combat {
         private float timeSinceLastAttack = Mathf.Infinity;
 
         [SerializeField]
-        private WeaponSO weaponSO;
+        private WeaponSO defaultWeaponSO;
+        private WeaponSO currentWeaonSO;
         [SerializeField]
         private Transform handTransform = null;
 
@@ -32,13 +33,12 @@ namespace RPG.Combat {
         }
 
         private void Start() {
-            SpawnWeapon();
+            EquipWeapon(defaultWeaponSO);
         }
 
-        private void SpawnWeapon() {
-            if (weaponSO == null) return;
-
+        public void EquipWeapon(WeaponSO weaponSO) {
             weaponSO.Spawn(handTransform, animator);
+            currentWeaonSO = weaponSO;
         }
 
         private void Update() {
@@ -57,7 +57,7 @@ namespace RPG.Combat {
 
         private bool GetIsInRange() {
             float distanceToTarget = Vector3.Distance(transform.position, targetHealth.transform.position);
-            return distanceToTarget < weaponSO.GetWeaponRange();
+            return distanceToTarget < currentWeaonSO.GetWeaponRange();
         }
 
         private void AttackBehaviour() {
@@ -112,7 +112,7 @@ namespace RPG.Combat {
         public void Hit() {
             if (targetHealth == null) return;
 
-            targetHealth.TakeDamage(weaponSO.GetWeaponDamage());
+            targetHealth.TakeDamage(currentWeaonSO.GetWeaponDamage());
         }
         #endregion
     }
