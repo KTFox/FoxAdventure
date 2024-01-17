@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0227862df922d384e8f95a6ad1cefb07, type: 3}
+  m_Name: Red SimpleBow
+  m_EditorClassIdentifier: 
+  weaponPrefab: {fileID: 1563655986059756, guid: 7f105c0c272e6c146b4b41cdc53ea356, type: 3}
+  projectile: {fileID: 4646596887215793247, guid: 77a7a3192e769de4db5b4b4a6165ba2d, type: 3}
+  animatorOverrideController: {fileID: 22100000, guid: a259186f6cb8fe44fbe16b5a85063579, type: 2}
+  rightHandWeapon: 0
+  weaponRange: 8
+  weaponDamage: 10
