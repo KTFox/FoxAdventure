@@ -71,6 +71,11 @@ MonoBehaviour:
   flyingSpeed: 8
   isChasingProjectTile: 1
   hitEffect: {fileID: 180128, guid: 6586ff0f14125534cae2f5d8f04b7871, type: 3}
+  destroyOnHit:
+  - {fileID: 3325622608054227449}
+  - {fileID: 3826131047286996357}
+  lifeAfterImpact: 0.2
+  maxLifeTime: 5
 --- !u!1 &3325622608054227449
 GameObject:
   m_ObjectHideFlags: 0
@@ -5026,6 +5031,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19801364, guid: 5cd5599e01f32bd418f20a3b9eac1c57, type: 3}
+      propertyPath: lengthInSec
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19801364, guid: 5cd5599e01f32bd418f20a3b9eac1c57, type: 3}
       propertyPath: VelocityModule.enabled
       value: 0
       objectReference: {fileID: 0}
@@ -5049,11 +5058,20 @@ PrefabInstance:
       propertyPath: EmissionModule.rateOverDistance.scalar
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 19801364, guid: 5cd5599e01f32bd418f20a3b9eac1c57, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].time
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cd5599e01f32bd418f20a3b9eac1c57, type: 3}
+--- !u!1 &3826131047286996357 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 182542, guid: 5cd5599e01f32bd418f20a3b9eac1c57, type: 3}
+  m_PrefabInstance: {fileID: 3826131047286879371}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3826131047287350521 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 479346, guid: 5cd5599e01f32bd418f20a3b9eac1c57, type: 3}

@@ -10,6 +10,13 @@ namespace RPG.Combat {
         private bool isChasingProjectTile = true;
         [SerializeField]
         private GameObject hitEffect;
+        [SerializeField]
+        private GameObject[] destroyOnHit;
+        [SerializeField]
+        private float lifeAfterImpact;
+        [SerializeField]
+        private float maxLifeTime;
+
         private float damage;
 
         private Health target;
@@ -32,13 +39,18 @@ namespace RPG.Combat {
             if (collision.GetComponent<Health>() != target) return;
             if (target.IsDeath()) return;
 
-            collision.GetComponent<Health>().TakeDamage(damage);
+            target.TakeDamage(damage);
+            flyingSpeed = 0f;
 
             if (hitEffect != null) {
                 Instantiate(hitEffect, GetAimLocation(), transform.rotation);
             }
 
-            Destroy(gameObject);
+            foreach (GameObject gameObject in destroyOnHit) {
+                Destroy(gameObject);
+            }
+
+            Destroy(gameObject, lifeAfterImpact);
         }
 
         private Vector3 GetAimLocation() {
@@ -54,6 +66,8 @@ namespace RPG.Combat {
         public void SetTarget(Health target, float damage) {
             this.target = target;
             this.damage = damage;
+
+            Destroy(gameObject, maxLifeTime);
         }
     }
 }
