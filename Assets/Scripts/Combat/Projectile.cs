@@ -8,6 +8,8 @@ namespace RPG.Combat {
         private float flyingSpeed;
         [SerializeField]
         private bool isChasingProjectTile = true;
+        [SerializeField]
+        private GameObject hitEffect;
         private float damage;
 
         private Health target;
@@ -31,6 +33,10 @@ namespace RPG.Combat {
             if (target.IsDeath()) return;
 
             collision.GetComponent<Health>().TakeDamage(damage);
+
+            if (hitEffect != null) {
+                Instantiate(hitEffect, GetAimLocation(), transform.rotation);
+            }
 
             Destroy(gameObject);
         }
