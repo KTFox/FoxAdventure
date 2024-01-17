@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0227862df922d384e8f95a6ad1cefb07, type: 3}
-  m_Name: Red SimpleBow
+  m_Name: FireBall
   m_EditorClassIdentifier: 
-  equippedPrefab: {fileID: 1563655986059756, guid: 7f105c0c272e6c146b4b41cdc53ea356, type: 3}
-  projectile: {fileID: 4646596887215793247, guid: 77a7a3192e769de4db5b4b4a6165ba2d, type: 3}
-  animatorOverrideController: {fileID: 22100000, guid: a259186f6cb8fe44fbe16b5a85063579, type: 2}
-  rightHandWeapon: 0
-  weaponRange: 8
-  weaponDamage: 10
+  equippedPrefab: {fileID: 0}
+  projectile: {fileID: 7889304657907939108, guid: 208a193fa2168a4499fad037c04078b5, type: 3}
+  animatorOverrideController: {fileID: 22100000, guid: 995822a866b901845abbf62c4289864a, type: 2}
+  rightHandWeapon: 1
+  weaponRange: 5
+  weaponDamage: 20

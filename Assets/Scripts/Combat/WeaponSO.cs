@@ -9,7 +9,7 @@ namespace RPG.Combat {
         private const string weaponName = "weapon";
 
         [SerializeField]
-        private GameObject weaponPrefab;
+        private GameObject equippedPrefab;
         [SerializeField]
         private Projectile projectile;
         [SerializeField]
@@ -24,8 +24,8 @@ namespace RPG.Combat {
         public void Spawn(Transform rightHandTransform, Transform leftHandTransform, Animator animator) {
             DestroyOldWeapon(rightHandTransform, leftHandTransform);
 
-            if (weaponPrefab != null) {
-                GameObject equippedWeapon = Instantiate(weaponPrefab, GetHandTransform(rightHandTransform, leftHandTransform));
+            if (equippedPrefab != null) {
+                GameObject equippedWeapon = Instantiate(equippedPrefab, GetHandTransform(rightHandTransform, leftHandTransform));
                 equippedWeapon.name = weaponName;
             }
 
