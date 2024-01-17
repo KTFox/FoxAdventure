@@ -3080,10 +3080,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7504729743165209295, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
-      propertyPath: defaultWeaponSO
-      value: 
-      objectReference: {fileID: 11400000, guid: 69dde7e5d74ced440a6acfe3dd509b16, type: 2}
     - target: {fileID: 8173357667256707040, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
       propertyPath: uniqueIdentifier
       value: 408988a1-e6cf-4e77-8a4e-5c86851e420a
@@ -4640,7 +4636,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275531589}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.19510151, y: 0.21374896, z: -0.04361237, w: 0.9562138}
+  m_LocalRotation: {x: 0.005364751, y: 0.97245806, z: -0.23192793, w: 0.02249405}
   m_LocalPosition: {x: 0, y: 4, z: 41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7985,10 +7981,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 353206768511554243, guid: 07ce3bfe9804e8146919029b14d0f4af, type: 3}
-      propertyPath: defaultWeaponSO
-      value: 
-      objectReference: {fileID: 11400000, guid: 58b0cdc7a57dbca4daede40c7486fb72, type: 2}
     - target: {fileID: 5447808101183383320, guid: 07ce3bfe9804e8146919029b14d0f4af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

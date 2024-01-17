@@ -1,14 +1,13 @@
 using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
+using RPG.Saving;
 
 namespace RPG.Combat {
-    public class Fighter : MonoBehaviour, IAction {
+    public class Fighter : MonoBehaviour, IAction, ISaveable {
 
-        #region const string variables
         private const string ATTACK = "attack";
         private const string STOPATTACK = "stopAttack";
-        #endregion
 
         [SerializeField]
         private float timeBetweenAttacks;
@@ -34,7 +33,9 @@ namespace RPG.Combat {
         }
 
         private void Start() {
-            EquipWeapon(defaultWeaponSO);
+            if (currentWeaonSO == null) {
+                EquipWeapon(defaultWeaponSO);
+            }
         }
 
         public void EquipWeapon(WeaponSO weaponSO) {
@@ -106,6 +107,19 @@ namespace RPG.Combat {
             animator.SetTrigger(STOPATTACK);
             targetHealth = null;
             mover.Cancel();
+        }
+        #endregion
+
+        #region ISaveable interface implements
+        public object CaptureState() {
+            return currentWeaonSO.name;
+        }
+
+        public void RestoreState(object state) {
+            string weaponName = (string)state;
+            WeaponSO weapon = Resources.Load<WeaponSO>($"ScriptableObject/{weaponName}");
+
+            EquipWeapon(weapon);
         }
         #endregion
 
