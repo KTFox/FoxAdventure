@@ -69,6 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flyingSpeed: 20
+  isChasingProjectTile: 1
 --- !u!1 &6623934910584404684
 GameObject:
   m_ObjectHideFlags: 0

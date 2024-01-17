@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: m_Parameters.colorGradient.m_ColorSpace
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7889304657907939108, guid: 292c1add39b2d4344a205116c10f2b2f, type: 3}
+      propertyPath: isChasingProjectTile
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8275805902382985870, guid: 292c1add39b2d4344a205116c10f2b2f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
