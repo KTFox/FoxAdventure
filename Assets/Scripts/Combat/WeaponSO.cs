@@ -1,9 +1,12 @@
 using RPG.Core;
+using System;
 using UnityEngine;
 
 namespace RPG.Combat {
     [CreateAssetMenu(fileName = "New weapon SO", menuName = "Create new weapon SO")]
     public class WeaponSO : ScriptableObject {
+
+        private const string weaponName = "weapon";
 
         [SerializeField]
         private GameObject weaponPrefab;
@@ -19,13 +22,27 @@ namespace RPG.Combat {
         private float weaponDamage;
 
         public void Spawn(Transform rightHandTransform, Transform leftHandTransform, Animator animator) {
+            DestroyOldWeapon(rightHandTransform, leftHandTransform);
+
             if (weaponPrefab != null) {
-                Instantiate(weaponPrefab, GetHandTransform(rightHandTransform, leftHandTransform));
+                GameObject equippedWeapon = Instantiate(weaponPrefab, GetHandTransform(rightHandTransform, leftHandTransform));
+                equippedWeapon.name = weaponName;
             }
 
             if (animatorOverrideController != null) {
                 animator.runtimeAnimatorController = animatorOverrideController;
             }
+        }
+
+        private void DestroyOldWeapon(Transform rightHandTransform, Transform leftHandTransform) {
+            Transform oldWeapon = rightHandTransform.Find(weaponName);
+            if (oldWeapon == null) {
+                oldWeapon = leftHandTransform.Find(weaponName);
+            }
+            if (oldWeapon == null) return;
+
+            oldWeapon.name = "DESTROYING";
+            Destroy(oldWeapon.gameObject);
         }
 
         public void LaunchProjectile(Transform rightHandTransform, Transform leftHandTransform, Health target) {
