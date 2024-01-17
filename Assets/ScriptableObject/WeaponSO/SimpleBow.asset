@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0227862df922d384e8f95a6ad1cefb07, type: 3}
-  m_Name: Sword
+  m_Name: SimpleBow
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 4472110142578831421, guid: e360c564b310f544da29ffdc3ac1f8db, type: 3}
-  animatorOverrideController: {fileID: 22100000, guid: d68143d433ec79b4cb8470f72fab0f5d, type: 2}
-  rightHandWeapon: 1
-  weaponRange: 2
+  weaponPrefab: {fileID: 1563655986059756, guid: 7f105c0c272e6c146b4b41cdc53ea356, type: 3}
+  projectile: {fileID: 7889304657907939108, guid: 292c1add39b2d4344a205116c10f2b2f, type: 3}
+  animatorOverrideController: {fileID: 22100000, guid: a259186f6cb8fe44fbe16b5a85063579, type: 2}
+  rightHandWeapon: 0
+  weaponRange: 8
   weaponDamage: 10

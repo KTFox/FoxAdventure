@@ -71,6 +71,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 435482, guid: 679ff741e12a7e740819ede24a7000b7, type: 3}
   m_PrefabInstance: {fileID: 3830110662817324163}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &3830110662817723759 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 403948, guid: 679ff741e12a7e740819ede24a7000b7, type: 3}
+  m_PrefabInstance: {fileID: 3830110662817324163}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6258182430029869240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -171,6 +176,14 @@ PrefabInstance:
       propertyPath: defaultWeaponSO
       value: 
       objectReference: {fileID: 11400000, guid: 69dde7e5d74ced440a6acfe3dd509b16, type: 2}
+    - target: {fileID: 8380802605935938911, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: lefttHandTransform
+      value: 
+      objectReference: {fileID: 3830110662817723759}
+    - target: {fileID: 8380802605935938911, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: rightHandTransform
+      value: 
+      objectReference: {fileID: 3830110662817649927}
     - target: {fileID: 8380802605935938911, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       propertyPath: animatorOverrideController
       value: 

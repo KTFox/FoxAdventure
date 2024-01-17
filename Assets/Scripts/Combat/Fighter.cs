@@ -18,8 +18,9 @@ namespace RPG.Combat {
         private WeaponSO defaultWeaponSO;
         private WeaponSO currentWeaonSO;
         [SerializeField]
-        private Transform handTransform = null;
-
+        private Transform rightHandTransform = null;
+        [SerializeField]
+        private Transform lefttHandTransform = null;
 
         private ActionScheduler actionScheduler;
         private Animator animator;
@@ -37,7 +38,7 @@ namespace RPG.Combat {
         }
 
         public void EquipWeapon(WeaponSO weaponSO) {
-            weaponSO.Spawn(handTransform, animator);
+            weaponSO.Spawn(rightHandTransform, lefttHandTransform, animator);
             currentWeaonSO = weaponSO;
         }
 
@@ -109,10 +110,18 @@ namespace RPG.Combat {
         #endregion
 
         #region Animation Events
-        public void Hit() {
+        private void Hit() {
             if (targetHealth == null) return;
 
-            targetHealth.TakeDamage(currentWeaonSO.GetWeaponDamage());
+            if (!currentWeaonSO.HasProjectile()) {
+                targetHealth.TakeDamage(currentWeaonSO.GetWeaponDamage());
+            } else {
+                currentWeaonSO.LaunchProjectile(rightHandTransform, lefttHandTransform, targetHealth);
+            }
+        }
+
+        private void Shoot() {
+            Hit();
         }
         #endregion
     }
