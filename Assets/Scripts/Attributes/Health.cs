@@ -16,7 +16,7 @@ namespace RPG.Attributes {
 
         private void Start() {
             //Maybe conflict with Loading system
-            currentHealth = GetComponent<BaseStats>().GetHealth();
+            currentHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
         public void TakeDamage(GameObject instigator, float damage) {
@@ -41,7 +41,7 @@ namespace RPG.Attributes {
 
             if (instigatorExperience == null) return;
 
-            instigatorExperience.GainExperience(GetComponent<BaseStats>().GetExperienceReward());
+            instigatorExperience.GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
         }
 
         public bool IsDeath() {
@@ -49,7 +49,7 @@ namespace RPG.Attributes {
         }
 
         public float GetHealthPercentage() {
-            return (currentHealth / GetComponent<BaseStats>().GetHealth()) * 100;
+            return (currentHealth / GetComponent<BaseStats>().GetStat(Stat.Health)) * 100;
         }
 
         #region ISaveable interface implements
