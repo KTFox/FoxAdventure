@@ -1,7 +1,9 @@
+using RPG.Core;
 using RPG.Saving;
+using RPG.Stats;
 using UnityEngine;
 
-namespace RPG.Core {
+namespace RPG.Attributes {
     public class Health : MonoBehaviour, ISaveable {
 
         private const string DEATH = "death";
@@ -10,6 +12,11 @@ namespace RPG.Core {
         private float currentHealth;
 
         private bool isDeath;
+
+        private void Start() {
+            //Maybe conflict with Loading system
+            currentHealth = GetComponent<BaseStats>().GetHealth();
+        }
 
         public void TakeDamage(float damage) {
             currentHealth = Mathf.Max(currentHealth - damage, 0f);
@@ -37,9 +44,9 @@ namespace RPG.Core {
         }
 
         public void RestoreState(object state) {
-            currentHealth = (float)state;   
+            currentHealth = (float)state;
 
-            if(currentHealth <= 0f) {
+            if (currentHealth <= 0f) {
                 Die();
             }
         }

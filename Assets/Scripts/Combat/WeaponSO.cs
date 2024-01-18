@@ -1,9 +1,10 @@
+using RPG.Attributes;
 using RPG.Core;
 using System;
 using UnityEngine;
 
 namespace RPG.Combat {
-    [CreateAssetMenu(fileName = "New weapon SO", menuName = "Create new weapon SO")]
+    [CreateAssetMenu(fileName = "New WeaponSO", menuName = "Combat/Create new WeaponSO", order = 0)]
     public class WeaponSO : ScriptableObject {
 
         private const string weaponName = "weapon";

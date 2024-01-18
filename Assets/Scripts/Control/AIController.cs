@@ -1,3 +1,4 @@
+using RPG.Attributes;
 using RPG.Combat;
 using RPG.Core;
 using RPG.Movement;
@@ -25,7 +26,7 @@ namespace RPG.Control {
         private PatrolPath patrolPath;
 
         [SerializeField]
-        [Range(0f, 1f)] 
+        [Range(0f, 1f)]
         private float patrolSpeedFraction;
 
         [SerializeField]

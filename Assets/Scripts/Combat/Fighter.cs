@@ -2,6 +2,7 @@ using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
 using RPG.Saving;
+using RPG.Attributes;
 
 namespace RPG.Combat {
     public class Fighter : MonoBehaviour, IAction, ISaveable {
@@ -117,7 +118,7 @@ namespace RPG.Combat {
 
         public void RestoreState(object state) {
             string weaponName = (string)state;
-            WeaponSO weapon = Resources.Load<WeaponSO>($"ScriptableObject/{weaponName}");
+            WeaponSO weapon = Resources.Load<WeaponSO>($"ScriptableObject/WeaponSO/{weaponName}");
 
             EquipWeapon(weapon);
         }
