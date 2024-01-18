@@ -9,14 +9,13 @@ namespace RPG.Attributes {
 
         private const string DEATH = "death";
 
-        [SerializeField]
-        private float currentHealth;
-
+        private float currentHealth = -1f;
         private bool isDeath;
 
         private void Start() {
-            //Maybe conflict with Loading system
-            currentHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
+            if (currentHealth < 0f) {
+                currentHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
+            }
         }
 
         public void TakeDamage(GameObject instigator, float damage) {
