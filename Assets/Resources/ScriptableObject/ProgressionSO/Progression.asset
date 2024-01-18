@@ -21,6 +21,10 @@ MonoBehaviour:
       - 150
     - stat: 1
       levels: []
+    - stat: 2
+      levels:
+      - 10
+      - 30
   - characterClass: 1
     statProgresses:
     - stat: 0

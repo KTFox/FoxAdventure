@@ -1149,7 +1149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335247088}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.034181703, y: 0.94866824, z: -0.29451174, w: -0.11010462}
+  m_LocalRotation: {x: -0.034181703, y: 0.94866824, z: -0.29451174, w: -0.1101046}
   m_LocalPosition: {x: 1, y: 3, z: 13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2602,7 +2602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8146142896053024793, guid: d87eafb8a4ee7154aa8fbe6bd3296583, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.75
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8146142896053024793, guid: d87eafb8a4ee7154aa8fbe6bd3296583, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3036,6 +3036,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2780925296645352734, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
+      propertyPath: patrolPath
+      value: 
+      objectReference: {fileID: 8753466220485016189}
     - target: {fileID: 5422913865980319978, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4490,7 +4494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1245462864
 Transform:
   m_ObjectHideFlags: 0
@@ -4632,7 +4636,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275531589}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1951015, y: 0.21374892, z: -0.043612354, w: 0.9562138}
+  m_LocalRotation: {x: 0.19510151, y: 0.21374896, z: -0.04361237, w: 0.9562138}
   m_LocalPosition: {x: 0, y: 4, z: 41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

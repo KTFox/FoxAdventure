@@ -21,6 +21,14 @@ namespace RPG.Stats {
 
             return levels[level - 1];
         }
+        
+        public int GetPenultimateLevel(Stat stat, CharacterClass characterClass) {
+            BuildLookupTable();
+
+            float[] levels = lookupTable[characterClass][stat];
+
+            return levels.Length;
+        }
 
         private void BuildLookupTable() {
             if (lookupTable != null) return;
