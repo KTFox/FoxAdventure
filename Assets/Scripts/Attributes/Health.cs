@@ -38,6 +38,10 @@ namespace RPG.Attributes {
             return isDeath;
         }
 
+        public float GetHealthPercentage() {
+            return (currentHealth / GetComponent<BaseStats>().GetHealth()) * 100;
+        }
+
         #region ISaveable interface implements
         public object CaptureState() {
             return currentHealth;
