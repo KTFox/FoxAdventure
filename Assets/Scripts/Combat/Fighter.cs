@@ -63,6 +63,10 @@ namespace RPG.Combat {
             return distanceToTarget < currentWeaonSO.GetWeaponRange();
         }
 
+        public Health GetTargetHealth() {
+            return targetHealth;
+        }
+
         private void AttackBehaviour() {
             transform.LookAt(targetHealth.transform);
 

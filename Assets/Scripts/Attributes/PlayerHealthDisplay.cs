@@ -3,14 +3,14 @@ using TMPro;
 using UnityEngine;
 
 namespace RPG.Attributes {
-    public class HealthDisplay : MonoBehaviour {
+    public class PlayerHealthDisplay : MonoBehaviour {
 
         private Health health;
-        private TextMeshProUGUI healthText;
+        private TextMeshProUGUI healthValueText;
 
         private void Awake() {
             health = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
-            healthText = GetComponent<TextMeshProUGUI>();
+            healthValueText = GetComponent<TextMeshProUGUI>();
         }
 
         private void Update() {
@@ -18,7 +18,7 @@ namespace RPG.Attributes {
         }
 
         private void UpdateHealthText() {
-            healthText.text = String.Format("{0:0.0}", health.GetHealthPercentage());         
+            healthValueText.text = String.Format("{0:0.0}%", health.GetHealthPercentage());         
         }
     }
 }
