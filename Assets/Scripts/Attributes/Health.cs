@@ -1,7 +1,6 @@
 using RPG.Core;
 using RPG.Saving;
 using RPG.Stats;
-using System;
 using UnityEngine;
 
 namespace RPG.Attributes {
@@ -13,9 +12,15 @@ namespace RPG.Attributes {
         private bool isDeath;
 
         private void Start() {
+            GetComponent<BaseStats>().onLevelUp += RegenerateHealth;
+
             if (currentHealth < 0f) {
                 currentHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
             }
+        }
+
+        private void RegenerateHealth() {
+            currentHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
         public void TakeDamage(GameObject instigator, float damage) {

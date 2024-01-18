@@ -4,6 +4,8 @@ using UnityEngine;
 namespace RPG.Stats {
     public class BaseStats : MonoBehaviour {
 
+        public event Action onLevelUp;
+
         [Range(1, 3)]
         [SerializeField]
         private int startLevel = 1;
@@ -11,6 +13,8 @@ namespace RPG.Stats {
         private CharacterClass characterClass;
         [SerializeField]
         private ProgressionSO progressionSO;
+        [SerializeField]
+        private GameObject levelupParticleEffect;
 
         private int currentLevel;
 
@@ -21,15 +25,18 @@ namespace RPG.Stats {
             if (experience != null) {
                 experience.onExperienceGained += UpdateExperience;
             }
-
-            Debug.Log("First calculate current level");
         }
 
         private void UpdateExperience() {
             if (currentLevel < CalculateLevel()) {
                 currentLevel = CalculateLevel();
-                Debug.Log("Level up");
+                LevelUpEffect();
+                onLevelUp();
             }
+        }
+
+        private void LevelUpEffect() {
+            Instantiate(levelupParticleEffect, transform);
         }
 
         public float GetStat(Stat stat) {
