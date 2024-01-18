@@ -16,24 +16,28 @@ MonoBehaviour:
   - characterClass: 0
     statProgresses:
     - stat: 0
-      levels: 6400000096000000
+      levels:
+      - 100
+      - 150
     - stat: 1
-      levels: 
+      levels: []
   - characterClass: 1
     statProgresses:
     - stat: 0
-      levels: 3200000064000000
+      levels:
+      - 50
+      - 75
     - stat: 1
-      levels: 0a0000000f000000
+      levels:
+      - 10
+      - 15
   - characterClass: 2
     statProgresses:
     - stat: 0
-      levels: 2d0000004b000000
+      levels:
+      - 25
+      - 40
     - stat: 1
-      levels: 050000000a000000
-  - characterClass: 3
-    statProgresses:
-    - stat: 0
-      levels: 1e00000032000000
-    - stat: 1
-      levels: 0a0000000f000000
+      levels:
+      - 15
+      - 20

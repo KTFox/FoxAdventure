@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Stats {
@@ -7,19 +8,34 @@ namespace RPG.Stats {
         [SerializeField]
         private CharacterProgress[] characterProgresses;
 
+        private Dictionary<CharacterClass, Dictionary<Stat, float[]>> lookupTable;
+
         public float GetStat(CharacterClass characterClass, Stat stat, int level) {
-            foreach (CharacterProgress characterProgress in characterProgresses) {
-                if (characterProgress.characterClass != characterClass) continue;
+            BuildLookupTable();
 
-                foreach (StatProgress statProgress in characterProgress.statProgresses) {
-                    if (statProgress.stat != stat) continue;
-                    if (statProgress.levels.Length < level) continue;
+            float[] levels = lookupTable[characterClass][stat];
 
-                    return statProgress.levels[level - 1];
-                }
+            if (levels.Length < level) {
+                return 0;
             }
 
-            return 0;
+            return levels[level - 1];
+        }
+
+        private void BuildLookupTable() {
+            if (lookupTable != null) return;
+
+            lookupTable = new Dictionary<CharacterClass, Dictionary<Stat, float[]>>();
+
+            foreach (CharacterProgress characterProgress in characterProgresses) {
+                Dictionary<Stat, float[]> statLookupTable = new Dictionary<Stat, float[]>();
+
+                foreach (StatProgress statProgress in characterProgress.statProgresses) {
+                    statLookupTable[statProgress.stat] = statProgress.levels;
+                }
+
+                lookupTable[characterProgress.characterClass] = statLookupTable;
+            }
         }
 
         [System.Serializable]
@@ -31,7 +47,7 @@ namespace RPG.Stats {
         [System.Serializable]
         class StatProgress {
             public Stat stat;
-            public int[] levels;
+            public float[] levels;
         }
     }
 }
