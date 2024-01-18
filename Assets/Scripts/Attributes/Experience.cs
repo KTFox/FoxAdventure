@@ -11,6 +11,10 @@ namespace RPG.Attributes {
             experiencePoints += experience;
         }
 
+        public float GetExperiencePoint() {
+            return experiencePoints;
+        }
+
         #region ISaveable interface implements
         public object CaptureState() {
             return experiencePoints;
