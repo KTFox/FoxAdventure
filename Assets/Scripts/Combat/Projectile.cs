@@ -18,9 +18,10 @@ namespace RPG.Combat {
         [SerializeField]
         private float maxLifeTime;
 
-        private float damage;
-
         private Health target;
+        private GameObject instigator;
+
+        private float damage;
 
         private void Start() {
             transform.LookAt(GetAimLocation());
@@ -40,7 +41,7 @@ namespace RPG.Combat {
             if (collision.GetComponent<Health>() != target) return;
             if (target.IsDeath()) return;
 
-            target.TakeDamage(damage);
+            target.TakeDamage(instigator, damage);
             flyingSpeed = 0f;
 
             if (hitEffect != null) {
@@ -64,8 +65,9 @@ namespace RPG.Combat {
             return target.transform.position + Vector3.up * targetCap.height / 2;
         }
 
-        public void SetTarget(Health target, float damage) {
+        public void SetTarget(Health target, GameObject instigator, float damage) {
             this.target = target;
+            this.instigator = instigator;
             this.damage = damage;
 
             Destroy(gameObject, maxLifeTime);

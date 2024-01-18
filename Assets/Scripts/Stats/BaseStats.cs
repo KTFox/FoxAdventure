@@ -14,5 +14,9 @@ namespace RPG.Stats {
         public float GetHealth() {
             return progressionSO.GetHealth(characterClass, startLevel);
         }
+
+        public float GetExperienceReward() {
+            return 10;
+        }
     }
 }

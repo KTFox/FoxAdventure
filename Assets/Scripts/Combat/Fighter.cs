@@ -133,9 +133,9 @@ namespace RPG.Combat {
             if (targetHealth == null) return;
 
             if (!currentWeaonSO.HasProjectile()) {
-                targetHealth.TakeDamage(currentWeaonSO.GetWeaponDamage());
+                targetHealth.TakeDamage(gameObject, currentWeaonSO.GetWeaponDamage());
             } else {
-                currentWeaonSO.LaunchProjectile(rightHandTransform, lefttHandTransform, targetHealth);
+                currentWeaonSO.LaunchProjectile(rightHandTransform, lefttHandTransform, targetHealth, gameObject);
             }
         }
 
