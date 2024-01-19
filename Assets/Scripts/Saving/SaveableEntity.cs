@@ -56,7 +56,6 @@ namespace RPG.Saving {
 
             Debug.Log("Editting");
         }
-#endif
 
         private bool IsUnique(string candidate) {
             if (!globalLookup.ContainsKey(candidate)) return true;
@@ -74,5 +73,6 @@ namespace RPG.Saving {
 
             return false;
         }
+#endif
     }
 }

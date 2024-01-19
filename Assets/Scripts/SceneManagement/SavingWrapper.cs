@@ -14,7 +14,7 @@ namespace RPG.SceneManagement {
             StartCoroutine(LoadLastScene());
         }
 
-        private IEnumerator LoadLastScene() {
+        IEnumerator LoadLastScene() {
             yield return GetComponent<SavingSystem>().LoadLastScene(defaultFileName);
 
             Fader fader = FindObjectOfType<Fader>();

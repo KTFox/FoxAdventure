@@ -18,7 +18,7 @@ namespace RPG.Attributes {
             currentHealth = new LazyValue<float>(GetIntialHealth);
         }
 
-        private float GetIntialHealth() {
+        float GetIntialHealth() {
             return GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
@@ -26,15 +26,12 @@ namespace RPG.Attributes {
             GetComponent<BaseStats>().OnLevelUp += RegenerateHealth;
         }
 
-        private void RegenerateHealth() {
+        void RegenerateHealth() {
             currentHealth.value = GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
         private void Start() {
-            //if (currentHealth < 0f) {
-            //    //There's no save file
-            //    currentHealth = baseStats.GetStat(Stat.Health);
-            //}
+            currentHealth.ForceInit();
         }
 
         private void OnDisable() {

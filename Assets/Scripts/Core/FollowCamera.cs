@@ -9,7 +9,6 @@ namespace RPG.Core {
         private void LateUpdate() {
             transform.position = target.position;
         }
-
     }
 }
 

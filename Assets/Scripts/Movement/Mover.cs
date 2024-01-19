@@ -9,13 +9,13 @@ namespace RPG.Movement {
 
         private const string FORWARDSPEED = "forwardSpeed";
 
+        [SerializeField]
+        private float maxSpeed;
+
         private ActionScheduler actionScheduler;
         private NavMeshAgent navMeshAgent;
         private Animator animator;
         private Health health;
-
-        [SerializeField]
-        private float maxSpeed;
 
         private void Awake() {
             actionScheduler = GetComponent<ActionScheduler>();
