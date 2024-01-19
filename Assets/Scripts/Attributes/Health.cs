@@ -6,15 +6,18 @@ using UnityEngine;
 namespace RPG.Attributes {
     public class Health : MonoBehaviour, ISaveable {
 
+        #region Animation strings
         private const string DEATH = "death";
+        #endregion
 
         private float currentHealth = -1f;
         private bool isDeath;
 
         private void Start() {
-            GetComponent<BaseStats>().onLevelUp += RegenerateHealth;
+            GetComponent<BaseStats>().OnLevelUp += RegenerateHealth;
 
             if (currentHealth < 0f) {
+                //There's no save file
                 currentHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
             }
         }
@@ -26,7 +29,7 @@ namespace RPG.Attributes {
         public void TakeDamage(GameObject instigator, float damage) {
             currentHealth = Mathf.Max(currentHealth - damage, 0f);
 
-            if (currentHealth <= 0f) {
+            if (currentHealth == 0f) {
                 Die();
                 AwardExperience(instigator);
             }
@@ -40,9 +43,12 @@ namespace RPG.Attributes {
             GetComponent<ActionScheduler>().CancelCurrentAction();
         }
 
+        /// <summary>
+        /// Gain instigator's experience 
+        /// </summary>
+        /// <param name="instigator"></param>
         private void AwardExperience(GameObject instigator) {
             Experience instigatorExperience = instigator.GetComponent<Experience>();
-
             if (instigatorExperience == null) return;
 
             instigatorExperience.GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace RPG.Stats {
     public class BaseStats : MonoBehaviour {
 
-        public event Action onLevelUp;
+        public event Action OnLevelUp;
 
         [Range(1, 3)]
         [SerializeField]
@@ -23,7 +23,7 @@ namespace RPG.Stats {
 
             Experience experience = GetComponent<Experience>();
             if (experience != null) {
-                experience.onExperienceGained += UpdateExperience;
+                experience.OnExperienceGained += UpdateExperience;
             }
         }
 
@@ -31,8 +31,25 @@ namespace RPG.Stats {
             if (currentLevel < CalculateLevel()) {
                 currentLevel = CalculateLevel();
                 LevelUpEffect();
-                onLevelUp();
+                OnLevelUp?.Invoke();
             }
+        }
+
+        private int CalculateLevel() {
+            //Return 1 if this gameObject doesn't have Experience component
+            Experience experience = GetComponent<Experience>();
+            if (experience == null) return startLevel;
+
+            float currentXP = experience.GetExperiencePoint();
+            int penultimateLevel = progressionSO.GetLevelLength(characterClass, Stat.ExperienceToLevelUp);
+            for (int level = 1; level <= penultimateLevel; level++) {
+                float XPToLevelUp = progressionSO.GetStat(characterClass, Stat.ExperienceToLevelUp, level);
+                if (XPToLevelUp > currentXP) {
+                    return level;
+                }
+            }
+
+            return penultimateLevel + 1;
         }
 
         private void LevelUpEffect() {
@@ -49,23 +66,6 @@ namespace RPG.Stats {
             }
 
             return currentLevel;
-        }
-
-        public int CalculateLevel() {
-            Experience experience = GetComponent<Experience>();
-            if (experience == null) return startLevel;
-
-            float currentXP = experience.GetExperiencePoint();
-            int penultimateLevel = progressionSO.GetPenultimateLevel(Stat.ExperienceToLevelUp, characterClass);
-
-            for (int level = 1; level <= penultimateLevel; level++) {
-                float XPToLevelUp = progressionSO.GetStat(characterClass, Stat.ExperienceToLevelUp, level);
-                if (XPToLevelUp > currentXP) {
-                    return level;
-                }
-            }
-
-            return penultimateLevel + 1;
         }
     }
 }

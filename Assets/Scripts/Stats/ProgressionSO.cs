@@ -10,6 +10,13 @@ namespace RPG.Stats {
 
         private Dictionary<CharacterClass, Dictionary<Stat, float[]>> lookupTable;
 
+        /// <summary>
+        /// Min value of level is 1
+        /// </summary>
+        /// <param name="characterClass"></param>
+        /// <param name="stat"></param>
+        /// <param name="level"></param>
+        /// <returns></returns>
         public float GetStat(CharacterClass characterClass, Stat stat, int level) {
             BuildLookupTable();
 
@@ -21,8 +28,14 @@ namespace RPG.Stats {
 
             return levels[level - 1];
         }
-        
-        public int GetPenultimateLevel(Stat stat, CharacterClass characterClass) {
+
+        /// <summary>
+        /// Return CharacterClass.Stat.Level.Length
+        /// </summary>
+        /// <param name="characterClass"></param>
+        /// <param name="stat"></param>
+        /// <returns></returns>
+        public int GetLevelLength(CharacterClass characterClass, Stat stat) {
             BuildLookupTable();
 
             float[] levels = lookupTable[characterClass][stat];
@@ -30,6 +43,9 @@ namespace RPG.Stats {
             return levels.Length;
         }
 
+        /// <summary>
+        /// Build a lookup table for performance purpose
+        /// </summary>
         private void BuildLookupTable() {
             if (lookupTable != null) return;
 
@@ -46,6 +62,7 @@ namespace RPG.Stats {
             }
         }
 
+        #region Serializable classes
         [System.Serializable]
         class CharacterProgress {
             public CharacterClass characterClass;
@@ -57,5 +74,6 @@ namespace RPG.Stats {
             public Stat stat;
             public float[] levels;
         }
+        #endregion
     }
 }
