@@ -1,3 +1,4 @@
+using GameDevTV.Utils;
 using RPG.Core;
 using RPG.Saving;
 using RPG.Stats;
@@ -10,28 +11,42 @@ namespace RPG.Attributes {
         private const string DEATH = "death";
         #endregion
 
-        private float currentHealth = -1f;
+        private LazyValue<float> currentHealth;
         private bool isDeath;
 
-        private void Start() {
-            GetComponent<BaseStats>().OnLevelUp += RegenerateHealth;
+        private void Awake() {
+            currentHealth = new LazyValue<float>(GetIntialHealth);
+        }
 
-            if (currentHealth < 0f) {
-                //There's no save file
-                currentHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
-            }
+        private float GetIntialHealth() {
+            return GetComponent<BaseStats>().GetStat(Stat.Health);
+        }
+
+        private void OnEnable() {
+            GetComponent<BaseStats>().OnLevelUp += RegenerateHealth;
         }
 
         private void RegenerateHealth() {
-            currentHealth = GetComponent<BaseStats>().GetStat(Stat.Health);
+            currentHealth.value = GetComponent<BaseStats>().GetStat(Stat.Health);
+        }
+
+        private void Start() {
+            //if (currentHealth < 0f) {
+            //    //There's no save file
+            //    currentHealth = baseStats.GetStat(Stat.Health);
+            //}
+        }
+
+        private void OnDisable() {
+            GetComponent<BaseStats>().OnLevelUp -= RegenerateHealth;
         }
 
         public void TakeDamage(GameObject instigator, float damage) {
             Debug.Log($"{gameObject.name} took {damage} damage");
 
-            currentHealth = Mathf.Max(currentHealth - damage, 0f);
+            currentHealth.value = Mathf.Max(currentHealth.value - damage, 0f);
 
-            if (currentHealth == 0f) {
+            if (currentHealth.value == 0f) {
                 Die();
                 AwardExperience(instigator);
             }
@@ -61,11 +76,11 @@ namespace RPG.Attributes {
         }
 
         public float GetCurrentHealth() {
-            return currentHealth;
+            return currentHealth.value;
         }
 
         public float GetHealthPercentage() {
-            return (currentHealth / GetComponent<BaseStats>().GetStat(Stat.Health)) * 100;
+            return (currentHealth.value / GetComponent<BaseStats>().GetStat(Stat.Health)) * 100;
         }
 
         public float GetMaxHealth() {
@@ -78,9 +93,9 @@ namespace RPG.Attributes {
         }
 
         public void RestoreState(object state) {
-            currentHealth = (float)state;
+            currentHealth.value = (float)state;
 
-            if (currentHealth <= 0f) {
+            if (currentHealth.value <= 0f) {
                 Die();
             }
         }

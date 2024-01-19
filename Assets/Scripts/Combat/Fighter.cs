@@ -5,6 +5,8 @@ using RPG.Saving;
 using RPG.Attributes;
 using RPG.Stats;
 using System.Collections.Generic;
+using System;
+using GameDevTV.Utils;
 
 namespace RPG.Combat {
     public class Fighter : MonoBehaviour, IAction, ISaveable, IModifierProvider {
@@ -20,7 +22,7 @@ namespace RPG.Combat {
 
         [SerializeField]
         private WeaponSO defaultWeaponSO;
-        private WeaponSO currentWeaonSO;
+        private LazyValue<WeaponSO> currentWeaonSO;
         [SerializeField]
         private Transform rightHandTransform = null;
         [SerializeField]
@@ -35,17 +37,17 @@ namespace RPG.Combat {
             actionScheduler = GetComponent<ActionScheduler>();
             animator = GetComponent<Animator>();
             mover = GetComponent<Mover>();
+
+            currentWeaonSO = new LazyValue<WeaponSO>(SetupDefaultWeapon);
+        }
+
+        WeaponSO SetupDefaultWeapon() {
+            defaultWeaponSO.Spawn(rightHandTransform, lefttHandTransform, animator);
+            return defaultWeaponSO;
         }
 
         private void Start() {
-            if (currentWeaonSO == null) {
-                EquipWeapon(defaultWeaponSO);
-            }
-        }
-
-        public void EquipWeapon(WeaponSO weaponSO) {
-            weaponSO.Spawn(rightHandTransform, lefttHandTransform, animator);
-            currentWeaonSO = weaponSO;
+            currentWeaonSO.ForceInit();
         }
 
         private void Update() {
@@ -62,9 +64,14 @@ namespace RPG.Combat {
             }
         }
 
+        public void EquipWeapon(WeaponSO weaponSO) {
+            weaponSO.Spawn(rightHandTransform, lefttHandTransform, animator);
+            currentWeaonSO.value = weaponSO;
+        }
+
         private bool GetIsInRange() {
             float distanceToTarget = Vector3.Distance(transform.position, targetHealth.transform.position);
-            return distanceToTarget < currentWeaonSO.GetWeaponRange();
+            return distanceToTarget < currentWeaonSO.value.GetWeaponRange();
         }
 
         public Health GetTargetHealth() {
@@ -121,7 +128,7 @@ namespace RPG.Combat {
 
         #region ISaveable interface implements
         public object CaptureState() {
-            return currentWeaonSO.name;
+            return currentWeaonSO.value.name;
         }
 
         public void RestoreState(object state) {
@@ -135,13 +142,13 @@ namespace RPG.Combat {
         #region IModifierProvider implements
         public IEnumerable<float> GetAdditiveModifiers(Stat stat) {
             if (stat == Stat.Damage) {
-                yield return currentWeaonSO.GetWeaponDamage();
+                yield return currentWeaonSO.value.GetWeaponDamage();
             }
         }
 
         public IEnumerable<float> GetPercentageModifiers(Stat stat) {
             if (stat == Stat.Damage) {
-                yield return currentWeaonSO.GetPercentageBonus();
+                yield return currentWeaonSO.value.GetPercentageBonus();
             }
         }
         #endregion
@@ -151,10 +158,10 @@ namespace RPG.Combat {
             if (targetHealth == null) return;
 
             float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
-            if (!currentWeaonSO.HasProjectile()) {
+            if (!currentWeaonSO.value.HasProjectile()) {
                 targetHealth.TakeDamage(gameObject, damage);
             } else {
-                currentWeaonSO.LaunchProjectile(rightHandTransform, lefttHandTransform, targetHealth, gameObject, damage);
+                currentWeaonSO.value.LaunchProjectile(rightHandTransform, lefttHandTransform, targetHealth, gameObject, damage);
             }
         }
 

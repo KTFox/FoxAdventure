@@ -14,7 +14,7 @@ namespace RPG.Cinematic {
             playableDirector = GetComponent<PlayableDirector>();
         }
 
-        private void Start() {
+        private void OnEnable() {
             playableDirector.played += DisableControl;
             playableDirector.stopped += EnableControl;
         }

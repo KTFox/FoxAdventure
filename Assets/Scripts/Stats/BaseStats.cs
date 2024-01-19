@@ -1,3 +1,4 @@
+using GameDevTV.Utils;
 using System;
 using UnityEngine;
 
@@ -9,30 +10,45 @@ namespace RPG.Stats {
         [Range(1, 3)]
         [SerializeField]
         private int startLevel = 1;
+        private LazyValue<int> currentLevel;
+
         [SerializeField]
         private CharacterClass characterClass;
         [SerializeField]
         private ProgressionSO progressionSO;
         [SerializeField]
         private GameObject levelupParticleEffect;
+
         [SerializeField]
         [Tooltip("Should be ticked in case this gameObject is Player")]
         private bool shouldUseModifier;
 
-        private int currentLevel;
+        private Experience experience;
 
-        private void Start() {
-            currentLevel = CalculateLevel();
+        private void Awake() {
+            experience = GetComponent<Experience>();
+            currentLevel = new LazyValue<int>(CalculateLevel);
+        }
 
-            Experience experience = GetComponent<Experience>();
+        private void OnEnable() {
             if (experience != null) {
                 experience.OnExperienceGained += UpdateExperience;
             }
         }
 
+        private void Start() {
+            currentLevel.ForceInit();
+        }
+
+        private void OnDisable() {
+            if (experience != null) {
+                experience.OnExperienceGained -= UpdateExperience;
+            }
+        }
+
         private void UpdateExperience() {
-            if (currentLevel < CalculateLevel()) {
-                currentLevel = CalculateLevel();
+            if (currentLevel.value < CalculateLevel()) {
+                currentLevel.value = CalculateLevel();
                 LevelUpEffect();
                 OnLevelUp?.Invoke();
             }
@@ -94,11 +110,7 @@ namespace RPG.Stats {
         }
 
         public int GetCurrentLevel() {
-            if (currentLevel < 1) {
-                currentLevel = CalculateLevel();
-            }
-
-            return currentLevel;
+            return currentLevel.value;
         }
     }
 }
