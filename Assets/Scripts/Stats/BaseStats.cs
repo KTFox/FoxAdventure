@@ -57,14 +57,25 @@ namespace RPG.Stats {
         }
 
         public float GetStat(Stat stat) {
-            return progressionSO.GetStat(characterClass, stat, CalculateLevel());
+            float baseStat = progressionSO.GetStat(characterClass, stat, GetCurrentLevel());
+            float additiveStat = GetAdditiveModifier(stat);
+
+            return baseStat + additiveStat;
+        }
+
+        private float GetAdditiveModifier(Stat stat) {
+            float total = 0;
+
+            foreach (IModifierProvider provider in GetComponents<IModifierProvider>()) {
+                foreach (float modifier in provider.GetAdditiveModifier(stat)) {
+                    total += modifier;
+                }
+            }
+
+            return total;
         }
 
         public int GetCurrentLevel() {
-            if (currentLevel < 1) {
-                currentLevel = CalculateLevel();
-            }
-
             return currentLevel;
         }
     }

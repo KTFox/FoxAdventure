@@ -3,12 +3,16 @@ using RPG.Movement;
 using RPG.Core;
 using RPG.Saving;
 using RPG.Attributes;
+using RPG.Stats;
+using System.Collections.Generic;
 
 namespace RPG.Combat {
-    public class Fighter : MonoBehaviour, IAction, ISaveable {
+    public class Fighter : MonoBehaviour, IAction, ISaveable, IModifierProvider {
 
+        #region Animation strings
         private const string ATTACK = "attack";
         private const string STOPATTACK = "stopAttack";
+        #endregion
 
         [SerializeField]
         private float timeBetweenAttacks;
@@ -128,14 +132,23 @@ namespace RPG.Combat {
         }
         #endregion
 
+        #region IModifierProvider implements
+        public IEnumerable<float> GetAdditiveModifier(Stat stat) {
+            if (stat == Stat.Damage) {
+                yield return currentWeaonSO.GetWeaponDamage();
+            }
+        }
+        #endregion
+
         #region Animation Events
         private void Hit() {
             if (targetHealth == null) return;
 
+            float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
             if (!currentWeaonSO.HasProjectile()) {
-                targetHealth.TakeDamage(gameObject, currentWeaonSO.GetWeaponDamage());
+                targetHealth.TakeDamage(gameObject, damage);
             } else {
-                currentWeaonSO.LaunchProjectile(rightHandTransform, lefttHandTransform, targetHealth, gameObject);
+                currentWeaonSO.LaunchProjectile(rightHandTransform, lefttHandTransform, targetHealth, gameObject, damage);
             }
         }
 
