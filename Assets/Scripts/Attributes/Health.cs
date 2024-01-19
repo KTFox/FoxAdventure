@@ -27,6 +27,8 @@ namespace RPG.Attributes {
         }
 
         public void TakeDamage(GameObject instigator, float damage) {
+            Debug.Log($"{gameObject.name} took {damage} damage");
+
             currentHealth = Mathf.Max(currentHealth - damage, 0f);
 
             if (currentHealth == 0f) {
@@ -58,8 +60,16 @@ namespace RPG.Attributes {
             return isDeath;
         }
 
+        public float GetCurrentHealth() {
+            return currentHealth;
+        }
+
         public float GetHealthPercentage() {
             return (currentHealth / GetComponent<BaseStats>().GetStat(Stat.Health)) * 100;
+        }
+
+        public float GetMaxHealth() {
+            return GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
         #region ISaveable interface implements
