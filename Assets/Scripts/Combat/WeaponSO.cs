@@ -21,6 +21,8 @@ namespace RPG.Combat {
         private float weaponRange;
         [SerializeField]
         private float weaponDamage;
+        [SerializeField]
+        private float percentageBonus;
 
         public void Spawn(Transform rightHandTransform, Transform leftHandTransform, Animator animator) {
             DestroyOldWeapon(rightHandTransform, leftHandTransform);
@@ -76,6 +78,10 @@ namespace RPG.Combat {
 
         public float GetWeaponDamage() {
             return weaponDamage;
+        }
+
+        public float GetPercentageBonus() {
+            return percentageBonus;
         }
     }
 }

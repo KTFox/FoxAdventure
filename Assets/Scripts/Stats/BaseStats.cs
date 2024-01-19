@@ -15,6 +15,9 @@ namespace RPG.Stats {
         private ProgressionSO progressionSO;
         [SerializeField]
         private GameObject levelupParticleEffect;
+        [SerializeField]
+        [Tooltip("Should be ticked in case this gameObject is Player")]
+        private bool shouldUseModifier;
 
         private int currentLevel;
 
@@ -57,17 +60,32 @@ namespace RPG.Stats {
         }
 
         public float GetStat(Stat stat) {
-            float baseStat = progressionSO.GetStat(characterClass, stat, GetCurrentLevel());
-            float additiveStat = GetAdditiveModifier(stat);
+            return (GetBaseStat(stat) + GetAdditiveModifier(stat)) * (1 + GetPercentageModifier(stat) / 100);
+        }
 
-            return baseStat + additiveStat;
+        private float GetBaseStat(Stat stat) {
+            return progressionSO.GetStat(characterClass, stat, GetCurrentLevel());
         }
 
         private float GetAdditiveModifier(Stat stat) {
-            float total = 0;
+            if (!shouldUseModifier) return 0;
 
+            float total = 0;
             foreach (IModifierProvider provider in GetComponents<IModifierProvider>()) {
-                foreach (float modifier in provider.GetAdditiveModifier(stat)) {
+                foreach (float modifier in provider.GetAdditiveModifiers(stat)) {
+                    total += modifier;
+                }
+            }
+
+            return total;
+        }
+
+        private float GetPercentageModifier(Stat stat) {
+            if (!shouldUseModifier) return 0;
+
+            float total = 0;
+            foreach (IModifierProvider provider in GetComponents<IModifierProvider>()) {
+                foreach (float modifier in provider.GetPercentageModifiers(stat)) {
                     total += modifier;
                 }
             }
