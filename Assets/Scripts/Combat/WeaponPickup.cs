@@ -1,8 +1,9 @@
+using RPG.Control;
 using System.Collections;
 using UnityEngine;
 
 namespace RPG.Combat {
-    public class WeaponPickup : MonoBehaviour {
+    public class WeaponPickup : MonoBehaviour, IRaycastable {
 
         [SerializeField]
         private WeaponSO weaponSO;
@@ -11,9 +12,13 @@ namespace RPG.Combat {
 
         private void OnTriggerEnter(Collider collision) {
             if (collision.CompareTag("Player")) {
-                collision.GetComponent<Fighter>().EquipWeapon(weaponSO);
-                StartCoroutine(HideForSeconds(hideTime));
+                Pickup(collision.GetComponent<Fighter>());
             }
+        }
+
+        private void Pickup(Fighter fighter) {
+            fighter.EquipWeapon(weaponSO);
+            StartCoroutine(HideForSeconds(hideTime));
         }
 
         private IEnumerator HideForSeconds(float seconds) {
@@ -39,5 +44,14 @@ namespace RPG.Combat {
                 child.gameObject.SetActive(true);
             }
         }
+
+        #region IRaycastable implements
+        public bool HandleRaycast(PlayerController callingController) {
+            if (Input.GetMouseButtonDown(1)) {
+                Pickup(callingController.GetComponent<Fighter>());
+            }
+            return true;
+        }
+        #endregion
     }
 }
