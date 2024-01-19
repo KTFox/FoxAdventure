@@ -18,4 +18,4 @@ MonoBehaviour:
   rightHandWeapon: 0
   weaponRange: 8
   weaponDamage: 20
-  percentageBonus: 10
+  percentageBonus: 0
