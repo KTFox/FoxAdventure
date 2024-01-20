@@ -86,7 +86,7 @@ namespace RPG.Attributes {
 
         #region ISaveable interface implements
         public object CaptureState() {
-            return currentHealth;
+            return currentHealth.value;
         }
 
         public void RestoreState(object state) {
