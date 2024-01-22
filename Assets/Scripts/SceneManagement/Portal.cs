@@ -1,3 +1,5 @@
+using RPG.Control;
+using RPG.Core;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -37,13 +39,16 @@ namespace RPG.SceneManagement {
             DontDestroyOnLoad(gameObject);
 
             Fader fader = FindObjectOfType<Fader>();
-            SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();    
+            SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
+
+            DisableControll();
 
             yield return fader.FadeOut(fadeOutTime);
             savingWrapper.SaveGame();
 
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
 
+            DisableControll();
             savingWrapper.LoadGame();
 
             Portal otherPortal = GetOtherPortal();
@@ -52,9 +57,22 @@ namespace RPG.SceneManagement {
             savingWrapper.SaveGame();
 
             yield return new WaitForSeconds(fadeWaitTime);
-            yield return fader.FadeIn(fadeInTime);
 
+            fader.FadeIn(fadeInTime);
+            EnableControll();
             Destroy(gameObject);
+        }
+
+        private void DisableControll() {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+            player.GetComponent<ActionScheduler>().CancelCurrentAction();
+            player.GetComponent<PlayerController>().enabled = false;
+        }
+
+        private void EnableControll() {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<PlayerController>().enabled = true;
         }
 
         /// <summary>
