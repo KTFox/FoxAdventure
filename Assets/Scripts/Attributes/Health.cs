@@ -1,7 +1,7 @@
-using GameDevTV.Utils;
 using RPG.Core;
 using RPG.Saving;
 using RPG.Stats;
+using RPG.Utility;
 using UnityEngine;
 
 namespace RPG.Attributes {
@@ -27,7 +27,7 @@ namespace RPG.Attributes {
         }
 
         void RegenerateHealth() {
-            currentHealth.value = GetComponent<BaseStats>().GetStat(Stat.Health);
+            currentHealth.Value = GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
         private void Start() {
@@ -41,9 +41,9 @@ namespace RPG.Attributes {
         public void TakeDamage(GameObject instigator, float damage) {
             Debug.Log($"{gameObject.name} took {damage} damage");
 
-            currentHealth.value = Mathf.Max(currentHealth.value - damage, 0f);
+            currentHealth.Value = Mathf.Max(currentHealth.Value - damage, 0f);
 
-            if (currentHealth.value == 0f) {
+            if (currentHealth.Value == 0f) {
                 Die();
                 AwardExperience(instigator);
             }
@@ -73,11 +73,11 @@ namespace RPG.Attributes {
         }
 
         public float GetCurrentHealth() {
-            return currentHealth.value;
+            return currentHealth.Value;
         }
 
         public float GetHealthPercentage() {
-            return (currentHealth.value / GetComponent<BaseStats>().GetStat(Stat.Health)) * 100;
+            return (currentHealth.Value / GetComponent<BaseStats>().GetStat(Stat.Health)) * 100;
         }
 
         public float GetMaxHealth() {
@@ -86,13 +86,13 @@ namespace RPG.Attributes {
 
         #region ISaveable interface implements
         public object CaptureState() {
-            return currentHealth.value;
+            return currentHealth.Value;
         }
 
         public void RestoreState(object state) {
-            currentHealth.value = (float)state;
+            currentHealth.Value = (float)state;
 
-            if (currentHealth.value <= 0f) {
+            if (currentHealth.Value <= 0f) {
                 Die();
             }
         }

@@ -5,8 +5,7 @@ using RPG.Saving;
 using RPG.Attributes;
 using RPG.Stats;
 using System.Collections.Generic;
-using System;
-using GameDevTV.Utils;
+using RPG.Utility;
 
 namespace RPG.Combat {
     public class Fighter : MonoBehaviour, IAction, ISaveable, IModifierProvider {
@@ -66,12 +65,12 @@ namespace RPG.Combat {
 
         public void EquipWeapon(WeaponSO weaponSO) {
             weaponSO.Spawn(rightHandTransform, lefttHandTransform, animator);
-            currentWeaonSO.value = weaponSO;
+            currentWeaonSO.Value = weaponSO;
         }
 
         private bool GetIsInRange() {
             float distanceToTarget = Vector3.Distance(transform.position, targetHealth.transform.position);
-            return distanceToTarget < currentWeaonSO.value.GetWeaponRange();
+            return distanceToTarget < currentWeaonSO.Value.GetWeaponRange();
         }
 
         public Health GetTargetHealth() {
@@ -128,7 +127,7 @@ namespace RPG.Combat {
 
         #region ISaveable interface implements
         public object CaptureState() {
-            return currentWeaonSO.value.name;
+            return currentWeaonSO.Value.name;
         }
 
         public void RestoreState(object state) {
@@ -142,13 +141,13 @@ namespace RPG.Combat {
         #region IModifierProvider implements
         public IEnumerable<float> GetAdditiveModifiers(Stat stat) {
             if (stat == Stat.Damage) {
-                yield return currentWeaonSO.value.GetWeaponDamage();
+                yield return currentWeaonSO.Value.GetWeaponDamage();
             }
         }
 
         public IEnumerable<float> GetPercentageModifiers(Stat stat) {
             if (stat == Stat.Damage) {
-                yield return currentWeaonSO.value.GetPercentageBonus();
+                yield return currentWeaonSO.Value.GetPercentageBonus();
             }
         }
         #endregion
@@ -158,10 +157,10 @@ namespace RPG.Combat {
             if (targetHealth == null) return;
 
             float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
-            if (!currentWeaonSO.value.HasProjectile()) {
+            if (!currentWeaonSO.Value.HasProjectile()) {
                 targetHealth.TakeDamage(gameObject, damage);
             } else {
-                currentWeaonSO.value.LaunchProjectile(rightHandTransform, lefttHandTransform, targetHealth, gameObject, damage);
+                currentWeaonSO.Value.LaunchProjectile(rightHandTransform, lefttHandTransform, targetHealth, gameObject, damage);
             }
         }
 

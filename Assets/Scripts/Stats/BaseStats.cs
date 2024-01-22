@@ -1,4 +1,4 @@
-using GameDevTV.Utils;
+using RPG.Utility;
 using System;
 using UnityEngine;
 
@@ -47,8 +47,8 @@ namespace RPG.Stats {
         }
 
         private void UpdateExperience() {
-            if (currentLevel.value < CalculateLevel()) {
-                currentLevel.value = CalculateLevel();
+            if (currentLevel.Value < CalculateLevel()) {
+                currentLevel.Value = CalculateLevel();
                 LevelUpEffect();
                 OnLevelUp?.Invoke();
             }
@@ -110,7 +110,7 @@ namespace RPG.Stats {
         }
 
         public int GetCurrentLevel() {
-            return currentLevel.value;
+            return currentLevel.Value;
         }
     }
 }

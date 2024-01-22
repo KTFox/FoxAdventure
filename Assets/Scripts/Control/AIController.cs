@@ -1,8 +1,8 @@
-using GameDevTV.Utils;
 using RPG.Attributes;
 using RPG.Combat;
 using RPG.Core;
 using RPG.Movement;
+using RPG.Utility;
 using UnityEngine;
 
 namespace RPG.Control {
@@ -88,7 +88,7 @@ namespace RPG.Control {
         }
 
         private void PatrolBehaviour() {
-            Vector3 nextPosition = guardPosition.value;
+            Vector3 nextPosition = guardPosition.Value;
 
             if (patrolPath != null) {
                 if (AtWaypoint()) {
