@@ -3,6 +3,7 @@ using RPG.Saving;
 using RPG.Stats;
 using RPG.Utility;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RPG.Attributes {
     public class Health : MonoBehaviour, ISaveable {
@@ -11,14 +12,17 @@ namespace RPG.Attributes {
         private const string DEATH = "death";
         #endregion
 
+        [SerializeField]
+        private UnityEvent<float> OnTakeDamage;
+
         private LazyValue<float> currentHealth;
         private bool isDeath;
 
         private void Awake() {
-            currentHealth = new LazyValue<float>(GetIntialHealth);
+            currentHealth = new LazyValue<float>(GetInitialHealth);
         }
 
-        float GetIntialHealth() {
+        float GetInitialHealth() {
             return GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
@@ -39,9 +43,9 @@ namespace RPG.Attributes {
         }
 
         public void TakeDamage(GameObject instigator, float damage) {
-            Debug.Log($"{gameObject.name} took {damage} damage");
-
             currentHealth.Value = Mathf.Max(currentHealth.Value - damage, 0f);
+
+            OnTakeDamage?.Invoke(damage);
 
             if (currentHealth.Value == 0f) {
                 Die();

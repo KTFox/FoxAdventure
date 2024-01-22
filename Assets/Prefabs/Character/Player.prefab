@@ -108,6 +108,34 @@ PrefabInstance:
       propertyPath: currentHealth
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 6968730897122890781}
+    - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SpawnDamageText
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: RPG.UI.DamageText.DamageTextSpawner, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6281042690639228794, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -275,3 +303,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   experiencePoints: 0
+--- !u!114 &6968730897122890781 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3921615029375984805, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+  m_PrefabInstance: {fileID: 6258182430029869240}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b99abfcd0820a76429a3f10a5afc974b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

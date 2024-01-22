@@ -17,5 +17,5 @@ MonoBehaviour:
   animatorOverrideController: {fileID: 0}
   rightHandWeapon: 0
   weaponRange: 1
-  weaponDamage: 0
+  weaponDamage: 1
   percentageBonus: 0
