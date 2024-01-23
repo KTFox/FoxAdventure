@@ -99,9 +99,8 @@ namespace RPG.Combat {
         /// <param name="targetObject"></param>
         /// <returns></returns>
         public bool CanAttack(GameObject targetObject) {
-            if (targetObject == null) {
-                return false;
-            }
+            if (targetObject == null) return false;
+            if (!mover.CanMoveTo(targetObject.transform.position)) return false;
 
             Health targetToTest = targetObject.GetComponent<Health>();
 

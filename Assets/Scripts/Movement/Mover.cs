@@ -11,6 +11,8 @@ namespace RPG.Movement {
 
         [SerializeField]
         private float maxSpeed;
+        [SerializeField]
+        private float maxNavPathLength;
 
         private ActionScheduler actionScheduler;
         private NavMeshAgent navMeshAgent;
@@ -55,6 +57,29 @@ namespace RPG.Movement {
             navMeshAgent.destination = position;
             navMeshAgent.speed = maxSpeed * Mathf.Clamp01(moveSpeedFraction);
             navMeshAgent.isStopped = false;
+        }
+
+        public bool CanMoveTo(Vector3 position) {
+            NavMeshPath path = new NavMeshPath();
+            bool hasPath = NavMesh.CalculatePath(transform.position, position, NavMesh.AllAreas, path);
+            if (!hasPath) return false;
+            if (path.status != NavMeshPathStatus.PathComplete) return false;
+            if (GetNavPathLength(path) > maxNavPathLength) return false;
+
+            return true;
+        }
+
+        private float GetNavPathLength(NavMeshPath path) {
+            float pathLength = 0f;
+
+            if (path.corners.Length < 2) return pathLength;
+
+            for (int i = 0; i < path.corners.Length - 1; i++) {
+                float distance = Vector3.Distance(path.corners[i], path.corners[i + 1]);
+                pathLength += distance;
+            }
+
+            return pathLength;
         }
 
         #region IAction Interface implements
