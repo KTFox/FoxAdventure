@@ -18,7 +18,8 @@ namespace RPG.Control {
 
         [SerializeField]
         private float chaseDistance;
-
+        [SerializeField]
+        private float aggroCooldown;
         [SerializeField]
         private float suspiciousTime;
 
@@ -36,6 +37,7 @@ namespace RPG.Control {
         private float waypointTolerance = 1f;
         private float timeSinceLastSawPlayer = Mathf.Infinity;
         private float timeSinceArrivedAtWaypoint = Mathf.Infinity;
+        private float timeSinceLastAgrrevated = Mathf.Infinity;
         private int currentWaypointIndex;
 
         private LazyValue<Vector3> guardPosition;
@@ -62,7 +64,7 @@ namespace RPG.Control {
         private void Update() {
             if (health.IsDeath()) return;
 
-            if (PlayerInAttackRange() && fighter.CanAttack(player)) {
+            if (IsAggrevated() && fighter.CanAttack(player)) {
                 AttackBehaviour();
             } else if (timeSinceLastSawPlayer < suspiciousTime) {
                 SuspiciousBehaviour();
@@ -73,9 +75,16 @@ namespace RPG.Control {
             UpdateTimer();
         }
 
-        private bool PlayerInAttackRange() {
+        public void Aggrevate() {
+            //Set time
+            timeSinceLastAgrrevated = 0f;
+        }
+
+        private bool IsAggrevated() {
             float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-            return distanceToPlayer < chaseDistance;
+
+            //Check Aggrevated
+            return distanceToPlayer < chaseDistance || timeSinceLastAgrrevated < aggroCooldown;
         }
 
         private void AttackBehaviour() {
@@ -120,6 +129,7 @@ namespace RPG.Control {
         private void UpdateTimer() {
             timeSinceLastSawPlayer += Time.deltaTime;
             timeSinceArrivedAtWaypoint += Time.deltaTime;
+            timeSinceLastAgrrevated += Time.deltaTime;
         }
 
         private void OnDrawGizmosSelected() {
