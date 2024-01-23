@@ -14,6 +14,8 @@ namespace RPG.Attributes {
 
         [SerializeField]
         private UnityEvent<float> OnTakeDamage;
+        [SerializeField]
+        private UnityEvent OnDie;
 
         private LazyValue<float> currentHealth;
         private bool isDeath;
@@ -45,11 +47,12 @@ namespace RPG.Attributes {
         public void TakeDamage(GameObject instigator, float damage) {
             currentHealth.Value = Mathf.Max(currentHealth.Value - damage, 0f);
 
-            OnTakeDamage?.Invoke(damage);
-
             if (currentHealth.Value == 0f) {
                 Die();
                 AwardExperience(instigator);
+                OnDie?.Invoke();
+            } else {
+                OnTakeDamage?.Invoke(damage);
             }
         }
 

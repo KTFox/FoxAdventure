@@ -1,6 +1,6 @@
 using RPG.Attributes;
-using RPG.Core;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RPG.Combat {
     public class Projectile : MonoBehaviour {
@@ -17,6 +17,8 @@ namespace RPG.Combat {
         private float lifeAfterImpact;
         [SerializeField]
         private float maxLifeTime;
+        [SerializeField]
+        private UnityEvent OnHit;
 
         private Health target;
         private GameObject instigator;
@@ -40,6 +42,8 @@ namespace RPG.Combat {
         private void OnTriggerEnter(Collider collision) {
             if (collision.GetComponent<Health>() != target) return;
             if (target.IsDeath()) return;
+
+            OnHit?.Invoke();
 
             target.TakeDamage(instigator, damage);
             flyingSpeed = 0f;
