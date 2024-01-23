@@ -1,3 +1,4 @@
+using RPG.Attributes;
 using RPG.Control;
 using System.Collections;
 using UnityEngine;
@@ -8,16 +9,23 @@ namespace RPG.Combat {
         [SerializeField]
         private WeaponSO weaponSO;
         [SerializeField]
+        private float healthRestoreAmount;
+        [SerializeField]
         private float hideTime;
 
         private void OnTriggerEnter(Collider collision) {
             if (collision.CompareTag("Player")) {
-                Pickup(collision.GetComponent<Fighter>());
+                Pickup(collision.gameObject);
             }
         }
 
-        private void Pickup(Fighter fighter) {
-            fighter.EquipWeapon(weaponSO);
+        private void Pickup(GameObject subject) {
+            if (weaponSO != null) {
+                subject.GetComponent<Fighter>().EquipWeapon(weaponSO);
+            }
+            if (healthRestoreAmount > 0) {
+                subject.GetComponent<Health>().Heal(healthRestoreAmount);
+            }
             StartCoroutine(HideForSeconds(hideTime));
         }
 
@@ -48,7 +56,7 @@ namespace RPG.Combat {
         #region IRaycastable implements
         public bool HandleRaycast(PlayerController callingController) {
             if (Input.GetMouseButtonDown(1)) {
-                Pickup(callingController.GetComponent<Fighter>());
+                Pickup(callingController.gameObject);
             }
             return true;
         }

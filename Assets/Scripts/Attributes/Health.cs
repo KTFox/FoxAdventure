@@ -2,6 +2,7 @@ using RPG.Core;
 using RPG.Saving;
 using RPG.Stats;
 using RPG.Utility;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -54,6 +55,10 @@ namespace RPG.Attributes {
             } else {
                 OnTakeDamage?.Invoke(damage);
             }
+        }
+
+        public void Heal(float restoreAmount) {
+            currentHealth.Value = MathF.Min(GetMaxHealth(), currentHealth.Value + restoreAmount);
         }
 
         private void Die() {
