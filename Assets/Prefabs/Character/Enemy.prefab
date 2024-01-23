@@ -323,6 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseDistance: 4
   aggroCooldown: 2
+  shoutDistance: 3
   suspiciousTime: 3
   patrolPath: {fileID: 0}
   patrolSpeedFraction: 0.5

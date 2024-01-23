@@ -20,17 +20,17 @@ namespace RPG.Control {
         private float chaseDistance;
         [SerializeField]
         private float aggroCooldown;
+        private bool hasBeenAggroedRecently;
+        [SerializeField]
+        private float shoutDistance;
         [SerializeField]
         private float suspiciousTime;
-
         [SerializeField]
         [Tooltip("If patrolPath equal null, the enemy will not patrol and stay at guardPosition.")]
         private PatrolPath patrolPath;
-
         [SerializeField]
         [Range(0f, 1f)]
         private float patrolSpeedFraction;
-
         [SerializeField]
         private float waypointDwellTime;
 
@@ -75,9 +75,13 @@ namespace RPG.Control {
             UpdateTimer();
         }
 
-        public void Aggrevate() {
-            //Set time
-            timeSinceLastAgrrevated = 0f;
+        public void AggrevateAllies() {
+            if (hasBeenAggroedRecently) return;
+            else {
+                timeSinceLastAgrrevated = 0f;
+                timeSinceLastSawPlayer = 0f;
+                hasBeenAggroedRecently = true;
+            }
         }
 
         private bool IsAggrevated() {
@@ -90,6 +94,17 @@ namespace RPG.Control {
         private void AttackBehaviour() {
             timeSinceLastSawPlayer = 0f;
             fighter.StartAttackAction(player);
+
+            AggrevateNearbyEnemies();
+        }
+
+        private void AggrevateNearbyEnemies() {
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position, shoutDistance, Vector3.up, 0f);
+            foreach (RaycastHit hit in hits) {
+                AIController controller = hit.collider.GetComponent<AIController>();
+                if (controller == null || controller == this) continue;
+                controller.AggrevateAllies();
+            }
         }
 
         private void SuspiciousBehaviour() {
@@ -130,11 +145,16 @@ namespace RPG.Control {
             timeSinceLastSawPlayer += Time.deltaTime;
             timeSinceArrivedAtWaypoint += Time.deltaTime;
             timeSinceLastAgrrevated += Time.deltaTime;
+
+            if (timeSinceLastAgrrevated >= aggroCooldown && timeSinceLastSawPlayer >= suspiciousTime) {
+                hasBeenAggroedRecently = false;
+            }
         }
 
         private void OnDrawGizmosSelected() {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, chaseDistance);
+            Gizmos.DrawWireSphere(transform.position, shoutDistance);
         }
     }
 }
