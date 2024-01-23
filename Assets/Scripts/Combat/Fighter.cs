@@ -52,7 +52,7 @@ namespace RPG.Combat {
             if (targetHealth == null) return;
             if (targetHealth.IsDeath()) return;
 
-            if (!GetIsInRange()) {
+            if (!GetIsInRange(targetHealth.transform)) {
                 mover.MoveTo(targetHealth.transform.position, 1f);
             } else {
                 mover.Cancel();
@@ -70,8 +70,8 @@ namespace RPG.Combat {
             return weaponSO.Spawn(rightHandTransform, lefttHandTransform, animator);
         }
 
-        private bool GetIsInRange() {
-            float distanceToTarget = Vector3.Distance(transform.position, targetHealth.transform.position);
+        private bool GetIsInRange(Transform targetTransform) {
+            float distanceToTarget = Vector3.Distance(transform.position, targetTransform.position);
             return distanceToTarget < currentWeaonSO.GetWeaponRange();
         }
 
@@ -100,7 +100,7 @@ namespace RPG.Combat {
         /// <returns></returns>
         public bool CanAttack(GameObject targetObject) {
             if (targetObject == null) return false;
-            if (!mover.CanMoveTo(targetObject.transform.position)) return false;
+            if (!mover.CanMoveTo(targetObject.transform.position) && !GetIsInRange(targetObject.transform)) return false;
 
             Health targetToTest = targetObject.GetComponent<Health>();
 
