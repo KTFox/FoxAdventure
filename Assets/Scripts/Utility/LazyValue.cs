@@ -1,6 +1,6 @@
 namespace RPG.Utility {
     /// <summary>
-    /// Container class that wraps a value and ensures initialisation is alled just before first use.
+    /// Container class that wraps a value and ensures initialisation is called just before first use.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class LazyValue<T> {

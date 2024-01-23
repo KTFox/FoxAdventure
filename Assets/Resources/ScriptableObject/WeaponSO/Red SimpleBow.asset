@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0227862df922d384e8f95a6ad1cefb07, type: 3}
   m_Name: Red SimpleBow
   m_EditorClassIdentifier: 
-  equippedPrefab: {fileID: 1563655986059756, guid: 7f105c0c272e6c146b4b41cdc53ea356, type: 3}
+  equippedPrefab: {fileID: 8335838633082106880, guid: 7f105c0c272e6c146b4b41cdc53ea356, type: 3}
   projectile: {fileID: 4646596887215793247, guid: 77a7a3192e769de4db5b4b4a6165ba2d, type: 3}
   animatorOverrideController: {fileID: 22100000, guid: a259186f6cb8fe44fbe16b5a85063579, type: 2}
   rightHandWeapon: 0
