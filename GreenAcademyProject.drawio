@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-02-01T10:06:30.798Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.21 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="7Ts379NLTdtkTFXdQlZ7" version="22.1.21" type="device" pages="11">
+<mxfile host="Electron" modified="2024-02-01T10:37:58.941Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.21 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="jr7N6TgmMwQrtjdVpwW7" version="22.1.21" type="device" pages="11">
   <diagram name="namespace" id="c4acf3e9-155e-7222-9cf6-157b1a14988f">
     <mxGraphModel dx="1509" dy="880" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="1">
       <root>
@@ -358,11 +358,23 @@
         <mxCell id="TNmPILxexkMGjSq-NZ3--8" value="+SpawnDamageText(float): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="TNmPILxexkMGjSq-NZ3--5">
           <mxGeometry y="60" width="259" height="22" as="geometry" />
         </mxCell>
+        <mxCell id="SNm3gQ4oMVEX75CJsSob-1" value="ShowHideUI: MonoBehaviour" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry y="250" width="201" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="SNm3gQ4oMVEX75CJsSob-2" value="-uiContainer: GameObject" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="SNm3gQ4oMVEX75CJsSob-1">
+          <mxGeometry y="26" width="201" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="SNm3gQ4oMVEX75CJsSob-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="SNm3gQ4oMVEX75CJsSob-1">
+          <mxGeometry y="52" width="201" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="SNm3gQ4oMVEX75CJsSob-4" value="-Start(): void&lt;br&gt;-Update(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="SNm3gQ4oMVEX75CJsSob-1">
+          <mxGeometry y="60" width="201" height="42" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram id="6REEsuMEJ5hDSoqsaeg2" name="SceneManagement">
-    <mxGraphModel dx="869" dy="507" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1247" dy="727" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
