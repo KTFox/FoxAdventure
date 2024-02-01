@@ -9,9 +9,9 @@ using RPG.Utility;
 namespace RPG.Attributes {
     public class Health : MonoBehaviour, ISaveable {
 
-        [SerializeField] 
+        [SerializeField]
         private UnityEvent<float> OnTakeDamage;
-        [SerializeField] 
+        [SerializeField]
         private UnityEvent OnDie;
 
         private LazyValue<float> _currentHealth;
