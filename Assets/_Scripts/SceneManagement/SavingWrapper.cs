@@ -22,14 +22,6 @@ namespace RPG.SceneManagement {
             yield return fader.FadeIn(fadeInTime);
         }
 
-        private void Update() {
-            if (Input.GetKeyDown(KeyCode.S)) {
-                SaveGame();
-            } else if (Input.GetKeyDown(KeyCode.L)) {
-                LoadGame();
-            }
-        }
-
         public void LoadGame() {
             GetComponent<SavingSystem>().Load(defaultFileName);
         }
