@@ -6,11 +6,21 @@ namespace RPG.Saving {
     [ExecuteAlways]
     public class SaveableEntity : MonoBehaviour {
 
-        [SerializeField]
-        private string uniqueIdentifier = "";
+        [SerializeField] 
+        private string _uniqueIdentifier = "";
 
         private static Dictionary<string, SaveableEntity> globalLookup = new Dictionary<string, SaveableEntity>();
 
+        public string UniqueIdentifier {
+            get {
+                return _uniqueIdentifier;
+            }
+        }
+
+        /// <summary>
+        /// Capture all state of ISaveable components in gameObject
+        /// </summary>
+        /// <returns></returns>
         public Dictionary<string, object> CaptureISaveableState() {
             Dictionary<string, object> result = new Dictionary<string, object>();
 
@@ -21,6 +31,10 @@ namespace RPG.Saving {
             return result;
         }
 
+        /// <summary>
+        /// Restore all state of ISaveable components in gameObject
+        /// </summary>
+        /// <param name="state"></param>
         public void RestoreISaveableState(object state) {
             Dictionary<string, object> stateDict = (Dictionary<string, object>)state;
 
@@ -33,10 +47,6 @@ namespace RPG.Saving {
             }
         }
 
-        public string GetUniqueIdentifier() {
-            return uniqueIdentifier;
-        }
-
 #if UNITY_EDITOR
         private void Update() {
             if (Application.IsPlaying(gameObject)) return;
@@ -44,7 +54,7 @@ namespace RPG.Saving {
 
             //In order to change the values that are being stored into the scene file or prefab, use SerializedObject and SerializedProperty 
             SerializedObject serializedObject = new SerializedObject(this);
-            SerializedProperty property = serializedObject.FindProperty("uniqueIdentifier");
+            SerializedProperty property = serializedObject.FindProperty("_uniqueIdentifier");
 
             //Auto generate unique identifier 
             if (string.IsNullOrEmpty(property.stringValue) || !IsUnique(property.stringValue)) {
@@ -66,7 +76,7 @@ namespace RPG.Saving {
                 return true;
             }
 
-            if (globalLookup[candidate].GetUniqueIdentifier() != candidate) {
+            if (globalLookup[candidate]._uniqueIdentifier != candidate) {
                 globalLookup.Remove(candidate);
                 return true;
             }

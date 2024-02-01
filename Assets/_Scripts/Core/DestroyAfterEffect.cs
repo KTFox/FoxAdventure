@@ -3,7 +3,7 @@ using UnityEngine;
 namespace RPG.Core {
     public class DestroyAfterEffect : MonoBehaviour {
 
-        [SerializeField]
+        [SerializeField] 
         private GameObject targetToDestroy;
 
         private void Update() {

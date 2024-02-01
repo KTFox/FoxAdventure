@@ -1,43 +1,43 @@
+using UnityEngine;
 using RPG.Attributes;
 using RPG.Combat;
 using RPG.Core;
 using RPG.Movement;
 using RPG.Utility;
-using UnityEngine;
 
 namespace RPG.Control {
     public class AIController : MonoBehaviour {
 
-        #region Caching variables
+        [SerializeField] 
+        private float chaseDistance;
+        [SerializeField] 
+        private float aggroCooldown;
+        [SerializeField] 
+        private float shoutDistance;
+        [SerializeField] 
+        private float suspiciousTime;
+        [SerializeField] 
+        private float waypointDwellTime;
+
+        [Range(0f, 1f)]
+        [SerializeField] 
+        private float patrolSpeedFraction;
+
+        [Tooltip("If patrolPath equal null, the enemy will not patrol and stay at guardPosition.")]
+        [SerializeField] 
+        private PatrolPath patrolPath;
+
         private ActionScheduler actionScheduler;
         private Fighter fighter;
         private Mover mover;
         private GameObject player;
         private Health health;
-        #endregion
-
-        [SerializeField]
-        private float chaseDistance;
-        [SerializeField]
-        private float aggroCooldown;
-        private bool hasBeenAggroedRecently;
-        [SerializeField]
-        private float shoutDistance;
-        [SerializeField]
-        private float suspiciousTime;
-        [SerializeField]
-        [Tooltip("If patrolPath equal null, the enemy will not patrol and stay at guardPosition.")]
-        private PatrolPath patrolPath;
-        [SerializeField]
-        [Range(0f, 1f)]
-        private float patrolSpeedFraction;
-        [SerializeField]
-        private float waypointDwellTime;
 
         private float waypointTolerance = 1f;
         private float timeSinceLastSawPlayer = Mathf.Infinity;
         private float timeSinceArrivedAtWaypoint = Mathf.Infinity;
         private float timeSinceLastAgrrevated = Mathf.Infinity;
+        private bool hasBeenAggroedRecently;
         private int currentWaypointIndex;
 
         private LazyValue<Vector3> guardPosition;
@@ -62,7 +62,7 @@ namespace RPG.Control {
         }
 
         private void Update() {
-            if (health.IsDeath()) return;
+            if (health.IsDeath) return;
 
             if (IsAggrevated() && fighter.CanAttack(player)) {
                 AttackBehaviour();
@@ -75,19 +75,14 @@ namespace RPG.Control {
             UpdateTimer();
         }
 
-        public void AggrevateAllies() {
-            if (hasBeenAggroedRecently) return;
-            else {
-                timeSinceLastAgrrevated = 0f;
-                timeSinceLastSawPlayer = 0f;
-                hasBeenAggroedRecently = true;
-            }
-        }
-
+        /// <summary>
+        /// return true 
+        /// if distanceToPlayer is less than chaseDistance
+        /// or if timeSinceLastAgrrevated is less than aggroCooldown
+        /// </summary>
+        /// <returns></returns>
         private bool IsAggrevated() {
             float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-
-            //Check Aggrevated
             return distanceToPlayer < chaseDistance || timeSinceLastAgrrevated < aggroCooldown;
         }
 
@@ -103,7 +98,17 @@ namespace RPG.Control {
             foreach (RaycastHit hit in hits) {
                 AIController controller = hit.collider.GetComponent<AIController>();
                 if (controller == null || controller == this) continue;
-                controller.AggrevateAllies();
+                controller.BeAggrevated();
+            }
+        }
+
+        public void BeAggrevated() {
+            if (hasBeenAggroedRecently) return;
+            else {
+                timeSinceLastSawPlayer = 0f;
+
+                timeSinceLastAgrrevated = 0f;
+                hasBeenAggroedRecently = true;
             }
         }
 
@@ -129,7 +134,6 @@ namespace RPG.Control {
 
         private bool AtWaypoint() {
             float distanceToWaypoint = Vector3.Distance(transform.position, GetCurrentWaypoint());
-
             return distanceToWaypoint < waypointTolerance;
         }
 

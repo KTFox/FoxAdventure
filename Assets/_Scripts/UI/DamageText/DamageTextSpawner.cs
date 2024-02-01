@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace RPG.UI.DamageText {
+namespace RPG.UI {
     public class DamageTextSpawner : MonoBehaviour {
 
-        [SerializeField]
+        [SerializeField] 
         private DamageText damageTextPrefab;
 
         #region Unity Events

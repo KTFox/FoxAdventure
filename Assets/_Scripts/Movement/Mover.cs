@@ -7,11 +7,9 @@ using RPG.Attributes;
 namespace RPG.Movement {
     public class Mover : MonoBehaviour, IAction, ISaveable {
 
-        private const string FORWARDSPEED = "forwardSpeed";
-
-        [SerializeField]
+        [SerializeField] 
         private float maxSpeed;
-        [SerializeField]
+        [SerializeField] 
         private float maxNavPathLength;
 
         private ActionScheduler actionScheduler;
@@ -27,7 +25,7 @@ namespace RPG.Movement {
         }
 
         private void Update() {
-            navMeshAgent.enabled = !health.IsDeath();
+            navMeshAgent.enabled = !health.IsDeath;
 
             UpdateAnimator();
         }
@@ -37,7 +35,7 @@ namespace RPG.Movement {
             Vector3 localVelocity = transform.InverseTransformDirection(velocity);
             float speed = localVelocity.z;
 
-            animator.SetFloat(FORWARDSPEED, speed);
+            animator.SetFloat("forwardSpeed", speed);
         }
 
         /// <summary>

@@ -1,29 +1,36 @@
-using RPG.Utility;
 using System;
 using UnityEngine;
+using RPG.Utility;
 
 namespace RPG.Stats {
     public class BaseStats : MonoBehaviour {
 
         public event Action OnLevelUp;
 
-        [Range(1, 3)]
-        [SerializeField]
-        private int startLevel = 1;
-        private LazyValue<int> currentLevel;
-
-        [SerializeField]
-        private CharacterClass characterClass;
-        [SerializeField]
+        [SerializeField] 
         private ProgressionSO progressionSO;
-        [SerializeField]
-        private GameObject levelupParticleEffect;
+        [SerializeField] 
+        private CharacterClass characterClass;
 
-        [SerializeField]
+        [Range(1, 3)]
+        [SerializeField] 
+        private int startLevel = 1;
+
         [Tooltip("Should be ticked in case this gameObject is Player")]
+        [SerializeField] 
         private bool shouldUseModifier;
 
+        [SerializeField] 
+        private GameObject levelupParticleEffect;
+
         private Experience experience;
+        private LazyValue<int> currentLevel;
+
+        public int CurrentLevel {
+            get {
+                return currentLevel.Value;
+            }
+        }
 
         private void Awake() {
             experience = GetComponent<Experience>();
@@ -55,11 +62,12 @@ namespace RPG.Stats {
         }
 
         private int CalculateLevel() {
-            //Return 1 if this gameObject doesn't have Experience component
             Experience experience = GetComponent<Experience>();
+
+            //Return 1 if this gameObject doesn't have Experience component
             if (experience == null) return startLevel;
 
-            float currentXP = experience.GetExperiencePoint();
+            float currentXP = experience.ExperiencePoint;
             int penultimateLevel = progressionSO.GetLevelLength(characterClass, Stat.ExperienceToLevelUp);
             for (int level = 1; level <= penultimateLevel; level++) {
                 float XPToLevelUp = progressionSO.GetStat(characterClass, Stat.ExperienceToLevelUp, level);
@@ -80,7 +88,7 @@ namespace RPG.Stats {
         }
 
         private float GetBaseStat(Stat stat) {
-            return progressionSO.GetStat(characterClass, stat, GetCurrentLevel());
+            return progressionSO.GetStat(characterClass, stat, currentLevel.Value);
         }
 
         private float GetAdditiveModifier(Stat stat) {
@@ -107,10 +115,6 @@ namespace RPG.Stats {
             }
 
             return total;
-        }
-
-        public int GetCurrentLevel() {
-            return currentLevel.Value;
         }
     }
 }

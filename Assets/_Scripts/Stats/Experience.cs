@@ -1,31 +1,33 @@
-using RPG.Saving;
 using System;
 using UnityEngine;
+using RPG.Saving;
 
 namespace RPG.Stats {
     public class Experience : MonoBehaviour, ISaveable {
 
         public event Action OnExperienceGained;
 
-        [SerializeField]
-        private float experiencePoints;
+        [SerializeField] 
+        private float _experiencePoints;
 
-        public void GainExperience(float experience) {
-            experiencePoints += experience;
-            OnExperienceGained?.Invoke();
+        public float ExperiencePoint {
+            get {
+                return _experiencePoints;
+            }
         }
 
-        public float GetExperiencePoint() {
-            return experiencePoints;
+        public void GainExperience(float experience) {
+            _experiencePoints += experience;
+            OnExperienceGained?.Invoke();
         }
 
         #region ISaveable interface implements
         public object CaptureState() {
-            return experiencePoints;
+            return _experiencePoints;
         }
 
         public void RestoreState(object state) {
-            experiencePoints = (float)state;
+            _experiencePoints = (float)state;
         }
         #endregion
     }

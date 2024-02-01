@@ -4,7 +4,7 @@ using UnityEngine.Events;
 namespace RPG.Combat {
     public class Weapon : MonoBehaviour {
 
-        [SerializeField]
+        [SerializeField] 
         private UnityEvent OnHit;
 
         public void CallHitEvent() {

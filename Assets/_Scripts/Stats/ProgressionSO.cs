@@ -5,7 +5,21 @@ namespace RPG.Stats {
     [CreateAssetMenu(fileName = "New ProgressionSO", menuName = "Stats/Create new ProgressionSO", order = 0)]
     public class ProgressionSO : ScriptableObject {
 
-        [SerializeField]
+        #region Serializable structs
+        [System.Serializable]
+        struct CharacterProgress {
+            public CharacterClass characterClass;
+            public StatProgress[] statProgresses;
+        }
+
+        [System.Serializable]
+        struct StatProgress {
+            public Stat stat;
+            public float[] levels;
+        }
+        #endregion
+
+        [SerializeField] 
         private CharacterProgress[] characterProgresses;
 
         private Dictionary<CharacterClass, Dictionary<Stat, float[]>> lookupTable;
@@ -61,19 +75,5 @@ namespace RPG.Stats {
                 lookupTable[characterProgress.characterClass] = statLookupTable;
             }
         }
-
-        #region Serializable classes
-        [System.Serializable]
-        class CharacterProgress {
-            public CharacterClass characterClass;
-            public StatProgress[] statProgresses;
-        }
-
-        [System.Serializable]
-        class StatProgress {
-            public Stat stat;
-            public float[] levels;
-        }
-        #endregion
     }
 }

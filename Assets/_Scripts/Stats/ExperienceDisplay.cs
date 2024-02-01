@@ -14,7 +14,7 @@ namespace RPG.Stats {
         }
 
         private void Update() {
-            experienceValueText.text = String.Format("{0:0}", experience.GetExperiencePoint());
+            experienceValueText.text = String.Format("{0:0}", experience.ExperiencePoint);
         }
     }
 }

@@ -1,10 +1,9 @@
-using RPG.Attributes;
-using System;
 using TMPro;
 using UnityEngine;
+using RPG.Attributes;
 
 namespace RPG.Combat {
-    public class EnemyHealthDisplay : MonoBehaviour {
+    public class EnemyHealthText : MonoBehaviour {
 
         private Fighter fighter;
         private TextMeshProUGUI healthValueText;
@@ -15,14 +14,10 @@ namespace RPG.Combat {
         }
 
         private void Update() {
-            UpdateHealthText();
-        }
-
-        private void UpdateHealthText() {
-            Health targetHealth = fighter.GetTargetHealth();
+            Health targetHealth = fighter.TargetHealth;
 
             if (targetHealth != null) {
-                healthValueText.text = $"{targetHealth.GetCurrentHealth()}/{targetHealth.GetMaxHealth()}";
+                healthValueText.text = $"{targetHealth.CurrentHealth}/{targetHealth.MaxHealth}";
             } else {
                 healthValueText.text = "N/A";
             }

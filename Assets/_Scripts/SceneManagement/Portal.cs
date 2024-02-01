@@ -1,9 +1,9 @@
-using RPG.Control;
-using RPG.Core;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using RPG.Control;
+using RPG.Core;
 
 namespace RPG.SceneManagement {
     public class Portal : MonoBehaviour {
@@ -12,21 +12,19 @@ namespace RPG.SceneManagement {
             A, B, C
         }
 
-        [SerializeField]
         [Tooltip("Teleport to the portal that has the same identifier")]
+        [SerializeField] 
         private DestinationIdentifier identifier;
 
-        [SerializeField]
+        [SerializeField] 
         private int sceneToLoad;
-
-        [SerializeField]
+        [SerializeField] 
         private float fadeOutTime;
-        [SerializeField]
+        [SerializeField] 
         private float fadeInTime;
-        [SerializeField]
-        private float fadeWaitTime;
-
-        [SerializeField]
+        [SerializeField] 
+        private float fadeInWaitTime;
+        [SerializeField] 
         private Transform spawnPoint;
 
         private void OnTriggerEnter(Collider collistion) {
@@ -38,6 +36,7 @@ namespace RPG.SceneManagement {
         IEnumerator SceneTransition() {
             DontDestroyOnLoad(gameObject);
 
+            //fader and savingWrapper are persistent objects
             Fader fader = FindObjectOfType<Fader>();
             SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
 
@@ -56,10 +55,11 @@ namespace RPG.SceneManagement {
 
             savingWrapper.SaveGame();
 
-            yield return new WaitForSeconds(fadeWaitTime);
+            yield return new WaitForSeconds(fadeInWaitTime);
 
             fader.FadeIn(fadeInTime);
             EnableControll();
+
             Destroy(gameObject);
         }
 

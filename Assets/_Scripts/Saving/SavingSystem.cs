@@ -15,6 +15,7 @@ namespace RPG.Saving {
             if (state.ContainsKey("LastSceneIndex")) {
                 buildIndex = (int)state["LastSceneIndex"];
             }
+
             yield return SceneManager.LoadSceneAsync(buildIndex);
 
             RestoreSaveableEntityState(state);
@@ -54,11 +55,6 @@ namespace RPG.Saving {
             Debug.Log($"Saving to {path}");
         }
 
-        /// <summary>
-        /// Return an empty dictionary if saveFile doesn't exist
-        /// </summary>
-        /// <param name="saveFile"></param>
-        /// <returns></returns>
         private Dictionary<string, object> LoadFile(string saveFile) {
             string path = GetPathFromSaveFile(saveFile);
 
@@ -76,7 +72,7 @@ namespace RPG.Saving {
             SaveableEntity[] saveableEntities = FindObjectsOfType<SaveableEntity>();
 
             foreach (SaveableEntity saveableEntity in saveableEntities) {
-                state[saveableEntity.GetUniqueIdentifier()] = saveableEntity.CaptureISaveableState();
+                state[saveableEntity.UniqueIdentifier] = saveableEntity.CaptureISaveableState();
             }
 
             state["LastSceneIndex"] = SceneManager.GetActiveScene().buildIndex;
@@ -86,7 +82,7 @@ namespace RPG.Saving {
             SaveableEntity[] saveableEntities = FindObjectsOfType<SaveableEntity>();
 
             foreach (SaveableEntity saveableEntity in saveableEntities) {
-                string identifier = saveableEntity.GetUniqueIdentifier();
+                string identifier = saveableEntity.UniqueIdentifier;
 
                 if (state.ContainsKey(identifier)) {
                     saveableEntity.RestoreISaveableState(state[identifier]);

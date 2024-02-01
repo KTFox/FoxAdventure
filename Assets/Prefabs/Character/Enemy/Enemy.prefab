@@ -200,7 +200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5335778873843982275}
-  - component: {fileID: 3890385742480316736}
+  - component: {fileID: 2617459420684307700}
   m_Layer: 0
   m_Name: Enemy Healthbar
   m_TagString: Untagged
@@ -224,7 +224,7 @@ Transform:
   - {fileID: 5685170864066150973}
   m_Father: {fileID: 5422913865980319978}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3890385742480316736
+--- !u!114 &2617459420684307700
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

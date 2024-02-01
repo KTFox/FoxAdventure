@@ -1,9 +1,9 @@
 using UnityEngine;
-using RPG.Movement;
-using RPG.Attributes;
 using UnityEngine.EventSystems;
 using System;
 using UnityEngine.AI;
+using RPG.Movement;
+using RPG.Attributes;
 
 namespace RPG.Control {
     public class PlayerController : MonoBehaviour {
@@ -15,13 +15,12 @@ namespace RPG.Control {
             public Vector2 hotspot;
         }
 
-        [SerializeField]
+        [SerializeField] 
         private CursorMapping[] cursorMappings;
-        [SerializeField]
-        private float maxNavMeshProjectionDistance = 1f;
 
         private Mover mover;
         private Health health;
+        private float maxNavMeshProjectionDistance = 1f;
 
         private void Awake() {
             mover = GetComponent<Mover>();
@@ -31,7 +30,7 @@ namespace RPG.Control {
         private void Update() {
             if (InteractWithUI()) return;
 
-            if (health.IsDeath()) {
+            if (health.IsDeath) {
                 SetCursor(CursorType.None);
                 return;
             }
@@ -64,9 +63,14 @@ namespace RPG.Control {
             return false;
         }
 
+        /// <summary>
+        /// Get all raycast hits sorted by distance
+        /// </summary>
+        /// <returns></returns>
         private RaycastHit[] GetAllSortedRaycastHit() {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
             float[] distances = new float[hits.Length];
+
             for (int i = 0; i < hits.Length; i++) {
                 distances[i] = hits[i].distance;
             }
@@ -109,7 +113,7 @@ namespace RPG.Control {
             return true;
         }
 
-        private void SetCursor(CursorType type) {
+        private void SetCursor(CursorType type) { 
             CursorMapping mapping = GetCursorMapping(type);
             Cursor.SetCursor(mapping.texture, mapping.hotspot, CursorMode.Auto);
         }

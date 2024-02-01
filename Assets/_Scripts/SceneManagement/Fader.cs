@@ -23,6 +23,12 @@ namespace RPG.SceneManagement {
             return Fade(0, fadeTime);
         }
 
+        /// <summary>
+        /// Stop currentActive Fade Coroutine and set a new one
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="fadeTime"></param>
+        /// <returns></returns>
         private Coroutine Fade(float target, float fadeTime) {
             if (currentActiveFade != null) {
                 StopCoroutine(currentActiveFade);
@@ -32,6 +38,12 @@ namespace RPG.SceneManagement {
             return currentActiveFade;
         }
 
+        /// <summary>
+        /// Set canvasGroup.alpha move to target by fadeTime
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="fadeTime"></param>
+        /// <returns></returns>
         private IEnumerator FadeRoutine(float target, float fadeTime) {
             while (!Mathf.Approximately(canvasGroup.alpha, target)) {
                 canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, target, Time.deltaTime / fadeTime);

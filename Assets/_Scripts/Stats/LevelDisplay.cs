@@ -14,7 +14,7 @@ namespace RPG.Stats {
         }
 
         private void Update() {
-            experienceValueText.text = String.Format("{0}", playerBaseStats.GetCurrentLevel());
+            experienceValueText.text = String.Format("{0}", playerBaseStats.CurrentLevel);
         }
     }
 }

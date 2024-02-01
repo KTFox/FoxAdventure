@@ -1,16 +1,16 @@
-using RPG.Attributes;
-using RPG.Control;
 using System.Collections;
 using UnityEngine;
+using RPG.Attributes;
+using RPG.Control;
 
 namespace RPG.Combat {
     public class WeaponPickup : MonoBehaviour, IRaycastable {
 
-        [SerializeField]
+        [SerializeField] 
         private WeaponSO weaponSO;
-        [SerializeField]
+        [SerializeField] 
         private float healthRestoreAmount;
-        [SerializeField]
+        [SerializeField] 
         private float hideTime;
 
         private void OnTriggerEnter(Collider collision) {
