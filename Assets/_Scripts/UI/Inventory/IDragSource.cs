@@ -4,7 +4,7 @@ namespace RPG.UI.Inventory {
         /// <summary>
         /// Type of item that currently resides in this source
         /// </summary>
-        T ItemType { get; }
+        T Item { get; }
 
         /// <summary>
         /// Quantity of item currently reside in this source
