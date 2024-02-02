@@ -1,11 +1,16 @@
 namespace RPG.UI.Inventory {
     public interface IDragSource<T> where T : class {
 
-        /// <returns>Item type currently resides in this source</returns>
-        T GetItem();
+        /// <summary>
+        /// Type of item that currently resides in this source
+        /// </summary>
+        T ItemType { get; }
 
-        /// <returns>Quantity of item currently reside in this source</returns>
-        int GetItemQuanity();
+        /// <summary>
+        /// Quantity of item currently reside in this source
+        /// </summary>
+        /// <returns></returns>
+        int ItemQuanity { get; }
 
         /// <summary>
         /// Remove a given number of items from this source
