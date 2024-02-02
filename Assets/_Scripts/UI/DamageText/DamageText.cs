@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace RPG.UI {
+namespace RPG.UI.DamageText {
     public class DamageText : MonoBehaviour {
 
         [SerializeField] 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.UI {
+namespace RPG.UI.Inventory {
     public class ShowHideUI : MonoBehaviour {
 
         [SerializeField]
@@ -15,6 +15,5 @@ namespace RPG.UI {
                 uiContainer.SetActive(!uiContainer.activeSelf);
             }
         }
-
     }
 }
