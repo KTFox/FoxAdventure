@@ -10,63 +10,75 @@ namespace RPG.UI.Inventory {
         private Vector3 startPosition;
         private Transform originalParent;
 
-        private void Awake() {
+        private void Awake()
+        {
             source = GetComponentInParent<IDragSource<T>>();
             parentCanvas = GetComponentInParent<Canvas>();
         }
 
-        public void OnBeginDrag(PointerEventData eventData) {
+        #region IDragHandler implements
+        public void OnBeginDrag(PointerEventData eventData)
+        {
             startPosition = transform.position;
             originalParent = transform.parent;
 
-            //?
             GetComponent<CanvasGroup>().blocksRaycasts = false;
 
             transform.SetParent(parentCanvas.transform, true);
         }
 
-        public void OnDrag(PointerEventData eventData) {
+        public void OnDrag(PointerEventData eventData)
+        {
             transform.position = eventData.position;
         }
 
-        public void OnEndDrag(PointerEventData eventData) {
+        public void OnEndDrag(PointerEventData eventData)
+        {
             transform.position = startPosition;
             transform.SetParent(originalParent, true);
 
-            //?
             GetComponent<CanvasGroup>().blocksRaycasts = true;
 
             //Find destination container
             IDragDestination<T> container;
-            if (!EventSystem.current.IsPointerOverGameObject()) {
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
                 //Drop item into the world
 
                 container = parentCanvas.GetComponent<IDragDestination<T>>();
-            } else {
+            }
+            else
+            {
                 container = GetContainer(eventData);
             }
 
             //Drop item into destination container
-            if (container != null) {
+            if (container != null)
+            {
                 DropItemIntoContainer(container);
             }
         }
+        #endregion
 
-        private IDragDestination<T> GetContainer(PointerEventData eventData) {
-            if (eventData.pointerEnter != null) {
+        private IDragDestination<T> GetContainer(PointerEventData eventData)
+        {
+            if (eventData.pointerEnter != null)
+            {
                 IDragDestination<T> container = eventData.pointerEnter.GetComponentInParent<IDragDestination<T>>();
                 return container;
             }
             return null;
         }
 
-        private void DropItemIntoContainer(IDragDestination<T> destination) {
+        private void DropItemIntoContainer(IDragDestination<T> destination)
+        {
             if (ReferenceEquals(destination, source)) return;
 
             var destinationContainer = destination as IDragContainer<T>;
             var sourceContainer = source as IDragContainer<T>;
 
-            if (destinationContainer == null || sourceContainer == null || ReferenceEquals(destinationContainer.Item, sourceContainer.Item)) {
+            if (destinationContainer == null || sourceContainer == null || ReferenceEquals(destinationContainer.Item, sourceContainer.Item))
+            {
                 AttempSimpleTransfer(destination);
                 return;
             }
@@ -74,20 +86,23 @@ namespace RPG.UI.Inventory {
             AttempSwap(destinationContainer, sourceContainer);
         }
 
-        private void AttempSimpleTransfer(IDragDestination<T> destination) {
+        private void AttempSimpleTransfer(IDragDestination<T> destination)
+        {
             T draggingItem = source.Item;
 
             int draggingQuantity = source.ItemQuanity;
             int acceptableQuantity = destination.GetMaxAcceptable(draggingItem);
             int quantityToTransfer = Mathf.Min(draggingQuantity, acceptableQuantity);
 
-            if (quantityToTransfer > 0) {
+            if (quantityToTransfer > 0)
+            {
                 source.RemoveItems(quantityToTransfer);
                 destination.AddItems(draggingItem, quantityToTransfer);
             }
         }
 
-        private void AttempSwap(IDragContainer<T> destination, IDragContainer<T> source) {
+        private void AttempSwap(IDragContainer<T> destination, IDragContainer<T> source)
+        {
             T removedItemFromSource = source.Item;
             T removedItemFromDestination = destination.Item;
             int removedItemNumberFromSource = source.ItemQuanity;
@@ -102,18 +117,21 @@ namespace RPG.UI.Inventory {
             int destinationTakeBackNumber = CalculateTakeBackNumber(removedItemFromDestination, removedItemNumberFromDestination, destination, source);
 
             //Do take back (if needed)
-            if (sourceTakeBackNumber > 0) {
+            if (sourceTakeBackNumber > 0)
+            {
                 source.AddItems(removedItemFromSource, sourceTakeBackNumber);
                 removedItemNumberFromSource -= sourceTakeBackNumber;
             }
-            if (destinationTakeBackNumber > 0) {
+            if (destinationTakeBackNumber > 0)
+            {
                 destination.AddItems(removedItemFromDestination, destinationTakeBackNumber);
                 removedItemNumberFromDestination -= destinationTakeBackNumber;
             }
 
             //Abort if fail to swap
             if (source.GetMaxAcceptable(removedItemFromDestination) < removedItemNumberFromDestination ||
-                destination.GetMaxAcceptable(removedItemFromSource) < removedItemNumberFromSource) {
+                destination.GetMaxAcceptable(removedItemFromSource) < removedItemNumberFromSource)
+            {
                 source.AddItems(removedItemFromSource, removedItemNumberFromSource);
                 destination.AddItems(removedItemFromDestination, removedItemNumberFromDestination);
 
@@ -121,23 +139,28 @@ namespace RPG.UI.Inventory {
             }
 
             //Do swap
-            if (removedItemNumberFromDestination > 0) {
+            if (removedItemNumberFromDestination > 0)
+            {
                 source.AddItems(removedItemFromDestination, removedItemNumberFromDestination);
             }
-            if (removedItemNumberFromSource > 0) {
+            if (removedItemNumberFromSource > 0)
+            {
                 destination.AddItems(removedItemFromSource, removedItemNumberFromSource);
             }
         }
 
-        private int CalculateTakeBackNumber(T item, int removedNumber, IDragContainer<T> removeSource, IDragContainer<T> destination) {
+        private int CalculateTakeBackNumber(T item, int removedNumber, IDragContainer<T> removeSource, IDragContainer<T> destination)
+        {
             int takeBackNumber = 0;
             int destinationMaxAcceptable = destination.GetMaxAcceptable(item);
 
-            if (destinationMaxAcceptable < removedNumber) {
+            if (destinationMaxAcceptable < removedNumber)
+            {
                 takeBackNumber = removedNumber - destinationMaxAcceptable;
                 int sourceMaxAcceptable = removeSource.GetMaxAcceptable(item);
 
-                if (sourceMaxAcceptable < takeBackNumber) {
+                if (sourceMaxAcceptable < takeBackNumber)
+                {
                     return 0;
                 }
             }

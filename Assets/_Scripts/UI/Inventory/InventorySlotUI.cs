@@ -1,22 +1,46 @@
 using UnityEngine;
 
-namespace RPG.UI.Inventory {
-    public class InventorySlotUI : MonoBehaviour, IDragContainer<Sprite> {
+namespace RPG.UI.Inventory
+{
+    public class InventorySlotUI : MonoBehaviour, IDragContainer<Sprite>
+    {
 
-        public Sprite Item => throw new System.NotImplementedException();
+        [SerializeField]
+        private InventoryItemIcon icon;
 
-        public int ItemQuanity => throw new System.NotImplementedException();
-
-        public void AddItems(Sprite item, int quantity) {
-            throw new System.NotImplementedException();
+        public Sprite Item
+        {
+            get
+            {
+                return icon.GetItemSprite();
+            }
         }
 
-        public int GetMaxAcceptable(Sprite item) {
-            throw new System.NotImplementedException();
+        public int ItemQuanity
+        {
+            get
+            {
+                return 1;
+            }
         }
 
-        public void RemoveItems(int quantity) {
-            throw new System.NotImplementedException();
+        public void AddItems(Sprite item, int quantity)
+        {
+            icon.SetItem(item);
+        }
+
+        public int GetMaxAcceptable(Sprite item)
+        {
+            if (Item == null)
+            {
+                return int.MaxValue;
+            }
+            return 0;
+        }
+
+        public void RemoveItems(int quantity)
+        {
+            icon.SetItem(null);
         }
     }
 }
