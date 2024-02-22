@@ -197,6 +197,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1348450288652152666, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8202745706633830008}
+    - targetCorrespondingSourceObject: {fileID: 1348450288652152666, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6044772794821999793}
   m_SourcePrefab: {fileID: 100100000, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
 --- !u!4 &140518475945222082 stripped
 Transform:
@@ -236,7 +239,6 @@ MonoBehaviour:
   - cursorType: 4
     texture: {fileID: 2800000, guid: 2d18e23e3ce249b4489b8bcdd02d3f48, type: 3}
     hotspot: {x: 0, y: 0}
-  maxNavMeshProjectionDistance: 0.5
 --- !u!114 &8202745706633830008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,4 +251,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c82769679697140930c67d562ea23d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experiencePoints: 0
+  _experiencePoints: 0
+--- !u!114 &6044772794821999793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931212515291373538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b3da190056f579428556e583127adf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

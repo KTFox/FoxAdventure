@@ -1,4 +1,4 @@
-namespace RPG.UI.Inventory {
+namespace RPG.Inventory {
     public interface IDragDestination<T> where T : class {
 
         /// <returns>Max accentable number of item that can be added into this destination</returns>

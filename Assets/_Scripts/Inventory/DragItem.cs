@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using RPG.UI.Inventory;
 
-namespace RPG.UI.Inventory {
-    public class DragItem<T> : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler where T : class {
-
+namespace RPG.Inventory
+{
+    public class DragItem<T> : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler where T : class
+    {
         private IDragSource<T> source;
         private Canvas parentCanvas;
 
@@ -17,7 +19,7 @@ namespace RPG.UI.Inventory {
         }
 
         #region IDragHandler implements
-        public void OnBeginDrag(PointerEventData eventData)
+        void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
             startPosition = transform.position;
             originalParent = transform.parent;
@@ -27,12 +29,12 @@ namespace RPG.UI.Inventory {
             transform.SetParent(parentCanvas.transform, true);
         }
 
-        public void OnDrag(PointerEventData eventData)
+        void IDragHandler.OnDrag(PointerEventData eventData)
         {
             transform.position = eventData.position;
         }
 
-        public void OnEndDrag(PointerEventData eventData)
+        void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
             transform.position = startPosition;
             transform.SetParent(originalParent, true);

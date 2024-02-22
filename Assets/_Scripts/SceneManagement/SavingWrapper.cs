@@ -2,19 +2,23 @@ using System.Collections;
 using UnityEngine;
 using RPG.Saving;
 
-namespace RPG.SceneManagement {
-    public class SavingWrapper : MonoBehaviour {
+namespace RPG.SceneManagement
+{
+    public class SavingWrapper : MonoBehaviour
+    {
 
         private const string defaultFileName = "KTFox_SavingFile";
 
-        [SerializeField] 
+        [SerializeField]
         private float fadeInTime;
 
-        private void Awake() {
+        private void Awake()
+        {
             StartCoroutine(LoadLastScene());
         }
 
-        IEnumerator LoadLastScene() {
+        IEnumerator LoadLastScene()
+        {
             yield return GetComponent<SavingSystem>().LoadLastScene(defaultFileName);
 
             Fader fader = FindObjectOfType<Fader>();
@@ -22,11 +26,25 @@ namespace RPG.SceneManagement {
             yield return fader.FadeIn(fadeInTime);
         }
 
-        public void LoadGame() {
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                SaveGame();
+            }
+            else if (Input.GetKeyDown(KeyCode.L))
+            {
+                LoadGame();
+            }
+        }
+
+        public void LoadGame()
+        {
             GetComponent<SavingSystem>().Load(defaultFileName);
         }
 
-        public void SaveGame() {
+        public void SaveGame()
+        {
             GetComponent<SavingSystem>().Save(defaultFileName);
         }
     }

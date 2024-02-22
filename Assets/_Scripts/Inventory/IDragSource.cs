@@ -1,4 +1,4 @@
-namespace RPG.UI.Inventory {
+namespace RPG.Inventory {
     public interface IDragSource<T> where T : class {
 
         /// <summary>
