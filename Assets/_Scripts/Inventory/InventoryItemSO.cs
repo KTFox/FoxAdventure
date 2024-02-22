@@ -92,14 +92,13 @@ namespace RPG.Inventory
                 }
             }
 
-            if (!itemLookupTable.ContainsKey(itemID) || itemID == null)
+            if (itemID == null || !itemLookupTable.ContainsKey(itemID))
                 return null;
 
             return itemLookupTable[itemID];
         }
 
         #region ISerializationCallbackReceiver implements
-
         void ISerializationCallbackReceiver.OnBeforeSerialize()
         {
             // Generate new UUID if this is blank
@@ -113,7 +112,6 @@ namespace RPG.Inventory
         {
             // Don't need to do anything
         }
-
         #endregion
     }
 }

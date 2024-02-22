@@ -4,12 +4,14 @@ using RPG.Core;
 using RPG.Saving;
 using RPG.Attributes;
 
-namespace RPG.Movement {
-    public class Mover : MonoBehaviour, IAction, ISaveable {
+namespace RPG.Movement
+{
+    public class Mover : MonoBehaviour, IAction, ISaveable
+    {
 
-        [SerializeField] 
+        [SerializeField]
         private float maxSpeed;
-        [SerializeField] 
+        [SerializeField]
         private float maxNavPathLength;
 
         private ActionScheduler actionScheduler;
@@ -17,20 +19,23 @@ namespace RPG.Movement {
         private Animator animator;
         private Health health;
 
-        private void Awake() {
+        private void Awake()
+        {
             actionScheduler = GetComponent<ActionScheduler>();
             navMeshAgent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             health = GetComponent<Health>();
         }
 
-        private void Update() {
+        private void Update()
+        {
             navMeshAgent.enabled = !health.IsDeath;
 
             UpdateAnimator();
         }
 
-        private void UpdateAnimator() {
+        private void UpdateAnimator()
+        {
             Vector3 velocity = navMeshAgent.velocity;
             Vector3 localVelocity = transform.InverseTransformDirection(velocity);
             float speed = localVelocity.z;
@@ -42,7 +47,8 @@ namespace RPG.Movement {
         /// Call ActionScheduler.StartAction() and MoveTo(destination) functions
         /// </summary>
         /// <param name="destination"></param>
-        public void StartMoveAction(Vector3 destination, float moveSpeedFraction) {
+        public void StartMoveAction(Vector3 destination, float moveSpeedFraction)
+        {
             actionScheduler.StartAction(this);
             MoveTo(destination, moveSpeedFraction);
         }
@@ -51,13 +57,15 @@ namespace RPG.Movement {
         /// Set navMeshAgent.destination equal position
         /// </summary>
         /// <param name="position"></param>
-        public void MoveTo(Vector3 position, float moveSpeedFraction) {
+        public void MoveTo(Vector3 position, float moveSpeedFraction)
+        {
             navMeshAgent.destination = position;
             navMeshAgent.speed = maxSpeed * Mathf.Clamp01(moveSpeedFraction);
             navMeshAgent.isStopped = false;
         }
 
-        public bool CanMoveTo(Vector3 position) {
+        public bool CanMoveTo(Vector3 position)
+        {
             NavMeshPath path = new NavMeshPath();
             bool hasPath = NavMesh.CalculatePath(transform.position, position, NavMesh.AllAreas, path);
             if (!hasPath) return false;
@@ -67,12 +75,14 @@ namespace RPG.Movement {
             return true;
         }
 
-        private float GetNavPathLength(NavMeshPath path) {
+        private float GetNavPathLength(NavMeshPath path)
+        {
             float pathLength = 0f;
 
             if (path.corners.Length < 2) return pathLength;
 
-            for (int i = 0; i < path.corners.Length - 1; i++) {
+            for (int i = 0; i < path.corners.Length - 1; i++)
+            {
                 float distance = Vector3.Distance(path.corners[i], path.corners[i + 1]);
                 pathLength += distance;
             }
@@ -84,17 +94,20 @@ namespace RPG.Movement {
         /// <summary>
         /// Set navMeshAgent.isStopped = true
         /// </summary>
-        public void Cancel() {
+        public void Cancel()
+        {
             navMeshAgent.isStopped = true;
         }
         #endregion
 
         #region ISaveable Interface implements
-        public object CaptureState() {
+        object ISaveable.CaptureState()
+        {
             return new SerializableVector3(transform.position);
         }
 
-        public void RestoreState(object state) {
+        void ISaveable.RestoreState(object state)
+        {
             navMeshAgent.enabled = false;
             transform.position = ((SerializableVector3)(state)).ToVector();
             navMeshAgent.enabled = true;

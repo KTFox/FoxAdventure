@@ -6,7 +6,6 @@ namespace RPG.SceneManagement
 {
     public class SavingWrapper : MonoBehaviour
     {
-
         private const string defaultFileName = "KTFox_SavingFile";
 
         [SerializeField]

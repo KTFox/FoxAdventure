@@ -138,14 +138,31 @@ namespace RPG.Inventory
         }
 
         #region ISaveable implements
-        public object CaptureState()
+        object ISaveable.CaptureState()
         {
-            return null;
+            string[] slotIDList = new string[inventorySize];
+
+            for (int i = 0; i < inventorySize; i++)
+            {
+                if (slots[i] != null)
+                {
+                    slotIDList[i] = slots[i].ItemID;
+                }
+            }
+
+            return slotIDList;
         }
 
-        public void RestoreState(object state)
+        void ISaveable.RestoreState(object state)
         {
-            
+            string[] slotIDList = (string[])state;
+
+            for (int i = 0; i < inventorySize; i++)
+            {
+                slots[i] = InventoryItemSO.GetItemFromID(slotIDList[i]);
+            }
+
+            OnInventoryUpdated?.Invoke();
         }
         #endregion
     }

@@ -6,8 +6,10 @@ using RPG.Saving;
 using RPG.Stats;
 using RPG.Utility;
 
-namespace RPG.Attributes {
-    public class Health : MonoBehaviour, ISaveable {
+namespace RPG.Attributes
+{
+    public class Health : MonoBehaviour, ISaveable
+    {
 
         [SerializeField]
         private UnityEvent<float> OnTakeDamage;
@@ -18,58 +20,74 @@ namespace RPG.Attributes {
         private bool _isDeath;
 
         #region Properties
-        public float CurrentHealth {
-            get {
+        public float CurrentHealth
+        {
+            get
+            {
                 return _currentHealth.Value;
             }
         }
 
-        public float CurrentHealthFraction {
-            get {
+        public float CurrentHealthFraction
+        {
+            get
+            {
                 return _currentHealth.Value / GetComponent<BaseStats>().GetStat(Stat.Health);
             }
         }
 
-        public float CurrentHealthPercentage {
-            get {
+        public float CurrentHealthPercentage
+        {
+            get
+            {
                 return CurrentHealthFraction * 100;
             }
         }
 
-        public float MaxHealth {
-            get {
+        public float MaxHealth
+        {
+            get
+            {
                 return GetComponent<BaseStats>().GetStat(Stat.Health);
             }
         }
 
-        public bool IsDeath {
-            get {
+        public bool IsDeath
+        {
+            get
+            {
                 return _isDeath;
             }
         }
         #endregion
 
-        private void Awake() {
+        private void Awake()
+        {
             _currentHealth = new LazyValue<float>(GetInitialHealth);
         }
 
-        float GetInitialHealth() {
+        float GetInitialHealth()
+        {
             return GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
-        private void OnEnable() {
+        private void OnEnable()
+        {
             GetComponent<BaseStats>().OnLevelUp += RegenerateHealth;
         }
 
-        void RegenerateHealth() {
+        void RegenerateHealth()
+        {
             _currentHealth.Value = GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
-        private void Start() {
+        private void Start()
+        {
             _currentHealth.ForceInit();
         }
 
-        private void OnDisable() {
+        private void OnDisable()
+        {
             GetComponent<BaseStats>().OnLevelUp -= RegenerateHealth;
         }
 
@@ -79,19 +97,24 @@ namespace RPG.Attributes {
         /// </summary>
         /// <param name="instigator"></param>
         /// <param name="damage"></param>
-        public void TakeDamage(GameObject instigator, float damage) {
+        public void TakeDamage(GameObject instigator, float damage)
+        {
             _currentHealth.Value = Mathf.Max(_currentHealth.Value - damage, 0f);
 
-            if (_currentHealth.Value == 0f) {
+            if (_currentHealth.Value == 0f)
+            {
                 Die();
                 AwardExperience(instigator);
                 OnDie?.Invoke();
-            } else {
+            }
+            else
+            {
                 OnTakeDamage?.Invoke(damage);
             }
         }
 
-        private void Die() {
+        private void Die()
+        {
             if (_isDeath) return;
 
             _isDeath = true;
@@ -103,7 +126,8 @@ namespace RPG.Attributes {
         /// Increase _currentHealth by an amount equal to restoreAmount
         /// </summary>
         /// <param name="restoreAmount"></param>
-        public void Heal(float restoreAmount) {
+        public void Heal(float restoreAmount)
+        {
             _currentHealth.Value = MathF.Min(MaxHealth, _currentHealth.Value + restoreAmount);
         }
 
@@ -111,7 +135,8 @@ namespace RPG.Attributes {
         /// Gain instigator's experience 
         /// </summary>
         /// <param name="instigator"></param>
-        private void AwardExperience(GameObject instigator) {
+        private void AwardExperience(GameObject instigator)
+        {
             Experience instigatorExperience = instigator.GetComponent<Experience>();
             if (instigatorExperience == null) return;
 
@@ -119,14 +144,17 @@ namespace RPG.Attributes {
         }
 
         #region ISaveable interface implements
-        public object CaptureState() {
+        object ISaveable.CaptureState()
+        {
             return _currentHealth.Value;
         }
 
-        public void RestoreState(object state) {
+        void ISaveable.RestoreState(object state)
+        {
             _currentHealth.Value = (float)state;
 
-            if (_currentHealth.Value <= 0f) {
+            if (_currentHealth.Value <= 0f)
+            {
                 Die();
             }
         }
