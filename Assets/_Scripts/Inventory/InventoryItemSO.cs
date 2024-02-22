@@ -31,6 +31,10 @@ namespace RPG.Inventory
         [SerializeField]
         private Sprite _icon;
 
+        [Tooltip("The prefab that should be spawned when this item is dropped.")]
+        [SerializeField]
+        private Pickup pickup;
+
         [Tooltip("If true, multiple items of this type can be stacked in the same inventory slot.")]
         [SerializeField]
         private bool _stackable;
@@ -96,6 +100,20 @@ namespace RPG.Inventory
                 return null;
 
             return itemLookupTable[itemID];
+        }
+
+        /// <summary>
+        /// Spawn pickup into the world
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public Pickup SpawnPickup(Vector3 position)
+        {
+            var pickup = Instantiate(this.pickup);
+            pickup.transform.position = position;
+            pickup.SetUp(this);
+
+            return pickup;
         }
 
         #region ISerializationCallbackReceiver implements

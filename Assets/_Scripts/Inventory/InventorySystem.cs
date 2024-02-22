@@ -30,15 +30,13 @@ namespace RPG.Inventory
 
         public bool HasEmptySlot
         {
-            get => FindFirstEmptySlotIndex() < 0;
+            get => FindFirstEmptySlotIndex() >= 0;
         }
         #endregion
 
         private void Awake()
         {
             slots = new InventoryItemSO[inventorySize];
-            slots[0] = InventoryItemSO.GetItemFromID("19eef2b6-954e-4b79-807d-44c4ac72a220");
-            slots[1] = InventoryItemSO.GetItemFromID("31377e4f-a469-4f5d-b166-a52a11722c9a");
         }
 
         /// <summary>

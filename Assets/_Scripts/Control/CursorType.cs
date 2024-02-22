@@ -4,6 +4,7 @@ namespace RPG.Control {
         UI,
         Movement,
         Pickup,
+        FullInventory,
         Combat
     }
 }
