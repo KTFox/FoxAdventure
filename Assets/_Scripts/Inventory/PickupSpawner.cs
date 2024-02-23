@@ -30,7 +30,6 @@ namespace RPG.Inventory
 
         private void Awake()
         {
-            // Spawn pickup in awake so it can be destroyed by saving system after
             SpawnPickup();
         }
 

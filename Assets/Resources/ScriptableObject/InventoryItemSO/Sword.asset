@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   _itemID: 31377e4f-a469-4f5d-b166-a52a11722c9a
-  _displayName: Dagger
+  _displayName: Sword
   _description: A basic weapon that is suitable for beginner.
   _icon: {fileID: 21300000, guid: d19901b0ee3c38743a7d383bd484b0b5, type: 3}
-  pickup: {fileID: 4974952935458003232, guid: 2ceb03cdcbd36e24a8cc1f69b51d8be2, type: 3}
+  pickup: {fileID: 7754994707097743079, guid: 67dc49ffe323b27429bf6485b36d45fc, type: 3}
   _stackable: 0

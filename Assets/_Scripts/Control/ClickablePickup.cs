@@ -14,7 +14,7 @@ namespace RPG.Control
         }
 
         #region IRaycastable implements
-        public CursorType GetCursorType()
+        CursorType IRaycastable.GetCursorType()
         {
             if (pickup.CanBePickedUp)
             {
@@ -26,7 +26,7 @@ namespace RPG.Control
             }
         }
 
-        public bool HandleRaycast(PlayerController callingController)
+        bool IRaycastable.HandleRaycast(PlayerController callingController)
         {
             if (Input.GetMouseButtonDown(1))
             {
