@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using RPG.UI.Inventory;
+using RPG.Inventory;
 
-namespace RPG.Inventory
+namespace RPG.Utility.UI
 {
     public class DragItem<T> : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler where T : class
     {

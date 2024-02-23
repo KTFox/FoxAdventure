@@ -1,6 +1,7 @@
-namespace RPG.Inventory {
-    public interface IDragSource<T> where T : class {
-
+namespace RPG.Utility.UI
+{
+    public interface IDragSource<T> where T : class
+    {
         /// <summary>
         /// Type of item that currently resides in this source
         /// </summary>
