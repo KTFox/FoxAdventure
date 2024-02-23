@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-//using GameDevTV.Saving;
+using GameDevTV.Saving;
 
 namespace GameDevTV.Inventories
 {
@@ -7,7 +7,7 @@ namespace GameDevTV.Inventories
     /// Spawns pickups that should exist on first load in a level. This
     /// automatically spawns the correct prefab for a given inventory item.
     /// </summary>
-    public class PickupSpawner : MonoBehaviour//, ISaveable
+    public class PickupSpawner : MonoBehaviour, ISaveable
     {
         // CONFIG DATA
         [SerializeField] InventoryItem item = null;
@@ -54,24 +54,24 @@ namespace GameDevTV.Inventories
             }
         }
 
-        //object ISaveable.CaptureState()
-        //{
-        //    return isCollected();
-        //}
+        object ISaveable.CaptureState()
+        {
+            return isCollected();
+        }
 
-        //void ISaveable.RestoreState(object state)
-        //{
-        //    bool shouldBeCollected = (bool)state;
+        void ISaveable.RestoreState(object state)
+        {
+            bool shouldBeCollected = (bool)state;
 
-        //    if (shouldBeCollected && !isCollected())
-        //    {
-        //        DestroyPickup();
-        //    }
+            if (shouldBeCollected && !isCollected())
+            {
+                DestroyPickup();
+            }
 
-        //    if (!shouldBeCollected && isCollected())
-        //    {
-        //        SpawnPickup();
-        //    }
-        //}
+            if (!shouldBeCollected && isCollected())
+            {
+                SpawnPickup();
+            }
+        }
     }
 }
