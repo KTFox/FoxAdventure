@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8184488043427317937}
   - component: {fileID: 1891479317892618527}
   - component: {fileID: 4959906407328014107}
+  - component: {fileID: 5148352686531685142}
   m_Layer: 0
   m_Name: Inventory Slot
   m_TagString: Untagged
@@ -90,6 +91,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 6683185242212626730}
+--- !u!114 &5148352686531685142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2285260469709614284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5382cbd7438e104f9de13dbfd7e365d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipPrefab: {fileID: 550562606887424610, guid: 2686acf824ee6ae4b8c4d403596eeea9, type: 3}
 --- !u!1 &5950757039101485148
 GameObject:
   m_ObjectHideFlags: 0

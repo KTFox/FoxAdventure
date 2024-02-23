@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemID: 19eef2b6-954e-4b79-807d-44c4ac72a220
   _displayName: Chest
-  _description: A basic range weapon that is suitable for beginner.
+  _description: A basic cloth can protect player from slight damage
   _icon: {fileID: 21300000, guid: 7bcee3dac4c974d43b329ee45aef4c99, type: 3}
   pickup: {fileID: 7754994707097743079, guid: 67dc49ffe323b27429bf6485b36d45fc, type: 3}
   _stackable: 0

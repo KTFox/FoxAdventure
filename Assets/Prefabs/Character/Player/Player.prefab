@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b3da190056f579428556e583127adf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySize: 16
+  inventorySize: 8
 --- !u!114 &7477568619280242428
 MonoBehaviour:
   m_ObjectHideFlags: 0

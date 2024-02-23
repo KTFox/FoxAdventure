@@ -4,7 +4,7 @@ using RPG.Utility.UI;
 
 namespace RPG.UI.Inventory
 {
-    public class InventorySlotUI : MonoBehaviour, IDragContainer<InventoryItemSO>
+    public class InventorySlotUI : MonoBehaviour, IDragContainer<InventoryItemSO>, IItemHolder
     {
         #region Variables
         [SerializeField]
