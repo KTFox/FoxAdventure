@@ -107,11 +107,11 @@ namespace RPG.Inventory
         /// </summary>
         /// <param name="position"></param>
         /// <returns></returns>
-        public Pickup SpawnPickup(Vector3 position)
+        public Pickup SpawnPickup(Vector3 position, int number)
         {
             var pickup = Instantiate(this.pickup);
             pickup.transform.position = position;
-            pickup.SetUp(this);
+            pickup.SetUp(this, number);
 
             return pickup;
         }

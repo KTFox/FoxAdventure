@@ -11,6 +11,8 @@ namespace RPG.Inventory
         private InventoryItemSO _item;
         private InventorySystem playerInventory;
 
+        private int _number = 1;
+
         #region Properties
         public InventoryItemSO Item
         {
@@ -20,6 +22,11 @@ namespace RPG.Inventory
         public bool CanBePickedUp
         {
             get => playerInventory.HasEmptySlot;
+        }
+
+        public int Number
+        {
+            get => _number;
         }
         #endregion
 
@@ -32,14 +39,22 @@ namespace RPG.Inventory
         /// Set the vital data after creating the prefab
         /// </summary>
         /// <param name="item"></param>
-        public void SetUp(in InventoryItemSO item)
+        public void SetUp(in InventoryItemSO item, int number)
         {
             _item = item;
+
+            if (!_item.Stackable)
+            {
+                number = 1;
+            }
+
+            _number = number;
+
         }
 
         public void PickupItem()
         {
-            bool foundSlot = playerInventory.AddItemToFirstEmptySlot(_item);
+            bool foundSlot = playerInventory.AddItemToFirstEmptySlot(_item, _number);
 
             if (foundSlot)
             {

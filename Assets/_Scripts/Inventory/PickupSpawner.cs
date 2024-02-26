@@ -11,6 +11,8 @@ namespace RPG.Inventory
     {
         [SerializeField]
         private InventoryItemSO item;
+        [SerializeField]
+        private int number = 1;
 
         #region Properties
         /// <summary>
@@ -35,7 +37,7 @@ namespace RPG.Inventory
 
         private void SpawnPickup()
         {
-            var spawnedPickup = item.SpawnPickup(transform.position);
+            var spawnedPickup = item.SpawnPickup(transform.position, number);
             spawnedPickup.transform.SetParent(transform);
         }
 

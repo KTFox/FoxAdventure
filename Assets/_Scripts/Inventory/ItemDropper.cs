@@ -16,14 +16,27 @@ namespace RPG.Inventory
         /// Create a pickup at the current position
         /// </summary>
         /// <param name="item"></param>
-        public void DropItem(InventoryItemSO item)
+        /// <param name="number">
+        /// The number of items contained in the pickup.
+        /// Only used if the item is stackable.
+        /// </param>
+        public void DropItem(InventoryItemSO item, int number)
         {
-            SpawnPickup(item, GetDropLocation());
+            SpawnPickup(item, GetDropLocation(), number);
         }
 
-        public void SpawnPickup(InventoryItemSO item, Vector3 spawnPosition)
+        /// <summary>
+        /// Create a pickup at the current position
+        /// </summary>
+        /// <param name="item"></param>
+        public void DropItem(InventoryItemSO item)
         {
-            var pickup = item.SpawnPickup(spawnPosition);
+            SpawnPickup(item, GetDropLocation(), 1);
+        }
+
+        public void SpawnPickup(InventoryItemSO item, Vector3 spawnPosition, int number)
+        {
+            var pickup = item.SpawnPickup(spawnPosition, number);
             droppedItems.Add(pickup);
         }
 
@@ -46,6 +59,7 @@ namespace RPG.Inventory
             {
                 droppedItemArray[i].itemID = droppedItems[i].Item.ItemID;
                 droppedItemArray[i].position = new SerializableVector3(droppedItems[i].transform.position);
+                droppedItemArray[i].number = droppedItems[i].Number;
             }
 
             return droppedItemArray;
@@ -59,11 +73,20 @@ namespace RPG.Inventory
             {
                 InventoryItemSO item = InventoryItemSO.GetItemFromID(record.itemID);
                 Vector3 spawnPosition = record.position.ToVector();
+                int number = record.number;
 
-                SpawnPickup(item, spawnPosition);
+                SpawnPickup(item, spawnPosition, number);
             }
         }
         #endregion
+
+        [System.Serializable]
+        private struct DropRecord
+        {
+            public string itemID;
+            public SerializableVector3 position;
+            public int number;
+        }
 
         /// <summary>
         /// Remove any drops in the world that have been picked up
@@ -77,21 +100,12 @@ namespace RPG.Inventory
                 if (item != null)
                 {
                     // Drop hasn't been picked up
-                    
+
                     newList.Add(item);
                 }
             }
 
             droppedItems = newList;
         }
-
-        #region Structs
-        [System.Serializable]
-        private struct DropRecord
-        {
-            public string itemID;
-            public SerializableVector3 position;
-        }
-        #endregion
     }
 }

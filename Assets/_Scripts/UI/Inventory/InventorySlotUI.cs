@@ -22,7 +22,7 @@ namespace RPG.UI.Inventory
 
         public int ItemQuanity
         {
-            get => 1;
+            get => inventory.GetItemQuantityInSlot(index);
         }
         #endregion
 
@@ -30,17 +30,17 @@ namespace RPG.UI.Inventory
         {
             this.inventory = inventory;
             this.index = index;
-            icon.SetItem(inventory.GetItemInSlot(index));
+            icon.SetItem(inventory.GetItemInSlot(index), inventory.GetItemQuantityInSlot(index));
         }
 
         public void AddItems(InventoryItemSO item, int number)
         {
-            inventory.AddItemToSlot(index, item);
+            inventory.AddItemToSlot(index, item, number);
         }
 
         public void RemoveItems(int quantity)
         {
-            inventory.RemoveFromSlot(index);
+            inventory.RemoveFromSlot(index, quantity);
         }
 
         public int GetMaxAcceptable(InventoryItemSO item)
