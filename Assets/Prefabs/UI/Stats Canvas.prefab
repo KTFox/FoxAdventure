@@ -663,7 +663,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a63fd9caf818044a9bb91f1e8e3129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiContainer: {fileID: 7813482481912737795}
+  toggleKey: 27
+  uiContainer:
+  - {fileID: 7813482481912737795}
+  - {fileID: 964258496546945964}
 --- !u!114 &4902356733993974701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1392,10 +1395,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1889007547215750971}
     m_Modifications:
+    - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: equipLocation
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6480972321850690205, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Name
       value: Equipment Slot (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6663088688982458190, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f059877565627d540b227f396ad9e568, type: 3}
     - target: {fileID: 7468261422582799641, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1494,10 +1505,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1889007547215750971}
     m_Modifications:
+    - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: equipLocation
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6480972321850690205, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Name
       value: Equipment Slot (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6663088688982458190, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cfa037d9ad8881747b6188967698d6ca, type: 3}
     - target: {fileID: 7468261422582799641, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1596,6 +1615,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4613425123367032869}
     m_Modifications:
+    - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: equipLocation
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6480972321850690205, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Name
       value: Equipment Slot (1)
@@ -1698,10 +1721,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4613425123367032869}
     m_Modifications:
+    - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: equipLocation
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6480972321850690205, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Name
       value: Equipment Slot (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6663088688982458190, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 344aa2512e791bb4693b61b07493b445, type: 3}
     - target: {fileID: 7468261422582799641, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1800,10 +1831,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1889007547215750971}
     m_Modifications:
+    - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: equipLocation
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6480972321850690205, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Name
       value: Equipment Slot (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6663088688982458190, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a2460e188fc1efb418ac53fa2715c6e7, type: 3}
     - target: {fileID: 7468261422582799641, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1906,6 +1945,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Equipment Slot
       objectReference: {fileID: 0}
+    - target: {fileID: 6663088688982458190, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4c438a3604a96dd4d8990cc11b424f42, type: 3}
     - target: {fileID: 7468261422582799641, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2004,10 +2047,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4613425123367032869}
     m_Modifications:
+    - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: equipLocation
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6480972321850690205, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Name
       value: Equipment Slot (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6663088688982458190, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ee69c6bad6679564ca603179e243f448, type: 3}
     - target: {fileID: 7468261422582799641, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2106,10 +2157,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1889007547215750971}
     m_Modifications:
+    - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: equipLocation
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6480972321850690205, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Name
       value: Equipment Slot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6663088688982458190, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 88f4bdad502a13449abc596e59f840e1, type: 3}
     - target: {fileID: 7468261422582799641, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

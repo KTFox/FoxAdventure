@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2992440430514d4498ae80256ca7cba2, type: 3}
-  m_Name: Chest
+  m_Script: {fileID: 11500000, guid: c442445d553cf4b4ea085060fffbb8e1, type: 3}
+  m_Name: Sword
   m_EditorClassIdentifier: 
-  _itemID: 19eef2b6-954e-4b79-807d-44c4ac72a220
-  _displayName: Chest
-  _description: A basic cloth can protect player from slight damage
-  _icon: {fileID: 21300000, guid: 7bcee3dac4c974d43b329ee45aef4c99, type: 3}
+  _itemID: b7222a4e-50c3-4c26-8024-57020edcdbfe
+  _displayName: Sword
+  _description: A basic weapon that is suitable for beginner.
+  _icon: {fileID: 21300000, guid: d19901b0ee3c38743a7d383bd484b0b5, type: 3}
   pickup: {fileID: 7754994707097743079, guid: 67dc49ffe323b27429bf6485b36d45fc, type: 3}
-  _stackable: 1
+  _stackable: 0
+  _allowedEquipLocation: 3

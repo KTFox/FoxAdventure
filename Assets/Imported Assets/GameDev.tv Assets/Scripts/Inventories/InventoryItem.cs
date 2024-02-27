@@ -10,7 +10,7 @@ namespace GameDevTV.Inventories
     /// </summary>
     /// <remarks>
     /// In practice, you are likely to use a subclass such as `ActionItem` or
-    /// `EquipableItem`.
+    /// `EquipableItemSO`.
     /// </remarks>
     public abstract class InventoryItem : ScriptableObject, ISerializationCallbackReceiver
     {
