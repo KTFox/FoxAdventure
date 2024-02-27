@@ -9,7 +9,7 @@ namespace GameDevTV.Inventories
     /// inventory.
     /// </summary>
     /// <remarks>
-    /// In practice, you are likely to use a subclass such as `ActionItem` or
+    /// In practice, you are likely to use a subclass such as `ActionItemSO` or
     /// `EquipableItemSO`.
     /// </remarks>
     public abstract class InventoryItem : ScriptableObject, ISerializationCallbackReceiver

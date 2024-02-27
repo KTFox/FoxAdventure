@@ -11,10 +11,10 @@ namespace RPG.Utility.UI
         /// Quantity of item currently reside in this source
         /// </summary>
         /// <returns></returns>
-        int ItemQuanity { get; }
+        int ItemQuantity { get; }
 
         /// <summary>
-        /// Remove a given number of items from this source
+        /// Remove a given quantity of items from this source
         /// </summary>
         /// <param name="quantity"></param>
         void RemoveItems(int quantity);

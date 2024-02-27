@@ -8,7 +8,7 @@ namespace RPG.Inventory
     /// A ScriptableObject that represents any item that can be put in an inventory
     /// </summary>
     /// <remarks>
-    /// In practice, you are likely to use a subclass such as "ActionItem" or "EquipableItemSO"
+    /// In practice, you are likely to use a subclass such as "ActionItemSO" or "EquipableItemSO"
     /// </remarks>
     [CreateAssetMenu(menuName = "UI/InventorySystem/InventoryItemSO")]
     public class InventoryItemSO : ScriptableObject, ISerializationCallbackReceiver

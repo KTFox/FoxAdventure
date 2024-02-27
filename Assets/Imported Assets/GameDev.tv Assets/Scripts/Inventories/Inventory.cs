@@ -5,7 +5,7 @@ using GameDevTV.Saving;
 namespace GameDevTV.Inventories
 {
     /// <summary>
-    /// Provides storage for the player inventory. A configurable number of
+    /// Provides storage for the player inventory. A configurable quantity of
     /// slots are available.
     ///
     /// This component should be placed on the GameObject tagged "Player".
@@ -61,7 +61,7 @@ namespace GameDevTV.Inventories
         /// Attempt to add the items to the first available slot.
         /// </summary>
         /// <param name="item">The item to add.</param>
-        /// <param name="number">The number to add.</param>
+        /// <param name="number">The quantity to add.</param>
         /// <returns>Whether or not the item could be added.</returns>
         public bool AddToFirstEmptySlot(InventoryItem item, int number)
         {
@@ -105,7 +105,7 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// Get the number of items in the given slot.
+        /// Get the quantity of items in the given slot.
         /// </summary>
         public int GetNumberInSlot(int slot)
         {
@@ -113,7 +113,7 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// Remove a number of items from the given slot. Will never remove more
+        /// Remove a quantity of items from the given slot. Will never remove more
         /// that there are.
         /// </summary>
         public void RemoveFromSlot(int slot, int number)
@@ -137,7 +137,7 @@ namespace GameDevTV.Inventories
         /// </summary>
         /// <param name="slot">The slot to attempt to add to.</param>
         /// <param name="item">The item type to add.</param>
-        /// <param name="number">The number of items to add.</param>
+        /// <param name="number">The quantity of items to add.</param>
         /// <returns>True if the item was added anywhere in the inventory.</returns>
         public bool AddItemToSlot(int slot, InventoryItem item, int number)
         {

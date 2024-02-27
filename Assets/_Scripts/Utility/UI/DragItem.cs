@@ -92,7 +92,7 @@ namespace RPG.Utility.UI
         {
             T draggingItem = source.Item;
 
-            int draggingQuantity = source.ItemQuanity;
+            int draggingQuantity = source.ItemQuantity;
             int acceptableQuantity = destination.GetMaxAcceptable(draggingItem);
             int quantityToTransfer = Mathf.Min(draggingQuantity, acceptableQuantity);
 
@@ -107,14 +107,14 @@ namespace RPG.Utility.UI
         {
             T removedItemFromSource = source.Item;
             T removedItemFromDestination = destination.Item;
-            int removedItemNumberFromSource = source.ItemQuanity;
-            int removedItemNumberFromDestination = destination.ItemQuanity;
+            int removedItemNumberFromSource = source.ItemQuantity;
+            int removedItemNumberFromDestination = destination.ItemQuantity;
 
             //Provisionally remove items from both sides
             source.RemoveItems(removedItemNumberFromSource);
             destination.RemoveItems(removedItemNumberFromDestination);
 
-            //Calculate take back number from both sides
+            //Calculate take back quantity from both sides
             int sourceTakeBackNumber = CalculateTakeBackNumber(removedItemFromSource, removedItemNumberFromSource, source, destination);
             int destinationTakeBackNumber = CalculateTakeBackNumber(removedItemFromDestination, removedItemNumberFromDestination, destination, source);
 

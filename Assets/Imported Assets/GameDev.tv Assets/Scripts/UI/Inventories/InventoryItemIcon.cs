@@ -9,7 +9,7 @@ namespace GameDevTV.UI.Inventories
 {
     /// <summary>
     /// To be put on the icon representing an inventory item. Allows the slot to
-    /// update the icon and number.
+    /// update the icon and quantity.
     /// </summary>
     [RequireComponent(typeof(Image))]
     public class InventoryItemIcon : MonoBehaviour

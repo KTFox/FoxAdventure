@@ -6,7 +6,7 @@ using GameDevTV.Saving;
 namespace GameDevTV.Inventories
 {
     /// <summary>
-    /// Provides the storage for an action bar. The bar has a finite number of
+    /// Provides the storage for an action bar. The bar has a finite quantity of
     /// slots that can be filled and actions in the slots can be "used".
     /// 
     /// This component should be placed on the GameObject tagged "Player".
@@ -41,7 +41,7 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// Get the number of items left at the given index.
+        /// Get the quantity of items left at the given index.
         /// </summary>
         /// <returns>
         /// Will return 0 if no item is in the index or the item has
@@ -105,7 +105,7 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// Remove a given number of items from the given slot.
+        /// Remove a given quantity of items from the given slot.
         /// </summary>
         public void RemoveItems(int index, int number)
         {
@@ -125,7 +125,7 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// What is the maximum number of items allowed in this slot.
+        /// What is the maximum quantity of items allowed in this slot.
         /// 
         /// This takes into account whether the slot already contains an item
         /// and whether it is the same type. Will only accept multiple if the

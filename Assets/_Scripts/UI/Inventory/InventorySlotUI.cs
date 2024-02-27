@@ -20,7 +20,7 @@ namespace RPG.UI.Inventory
             get => inventory.GetItemInSlot(index);
         }
 
-        public int ItemQuanity
+        public int ItemQuantity
         {
             get => inventory.GetItemQuantityInSlot(index);
         }

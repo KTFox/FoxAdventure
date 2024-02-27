@@ -17,7 +17,7 @@ namespace RPG.Inventory
         /// </summary>
         /// <param name="item"></param>
         /// <param name="number">
-        /// The number of items contained in the pickup.
+        /// The quantity of items contained in the pickup.
         /// Only used if the item is stackable.
         /// </param>
         public void DropItem(InventoryItemSO item, int number)

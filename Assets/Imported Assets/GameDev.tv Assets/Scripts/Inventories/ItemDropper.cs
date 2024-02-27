@@ -20,7 +20,7 @@ namespace GameDevTV.Inventories
         /// </summary>
         /// <param name="item">The item type for the pickup.</param>
         /// <param name="number">
-        /// The number of items contained in the pickup. Only used if the item
+        /// The quantity of items contained in the pickup. Only used if the item
         /// is stackable.
         /// </param>
         public void DropItem(InventoryItem item, int number)

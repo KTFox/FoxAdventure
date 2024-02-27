@@ -22,7 +22,7 @@ namespace RPG.UI.Inventory
             get => playerEquipment.GetItemInSlot(equipLocation);
         }
 
-        public int ItemQuanity
+        public int ItemQuantity
         {
             get
             {
@@ -62,7 +62,7 @@ namespace RPG.UI.Inventory
 
         public int GetMaxAcceptable(InventoryItemSO item)
         {
-            EquipableItemSO equipableItem = (EquipableItemSO)item;
+            EquipableItemSO equipableItem = item as EquipableItemSO;
 
             if (equipableItem == null)
                 return 0;

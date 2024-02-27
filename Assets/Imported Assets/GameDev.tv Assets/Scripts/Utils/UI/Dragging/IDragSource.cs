@@ -22,10 +22,10 @@ namespace GameDevTV.Core.UI.Dragging
         int GetNumber();
 
         /// <summary>
-        /// Remove a given number of items from the source.
+        /// Remove a given quantity of items from the source.
         /// </summary>
         /// <param name="number">
-        /// This should never exceed the number returned by `GetNumber`.
+        /// This should never exceed the quantity returned by `GetNumber`.
         /// </param>
         void RemoveItems(int number);
     }

@@ -4,7 +4,7 @@ namespace GameDevTV.Inventories
 {
     /// <summary>
     /// To be placed at the root of a Pickup prefab. Contains the data about the
-    /// pickup such as the type of item and the number.
+    /// pickup such as the type of item and the quantity.
     /// </summary>
     public class Pickup : MonoBehaviour
     {
@@ -29,7 +29,7 @@ namespace GameDevTV.Inventories
         /// Set the vital data after creating the prefab.
         /// </summary>
         /// <param name="item">The type of item this prefab represents.</param>
-        /// <param name="number">The number of items represented.</param>
+        /// <param name="number">The quantity of items represented.</param>
         public void Setup(InventoryItem item, int number)
         {
             this.item = item;
