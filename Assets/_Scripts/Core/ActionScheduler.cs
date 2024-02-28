@@ -1,18 +1,21 @@
 using UnityEngine;
 
-namespace RPG.Core {
-    public class ActionScheduler : MonoBehaviour {
-
+namespace RPG.Core
+{
+    public class ActionScheduler : MonoBehaviour
+    {
         private IAction currentAction;
 
         /// <summary>
         /// Call currentAction.Cancel() and set currentAction = action
         /// </summary>
         /// <param name="action"></param>
-        public void StartAction(IAction action) {
+        public void StartAction(IAction action)
+        {
             if (currentAction == action) return;
 
-            if (currentAction != null) {
+            if (currentAction != null)
+            {
                 currentAction.Cancel();
             }
 
@@ -22,7 +25,8 @@ namespace RPG.Core {
         /// <summary>
         /// Set ActionScheduler.currentAction = null
         /// </summary>
-        public void CancelCurrentAction() {
+        public void CancelCurrentAction()
+        {
             StartAction(null);
         }
     }

@@ -1,21 +1,20 @@
 using UnityEngine;
 
-namespace RPG.UI.Inventory {
-    public class ShowHideUI : MonoBehaviour {
-
+namespace RPG.UI.Inventory
+{
+    public class ShowHideUI : MonoBehaviour
+    {
         [SerializeField] KeyCode toggleKey = KeyCode.Escape;
         [SerializeField] GameObject[] uiContainer = null;
 
         private bool isShowing;
 
-        // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             Hide();
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
             if (Input.GetKeyDown(toggleKey))
             {

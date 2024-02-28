@@ -2,25 +2,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Stats {
-    [CreateAssetMenu(fileName = "New ProgressionSO", menuName = "Stats/Create new ProgressionSO", order = 0)]
+    [CreateAssetMenu(menuName = "ScriptableObject/ProgressionSO")]
     public class ProgressionSO : ScriptableObject {
+        [SerializeField] 
+        private CharacterProgress[] characterProgresses;
 
         #region Serializable structs
         [System.Serializable]
-        struct CharacterProgress {
+        struct CharacterProgress
+        {
             public CharacterClass characterClass;
             public StatProgress[] statProgresses;
         }
 
         [System.Serializable]
-        struct StatProgress {
+        struct StatProgress
+        {
             public Stat stat;
             public float[] levels;
         }
         #endregion
-
-        [SerializeField] 
-        private CharacterProgress[] characterProgresses;
 
         private Dictionary<CharacterClass, Dictionary<Stat, float[]>> lookupTable;
 

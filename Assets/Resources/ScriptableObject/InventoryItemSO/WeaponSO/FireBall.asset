@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0227862df922d384e8f95a6ad1cefb07, type: 3}
   m_Name: FireBall
   m_EditorClassIdentifier: 
+  _itemID: a8207449-cb19-4c59-9f2d-4d6bf339b1d5
+  _displayName: Fire Ball
+  _description: A magical weapon that deal a large damage.
+  _icon: {fileID: 21300000, guid: a1ec2c0ddc0da634b85f0f465fec2d0d, type: 3}
+  pickup: {fileID: 1780782195916529133, guid: 9f0b20dfe977b9441a92aa307c83934c, type: 3}
+  _stackable: 0
+  _allowedEquipLocation: 3
   equippedPrefab: {fileID: 0}
   projectile: {fileID: 7889304657907939108, guid: 208a193fa2168a4499fad037c04078b5, type: 3}
   animatorOverrideController: {fileID: 22100000, guid: 995822a866b901845abbf62c4289864a, type: 2}

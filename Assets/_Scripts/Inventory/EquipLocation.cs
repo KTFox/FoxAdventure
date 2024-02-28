@@ -9,6 +9,6 @@ namespace RPG.Inventory
         Gloves,
         Shield,
         Boots,
-        Potion
+        Necklace
     }
 }

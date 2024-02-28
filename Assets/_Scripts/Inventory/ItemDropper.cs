@@ -78,7 +78,6 @@ namespace RPG.Inventory
                 SpawnPickup(item, spawnPosition, number);
             }
         }
-        #endregion
 
         [System.Serializable]
         private struct DropRecord
@@ -87,6 +86,7 @@ namespace RPG.Inventory
             public SerializableVector3 position;
             public int number;
         }
+        #endregion
 
         /// <summary>
         /// Remove any drops in the world that have been picked up

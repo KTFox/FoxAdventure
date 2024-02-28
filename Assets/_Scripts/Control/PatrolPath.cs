@@ -1,18 +1,23 @@
 using UnityEngine;
 
-namespace RPG.Control {
-    public class PatrolPath : MonoBehaviour {
-
+namespace RPG.Control
+{
+    public class PatrolPath : MonoBehaviour
+    {
         private float waypointGizmosRadius = 0.3f;
 
-        public int WaypointCount {
-            get {
+        public int WaypointCount
+        {
+            get
+            {
                 return transform.childCount;
             }
         }
 
-        private void OnDrawGizmos() {
-            for (int i = 0; i < transform.childCount; i++) {
+        private void OnDrawGizmos()
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
                 Gizmos.DrawSphere(GetWaypointPosition(i), waypointGizmosRadius);
                 Gizmos.DrawLine(GetWaypointPosition(i), GetWaypointPosition(GetNextIndex(i)));
             }
@@ -24,10 +29,14 @@ namespace RPG.Control {
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public int GetNextIndex(int index) {
-            if (index == transform.childCount - 1) {
+        public int GetNextIndex(int index)
+        {
+            if (index == transform.childCount - 1)
+            {
                 return 0;
-            } else {
+            }
+            else
+            {
                 return index + 1;
             }
         }
@@ -37,7 +46,8 @@ namespace RPG.Control {
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public Vector3 GetWaypointPosition(int index) {
+        public Vector3 GetWaypointPosition(int index)
+        {
             return transform.GetChild(index).position;
         }
     }

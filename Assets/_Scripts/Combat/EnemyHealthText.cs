@@ -2,23 +2,29 @@ using TMPro;
 using UnityEngine;
 using RPG.Attributes;
 
-namespace RPG.Combat {
-    public class EnemyHealthText : MonoBehaviour {
-
+namespace RPG.Combat
+{
+    public class EnemyHealthText : MonoBehaviour
+    {
         private Fighter fighter;
         private TextMeshProUGUI healthValueText;
 
-        private void Awake() {
+        private void Awake()
+        {
             healthValueText = GetComponent<TextMeshProUGUI>();
             fighter = GameObject.FindGameObjectWithTag("Player").GetComponent<Fighter>();
         }
 
-        private void Update() {
+        private void Update()
+        {
             Health targetHealth = fighter.TargetHealth;
 
-            if (targetHealth != null) {
+            if (targetHealth != null)
+            {
                 healthValueText.text = $"{targetHealth.CurrentHealth}/{targetHealth.MaxHealth}";
-            } else {
+            }
+            else
+            {
                 healthValueText.text = "N/A";
             }
         }

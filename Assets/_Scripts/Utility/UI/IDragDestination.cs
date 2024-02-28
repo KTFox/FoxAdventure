@@ -2,7 +2,6 @@ namespace RPG.Utility.UI
 {
     public interface IDragDestination<T> where T : class
     {
-
         /// <returns>Max accentable quantity of item that can be added into this destination</returns>
         int GetMaxAcceptable(T item);
 

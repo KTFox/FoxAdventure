@@ -6,20 +6,18 @@ namespace RPG.Inventory
 {
     public class InventorySystem : MonoBehaviour, ISaveable
     {
+        public event Action OnInventoryUpdated;
+
         [SerializeField]
         private int inventorySize = 16;
 
         private InventoryItemSlot[] slots;
 
-        #region Structs
-        public struct InventoryItemSlot
+        private struct InventoryItemSlot
         {
             public InventoryItemSO item;
             public int quantity;
         }
-        #endregion
-
-        public event Action OnInventoryUpdated;
 
         #region Properties
         public static InventorySystem PlayerInventory
@@ -203,13 +201,6 @@ namespace RPG.Inventory
         }
 
         #region ISaveable implements
-        [System.Serializable]
-        private struct InventorySlotRecord
-        {
-            public string itemID;
-            public int quantity;
-        }
-
         object ISaveable.CaptureState()
         {
             InventorySlotRecord[] slotRecordArray = new InventorySlotRecord[inventorySize];
@@ -237,6 +228,13 @@ namespace RPG.Inventory
             }
 
             OnInventoryUpdated?.Invoke();
+        }
+
+        [System.Serializable]
+        private struct InventorySlotRecord
+        {
+            public string itemID;
+            public int quantity;
         }
         #endregion
     }

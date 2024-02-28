@@ -8,7 +8,6 @@ namespace RPG.Movement
 {
     public class Mover : MonoBehaviour, IAction, ISaveable
     {
-
         [SerializeField]
         private float maxSpeed;
         [SerializeField]

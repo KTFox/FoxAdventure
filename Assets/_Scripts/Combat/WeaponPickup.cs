@@ -3,33 +3,40 @@ using UnityEngine;
 using RPG.Attributes;
 using RPG.Control;
 
-namespace RPG.Combat {
-    public class WeaponPickup : MonoBehaviour, IRaycastable {
-
-        [SerializeField] 
+namespace RPG.Combat
+{
+    public class WeaponPickup : MonoBehaviour, IRaycastable
+    {
+        [SerializeField]
         private WeaponSO weaponSO;
-        [SerializeField] 
+        [SerializeField]
         private float healthRestoreAmount;
-        [SerializeField] 
+        [SerializeField]
         private float hideTime;
 
-        private void OnTriggerEnter(Collider collision) {
-            if (collision.CompareTag("Player")) {
+        private void OnTriggerEnter(Collider collision)
+        {
+            if (collision.CompareTag("Player"))
+            {
                 Pickup(collision.gameObject);
             }
         }
 
-        private void Pickup(GameObject subject) {
-            if (weaponSO != null) {
+        private void Pickup(GameObject subject)
+        {
+            if (weaponSO != null)
+            {
                 subject.GetComponent<Fighter>().EquipWeapon(weaponSO);
             }
-            if (healthRestoreAmount > 0) {
+            if (healthRestoreAmount > 0)
+            {
                 subject.GetComponent<Health>().Heal(healthRestoreAmount);
             }
             StartCoroutine(HideForSeconds(hideTime));
         }
 
-        private IEnumerator HideForSeconds(float seconds) {
+        private IEnumerator HideForSeconds(float seconds)
+        {
             HidePickup();
 
             yield return new WaitForSeconds(seconds);
@@ -37,31 +44,38 @@ namespace RPG.Combat {
             ShowPickup();
         }
 
-        private void HidePickup() {
+        private void HidePickup()
+        {
             GetComponent<SphereCollider>().enabled = false;
 
-            foreach (Transform child in transform) {
+            foreach (Transform child in transform)
+            {
                 child.gameObject.SetActive(false);
             }
         }
 
-        private void ShowPickup() {
+        private void ShowPickup()
+        {
             GetComponent<SphereCollider>().enabled = true;
 
-            foreach (Transform child in transform) {
+            foreach (Transform child in transform)
+            {
                 child.gameObject.SetActive(true);
             }
         }
 
         #region IRaycastable implements
-        public bool HandleRaycast(PlayerController callingController) {
-            if (Input.GetMouseButtonDown(1)) {
+        public bool HandleRaycast(PlayerController callingController)
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
                 Pickup(callingController.gameObject);
             }
             return true;
         }
 
-        public CursorType GetCursorType() {
+        public CursorType GetCursorType()
+        {
             return CursorType.Pickup;
         }
         #endregion

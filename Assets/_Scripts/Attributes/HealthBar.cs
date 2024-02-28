@@ -1,17 +1,20 @@
 using UnityEngine;
 
-namespace RPG.Attributes {
-    public class HealthBar : MonoBehaviour {
-
-        [SerializeField] 
+namespace RPG.Attributes
+{
+    public class HealthBar : MonoBehaviour
+    {
+        [SerializeField]
         private Health characterHealth;
-        [SerializeField] 
+        [SerializeField]
         private Transform foreground;
-        [SerializeField] 
+        [SerializeField]
         private Canvas rootCanvas;
 
-        private void Update() {
-            if (Mathf.Approximately(characterHealth.CurrentHealthFraction, 1f) || Mathf.Approximately(characterHealth.CurrentHealthFraction, 0f)) {
+        private void Update()
+        {
+            if (Mathf.Approximately(characterHealth.CurrentHealthFraction, 1f) || Mathf.Approximately(characterHealth.CurrentHealthFraction, 0f))
+            {
                 rootCanvas.enabled = false;
                 return;
             }

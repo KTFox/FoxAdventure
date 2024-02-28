@@ -10,7 +10,6 @@ namespace RPG.Inventory
     /// <remarks>
     /// In practice, you are likely to use a subclass such as "ActionItemSO" or "EquipableItemSO"
     /// </remarks>
-    [CreateAssetMenu(menuName = "UI/InventorySystem/InventoryItemSO")]
     public class InventoryItemSO : ScriptableObject, ISerializationCallbackReceiver
     {
         #region Variables

@@ -42,7 +42,7 @@ namespace RPG.Utility.UI
         }
 
         #region IPointerHandler implements
-        public void OnPointerEnter(PointerEventData eventData)
+        void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
             var parentCanvas = GetComponentInParent<Canvas>();
 
@@ -63,7 +63,7 @@ namespace RPG.Utility.UI
             }
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
             ClearTooltip();
         }

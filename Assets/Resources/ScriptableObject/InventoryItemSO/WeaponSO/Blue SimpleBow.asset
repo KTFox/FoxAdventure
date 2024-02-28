@@ -10,10 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0227862df922d384e8f95a6ad1cefb07, type: 3}
-  m_Name: Red SimpleBow
+  m_Name: Blue SimpleBow
   m_EditorClassIdentifier: 
+  _itemID: 9e9be8c0-607a-4a6c-8c87-8d0d2aa53b5b
+  _displayName: Simple Bow
+  _description: A simple range weapon.
+  _icon: {fileID: 21300000, guid: 5732dc58816b91d4dbc488b1b3c8f08b, type: 3}
+  pickup: {fileID: 2667800612718814636, guid: 925dcc74d16ad8c46be2496517b38627, type: 3}
+  _stackable: 0
+  _allowedEquipLocation: 3
   equippedPrefab: {fileID: 8335838633082106880, guid: 7f105c0c272e6c146b4b41cdc53ea356, type: 3}
-  projectile: {fileID: 4646596887215793247, guid: 77a7a3192e769de4db5b4b4a6165ba2d, type: 3}
+  projectile: {fileID: 4880585891857018379, guid: ffc38e32edfef024291202c96f8f7f6a, type: 3}
   animatorOverrideController: {fileID: 22100000, guid: a259186f6cb8fe44fbe16b5a85063579, type: 2}
   rightHandWeapon: 0
   _weaponRange: 5

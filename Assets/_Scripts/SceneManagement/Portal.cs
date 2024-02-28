@@ -5,35 +5,40 @@ using UnityEngine.SceneManagement;
 using RPG.Control;
 using RPG.Core;
 
-namespace RPG.SceneManagement {
-    public class Portal : MonoBehaviour {
+namespace RPG.SceneManagement
+{
+    public class Portal : MonoBehaviour
+    {
+        [Tooltip("Teleport to the portal that has the same identifier")]
+        [SerializeField]
+        private DestinationIdentifier identifier;
 
-        enum DestinationIdentifier {
+        enum DestinationIdentifier
+        {
             A, B, C
         }
 
-        [Tooltip("Teleport to the portal that has the same identifier")]
-        [SerializeField] 
-        private DestinationIdentifier identifier;
-
-        [SerializeField] 
+        [SerializeField]
         private int sceneToLoad;
-        [SerializeField] 
+        [SerializeField]
         private float fadeOutTime;
-        [SerializeField] 
+        [SerializeField]
         private float fadeInTime;
-        [SerializeField] 
+        [SerializeField]
         private float fadeInWaitTime;
-        [SerializeField] 
+        [SerializeField]
         private Transform spawnPoint;
 
-        private void OnTriggerEnter(Collider collistion) {
-            if (collistion.gameObject.CompareTag("Player")) {
+        private void OnTriggerEnter(Collider collistion)
+        {
+            if (collistion.gameObject.CompareTag("Player"))
+            {
                 StartCoroutine(SceneTransition());
             }
         }
 
-        IEnumerator SceneTransition() {
+        IEnumerator SceneTransition()
+        {
             DontDestroyOnLoad(gameObject);
 
             //fader and savingWrapper are persistent objects
@@ -63,14 +68,16 @@ namespace RPG.SceneManagement {
             Destroy(gameObject);
         }
 
-        private void DisableControll() {
+        private void DisableControll()
+        {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
 
             player.GetComponent<ActionScheduler>().CancelCurrentAction();
             player.GetComponent<PlayerController>().enabled = false;
         }
 
-        private void EnableControll() {
+        private void EnableControll()
+        {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             player.GetComponent<PlayerController>().enabled = true;
         }
@@ -79,10 +86,12 @@ namespace RPG.SceneManagement {
         /// Return the portal that has the same identifier with this
         /// </summary>
         /// <returns></returns>
-        private Portal GetOtherPortal() {
+        private Portal GetOtherPortal()
+        {
             Portal[] portals = FindObjectsOfType<Portal>();
 
-            foreach (Portal portal in portals) {
+            foreach (Portal portal in portals)
+            {
                 if (portal == this) continue;
                 if (portal.identifier != this.identifier) continue;
 
@@ -92,7 +101,8 @@ namespace RPG.SceneManagement {
             return null;
         }
 
-        private void UpdatePlayer(Portal portal) {
+        private void UpdatePlayer(Portal portal)
+        {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
 
             player.GetComponent<NavMeshAgent>().Warp(portal.spawnPoint.position);

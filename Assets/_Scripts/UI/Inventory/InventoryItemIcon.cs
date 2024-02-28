@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using RPG.Inventory;
 using TMPro;
+using RPG.Inventory;
 
 namespace RPG.UI.Inventory
 {

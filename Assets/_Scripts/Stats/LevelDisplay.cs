@@ -2,18 +2,21 @@ using System;
 using TMPro;
 using UnityEngine;
 
-namespace RPG.Stats {
-    public class LevelDisplay : MonoBehaviour {
-
+namespace RPG.Stats
+{
+    public class LevelDisplay : MonoBehaviour
+    {
         private BaseStats playerBaseStats;
         private TextMeshProUGUI experienceValueText;
 
-        private void Awake() {
+        private void Awake()
+        {
             playerBaseStats = GameObject.FindGameObjectWithTag("Player").GetComponent<BaseStats>();
             experienceValueText = GetComponent<TextMeshProUGUI>();
         }
 
-        private void Update() {
+        private void Update()
+        {
             experienceValueText.text = String.Format("{0}", playerBaseStats.CurrentLevel);
         }
     }

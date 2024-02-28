@@ -4,7 +4,6 @@ using System;
 using UnityEngine.AI;
 using RPG.Movement;
 using RPG.Attributes;
-using RPG.Inventory;
 
 namespace RPG.Control
 {
@@ -23,7 +22,9 @@ namespace RPG.Control
 
         private Mover mover;
         private Health health;
+
         private float maxNavMeshProjectionDistance = 1f;
+        private bool isDraggingUI;
 
         private void Awake()
         {
@@ -49,8 +50,28 @@ namespace RPG.Control
 
         private bool InteractWithUI()
         {
-            SetCursor(CursorType.UI);
-            return EventSystem.current.IsPointerOverGameObject();
+            if (Input.GetMouseButtonUp(0))
+            {
+                isDraggingUI = false;
+            }
+
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    isDraggingUI = true;
+                }
+
+                SetCursor(CursorType.UI);
+                return true;
+            }
+
+            if (isDraggingUI)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private bool InteractWithComponent()

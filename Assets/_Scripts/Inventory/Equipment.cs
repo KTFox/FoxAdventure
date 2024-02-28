@@ -51,6 +51,15 @@ namespace RPG.Inventory
             OnEquipmentUpdated?.Invoke();
         }
 
+        /// <summary>
+        /// Enumerate through all the slots that currently contains item.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<EquipLocation> GetAllPopulatedSlots()
+        {
+            return equippedItems.Keys;
+        }
+
         #region ISaveable implements
         object ISaveable.CaptureState()
         {

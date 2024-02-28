@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using RPG.Inventory;
 
 namespace RPG.Utility.UI
 {
