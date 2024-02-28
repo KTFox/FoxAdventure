@@ -13,7 +13,7 @@ namespace RPG.Inventory
         private List<Pickup> droppedItems = new List<Pickup>();
 
         /// <summary>
-        /// Create a pickup at the current position
+        /// Create a pickup at GetDropLocation() position
         /// </summary>
         /// <param name="item"></param>
         /// <param name="number">
@@ -86,7 +86,6 @@ namespace RPG.Inventory
             public SerializableVector3 position;
             public int number;
         }
-        #endregion
 
         /// <summary>
         /// Remove any drops in the world that have been picked up
@@ -107,5 +106,6 @@ namespace RPG.Inventory
 
             droppedItems = newList;
         }
+        #endregion
     }
 }

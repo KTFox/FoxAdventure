@@ -335,8 +335,28 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 8232666371657700237}
+    - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: RandomDrop
       objectReference: {fileID: 0}
     - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
@@ -355,8 +375,16 @@ PrefabInstance:
       value: AggrevateAllies
       objectReference: {fileID: 0}
     - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: RPG.Inventory.RandomDropper, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
       value: RPG.Control.AIController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -439,6 +467,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1348450288652152666, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2780925296645352734}
+    - targetCorrespondingSourceObject: {fileID: 1348450288652152666, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8232666371657700237}
   m_SourcePrefab: {fileID: 100100000, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
 --- !u!1 &1071320172116252874 stripped
 GameObject:
@@ -473,9 +504,24 @@ MonoBehaviour:
   aggroCooldown: 2
   shoutDistance: 3
   suspiciousTime: 3
-  patrolPath: {fileID: 0}
-  patrolSpeedFraction: 0.5
   waypointDwellTime: 1
+  patrolSpeedFraction: 0.5
+  patrolPath: {fileID: 0}
+--- !u!114 &8232666371657700237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071320172116252874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b95f3c3e50cc5b84483292fc5a4a6511, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scatterDistance: 1
+  numberOfDrops: 0
+  dropLibrary: []
 --- !u!4 &5422913865980319978 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6281042690639228794, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}

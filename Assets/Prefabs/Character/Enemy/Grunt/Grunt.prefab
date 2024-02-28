@@ -60,6 +60,22 @@ PrefabInstance:
       propertyPath: rightHandTransform
       value: 
       objectReference: {fileID: 7355386367350657315}
+    - target: {fileID: 8232666371657700237, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
+      propertyPath: numberOfDrops
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232666371657700237, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
+      propertyPath: dropLibrary.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232666371657700237, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
+      propertyPath: dropLibrary.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 664f6e6775a6aa542b29e295604af6f2, type: 2}
+    - target: {fileID: 8232666371657700237, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
+      propertyPath: dropLibrary.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0e3a03ab8a2c73d4c8c0804701fd9d72, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

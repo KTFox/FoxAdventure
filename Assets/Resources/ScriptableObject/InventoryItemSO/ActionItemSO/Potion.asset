@@ -16,6 +16,6 @@ MonoBehaviour:
   _displayName: Health Potion
   _description: +20 healh
   _icon: {fileID: 21300000, guid: aba0f700d91d4fc4fa8c724899ab04ab, type: 3}
-  pickup: {fileID: 7754994707097743079, guid: 67dc49ffe323b27429bf6485b36d45fc, type: 3}
+  pickup: {fileID: 6118481731957384448, guid: 6a0e571d581c9fb41adda27e450a571e, type: 3}
   _stackable: 1
   _consumable: 1
