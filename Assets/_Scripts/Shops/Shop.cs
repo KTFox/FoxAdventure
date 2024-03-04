@@ -18,7 +18,15 @@ namespace RPG.Shops
 
         public event Action OnShopUndated;
 
+        [SerializeField]
+        private string _shopName;
+
         #region Properties
+        public string ShopName
+        {
+            get => _shopName;
+        }
+
         public bool IsBuyingMode
         {
             get => true;
