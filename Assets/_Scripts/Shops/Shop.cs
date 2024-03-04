@@ -8,15 +8,7 @@ namespace RPG.Shops
 {
     public class Shop : MonoBehaviour, IRaycastable
     {
-        public struct shopItem
-        {
-            private InventoryItemSO item;
-            private int availability;
-            private float price;
-            private int quantityInTransaction;
-        }
-
-        public event Action OnShopUndated;
+        public event Action OnShopUpdated;
 
         [SerializeField]
         private string _shopName;
@@ -38,9 +30,11 @@ namespace RPG.Shops
         }
         #endregion
 
-        public IEnumerable<shopItem> GetFilteredItems()
+        public IEnumerable<ShopItem> GetFilteredItems()
         {
-            return null;
+            yield return new ShopItem(InventoryItemSO.GetItemFromID("9e9be8c0-607a-4a6c-8c87-8d0d2aa53b5b"), 3, 12.5f, 10);
+            yield return new ShopItem(InventoryItemSO.GetItemFromID("a8207449-cb19-4c59-9f2d-4d6bf339b1d5"), 2, 10f, 12);
+            yield return new ShopItem(InventoryItemSO.GetItemFromID("c63a163a-0f2e-4e72-917c-b2ad73851bc2"), 1, 13f, 3);
         }
 
         public void SelectFilter(ItemCategory category)
