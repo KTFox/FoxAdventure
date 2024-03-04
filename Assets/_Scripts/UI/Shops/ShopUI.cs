@@ -43,7 +43,7 @@ namespace RPG.UI.Shops
             RefreshShopUI();
         }
 
-        private void RefreshShopUI()
+        void RefreshShopUI()
         {
             foreach (Transform transform in rowUIListRoot)
             {

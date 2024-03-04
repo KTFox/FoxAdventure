@@ -90,18 +90,26 @@ namespace RPG.Shops
             Inventory shopperInventory = currentShopper.GetComponent<Inventory>();
             if (shopperInventory == null) return;
 
+            // Get Shopper's Purse
+            Purse shopperPurse = currentShopper.GetComponent<Purse>();
+            if (shopperPurse == null) return;
+
             // Transfer to or from Shopper's Inventory
-            var transactionSnapshot = new Dictionary<InventoryItemSO, int>(transaction);
-            foreach (InventoryItemSO item in transactionSnapshot.Keys)
+            foreach (ShopItem shopItem in GetAllItems())
             {
-                int quantity = transaction[item];
+                InventoryItemSO inventoryItem = shopItem.Item;
+                int quantity = shopItem.QuantityInTransaction;
+                float price = shopItem.Price;
                 for (int i = 0; i < quantity; i++)
                 {
-                    bool successTransaction = shopperInventory.AddItemToFirstEmptySlot(item, 1);
+                    if (shopperPurse.CurrentBalance < price) break;
+
+                    bool successTransaction = shopperInventory.AddItemToFirstEmptySlot(inventoryItem, 1);
 
                     if (successTransaction)
                     {
-                        AddTransaction(item, -1);
+                        AddTransaction(inventoryItem, -1);
+                        shopperPurse.UpdateBalance(-price);
                     }
                 }
             }
