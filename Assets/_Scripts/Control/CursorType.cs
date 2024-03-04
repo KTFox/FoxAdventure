@@ -7,6 +7,7 @@ namespace RPG.Control
         Movement,
         Pickup,
         FullInventory,
-        Combat
+        Combat,
+        Shop
     }
 }

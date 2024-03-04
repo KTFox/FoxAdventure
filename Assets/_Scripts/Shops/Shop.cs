@@ -2,10 +2,11 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using RPG.Inventory;
+using RPG.Control;
 
 namespace RPG.Shops
 {
-    public class Shop : MonoBehaviour
+    public class Shop : MonoBehaviour, IRaycastable
     {
         public struct shopItem
         {
@@ -63,5 +64,22 @@ namespace RPG.Shops
         {
             return 0;
         }
+
+        #region IRaycastable implements
+        public bool HandleRaycast(PlayerController callingController)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                callingController.GetComponent<Shopper>().SetActiveShop(this);
+            }
+
+            return true;
+        }
+
+        public CursorType GetCursorType()
+        {
+            return CursorType.Shop;
+        }
+        #endregion
     }
 }

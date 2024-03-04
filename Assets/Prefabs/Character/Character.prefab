@@ -14,12 +14,12 @@ GameObject:
   - component: {fileID: 4903757346782678814}
   - component: {fileID: 8312479813795661304}
   - component: {fileID: 6184661106116606224}
+  - component: {fileID: 7855730341978067056}
+  - component: {fileID: 7128718470566842638}
   - component: {fileID: 1798984306716900888}
   - component: {fileID: 8651850123553397496}
   - component: {fileID: 8380802605935938911}
   - component: {fileID: 5257418737176178497}
-  - component: {fileID: 7855730341978067056}
-  - component: {fileID: 7128718470566842638}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -180,6 +180,36 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7855730341978067056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348450288652152666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6b90ac07c10ec469a385ba949c38a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uniqueIdentifier: 
+--- !u!114 &7128718470566842638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348450288652152666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abf431eb0b24e643aece3cd6fb07828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressionSO: {fileID: 11400000, guid: 2130b7bb60d23c34592bea2d18200d13, type: 2}
+  characterClass: 1
+  startLevel: 2
+  shouldUseModifier: 0
+  levelupParticleEffect: {fileID: 0}
 --- !u!114 &1798984306716900888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,36 +306,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7855730341978067056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348450288652152666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d6b90ac07c10ec469a385ba949c38a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueIdentifier: 
---- !u!114 &7128718470566842638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348450288652152666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9abf431eb0b24e643aece3cd6fb07828, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startLevel: 2
-  characterClass: 1
-  progressionSO: {fileID: 11400000, guid: 2130b7bb60d23c34592bea2d18200d13, type: 2}
-  levelupParticleEffect: {fileID: 0}
-  shouldUseModifier: 0
 --- !u!1 &2362025004331001830
 GameObject:
   m_ObjectHideFlags: 0
