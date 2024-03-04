@@ -136,6 +136,7 @@ MonoBehaviour:
   shopName: {fileID: 408092437261717997}
   rowUIListRoot: {fileID: 2917668453054851006}
   rowUIPrefab: {fileID: 2635936523562321066, guid: 568a3fa886cce5749b9472d10e35dc65, type: 3}
+  totalAmount: {fileID: 5925866942457341611}
 --- !u!1 &964258496546945964
 GameObject:
   m_ObjectHideFlags: 0

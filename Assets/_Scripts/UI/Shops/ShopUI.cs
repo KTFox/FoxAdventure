@@ -12,6 +12,8 @@ namespace RPG.UI.Shops
         private Transform rowUIListRoot;
         [SerializeField]
         private RowUI rowUIPrefab;
+        [SerializeField]
+        private TextMeshProUGUI totalAmount;
 
         private Shop currentShop;
         private Shopper shopper;
@@ -48,14 +50,13 @@ namespace RPG.UI.Shops
                 Destroy(transform.gameObject);
             }
 
-            if (currentShop != null)
+            foreach (ShopItem item in currentShop.GetFilteredItems())
             {
-                foreach (ShopItem item in currentShop.GetFilteredItems())
-                {
-                    RowUI itemRow = Instantiate(rowUIPrefab, rowUIListRoot);
-                    itemRow.Setup(currentShop, item);
-                }
+                RowUI itemRow = Instantiate(rowUIPrefab, rowUIListRoot);
+                itemRow.Setup(currentShop, item);
             }
+
+            totalAmount.text = $"Total: ${currentShop.GetTransactionTotal():N2}";
         }
 
         private void Start()

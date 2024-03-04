@@ -53,6 +53,11 @@ namespace RPG.Shops
 
         public IEnumerable<ShopItem> GetFilteredItems()
         {
+            return GetAllItems();
+        }
+
+        public IEnumerable<ShopItem> GetAllItems()
+        {
             foreach (StockItemConfig stockConfig in stockConfigs)
             {
                 float price = stockConfig.item.Price * (1 - stockConfig.buyingPercentageDiscount / 100);
@@ -119,9 +124,15 @@ namespace RPG.Shops
             OnShopUpdated?.Invoke();
         }
 
-        public float TransactionTotal()
+        public float GetTransactionTotal()
         {
-            return 0;
+            float total = 0;
+            foreach (ShopItem item in GetAllItems())
+            {
+                total += item.QuantityInTransaction * item.Price;
+            }
+
+            return total;
         }
 
         #region IRaycastable implements
