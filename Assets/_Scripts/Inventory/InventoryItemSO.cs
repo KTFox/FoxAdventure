@@ -38,6 +38,10 @@ namespace RPG.Inventory
         [SerializeField]
         private bool _stackable;
 
+        [Tooltip("Item's buying price in shop. ")]
+        [SerializeField]
+        private float _price;
+
         private static Dictionary<string, InventoryItemSO> itemLookupTable;
         #endregion
 
@@ -65,6 +69,11 @@ namespace RPG.Inventory
         public bool Stackable
         {
             get => _stackable;
+        }
+
+        public float Price
+        {
+            get => _price;
         }
         #endregion
 

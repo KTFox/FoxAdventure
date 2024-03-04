@@ -13,6 +13,19 @@ namespace RPG.Shops
         [SerializeField]
         private string _shopName;
 
+        [SerializeField]
+        private StockItemConfig[] stockConfigs;
+
+        [System.Serializable]
+        private class StockItemConfig
+        {
+            public InventoryItemSO item;
+            public int initialStock;
+
+            [Range(0, 100)]
+            public float buyingPercentageDiscount;
+        }
+
         #region Properties
         public string ShopName
         {
@@ -32,9 +45,11 @@ namespace RPG.Shops
 
         public IEnumerable<ShopItem> GetFilteredItems()
         {
-            yield return new ShopItem(InventoryItemSO.GetItemFromID("9e9be8c0-607a-4a6c-8c87-8d0d2aa53b5b"), 3, 12.32f, 10);
-            yield return new ShopItem(InventoryItemSO.GetItemFromID("a8207449-cb19-4c59-9f2d-4d6bf339b1d5"), 2, 10f, 12);
-            yield return new ShopItem(InventoryItemSO.GetItemFromID("c63a163a-0f2e-4e72-917c-b2ad73851bc2"), 1, 13f, 3);
+            foreach (StockItemConfig stockConfig in stockConfigs)
+            {
+                float price = stockConfig.item.Price * (1 - stockConfig.buyingPercentageDiscount / 100);
+                yield return new ShopItem(stockConfig.item, stockConfig.initialStock, price, 0);
+            }
         }
 
         public void SelectFilter(ItemCategory category)
