@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-03-04T02:30:13.011Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.21 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="xuTio6ji0zAih6OW7n0l" version="22.1.21" type="device">
+<mxfile host="Electron" modified="2024-03-04T03:30:42.218Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.21 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="5LgRd59orxwb5WoNhFs5" version="22.1.21" type="device">
   <diagram id="J0Jw_gMJzLSo-h7KQk8o" name="Test Page">
     <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -66,6 +66,9 @@
             <mxPoint x="330" y="450" as="sourcePoint" />
             <mxPoint x="490" y="450" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="jjK10x3MlpFM84TFmCq0-8" value="ShopItem" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="140" y="400" width="110" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
