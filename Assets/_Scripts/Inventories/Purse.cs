@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 
 namespace RPG.Inventories
 {
     public class Purse : MonoBehaviour
     {
+        public event Action OnPurseUpdated;
+
         [SerializeField]
         private float startingBalance = 50f;
 
@@ -26,6 +29,8 @@ namespace RPG.Inventories
         public void UpdateBalance(float amount)
         {
             _currentBalance += amount;
+
+            OnPurseUpdated?.Invoke();
 
             Debug.Log($"Balance: {_currentBalance}");
         }
