@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Saving;
 
-namespace RPG.Inventory
+namespace RPG.Inventories
 {
     /// <summary>
     /// Provides the storage for an action bar. The bar has a finite quantity of slots that can be filled and actions in the slots can be "used".
@@ -48,8 +48,8 @@ namespace RPG.Inventory
         }
 
         /// <summary>
-        /// Use the item at the given slot. 
-        /// If the item is consumable one instance will be destroyed until the item is removed completely.
+        /// Use the _item at the given slot. 
+        /// If the _item is consumable one instance will be destroyed until the _item is removed completely.
         /// </summary>
         /// <param name="user">The character that wants to use this action.</param>
         /// <returns>False if the action could not be executed.</returns>
@@ -109,7 +109,7 @@ namespace RPG.Inventory
         /// Get the quantity of items left at the given index.
         /// </summary>
         /// <returns>
-        /// Will return 0 if no item is in the index or the item has been fully consumed.
+        /// Will return 0 if no _item is in the index or the _item has been fully consumed.
         /// </returns>
         public int GetItemQuantity(int index)
         {
@@ -123,8 +123,8 @@ namespace RPG.Inventory
 
         /// <summary>
         /// What is the maximum quantity of items allowed in this slot.
-        /// This takes into account whether the slot already contains an item and whether it is the same type.
-        /// Will only accept multiple if the item is consumable.
+        /// This takes into account whether the slot already contains an _item and whether it is the same type.
+        /// Will only accept multiple if the _item is consumable.
         /// </summary>
         /// <returns>Will return int.MaxValue when there is not effective bound.</returns>
         public int GetMaxAcceptable(InventoryItemSO item, int index)

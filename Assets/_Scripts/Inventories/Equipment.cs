@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using RPG.Saving;
 
-namespace RPG.Inventory
+namespace RPG.Inventories
 {
     /// <summary>
     /// Provides a store for the items equipped to a player. 
@@ -17,7 +17,7 @@ namespace RPG.Inventory
         private Dictionary<EquipLocation, EquipableItemSO> equippedItems = new Dictionary<EquipLocation, EquipableItemSO>();
 
         /// <summary>
-        /// Return the item in the given equip location.
+        /// Return the _item in the given equip location.
         /// </summary>
         public EquipableItemSO GetItemInSlot(EquipLocation location)
         {
@@ -30,7 +30,7 @@ namespace RPG.Inventory
         }
 
         /// <summary>
-        /// Add an item to the given equip location. 
+        /// Add an _item to the given equip location. 
         /// Do not attempt to equip to an incompatible slot.
         /// </summary>
         public void AddItem(EquipLocation location, EquipableItemSO item)
@@ -41,7 +41,7 @@ namespace RPG.Inventory
         }
 
         /// <summary>
-        /// Remove the item for the given location.
+        /// Remove the _item for the given location.
         /// </summary>
         /// <param name="location"></param>
         public void RemoveItem(EquipLocation location)
@@ -52,7 +52,7 @@ namespace RPG.Inventory
         }
 
         /// <summary>
-        /// Enumerate through all the slots that currently contains item.
+        /// Enumerate through all the slots that currently contains _item.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<EquipLocation> GetAllPopulatedSlots()

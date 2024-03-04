@@ -1,5 +1,5 @@
 using UnityEngine;
-using RPG.Inventory;
+using RPG.Inventories;
 
 namespace RPG.Control
 {

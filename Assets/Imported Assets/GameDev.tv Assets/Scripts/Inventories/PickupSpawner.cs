@@ -5,7 +5,7 @@ namespace GameDevTV.Inventories
 {
     /// <summary>
     /// Spawns pickups that should exist on first load in a level. This
-    /// automatically spawns the correct prefab for a given inventory item.
+    /// automatically spawns the correct prefab for a given inventory _item.
     /// </summary>
     public class PickupSpawner : MonoBehaviour, ISaveable
     {

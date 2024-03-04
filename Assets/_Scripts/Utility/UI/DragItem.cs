@@ -44,7 +44,7 @@ namespace RPG.Utility.UI
             IDragDestination<T> container;
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                //Drop item into the world
+                //Drop _item into the world
 
                 container = parentCanvas.GetComponent<IDragDestination<T>>();
             }
@@ -53,7 +53,7 @@ namespace RPG.Utility.UI
                 container = GetContainer(eventData);
             }
 
-            //Drop item into destination container
+            //Drop _item into destination container
             if (container != null)
             {
                 DropItemIntoContainer(container);

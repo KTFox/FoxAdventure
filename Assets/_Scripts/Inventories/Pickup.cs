@@ -1,15 +1,15 @@
 using UnityEngine;
 
-namespace RPG.Inventory
+namespace RPG.Inventories
 {
     /// <summary>
     /// To be placed at the root of a Pickup prefab. Contains the data about the
-    /// pickup such as the type of item and the quantity.
+    /// pickup such as the type of _item and the quantity.
     /// </summary>
     public class Pickup : MonoBehaviour
     {
         private InventoryItemSO _item;
-        private InventorySystem playerInventory;
+        private Inventory playerInventory;
 
         private int _number = 1;
 
@@ -32,7 +32,7 @@ namespace RPG.Inventory
 
         private void Awake()
         {
-            playerInventory = InventorySystem.PlayerInventory;
+            playerInventory = Inventory.PlayerInventory;
         }
 
         /// <summary>

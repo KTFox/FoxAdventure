@@ -8,11 +8,11 @@ namespace GameDevTV.Core.UI.Dragging
     /// Components that implement this interfaces can act as the source for
     /// dragging a `DragItem`.
     /// </summary>
-    /// <typeparam name="T">The type that represents the item being dragged.</typeparam>
+    /// <typeparam name="T">The type that represents the _item being dragged.</typeparam>
     public interface IDragSource<T> where T : class
     {
         /// <summary>
-        /// What item type currently resides in this source?
+        /// What _item type currently resides in this source?
         /// </summary>
         T GetItem();
 

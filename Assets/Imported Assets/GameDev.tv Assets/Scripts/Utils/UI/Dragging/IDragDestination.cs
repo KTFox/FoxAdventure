@@ -12,16 +12,16 @@ namespace GameDevTV.Core.UI.Dragging
     public interface IDragDestination<T> where T : class
     {
         /// <summary>
-        /// How many of the given item can be accepted.
+        /// How many of the given _item can be accepted.
         /// </summary>
-        /// <param name="item">The item type to potentially be added.</param>
+        /// <param name="item">The _item type to potentially be added.</param>
         /// <returns>If there is no limit Int.MaxValue should be returned.</returns>
         int MaxAcceptable(T item);
 
         /// <summary>
-        /// Update the UI and any data to reflect adding the item to this destination.
+        /// Update the UI and any data to reflect adding the _item to this destination.
         /// </summary>
-        /// <param name="item">The item type.</param>
+        /// <param name="item">The _item type.</param>
         /// <param name="number">The quantity of items.</param>
         void AddItems(T item, int number);
     }

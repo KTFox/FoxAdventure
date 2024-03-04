@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 using RPG.Saving;
 
-namespace RPG.Inventory
+namespace RPG.Inventories
 {
-    public class InventorySystem : MonoBehaviour, ISaveable
+    public class Inventory : MonoBehaviour, ISaveable
     {
         public event Action OnInventoryUpdated;
 
@@ -20,12 +20,12 @@ namespace RPG.Inventory
         }
 
         #region Properties
-        public static InventorySystem PlayerInventory
+        public static Inventory PlayerInventory
         {
             get
             {
                 var player = GameObject.FindGameObjectWithTag("Player");
-                return player.GetComponent<InventorySystem>();
+                return player.GetComponent<Inventory>();
             }
         }
 
@@ -46,14 +46,14 @@ namespace RPG.Inventory
         }
 
         /// <summary>
-        /// Will add an item to the given slot if possible.
+        /// Will add an _item to the given slot if possible.
         /// If there is already a stack of this type, it will be added into the exist stack. 
         /// Otherwise, it will be added into the first empty slot
         /// </summary>
         /// <param name="slotIndex"></param>
         /// <param name="item"></param>
         /// <returns>
-        /// True if the item was added anywhere in the inventory
+        /// True if the _item was added anywhere in the inventory
         /// </returns>
         public bool AddItemToSlot(int slotIndex, InventoryItemSO item, int number)
         {
@@ -77,7 +77,7 @@ namespace RPG.Inventory
         }
 
         /// <summary>
-        /// Attempt to add item into the first empty slot
+        /// Attempt to add _item into the first empty slot
         /// </summary>
         /// <param name="item"></param>
         /// <returns>
@@ -148,7 +148,7 @@ namespace RPG.Inventory
         }
 
         /// <summary>
-        /// Is there an instance of item in the inventory
+        /// Is there an instance of _item in the inventory
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
@@ -164,7 +164,7 @@ namespace RPG.Inventory
         }
 
         /// <summary>
-        /// Find a slot that can accommodate the given item
+        /// Find a slot that can accommodate the given _item
         /// </summary>
         /// <param name="item"></param>
         /// <returns>returns -1 if slot is found</returns>
@@ -181,9 +181,9 @@ namespace RPG.Inventory
         }
 
         /// <summary>
-        /// Find an existing stack of this item type.
+        /// Find an existing stack of this _item type.
         /// </summary>
-        /// <returns>-1 if no stack exists or if the item is not stackable.</returns>
+        /// <returns>-1 if no stack exists or if the _item is not stackable.</returns>
         private int FindStack(InventoryItemSO item)
         {
             if (!item.Stackable)

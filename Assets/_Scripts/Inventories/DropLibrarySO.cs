@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Inventory
+namespace RPG.Inventories
 {
     [CreateAssetMenu(menuName = "ScriptableObject/DropLibrarySO")]
     public class DropLibrarySO : ScriptableObject

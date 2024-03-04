@@ -3,12 +3,12 @@ namespace RPG.Utility.UI
     public interface IDragSource<T> where T : class
     {
         /// <summary>
-        /// Type of item that currently resides in this source
+        /// Type of _item that currently resides in this source
         /// </summary>
         T Item { get; }
 
         /// <summary>
-        /// Quantity of item currently reside in this source
+        /// Quantity of _item currently reside in this source
         /// </summary>
         /// <returns></returns>
         int ItemQuantity { get; }

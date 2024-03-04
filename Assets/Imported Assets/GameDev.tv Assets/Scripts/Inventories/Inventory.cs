@@ -42,7 +42,7 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// Could this item fit anywhere in the inventory?
+        /// Could this _item fit anywhere in the inventory?
         /// </summary>
         public bool HasSpaceFor(InventoryItem item)
         {
@@ -60,9 +60,9 @@ namespace GameDevTV.Inventories
         /// <summary>
         /// Attempt to add the items to the first available slot.
         /// </summary>
-        /// <param name="item">The item to add.</param>
+        /// <param name="item">The _item to add.</param>
         /// <param name="number">The quantity to add.</param>
-        /// <returns>Whether or not the item could be added.</returns>
+        /// <returns>Whether or not the _item could be added.</returns>
         public bool AddToFirstEmptySlot(InventoryItem item, int number)
         {
             int i = FindSlot(item);
@@ -82,7 +82,7 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// Is there an instance of the item in the inventory?
+        /// Is there an instance of the _item in the inventory?
         /// </summary>
         public bool HasItem(InventoryItem item)
         {
@@ -97,7 +97,7 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// Return the item type in the given slot.
+        /// Return the _item type in the given slot.
         /// </summary>
         public InventoryItem GetItemInSlot(int slot)
         {
@@ -131,14 +131,14 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// Will add an item to the given slot if possible. If there is already
+        /// Will add an _item to the given slot if possible. If there is already
         /// a stack of this type, it will add to the existing stack. Otherwise,
         /// it will be added to the first empty slot.
         /// </summary>
         /// <param name="slot">The slot to attempt to add to.</param>
-        /// <param name="item">The item type to add.</param>
+        /// <param name="item">The _item type to add.</param>
         /// <param name="number">The quantity of items to add.</param>
-        /// <returns>True if the item was added anywhere in the inventory.</returns>
+        /// <returns>True if the _item was added anywhere in the inventory.</returns>
         public bool AddItemToSlot(int slot, InventoryItem item, int number)
         {
             if (slots[slot].item != null)
@@ -169,7 +169,7 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// Find a slot that can accomodate the given item.
+        /// Find a slot that can accomodate the given _item.
         /// </summary>
         /// <returns>-1 if no slot is found.</returns>
         private int FindSlot(InventoryItem item)
@@ -199,9 +199,9 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// Find an existing stack of this item type.
+        /// Find an existing stack of this _item type.
         /// </summary>
-        /// <returns>-1 if no stack exists or if the item is not stackable.</returns>
+        /// <returns>-1 if no stack exists or if the _item is not stackable.</returns>
         private int FindStack(InventoryItem item)
         {
             if (!item.IsStackable())

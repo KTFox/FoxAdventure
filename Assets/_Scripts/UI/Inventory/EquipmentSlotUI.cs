@@ -1,5 +1,5 @@
 using UnityEngine;
-using RPG.Inventory;
+using RPG.Inventories;
 using RPG.Utility.UI;
 
 namespace RPG.UI.Inventory

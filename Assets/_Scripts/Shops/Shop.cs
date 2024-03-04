@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
-using RPG.Inventory;
+using RPG.Inventories;
 using RPG.Control;
 
 namespace RPG.Shops
@@ -26,6 +26,9 @@ namespace RPG.Shops
             public float buyingPercentageDiscount;
         }
 
+        private Shopper currentShopper;
+        private Dictionary<InventoryItemSO, int> transaction = new Dictionary<InventoryItemSO, int>();
+
         #region Properties
         public string ShopName
         {
@@ -43,12 +46,21 @@ namespace RPG.Shops
         }
         #endregion
 
+        public void SetShopper(Shopper shopper)
+        {
+            currentShopper = shopper;
+        }
+
         public IEnumerable<ShopItem> GetFilteredItems()
         {
             foreach (StockItemConfig stockConfig in stockConfigs)
             {
                 float price = stockConfig.item.Price * (1 - stockConfig.buyingPercentageDiscount / 100);
-                yield return new ShopItem(stockConfig.item, stockConfig.initialStock, price, 0);
+
+                int quantityInTransaction;
+                transaction.TryGetValue(stockConfig.item, out quantityInTransaction);
+
+                yield return new ShopItem(stockConfig.item, stockConfig.initialStock, price, quantityInTransaction);
             }
         }
 
@@ -69,12 +81,42 @@ namespace RPG.Shops
 
         public void ConfirmTransaction()
         {
+            // Get Shopper's Inventory
+            Inventory shopperInventory = currentShopper.GetComponent<Inventory>();
+            if (shopperInventory == null) return;
 
+            // Transfer to or from Shopper's Inventory
+            var transactionSnapshot = new Dictionary<InventoryItemSO, int>(transaction);
+            foreach (InventoryItemSO item in transactionSnapshot.Keys)
+            {
+                int quantity = transaction[item];
+                for (int i = 0; i < quantity; i++)
+                {
+                    bool successTransaction = shopperInventory.AddItemToFirstEmptySlot(item, 1);
+
+                    if (successTransaction)
+                    {
+                        AddTransaction(item, -1);
+                    }
+                }
+            }
         }
 
         public void AddTransaction(InventoryItemSO item, int quantity)
         {
+            if (!transaction.ContainsKey(item))
+            {
+                transaction[item] = 0;
+            }
 
+            transaction[item] += quantity;
+
+            if (transaction[item] <= 0)
+            {
+                transaction.Remove(item);
+            }
+
+            OnShopUpdated?.Invoke();
         }
 
         public float TransactionTotal()

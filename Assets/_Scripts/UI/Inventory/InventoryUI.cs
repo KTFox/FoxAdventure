@@ -1,4 +1,4 @@
-using RPG.Inventory;
+using RPG.Inventories;
 using UnityEngine;
 
 namespace RPG.UI.Inventory
@@ -12,11 +12,11 @@ namespace RPG.UI.Inventory
         [SerializeField]
         private InventorySlotUI inventorySlotPrefab;
 
-        private InventorySystem playerInventory;
+        private Inventories.Inventory playerInventory;
 
         private void Awake()
         {
-            playerInventory = InventorySystem.PlayerInventory;
+            playerInventory = Inventories.Inventory.PlayerInventory;
         }
 
         private void OnEnable()

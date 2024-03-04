@@ -1,11 +1,11 @@
 using UnityEngine;
 using RPG.Saving;
 
-namespace RPG.Inventory
+namespace RPG.Inventories
 {
     /// <summary>
     /// Spawns pickups that should exist on first load in a level. 
-    /// This automatically spawns the correct prefab for a given inventory item.
+    /// This automatically spawns the correct prefab for a given inventory _item.
     /// </summary>
     public class PickupSpawner : MonoBehaviour, ISaveable
     {

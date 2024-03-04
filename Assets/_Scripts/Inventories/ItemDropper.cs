@@ -3,7 +3,7 @@ using UnityEngine;
 using RPG.Saving;
 using UnityEngine.SceneManagement;
 
-namespace RPG.Inventory
+namespace RPG.Inventories
 {
     /// <summary>
     /// To be placed on anything that wishes to drop pickups into the world.
@@ -20,7 +20,7 @@ namespace RPG.Inventory
         /// <param name="item"></param>
         /// <param name="number">
         /// The quantity of items contained in the pickup.
-        /// Only used if the item is stackable.
+        /// Only used if the _item is stackable.
         /// </param>
         public void DropItem(InventoryItemSO item, int number)
         {

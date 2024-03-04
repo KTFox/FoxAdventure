@@ -18,13 +18,31 @@ namespace RPG.UI.Shops
         [SerializeField]
         private TextMeshProUGUI quantityNumber;
 
-        public void Setup(ShopItem item)
+        private Shop currentShop;
+        private ShopItem shopItem;
+
+        public void Setup(Shop currentShop, ShopItem shopItem)
         {
-            iconImage.sprite = item.ItemIcon;
-            itemName.text = item.ItemName;
-            availabilityNumber.text = item.Availability.ToString();
-            priceNumber.text = $"${item.Price:N2}";
-            quantityNumber.text = $"- {item.QuantityInTransaction} +";
+            iconImage.sprite = shopItem.ItemIcon;
+            itemName.text = shopItem.ItemName;
+            availabilityNumber.text = shopItem.Stock.ToString();
+            priceNumber.text = $"${shopItem.Price:N2}";
+            quantityNumber.text = $"{shopItem.QuantityInTransaction}";
+
+            this.currentShop = currentShop;
+            this.shopItem = shopItem;
         }
+
+        #region Unity events
+        public void AddQuantity()
+        {
+            currentShop.AddTransaction(shopItem.Item, 1);
+        }
+
+        public void RemoveQuantity()
+        {
+            currentShop.AddTransaction(shopItem.Item, -1);
+        }
+        #endregion
     }
 }

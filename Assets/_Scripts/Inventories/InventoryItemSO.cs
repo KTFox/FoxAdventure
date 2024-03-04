@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Inventory
+namespace RPG.Inventories
 {
     /// <summary>
-    /// A ScriptableObject that represents any item that can be put in an inventory
+    /// A ScriptableObject that represents any _item that can be put in an inventory
     /// </summary>
     /// <remarks>
     /// In practice, you are likely to use a subclass such as "ActionItemSO" or "EquipableItemSO"
@@ -26,11 +26,11 @@ namespace RPG.Inventory
         [TextArea]
         private string _description;
 
-        [Tooltip("The UI icon to represent this item in the inventory.")]
+        [Tooltip("The UI icon to represent this _item in the inventory.")]
         [SerializeField]
         private Sprite _icon;
 
-        [Tooltip("The prefab that should be spawned when this item is dropped.")]
+        [Tooltip("The prefab that should be spawned when this _item is dropped.")]
         [SerializeField]
         private Pickup pickup;
 
@@ -78,7 +78,7 @@ namespace RPG.Inventory
         #endregion
 
         /// <summary>
-        /// Get the inventory item from its ID
+        /// Get the inventory _item from its ID
         /// </summary>
         /// <param name="itemID">
         /// String UUID that persists between game instances.
@@ -86,7 +86,7 @@ namespace RPG.Inventory
         /// <returns></returns>
         public static InventoryItemSO GetItemFromID(string itemID)
         {
-            // Make sure itemLookupTable has been instantiated before getting item from it
+            // Make sure itemLookupTable has been instantiated before getting _item from it
             if (itemLookupTable == null)
             {
                 itemLookupTable = new Dictionary<string, InventoryItemSO>();

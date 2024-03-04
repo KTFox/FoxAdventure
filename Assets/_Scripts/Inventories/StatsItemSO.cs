@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using RPG.Stats;
 
-namespace RPG.Inventory
+namespace RPG.Inventories
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Item/StatsItemSO")]
     public class StatsItemSO : EquipableItemSO, IModifierProvider

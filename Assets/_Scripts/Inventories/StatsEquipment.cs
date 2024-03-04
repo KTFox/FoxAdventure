@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using RPG.Stats;
 
-namespace RPG.Inventory
+namespace RPG.Inventories
 {
     public class StatsEquipment : Equipment, IModifierProvider
     {

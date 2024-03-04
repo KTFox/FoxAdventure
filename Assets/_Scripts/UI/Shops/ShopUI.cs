@@ -25,13 +25,18 @@ namespace RPG.UI.Shops
 
         void ShopChanged()
         {
+            if (currentShop != null)
+            {
+                currentShop.OnShopUpdated -= RefreshShopUI;
+            }
+
             currentShop = shopper.ActiveShop;
             gameObject.SetActive(currentShop != null);
 
-            if (currentShop != null)
-            {
-                shopName.text = currentShop.ShopName;
-            }
+            if (currentShop == null) return;
+
+            shopName.text = currentShop.ShopName;
+            currentShop.OnShopUpdated += RefreshShopUI;
 
             RefreshShopUI();
         }
@@ -48,7 +53,7 @@ namespace RPG.UI.Shops
                 foreach (ShopItem item in currentShop.GetFilteredItems())
                 {
                     RowUI itemRow = Instantiate(rowUIPrefab, rowUIListRoot);
-                    itemRow.Setup(item);
+                    itemRow.Setup(currentShop, item);
                 }
             }
         }
@@ -58,9 +63,16 @@ namespace RPG.UI.Shops
             ShopChanged();
         }
 
+        #region Unity events
         public void CloseShopUI()
         {
             shopper.SetActiveShop(null);
         }
+
+        public void ConfirmTransaction()
+        {
+            currentShop.ConfirmTransaction();
+        }
+        #endregion
     }
 }

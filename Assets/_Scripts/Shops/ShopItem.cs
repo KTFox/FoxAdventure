@@ -1,29 +1,34 @@
 using UnityEngine;
-using RPG.Inventory;
+using RPG.Inventories;
 
 namespace RPG.Shops
 {
     public class ShopItem : MonoBehaviour
     {
-        private InventoryItemSO item;
-        private int _availability;
+        private InventoryItemSO _item;
+        private int _stock;
         private float _price;
         private int _quantityInTransaction;
 
         #region Properties
+        public InventoryItemSO Item
+        {
+            get => _item;
+        }
+
         public Sprite ItemIcon
         {
-            get => item.Icon;
+            get => _item.Icon;
         }
 
         public string ItemName
         {
-            get => item.DisplayName;
+            get => _item.DisplayName;
         }
 
-        public int Availability
+        public int Stock
         {
-            get => _availability;
+            get => _stock;
         }
 
         public float Price
@@ -37,10 +42,10 @@ namespace RPG.Shops
         }
         #endregion
 
-        public ShopItem(InventoryItemSO item, int availability, float price, int quantityInTransaction)
+        public ShopItem(InventoryItemSO item, int stock, float price, int quantityInTransaction)
         {
-            this.item = item;
-            _availability = availability;
+            _item = item;
+            _stock = stock;
             _price = price;
             _quantityInTransaction = quantityInTransaction;
         }

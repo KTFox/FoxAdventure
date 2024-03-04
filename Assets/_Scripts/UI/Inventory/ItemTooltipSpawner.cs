@@ -4,7 +4,7 @@ using RPG.Utility.UI;
 namespace RPG.UI.Inventory
 {
     /// <summary>
-    /// To be placed on the InventorySlot to spawn and show the correct item tooltip.
+    /// To be placed on the InventorySlot to spawn and show the correct _item tooltip.
     /// </summary>
     [RequireComponent(typeof(IItemHolder))]
     public class ItemTooltipSpawner : TooltipSpawner
