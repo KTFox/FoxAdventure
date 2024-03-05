@@ -155,6 +155,7 @@ namespace RPG.Shops
         {
             if (IsEmptyTransaction()) return false;
             if (!HasSufficientFund()) return false;
+            if (!HasInventorySpace()) return false;
 
             return true;
         }
@@ -176,6 +177,27 @@ namespace RPG.Shops
             }
 
             return total;
+        }
+
+        private bool HasInventorySpace()
+        {
+            // Get current shopper's inventory
+            Inventory shopperInventory = currentShopper.GetComponent<Inventory>();
+            if (shopperInventory == null) return false;
+
+            // Build flat items list
+            List<InventoryItemSO> flatItemList = new List<InventoryItemSO>();
+            foreach (ShopItem shopItem in GetAllItems())
+            {
+                InventoryItemSO inventoryItem = shopItem.Item;
+                int quantity = shopItem.QuantityInTransaction;
+                for (int i = 0; i < quantity; i++)
+                {
+                    flatItemList.Add(inventoryItem);
+                }
+            }
+
+            return shopperInventory.HasSpaceFor(flatItemList);
         }
 
         private bool IsEmptyTransaction()

@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 using RPG.Saving;
+using System.Threading;
 
 namespace RPG.Inventories
 {
@@ -11,9 +13,9 @@ namespace RPG.Inventories
         [SerializeField]
         private int inventorySize = 16;
 
-        private InventoryItemSlot[] slots;
+        private InventorySlot[] slots;
 
-        private struct InventoryItemSlot
+        private struct InventorySlot
         {
             public InventoryItemSO item;
             public int quantity;
@@ -42,7 +44,7 @@ namespace RPG.Inventories
 
         private void Awake()
         {
-            slots = new InventoryItemSlot[inventorySize];
+            slots = new InventorySlot[inventorySize];
         }
 
         /// <summary>
@@ -148,22 +150,6 @@ namespace RPG.Inventories
         }
 
         /// <summary>
-        /// Is there an instance of _item in the inventory
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        public bool HasItem(InventoryItemSO item)
-        {
-            for (int i = 0; i < slots.Length; i++)
-            {
-                if (ReferenceEquals(slots[i].item, item))
-                    return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
         /// Find a slot that can accommodate the given _item
         /// </summary>
         /// <param name="item"></param>
@@ -198,6 +184,58 @@ namespace RPG.Inventories
             }
 
             return -1;
+        }
+
+        public bool HasSpaceFor(IEnumerable<InventoryItemSO> items)
+        {
+            int freeSlotsNumber = GetFreeSlotsNumber();
+            List<InventoryItemSO> stackedItems = new List<InventoryItemSO>();
+
+            foreach (InventoryItemSO item in items)
+            {
+                if (item.Stackable)
+                {
+                    if (HasItem(item)) continue;
+                    if (stackedItems.Contains(item)) continue;
+
+                    stackedItems.Add(item);
+                }
+
+                if (freeSlotsNumber <= 0) return false;
+                freeSlotsNumber--;
+            }
+
+            return true;
+        }
+
+        private int GetFreeSlotsNumber()
+        {
+            int count = 0;
+            foreach (InventorySlot slot in slots)
+            {
+                if (slot.quantity == 0)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        /// <summary>
+        /// Is there an instance of _item in the inventory
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        private bool HasItem(InventoryItemSO item)
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (ReferenceEquals(slots[i].item, item))
+                    return true;
+            }
+
+            return false;
         }
 
         #region ISaveable implements
