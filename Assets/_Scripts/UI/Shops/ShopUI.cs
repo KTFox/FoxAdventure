@@ -1,6 +1,8 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using RPG.Shops;
+using Unity.VisualScripting;
 
 namespace RPG.UI.Shops
 {
@@ -13,16 +15,27 @@ namespace RPG.UI.Shops
         [SerializeField]
         private RowUI rowUIPrefab;
         [SerializeField]
-        private TextMeshProUGUI totalAmount;
+        private TextMeshProUGUI totalText;
+        [SerializeField]
+        private Button confirmButton;
 
         private Shop currentShop;
         private Shopper shopper;
+        private Color originalTotalTextColor;
 
         private void Awake()
         {
             shopper = GameObject.FindGameObjectWithTag("Player").GetComponent<Shopper>();
+        }
+
+        private void Start()
+        {
+            originalTotalTextColor = totalText.color;
+
+            ShopChanged();
 
             shopper.OnActiveShopChanged += ShopChanged;
+            confirmButton.onClick.AddListener(ConfirmTransaction);
         }
 
         void ShopChanged()
@@ -56,12 +69,9 @@ namespace RPG.UI.Shops
                 itemRow.Setup(currentShop, item);
             }
 
-            totalAmount.text = $"Total: ${currentShop.GetTransactionTotal():N2}";
-        }
-
-        private void Start()
-        {
-            ShopChanged();
+            totalText.color = currentShop.HasSufficientFund() ? originalTotalTextColor : Color.red;
+            totalText.text = $"Total: ${currentShop.GetTransactionTotal():N2}";
+            confirmButton.interactable = currentShop.CanTransact();
         }
 
         #region Unity events

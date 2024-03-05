@@ -136,7 +136,8 @@ MonoBehaviour:
   shopName: {fileID: 408092437261717997}
   rowUIListRoot: {fileID: 2917668453054851006}
   rowUIPrefab: {fileID: 2635936523562321066, guid: 568a3fa886cce5749b9472d10e35dc65, type: 3}
-  totalAmount: {fileID: 5925866942457341611}
+  totalText: {fileID: 5925866942457341611}
+  confirmButton: {fileID: 7416707344527774927}
 --- !u!1 &964258496546945964
 GameObject:
   m_ObjectHideFlags: 0
@@ -4242,7 +4243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5073114830522958209, guid: 8e28097954909e6448efb746abba90ce, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5073114830522958209, guid: 8e28097954909e6448efb746abba90ce, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -4362,6 +4363,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8670681518861339049, guid: 8e28097954909e6448efb746abba90ce, type: 3}
   m_PrefabInstance: {fileID: 2344725071178601806}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7416707344527774927 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5073114830522958209, guid: 8e28097954909e6448efb746abba90ce, type: 3}
+  m_PrefabInstance: {fileID: 2344725071178601806}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2488565242659245882
 PrefabInstance:
   m_ObjectHideFlags: 0

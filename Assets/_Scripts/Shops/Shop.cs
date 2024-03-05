@@ -40,11 +40,6 @@ namespace RPG.Shops
         {
             get => true;
         }
-
-        public bool CanTransact
-        {
-            get => true;
-        }
         #endregion
 
         private void Awake()
@@ -156,6 +151,22 @@ namespace RPG.Shops
             OnShopUpdated?.Invoke();
         }
 
+        public bool CanTransact()
+        {
+            if (IsEmptyTransaction()) return false;
+            if (!HasSufficientFund()) return false;
+
+            return true;
+        }
+
+        public bool HasSufficientFund()
+        {
+            Purse currentShopperPurse = currentShopper.GetComponent<Purse>();
+            if (currentShopperPurse == null) return false;
+
+            return currentShopperPurse.CurrentBalance >= GetTransactionTotal();
+        }
+
         public float GetTransactionTotal()
         {
             float total = 0;
@@ -165,6 +176,11 @@ namespace RPG.Shops
             }
 
             return total;
+        }
+
+        private bool IsEmptyTransaction()
+        {
+            return transactions.Count == 0;
         }
 
         #region IRaycastable implements
