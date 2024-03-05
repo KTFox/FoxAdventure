@@ -2,7 +2,7 @@ using UnityEngine;
 using RPG.Inventories;
 using RPG.Utility.UI;
 
-namespace RPG.UI.Inventory
+namespace RPG.UI.Inventories
 {
     public class InventorySlotUI : MonoBehaviour, IDragContainer<InventoryItemSO>, IItemHolder
     {
@@ -11,7 +11,7 @@ namespace RPG.UI.Inventory
         private InventoryItemIcon icon;
 
         private int index;
-        private Inventories.Inventory inventory;
+        private RPG.Inventories.Inventory inventory;
         #endregion
 
         #region Properties
@@ -26,7 +26,7 @@ namespace RPG.UI.Inventory
         }
         #endregion
 
-        public void SetUp(Inventories.Inventory inventory, int index)
+        public void SetUp(RPG.Inventories.Inventory inventory, int index)
         {
             this.inventory = inventory;
             this.index = index;

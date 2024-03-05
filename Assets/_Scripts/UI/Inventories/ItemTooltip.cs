@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using RPG.Inventories;
 
-namespace RPG.UI.Inventory
+namespace RPG.UI.Inventories
 {
     /// <summary>
     /// Root of the tooltip prefab to expose properties to other class

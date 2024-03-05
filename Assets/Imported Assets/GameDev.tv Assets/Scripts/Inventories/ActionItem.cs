@@ -10,7 +10,7 @@ namespace GameDevTV.Inventories
     /// This class should be used as a base. Subclasses must implement the `Use`
     /// method.
     /// </remarks>
-    [CreateAssetMenu(menuName = ("GameDevTV/GameDevTV.UI.Inventory/Action Item"))]
+    [CreateAssetMenu(menuName = ("GameDevTV/GameDevTV.UI.Inventories/Action Item"))]
     public class ActionItem : InventoryItem
     {
         // CONFIG DATA

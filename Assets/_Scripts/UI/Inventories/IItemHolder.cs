@@ -1,6 +1,6 @@
 using RPG.Inventories;
 
-namespace RPG.UI.Inventory
+namespace RPG.UI.Inventories
 {
     public interface IItemHolder
     {

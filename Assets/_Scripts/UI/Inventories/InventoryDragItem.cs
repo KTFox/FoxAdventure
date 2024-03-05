@@ -1,7 +1,7 @@
 using RPG.Inventories;
 using RPG.Utility.UI;
 
-namespace RPG.UI.Inventory
+namespace RPG.UI.Inventories
 {
     public class InventoryDragItem : DragItem<InventoryItemSO>
     {

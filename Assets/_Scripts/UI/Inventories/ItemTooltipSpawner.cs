@@ -1,7 +1,7 @@
 using UnityEngine;
 using RPG.Utility.UI;
 
-namespace RPG.UI.Inventory
+namespace RPG.UI.Inventories
 {
     /// <summary>
     /// To be placed on the InventorySlot to spawn and show the correct _item tooltip.

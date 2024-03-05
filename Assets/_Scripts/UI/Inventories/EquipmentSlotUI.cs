@@ -2,7 +2,7 @@ using UnityEngine;
 using RPG.Inventories;
 using RPG.Utility.UI;
 
-namespace RPG.UI.Inventory
+namespace RPG.UI.Inventories
 {
     /// <summary>
     /// An slot for the players equipment.

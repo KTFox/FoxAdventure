@@ -1,7 +1,7 @@
 using RPG.Inventories;
 using UnityEngine;
 
-namespace RPG.UI.Inventory
+namespace RPG.UI.Inventories
 {
     /// <summary>
     /// To be placed on the root of the inventory UI. Handles spawning all the
@@ -12,11 +12,11 @@ namespace RPG.UI.Inventory
         [SerializeField]
         private InventorySlotUI inventorySlotPrefab;
 
-        private Inventories.Inventory playerInventory;
+        private RPG.Inventories.Inventory playerInventory;
 
         private void Awake()
         {
-            playerInventory = Inventories.Inventory.PlayerInventory;
+            playerInventory = RPG.Inventories.Inventory.PlayerInventory;
         }
 
         private void OnEnable()

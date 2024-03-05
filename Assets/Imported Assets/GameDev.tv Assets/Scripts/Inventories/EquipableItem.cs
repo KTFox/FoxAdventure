@@ -6,7 +6,7 @@ namespace GameDevTV.Inventories
     /// An inventory _item that can be equipped to the player. Weapons could be a
     /// subclass of this.
     /// </summary>
-    [CreateAssetMenu(menuName = ("GameDevTV/GameDevTV.UI.Inventory/Equipable Item"))]
+    [CreateAssetMenu(menuName = ("GameDevTV/GameDevTV.UI.Inventories/Equipable Item"))]
     public class EquipableItem : InventoryItem
     {
         // CONFIG DATA

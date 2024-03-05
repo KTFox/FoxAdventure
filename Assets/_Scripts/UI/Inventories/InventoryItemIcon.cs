@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using RPG.Inventories;
 
-namespace RPG.UI.Inventory
+namespace RPG.UI.Inventories
 {
     [RequireComponent(typeof(Image))]
     public class InventoryItemIcon : MonoBehaviour

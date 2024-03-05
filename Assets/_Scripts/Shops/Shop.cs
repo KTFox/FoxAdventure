@@ -34,6 +34,7 @@ namespace RPG.Shops
         private Dictionary<InventoryItemSO, int> transactions = new Dictionary<InventoryItemSO, int>();
         private Dictionary<InventoryItemSO, int> stocks = new Dictionary<InventoryItemSO, int>();
         private bool _isBuyingMode = true;
+        private ItemCategory _currentCategory;
 
         #region Properties
         public string ShopName
@@ -44,6 +45,11 @@ namespace RPG.Shops
         public bool IsBuyingMode
         {
             get => _isBuyingMode;
+        }
+
+        public ItemCategory CurrentCategory
+        {
+            get => _currentCategory;
         }
         #endregion
 
@@ -62,7 +68,13 @@ namespace RPG.Shops
 
         public IEnumerable<ShopItem> GetFilteredItems()
         {
-            return GetAllItems();
+            foreach (ShopItem shopItem in GetAllItems())
+            {
+                if (_currentCategory == ItemCategory.None || shopItem.Item.ItemCategory == _currentCategory)
+                {
+                    yield return shopItem;
+                }
+            }
         }
 
         public IEnumerable<ShopItem> GetAllItems()
@@ -111,7 +123,7 @@ namespace RPG.Shops
 
         private int ItemCountInInventory(InventoryItemSO item)
         {
-            // Get Shopper's Inventory
+            // Get Shopper's Inventories
             Inventory shopperInventory = currentShopper.GetComponent<Inventory>();
             if (shopperInventory == null) return 0;
 
@@ -137,7 +149,7 @@ namespace RPG.Shops
 
         public void ConfirmTransaction()
         {
-            // Get Shopper's Inventory
+            // Get Shopper's Inventories
             Inventory shopperInventory = currentShopper.GetComponent<Inventory>();
             if (shopperInventory == null) return;
 
@@ -292,12 +304,9 @@ namespace RPG.Shops
 
         public void SelectFilter(ItemCategory category)
         {
+            _currentCategory = category;
 
-        }
-
-        public ItemCategory GetCategory()
-        {
-            return ItemCategory.None;
+            OnShopUpdated?.Invoke();
         }
 
         #region IRaycastable implements

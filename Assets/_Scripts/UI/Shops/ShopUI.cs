@@ -33,14 +33,14 @@ namespace RPG.UI.Shops
         {
             originalTotalTextColor = totalText.color;
 
-            ShopChanged();
+            ChangeCurrentShop();
 
-            shopper.OnActiveShopChanged += ShopChanged;
+            shopper.OnActiveShopChanged += ChangeCurrentShop;
             switchModeButton.onClick.AddListener(SwitchMode);
             confirmButton.onClick.AddListener(ConfirmTransaction);
         }
 
-        void ShopChanged()
+        void ChangeCurrentShop()
         {
             if (currentShop != null)
             {
@@ -49,6 +49,11 @@ namespace RPG.UI.Shops
 
             currentShop = shopper.ActiveShop;
             gameObject.SetActive(currentShop != null);
+
+            foreach (CategoryButtonUI button in GetComponentsInChildren<CategoryButtonUI>())
+            {
+                button.SetShop(currentShop);
+            }
 
             if (currentShop == null) return;
 
@@ -87,6 +92,12 @@ namespace RPG.UI.Shops
             {
                 switchButtonText.text = "Switch to buying";
                 confirmButtonText.text = "Sell";
+            }
+
+            // Update category button's interactable state 
+            foreach (CategoryButtonUI button in GetComponentsInChildren<CategoryButtonUI>())
+            {
+                button.RefreshUI();
             }
         }
 

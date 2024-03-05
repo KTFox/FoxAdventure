@@ -42,6 +42,9 @@ namespace RPG.Inventories
         [SerializeField]
         private float _price;
 
+        [SerializeField]
+        private ItemCategory _itemCategory;
+
         private static Dictionary<string, InventoryItemSO> itemLookupTable;
         #endregion
 
@@ -74,6 +77,11 @@ namespace RPG.Inventories
         public float Price
         {
             get => _price;
+        }
+
+        public ItemCategory ItemCategory
+        {
+            get => _itemCategory;
         }
         #endregion
 
