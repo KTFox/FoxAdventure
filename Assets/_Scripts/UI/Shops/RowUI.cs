@@ -12,7 +12,7 @@ namespace RPG.UI.Shops
         [SerializeField]
         private TextMeshProUGUI itemName;
         [SerializeField]
-        private TextMeshProUGUI availabilityNumber;
+        private TextMeshProUGUI stockNumber;
         [SerializeField]
         private TextMeshProUGUI priceNumber;
         [SerializeField]
@@ -25,7 +25,7 @@ namespace RPG.UI.Shops
         {
             iconImage.sprite = shopItem.ItemIcon;
             itemName.text = shopItem.ItemName;
-            availabilityNumber.text = shopItem.Stock.ToString();
+            stockNumber.text = shopItem.Stock.ToString();
             priceNumber.text = $"${shopItem.Price:N2}";
             quantityNumber.text = $"{shopItem.QuantityInTransaction}";
 

@@ -19,7 +19,7 @@ namespace RPG.Inventories
         }
         #endregion
 
-        private void Start()
+        private void Awake()
         {
             _currentBalance = startingBalance;
 

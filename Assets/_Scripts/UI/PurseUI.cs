@@ -25,7 +25,7 @@ namespace RPG.UI
 
         void RefreshUI()
         {
-            balanceAmount.text = $"${playerPurse.CurrentBalance}";
+            balanceAmount.text = $"${playerPurse.CurrentBalance:N2}";
         }
     }
 }

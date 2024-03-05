@@ -27,7 +27,8 @@ namespace RPG.Shops
         }
 
         private Shopper currentShopper;
-        private Dictionary<InventoryItemSO, int> transaction = new Dictionary<InventoryItemSO, int>();
+        private Dictionary<InventoryItemSO, int> transactions = new Dictionary<InventoryItemSO, int>();
+        private Dictionary<InventoryItemSO, int> stocks = new Dictionary<InventoryItemSO, int>();
 
         #region Properties
         public string ShopName
@@ -46,6 +47,14 @@ namespace RPG.Shops
         }
         #endregion
 
+        private void Awake()
+        {
+            foreach (StockItemConfig stockConfig in stockConfigs)
+            {
+                stocks[stockConfig.item] = stockConfig.initialStock;
+            }
+        }
+
         public void SetShopper(Shopper shopper)
         {
             currentShopper = shopper;
@@ -60,12 +69,17 @@ namespace RPG.Shops
         {
             foreach (StockItemConfig stockConfig in stockConfigs)
             {
+                // Actual price after discounting
                 float price = stockConfig.item.Price * (1 - stockConfig.buyingPercentageDiscount / 100);
 
+                // Get quantity in transastion
                 int quantityInTransaction;
-                transaction.TryGetValue(stockConfig.item, out quantityInTransaction);
+                transactions.TryGetValue(stockConfig.item, out quantityInTransaction);
 
-                yield return new ShopItem(stockConfig.item, stockConfig.initialStock, price, quantityInTransaction);
+                // Get current stock 
+                int currentStock = stocks[stockConfig.item];
+
+                yield return new ShopItem(stockConfig.item, currentStock, price, quantityInTransaction);
             }
         }
 
@@ -109,24 +123,34 @@ namespace RPG.Shops
                     if (successTransaction)
                     {
                         AddTransaction(inventoryItem, -1);
+                        stocks[inventoryItem]--;
                         shopperPurse.UpdateBalance(-price);
                     }
                 }
             }
+
+            OnShopUpdated?.Invoke();
         }
 
         public void AddTransaction(InventoryItemSO item, int quantity)
         {
-            if (!transaction.ContainsKey(item))
+            if (!transactions.ContainsKey(item))
             {
-                transaction[item] = 0;
+                transactions[item] = 0;
             }
 
-            transaction[item] += quantity;
-
-            if (transaction[item] <= 0)
+            if (transactions[item] + quantity > stocks[item])
             {
-                transaction.Remove(item);
+                transactions[item] = stocks[item];
+            }
+            else
+            {
+                transactions[item] += quantity;
+            }
+
+            if (transactions[item] <= 0)
+            {
+                transactions.Remove(item);
             }
 
             OnShopUpdated?.Invoke();
