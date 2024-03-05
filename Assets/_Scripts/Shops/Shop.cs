@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using RPG.Inventories;
 using RPG.Control;
 using RPG.Stats;
+using RPG.Saving;
 
 namespace RPG.Shops
 {
-    public class Shop : MonoBehaviour, IRaycastable
+    public class Shop : MonoBehaviour, IRaycastable, ISaveable
     {
         public event Action OnShopUpdated;
 
@@ -389,6 +390,29 @@ namespace RPG.Shops
         public CursorType GetCursorType()
         {
             return CursorType.Shop;
+        }
+        #endregion
+
+        #region ISaveable implements
+        object ISaveable.CaptureState()
+        {
+            Dictionary<string, int> saveObject = new Dictionary<string, int>();
+            foreach (var pair in stocksSold)
+            {
+                saveObject[pair.Key.ItemID] = pair.Value;
+            }
+
+            return saveObject;
+        }
+
+        void ISaveable.RestoreState(object state)
+        {
+            Dictionary<string, int> saveObject = (Dictionary<string, int>)state;
+            stocksSold.Clear();
+            foreach (var pair in saveObject)
+            {
+                stocksSold[InventoryItemSO.GetItemFromID(pair.Key)] = pair.Value;
+            }
         }
         #endregion
     }
