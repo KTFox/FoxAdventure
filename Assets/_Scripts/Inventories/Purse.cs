@@ -22,8 +22,6 @@ namespace RPG.Inventories
         private void Awake()
         {
             _currentBalance = startingBalance;
-
-            Debug.Log($"Balance: {_currentBalance}");
         }
 
         public void UpdateBalance(float amount)
@@ -31,8 +29,6 @@ namespace RPG.Inventories
             _currentBalance += amount;
 
             OnPurseUpdated?.Invoke();
-
-            Debug.Log($"Balance: {_currentBalance}");
         }
     }
 }

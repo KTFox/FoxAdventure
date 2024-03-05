@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using RPG.Shops;
-using Unity.VisualScripting;
 
 namespace RPG.UI.Shops
 {
@@ -16,6 +15,8 @@ namespace RPG.UI.Shops
         private RowUI rowUIPrefab;
         [SerializeField]
         private TextMeshProUGUI totalText;
+        [SerializeField]
+        private Button switchModeButton;
         [SerializeField]
         private Button confirmButton;
 
@@ -35,6 +36,7 @@ namespace RPG.UI.Shops
             ShopChanged();
 
             shopper.OnActiveShopChanged += ShopChanged;
+            switchModeButton.onClick.AddListener(SwitchMode);
             confirmButton.onClick.AddListener(ConfirmTransaction);
         }
 
@@ -72,6 +74,20 @@ namespace RPG.UI.Shops
             totalText.color = currentShop.HasSufficientFund() ? originalTotalTextColor : Color.red;
             totalText.text = $"Total: ${currentShop.GetTransactionTotal():N2}";
             confirmButton.interactable = currentShop.CanTransact();
+
+            // Update switch button and confirm button text
+            TextMeshProUGUI switchButtonText = switchModeButton.GetComponentInChildren<TextMeshProUGUI>();
+            TextMeshProUGUI confirmButtonText = confirmButton.GetComponentInChildren<TextMeshProUGUI>();
+            if (currentShop.IsBuyingMode)
+            {
+                switchButtonText.text = "Switch to selling";
+                confirmButtonText.text = "Buy";
+            }
+            else
+            {
+                switchButtonText.text = "Switch to buying";
+                confirmButtonText.text = "Sell";
+            }
         }
 
         #region Unity events
@@ -83,6 +99,11 @@ namespace RPG.UI.Shops
         public void ConfirmTransaction()
         {
             currentShop.ConfirmTransaction();
+        }
+
+        public void SwitchMode()
+        {
+            currentShop.SelectMode(!currentShop.IsBuyingMode);
         }
         #endregion
     }

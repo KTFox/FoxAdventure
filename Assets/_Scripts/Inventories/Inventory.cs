@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using RPG.Saving;
-using System.Threading;
 
 namespace RPG.Inventories
 {

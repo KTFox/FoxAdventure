@@ -623,6 +623,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5847523829338304250, guid: ef7b3ac6f1eb99f4e940f7746228a461, type: 3}
+      propertyPath: sellingDiscountPercentage
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847523829338304250, guid: ef7b3ac6f1eb99f4e940f7746228a461, type: 3}
       propertyPath: stockConfigs.Array.data[0].item
       value: 
       objectReference: {fileID: 11400000, guid: 623a4464cd1340245b8308452e39d4fd, type: 2}

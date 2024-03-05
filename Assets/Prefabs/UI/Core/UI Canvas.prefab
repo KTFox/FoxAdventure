@@ -137,6 +137,7 @@ MonoBehaviour:
   rowUIListRoot: {fileID: 2917668453054851006}
   rowUIPrefab: {fileID: 2635936523562321066, guid: 568a3fa886cce5749b9472d10e35dc65, type: 3}
   totalText: {fileID: 5925866942457341611}
+  switchModeButton: {fileID: 6581989649775428641}
   confirmButton: {fileID: 7416707344527774927}
 --- !u!1 &964258496546945964
 GameObject:
@@ -4016,6 +4017,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e28097954909e6448efb746abba90ce, type: 3}
+--- !u!114 &6581989649775428641 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5073114830522958209, guid: 8e28097954909e6448efb746abba90ce, type: 3}
+  m_PrefabInstance: {fileID: 2103391831503914400}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7306190303549557769 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8670681518861339049, guid: 8e28097954909e6448efb746abba90ce, type: 3}
