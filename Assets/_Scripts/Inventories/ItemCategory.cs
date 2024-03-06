@@ -5,6 +5,6 @@ namespace RPG.Inventories
         None,
         Weapon,
         Armour,
-        Potion
+        Ability
     }
 }

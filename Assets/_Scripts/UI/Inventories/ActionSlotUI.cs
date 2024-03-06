@@ -28,7 +28,7 @@ namespace RPG.UI.Inventories
         private void Awake()
         {
             store = GameObject.FindGameObjectWithTag("Player").GetComponent<ActionStore>();
-            store.OnActionStoreUpdate += UpdateIcon;
+            store.OnActionStoreUpdated += UpdateIcon;
         }
 
         void UpdateIcon()

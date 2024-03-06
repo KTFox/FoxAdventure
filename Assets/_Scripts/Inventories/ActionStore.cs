@@ -6,11 +6,11 @@ using RPG.Saving;
 namespace RPG.Inventories
 {
     /// <summary>
-    /// Provides the storage for an action bar. The bar has a finite quantity of slots that can be filled and actions in the slots can be "used".
+    /// Contain information about items in the ActionBar".
     /// This component should be placed on the GameObject tagged "Player".
     public class ActionStore : MonoBehaviour, ISaveable
     {
-        public event Action OnActionStoreUpdate;
+        public event Action OnActionStoreUpdated;
 
         private Dictionary<int, DockedItemSlot> dockedItems = new Dictionary<int, DockedItemSlot>();
 
@@ -21,35 +21,55 @@ namespace RPG.Inventories
         }
 
         /// <summary>
-        /// Add an action to the given index
+        /// Add the given quantity of the items into the given slot.
         /// </summary>
         /// <param name="item"></param>
-        /// <param name="index"></param>
+        /// <param name="slotIndex"></param>
         /// <param name="quantity"></param>
-        public void AddActionItem(InventoryItemSO item, int index, int quantity)
+        public void AddActionItem(InventoryItemSO item, int slotIndex, int quantity)
         {
-            if (dockedItems.ContainsKey(index))
+            if (dockedItems.ContainsKey(slotIndex))
             {
-                if (ReferenceEquals(dockedItems[index], (ActionItemSO)item))
+                if (ReferenceEquals(dockedItems[slotIndex], (ActionItemSO)item))
                 {
-                    dockedItems[index].quantity += quantity;
-                }
-                else
-                {
-                    var dockedItemSlot = new DockedItemSlot();
-                    dockedItemSlot.item = (ActionItemSO)(item);
-                    dockedItemSlot.quantity = quantity;
-
-                    dockedItems[index] = dockedItemSlot;
+                    dockedItems[slotIndex].quantity += quantity;
                 }
             }
+            else
+            {
+                var dockedItemSlot = new DockedItemSlot();
+                dockedItemSlot.item = (ActionItemSO)(item);
+                dockedItemSlot.quantity = quantity;
 
-            OnActionStoreUpdate?.Invoke();
+                dockedItems[slotIndex] = dockedItemSlot;
+            }
+
+            OnActionStoreUpdated?.Invoke();
         }
 
         /// <summary>
-        /// Use the _item at the given slot. 
-        /// If the _item is consumable one instance will be destroyed until the _item is removed completely.
+        /// Remove the given quantity of the items at the given slot.
+        /// </summary>
+        /// <param name="slotIndex"></param>
+        /// <param name="quantity"></param>
+        public void RemoveActionItem(int slotIndex, int quantity)
+        {
+            if (dockedItems.ContainsKey(slotIndex))
+            {
+                dockedItems[slotIndex].quantity -= quantity;
+
+                if (dockedItems[slotIndex].quantity <= 0)
+                {
+                    dockedItems.Remove(slotIndex);
+                }
+
+                OnActionStoreUpdated?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Use the item at the given slot. 
+        /// If the item is consumable, one instance will be destroyed until the item is removed completely.
         /// </summary>
         /// <param name="user">The character that wants to use this action.</param>
         /// <returns>False if the action could not be executed.</returns>
@@ -62,36 +82,16 @@ namespace RPG.Inventories
                 if (dockedItems[index].item.Consumable)
                 {
                     RemoveActionItem(index, 1);
-
-                    return true;
                 }
+
+                return true;
             }
 
             return false;
         }
 
         /// <summary>
-        /// Remove the given quantity of the items at the given slot.
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="quantity"></param>
-        public void RemoveActionItem(int index, int quantity)
-        {
-            if (dockedItems.ContainsKey(index))
-            {
-                dockedItems[index].quantity -= quantity;
-
-                if (dockedItems[index].quantity <= 0)
-                {
-                    dockedItems.Remove(index);
-                }
-
-                OnActionStoreUpdate?.Invoke();
-            }
-        }
-
-        /// <summary>
-        /// Get the action at the given index
+        /// Get the action item at the given slotIndex
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -106,10 +106,10 @@ namespace RPG.Inventories
         }
 
         /// <summary>
-        /// Get the quantity of items left at the given index.
+        /// Get the quantity of items left at the given slotIndex.
         /// </summary>
         /// <returns>
-        /// Will return 0 if no _item is in the index or the _item has been fully consumed.
+        /// Will return 0 if no item is in the slotIndex or the item has been fully consumed.
         /// </returns>
         public int GetItemQuantity(int index)
         {
@@ -123,8 +123,8 @@ namespace RPG.Inventories
 
         /// <summary>
         /// What is the maximum quantity of items allowed in this slot.
-        /// This takes into account whether the slot already contains an _item and whether it is the same type.
-        /// Will only accept multiple if the _item is consumable.
+        /// This takes into account whether the slot already contains an item and whether it is the same type.
+        /// Will only accept multiple if the item is consumable.
         /// </summary>
         /// <returns>Will return int.MaxValue when there is not effective bound.</returns>
         public int GetMaxAcceptable(InventoryItemSO item, int index)
@@ -132,14 +132,27 @@ namespace RPG.Inventories
             var actionItem = item as ActionItemSO;
             if (!actionItem) return 0;
 
-            if (dockedItems.ContainsKey(index) && !object.ReferenceEquals(item, dockedItems[index].item))
+            /* 
+            1. Slot is empty:
+                - Input item is consumable => int.maxvalue
+                - Input item isn't consumable => 1
+            2. Slot already has had item:
+                - Two items are similar
+                    + Input item is consumable => int.maxValue
+                    + Input item isn't consumable => 0
+                - Two items are different => 0
+            */
+
+            if (dockedItems.ContainsKey(index) && !ReferenceEquals(item, dockedItems[index].item))
             {
                 return 0;
             }
+
             if (actionItem.Consumable)
             {
                 return int.MaxValue;
             }
+
             if (dockedItems.ContainsKey(index))
             {
                 return 0;

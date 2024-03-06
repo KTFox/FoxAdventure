@@ -4,6 +4,7 @@ using System;
 using UnityEngine.AI;
 using RPG.Movement;
 using RPG.Attributes;
+using RPG.Inventories;
 
 namespace RPG.Control
 {
@@ -22,6 +23,7 @@ namespace RPG.Control
 
         private Mover mover;
         private Health health;
+        private ActionStore actionStore;
 
         private float maxNavMeshProjectionDistance = 1f;
         private bool isDraggingUI;
@@ -30,6 +32,7 @@ namespace RPG.Control
         {
             mover = GetComponent<Mover>();
             health = GetComponent<Health>();
+            actionStore = GetComponent<ActionStore>();
         }
 
         private void Update()
@@ -41,6 +44,8 @@ namespace RPG.Control
                 SetCursor(CursorType.None);
                 return;
             }
+
+            UseAbilities();
 
             if (InteractWithComponent()) return;
             if (InteractWithMovement()) return;
@@ -72,6 +77,17 @@ namespace RPG.Control
             }
 
             return false;
+        }
+
+        private void UseAbilities()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+                {
+                    actionStore.UseActionItem(i, gameObject);
+                }
+            }
         }
 
         private bool InteractWithComponent()
