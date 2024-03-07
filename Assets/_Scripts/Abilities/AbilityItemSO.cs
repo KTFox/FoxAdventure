@@ -12,12 +12,20 @@ namespace RPG.Abilities
         private FilterStrategySO[] filterStrategies;
         [SerializeField]
         private EffectStrategySO[] effectStrategies;
+        [SerializeField]
+        private float cooldownTime;
 
         public override void Use(GameObject user)
         {
-            AbilityData data = new AbilityData(user);
+            // Checking ablity cooldown time
+            CooldownStore userCooldownStore = user.GetComponent<CooldownStore>();
+            if (userCooldownStore.GetRemainingTIme(this) > 0)
+            {
+                return;
+            }
 
             // TargetingStrategies action
+            AbilityData data = new AbilityData(user);
             targetingStrategy.StartTargeting(data, () =>
             {
                 GetAcquiredTargets(data);
@@ -26,6 +34,10 @@ namespace RPG.Abilities
 
         private void GetAcquiredTargets(AbilityData data)
         {
+            // Set cooldown time for this ability
+            CooldownStore userCooldownStore = data.User.GetComponent<CooldownStore>();
+            userCooldownStore.StartCooldown(this, cooldownTime);
+
             // Filter targets
             foreach (FilterStrategySO filter in filterStrategies)
             {
