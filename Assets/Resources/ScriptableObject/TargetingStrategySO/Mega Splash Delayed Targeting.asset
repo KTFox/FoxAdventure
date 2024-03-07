@@ -14,3 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cursorTexture: {fileID: 2800000, guid: 2a2b4775272c890448e1bd6239fdfc84, type: 3}
   cursorHotSpot: {x: 0, y: 0, z: 0}
+  affectedLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  areaAffectRadius: 2
+  targetingVisualPrefab: {fileID: 4028605080452591262, guid: ad8ca7d7b931d69428f08293ad996ba4, type: 3}

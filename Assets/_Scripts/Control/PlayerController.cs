@@ -180,13 +180,13 @@ namespace RPG.Control
                 if (mapping.cursorType == type)
                 {
                     return mapping;
-                };
+                }
             }
 
             return cursorMappings[0];
         }
 
-        private static Ray GetMouseRay()
+        public static Ray GetMouseRay()
         {
             return Camera.main.ScreenPointToRay(Input.mousePosition);
         }

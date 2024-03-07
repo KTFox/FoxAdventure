@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using RPG.Inventories;
 
 namespace RPG.Abilities
@@ -11,7 +12,16 @@ namespace RPG.Abilities
 
         public override void Use(GameObject user)
         {
-            targetingStrategy.StartTargeting(user);
+            // Targeting action
+            targetingStrategy.StartTargeting(user, GetAcquiredTargets);
+        }
+
+        private void GetAcquiredTargets(IEnumerable<GameObject> acquiredTargets)
+        {
+            foreach (GameObject target in acquiredTargets)
+            {
+                Debug.Log($"Targeting {target.name}");
+            }
         }
     }
 }

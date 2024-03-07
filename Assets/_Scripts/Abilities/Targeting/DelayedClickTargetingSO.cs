@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 using RPG.Control;
 
 namespace RPG.Abilities.Targeting
@@ -11,30 +13,64 @@ namespace RPG.Abilities.Targeting
         private Texture2D cursorTexture;
         [SerializeField]
         private Vector3 cursorHotSpot;
+        [SerializeField]
+        private LayerMask affectedLayerMask;
+        [SerializeField]
+        private float areaAffectRadius;
+        [SerializeField]
+        private Transform targetingVisualPrefab;
 
-        public override void StartTargeting(GameObject user)
+        private Transform targetingVisualInstance;
+
+        public override void StartTargeting(GameObject user, Action<IEnumerable<GameObject>> finishTargeting)
         {
             PlayerController playerController = user.GetComponent<PlayerController>();
-            playerController.StartCoroutine(Targeting(playerController));
+            playerController.StartCoroutine(Targeting(playerController, finishTargeting));
         }
 
-        private IEnumerator Targeting(PlayerController playerController)
+        private IEnumerator Targeting(PlayerController playerController, Action<IEnumerable<GameObject>> finishTargeting)
         {
             playerController.enabled = false;
 
+            // Set active targeting visual
+            if (targetingVisualInstance == null)
+            {
+                targetingVisualInstance = Instantiate(targetingVisualPrefab);
+            }
+            else
+            {
+                targetingVisualInstance.gameObject.SetActive(true);
+            }
+            targetingVisualInstance.localScale = new Vector3(areaAffectRadius * 2, 1, areaAffectRadius * 2);
+
             while (true)
             {
-                Cursor.SetCursor(cursorTexture, cursorHotSpot, CursorMode.Auto);
-
-                if (Input.GetMouseButtonDown(0))
+                RaycastHit raycastHit;
+                if (Physics.Raycast(PlayerController.GetMouseRay(), out raycastHit, 1000, affectedLayerMask))
                 {
-                    yield return new WaitWhile(() => Input.GetMouseButtonDown(0));
+                    targetingVisualInstance.position = raycastHit.point;
 
-                    playerController.enabled = true;
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        yield return new WaitWhile(() => Input.GetMouseButtonDown(0));
 
-                    yield break;
+                        playerController.enabled = true;
+                        targetingVisualInstance.gameObject.SetActive(false);
+                        finishTargeting(GetGameObjectsInRadius(raycastHit.point));
+
+                        yield break;
+                    }
+                    yield return null;
                 }
-                yield return null;
+            }
+        }
+
+        private IEnumerable<GameObject> GetGameObjectsInRadius(Vector3 point)
+        {
+            RaycastHit[] hits = Physics.SphereCastAll(point, areaAffectRadius, Vector3.up, 0);
+            foreach (RaycastHit hit in hits)
+            {
+                yield return hit.collider.gameObject;
             }
         }
     }
