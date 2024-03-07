@@ -11,14 +11,19 @@ namespace RPG.Abilities
         private TargetingStrategySO targetingStrategy;
         [SerializeField]
         private FilterStrategySO[] filterStrategies;
+        [SerializeField]
+        private EffectStrategySO[] effectStrategies;
 
         public override void Use(GameObject user)
         {
             // TargetingStrategies action
-            targetingStrategy.StartTargeting(user, GetAcquiredTargets);
+            targetingStrategy.StartTargeting(user, (IEnumerable<GameObject> targets) =>
+            {
+                GetAcquiredTargets(user, targets);
+            });
         }
 
-        private void GetAcquiredTargets(IEnumerable<GameObject> acquiredTargets)
+        private void GetAcquiredTargets(GameObject user, IEnumerable<GameObject> acquiredTargets)
         {
             // Filter targets
             foreach (FilterStrategySO filter in filterStrategies)
@@ -26,10 +31,16 @@ namespace RPG.Abilities
                 acquiredTargets = filter.Filter(acquiredTargets);
             }
 
-            foreach (GameObject target in acquiredTargets)
+            // Apply effects
+            foreach (EffectStrategySO effect in effectStrategies)
             {
-                Debug.Log($"TargetingStrategies {target.name}");
+                effect.StartEffect(user, acquiredTargets, finishEffect);
             }
+        }
+
+        private void finishEffect()
+        {
+
         }
     }
 }
