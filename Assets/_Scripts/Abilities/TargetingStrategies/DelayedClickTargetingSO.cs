@@ -57,6 +57,7 @@ namespace RPG.Abilities.TargetingStrategies
 
                         playerController.enabled = true;
                         targetingVisualInstance.gameObject.SetActive(false);
+                        data.SetTargetedPoint(raycastHit.point);
                         data.SetTargets(GetGameObjectsInRadius(raycastHit.point));
                         finishTargeting();
                         yield break;
