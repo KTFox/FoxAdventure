@@ -3,7 +3,7 @@ using RPG.Inventories;
 
 namespace RPG.Shops
 {
-    public class ShopItem : MonoBehaviour
+    public class ShopItem
     {
         private InventoryItemSO _item;
         private int _stock;

@@ -22,13 +22,13 @@ namespace RPG.Abilities.TargetingStrategies
 
         private Transform targetingVisualInstance;
 
-        public override void StartTargeting(GameObject user, Action<IEnumerable<GameObject>> finishTargeting)
+        public override void StartTargeting(AbilityData data, Action finishTargeting)
         {
-            PlayerController playerController = user.GetComponent<PlayerController>();
-            playerController.StartCoroutine(Targeting(playerController, finishTargeting));
+            PlayerController playerController = data.User.GetComponent<PlayerController>();
+            playerController.StartCoroutine(Targeting(data, playerController, finishTargeting));
         }
 
-        private IEnumerator Targeting(PlayerController playerController, Action<IEnumerable<GameObject>> finishTargeting)
+        private IEnumerator Targeting(AbilityData data, PlayerController playerController, Action finishTargeting)
         {
             playerController.enabled = false;
 
@@ -57,8 +57,8 @@ namespace RPG.Abilities.TargetingStrategies
 
                         playerController.enabled = true;
                         targetingVisualInstance.gameObject.SetActive(false);
-                        finishTargeting(GetGameObjectsInRadius(raycastHit.point));
-
+                        data.SetTargets(GetGameObjectsInRadius(raycastHit.point));
+                        finishTargeting();
                         yield break;
                     }
                     yield return null;

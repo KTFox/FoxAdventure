@@ -6,6 +6,6 @@ namespace RPG.Abilities
 {
     public abstract class TargetingStrategySO : ScriptableObject
     {
-        public abstract void StartTargeting(GameObject user, Action<IEnumerable<GameObject>> finishTargeting);
+        public abstract void StartTargeting(AbilityData data, Action finishTargeting);
     }
 }

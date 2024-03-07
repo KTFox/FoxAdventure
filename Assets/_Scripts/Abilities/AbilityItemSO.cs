@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 using RPG.Inventories;
 
 namespace RPG.Abilities
@@ -16,25 +15,27 @@ namespace RPG.Abilities
 
         public override void Use(GameObject user)
         {
+            AbilityData data = new AbilityData(user);
+
             // TargetingStrategies action
-            targetingStrategy.StartTargeting(user, (IEnumerable<GameObject> targets) =>
+            targetingStrategy.StartTargeting(data, () =>
             {
-                GetAcquiredTargets(user, targets);
+                GetAcquiredTargets(data);
             });
         }
 
-        private void GetAcquiredTargets(GameObject user, IEnumerable<GameObject> acquiredTargets)
+        private void GetAcquiredTargets(AbilityData data)
         {
             // Filter targets
             foreach (FilterStrategySO filter in filterStrategies)
             {
-                acquiredTargets = filter.Filter(acquiredTargets);
+                data.SetTargets(filter.Filter(data.Targets));
             }
 
             // Apply effects
             foreach (EffectStrategySO effect in effectStrategies)
             {
-                effect.StartEffect(user, acquiredTargets, finishEffect);
+                effect.StartEffect(data, finishEffect);
             }
         }
 
