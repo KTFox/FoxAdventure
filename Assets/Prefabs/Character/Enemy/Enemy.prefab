@@ -326,6 +326,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1348450288652152666, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 5257418737176178497, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       propertyPath: health
       value: 30
@@ -520,8 +524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scatterDistance: 1
-  numberOfDrops: 0
-  dropLibrary: []
+  dropLibrary: {fileID: 0}
 --- !u!4 &5422913865980319978 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6281042690639228794, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}

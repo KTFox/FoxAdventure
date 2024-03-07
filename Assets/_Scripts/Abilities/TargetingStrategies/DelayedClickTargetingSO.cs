@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using RPG.Control;
 
-namespace RPG.Abilities.Targeting
+namespace RPG.Abilities.TargetingStrategies
 {
     [CreateAssetMenu(menuName = "ScriptableObject/TargetingStrategySO/DelayedClickTargetingSO")]
     public class DelayedClickTargetingSO : TargetingStrategySO
@@ -41,6 +41,7 @@ namespace RPG.Abilities.Targeting
             {
                 targetingVisualInstance.gameObject.SetActive(true);
             }
+            // The Squad has 0.5f radius by default. Therefore, it need to be doubly
             targetingVisualInstance.localScale = new Vector3(areaAffectRadius * 2, 1, areaAffectRadius * 2);
 
             while (true)
