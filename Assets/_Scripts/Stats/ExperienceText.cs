@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RPG.Stats
 {
-    public class ExperienceDisplay : MonoBehaviour
+    public class ExperienceText : MonoBehaviour
     {
         private Experience experience;
         private TextMeshProUGUI experienceValueText;
@@ -17,7 +17,7 @@ namespace RPG.Stats
 
         private void Update()
         {
-            experienceValueText.text = String.Format("{0:0}", experience.ExperiencePoint);
+            experienceValueText.text = String.Format("Experience: {0:0}", experience.ExperiencePoint);
         }
     }
 }

@@ -4,20 +4,20 @@ using UnityEngine;
 
 namespace RPG.Stats
 {
-    public class LevelDisplay : MonoBehaviour
+    public class LevelText : MonoBehaviour
     {
         private BaseStats playerBaseStats;
-        private TextMeshProUGUI experienceValueText;
+        private TextMeshProUGUI levelValueText;
 
         private void Awake()
         {
             playerBaseStats = GameObject.FindGameObjectWithTag("Player").GetComponent<BaseStats>();
-            experienceValueText = GetComponent<TextMeshProUGUI>();
+            levelValueText = GetComponent<TextMeshProUGUI>();
         }
 
         private void Update()
         {
-            experienceValueText.text = String.Format("{0}", playerBaseStats.CurrentLevel);
+            levelValueText.text = String.Format("Level: {0}", playerBaseStats.CurrentLevel);
         }
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RPG.Attributes
 {
-    public class PlayerHealthText : MonoBehaviour
+    public class HealthText : MonoBehaviour
     {
         private Health playerHealth;
         private TextMeshProUGUI healthValueText;
@@ -16,7 +16,7 @@ namespace RPG.Attributes
 
         private void Update()
         {
-            healthValueText.text = $"{playerHealth.CurrentHealth}/{playerHealth.MaxHealth}";
+            healthValueText.text = $"Health: {playerHealth.CurrentHealth}/{playerHealth.MaxHealth}";
         }
     }
 }
