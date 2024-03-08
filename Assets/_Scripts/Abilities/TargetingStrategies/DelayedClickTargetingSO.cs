@@ -44,7 +44,7 @@ namespace RPG.Abilities.TargetingStrategies
             // The Squad has 0.5f radius by default. Therefore, it need to be doubly
             targetingVisualInstance.localScale = new Vector3(areaAffectRadius * 2, 1, areaAffectRadius * 2);
 
-            while (true)
+            while (!data.Cancelled)
             {
                 RaycastHit raycastHit;
                 if (Physics.Raycast(PlayerController.GetMouseRay(), out raycastHit, 1000, affectedLayerMask))
@@ -55,16 +55,19 @@ namespace RPG.Abilities.TargetingStrategies
                     {
                         yield return new WaitWhile(() => Input.GetMouseButtonDown(0));
 
-                        playerController.enabled = true;
-                        targetingVisualInstance.gameObject.SetActive(false);
                         data.SetTargetedPoint(raycastHit.point);
                         data.SetTargets(GetGameObjectsInRadius(raycastHit.point));
-                        finishTargeting();
+
                         yield break;
                     }
-                    yield return null;
                 }
+
+                yield return null;
             }
+
+            playerController.enabled = true;
+            targetingVisualInstance.gameObject.SetActive(false);
+            finishTargeting();
         }
 
         private IEnumerable<GameObject> GetGameObjectsInRadius(Vector3 point)

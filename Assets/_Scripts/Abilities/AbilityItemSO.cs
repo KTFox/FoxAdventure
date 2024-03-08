@@ -1,6 +1,7 @@
 using UnityEngine;
 using RPG.Inventories;
 using RPG.Attributes;
+using RPG.Core;
 
 namespace RPG.Abilities
 {
@@ -28,8 +29,14 @@ namespace RPG.Abilities
             CooldownStore userCooldownStore = user.GetComponent<CooldownStore>();
             if (userCooldownStore.GetRemainingTIme(this) > 0) return;
 
-            // TargetingStrategies action
+            // Initiate AbilityData
             AbilityData data = new AbilityData(user);
+
+            // Call StartAction function from ActionScheduler
+            ActionScheduler actionScheduler = user.GetComponent<ActionScheduler>();
+            actionScheduler.StartAction(data);
+
+            // TargetingStrategies action
             targetingStrategy.StartTargeting(data, () =>
             {
                 GetAcquiredTargets(data);
@@ -38,6 +45,9 @@ namespace RPG.Abilities
 
         private void GetAcquiredTargets(AbilityData data)
         {
+            // Return if Ability is cancelled while in targetingStrategy
+            if (data.Cancelled) return;
+
             Mana playerMana = data.User.GetComponent<Mana>();
             if (!playerMana.UseMana(manaCost)) return;
 

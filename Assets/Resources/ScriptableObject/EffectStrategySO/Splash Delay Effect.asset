@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119191e37efcc324e8ab2bd0a006c187, type: 3}
+  m_Name: Splash Delay Effect
+  m_EditorClassIdentifier: 
+  delayedEffects:
+  - {fileID: 11400000, guid: ef303ef22326dcf40871e11b90bf3733, type: 2}
+  - {fileID: 11400000, guid: 6571b9b18cf54914db38758cd23c6f4e, type: 2}
+  delayTime: 0.5
