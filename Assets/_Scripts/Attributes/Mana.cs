@@ -1,6 +1,6 @@
+using UnityEngine;
 using RPG.Stats;
 using RPG.Utility;
-using UnityEngine;
 
 namespace RPG.Attributes
 {
@@ -50,10 +50,7 @@ namespace RPG.Attributes
 
         public bool UseMana(float manaToUse)
         {
-            if (manaToUse > _currentMana.Value)
-            {
-                return false;
-            }
+            if (manaToUse > _currentMana.Value) return false;
 
             _currentMana.Value -= manaToUse;
             return true;
