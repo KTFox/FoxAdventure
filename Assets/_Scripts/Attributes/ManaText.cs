@@ -16,7 +16,7 @@ namespace RPG.Attributes
 
         private void Update()
         {
-            manaValueText.text = $"Mana: {playerMana.CurrentMana}/{playerMana.MaxMana}";
+            manaValueText.text = $"Mana: {playerMana.CurrentMana:N0}/{playerMana.MaxMana}";
         }
     }
 }
