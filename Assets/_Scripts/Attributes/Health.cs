@@ -10,7 +10,6 @@ namespace RPG.Attributes
 {
     public class Health : MonoBehaviour, ISaveable
     {
-
         [SerializeField]
         private UnityEvent<float> OnTakeDamage;
         [SerializeField]

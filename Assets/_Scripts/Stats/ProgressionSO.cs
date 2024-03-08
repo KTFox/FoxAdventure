@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Stats {
+namespace RPG.Stats
+{
     [CreateAssetMenu(menuName = "ScriptableObject/ProgressionSO")]
-    public class ProgressionSO : ScriptableObject {
-        [SerializeField] 
+    public class ProgressionSO : ScriptableObject
+    {
+        [SerializeField]
         private CharacterProgress[] characterProgresses;
 
         #region Serializable structs
@@ -32,13 +34,15 @@ namespace RPG.Stats {
         /// <param name="stat"></param>
         /// <param name="level"></param>
         /// <returns></returns>
-        public float GetStat(CharacterClass characterClass, Stat stat, int level) {
+        public float GetStat(CharacterClass characterClass, Stat stat, int level)
+        {
             BuildLookupTable();
 
             float[] levels = lookupTable[characterClass][stat];
 
-            if (levels.Length < level) {
-                return 0;
+            if (levels.Length < level)
+            {
+                return levels[levels.Length - 1];
             }
 
             return levels[level - 1];
@@ -50,7 +54,8 @@ namespace RPG.Stats {
         /// <param name="characterClass"></param>
         /// <param name="stat"></param>
         /// <returns></returns>
-        public int GetLevelLength(CharacterClass characterClass, Stat stat) {
+        public int GetLevelLength(CharacterClass characterClass, Stat stat)
+        {
             BuildLookupTable();
 
             float[] levels = lookupTable[characterClass][stat];
@@ -61,15 +66,18 @@ namespace RPG.Stats {
         /// <summary>
         /// Build a lookup table for performance purpose
         /// </summary>
-        private void BuildLookupTable() {
+        private void BuildLookupTable()
+        {
             if (lookupTable != null) return;
 
             lookupTable = new Dictionary<CharacterClass, Dictionary<Stat, float[]>>();
 
-            foreach (CharacterProgress characterProgress in characterProgresses) {
+            foreach (CharacterProgress characterProgress in characterProgresses)
+            {
                 Dictionary<Stat, float[]> statLookupTable = new Dictionary<Stat, float[]>();
 
-                foreach (StatProgress statProgress in characterProgress.statProgresses) {
+                foreach (StatProgress statProgress in characterProgress.statProgresses)
+                {
                     statLookupTable[statProgress.stat] = statProgress.levels;
                 }
 

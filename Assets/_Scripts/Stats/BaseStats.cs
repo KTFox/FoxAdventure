@@ -25,20 +25,17 @@ namespace RPG.Stats
         private GameObject levelupParticleEffect;
 
         private Experience experience;
-        private LazyValue<int> currentLevel;
+        private LazyValue<int> _currentLevel;
 
         public int CurrentLevel
         {
-            get
-            {
-                return currentLevel.Value;
-            }
+            get => _currentLevel.Value;
         }
 
         private void Awake()
         {
             experience = GetComponent<Experience>();
-            currentLevel = new LazyValue<int>(CalculateLevel);
+            _currentLevel = new LazyValue<int>(CalculateLevel);
         }
 
         private void OnEnable()
@@ -51,7 +48,7 @@ namespace RPG.Stats
 
         private void Start()
         {
-            currentLevel.ForceInit();
+            _currentLevel.ForceInit();
         }
 
         private void OnDisable()
@@ -64,9 +61,9 @@ namespace RPG.Stats
 
         private void UpdateExperience()
         {
-            if (currentLevel.Value < CalculateLevel())
+            if (_currentLevel.Value < CalculateLevel())
             {
-                currentLevel.Value = CalculateLevel();
+                _currentLevel.Value = CalculateLevel();
                 LevelUpEffect();
                 OnLevelUp?.Invoke();
             }
@@ -105,7 +102,7 @@ namespace RPG.Stats
 
         private float GetBaseStat(Stat stat)
         {
-            return progressionSO.GetStat(characterClass, stat, currentLevel.Value);
+            return progressionSO.GetStat(characterClass, stat, _currentLevel.Value);
         }
 
         private float GetAdditiveModifier(Stat stat)

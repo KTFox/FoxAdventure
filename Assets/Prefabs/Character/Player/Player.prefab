@@ -129,6 +129,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7128718470566842638, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: startLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128718470566842638, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       propertyPath: characterClass
       value: 0
       objectReference: {fileID: 0}
@@ -248,8 +252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1333d56f4091924a8cca2f4796d73d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxMana: 100
-  manaRecover: 2
 --- !u!114 &7625700185138666132
 MonoBehaviour:
   m_ObjectHideFlags: 0
