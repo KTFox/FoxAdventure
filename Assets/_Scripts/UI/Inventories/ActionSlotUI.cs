@@ -1,6 +1,8 @@
+using UnityEngine.UI;
 using UnityEngine;
 using RPG.Inventories;
 using RPG.Utility.UI;
+using RPG.Abilities;
 
 namespace RPG.UI.Inventories
 {
@@ -10,8 +12,11 @@ namespace RPG.UI.Inventories
         private InventoryItemIcon icon;
         [SerializeField]
         private int index;
+        [SerializeField]
+        private Image cooldownVisual;
 
         private ActionStore store;
+        private CooldownStore cooldownStore;
 
         #region Properties
         public InventoryItemSO Item
@@ -27,8 +32,16 @@ namespace RPG.UI.Inventories
 
         private void Awake()
         {
-            store = GameObject.FindGameObjectWithTag("Player").GetComponent<ActionStore>();
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            store = player.GetComponent<ActionStore>();
+            cooldownStore = player.GetComponent<CooldownStore>();
+
             store.OnActionStoreUpdated += UpdateIcon;
+        }
+
+        private void Update()
+        {
+            cooldownVisual.fillAmount = cooldownStore.GetFractionTime(Item);
         }
 
         void UpdateIcon()

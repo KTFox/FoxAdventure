@@ -26,7 +26,7 @@ namespace RPG.UI.Inventories
         }
         #endregion
 
-        public void SetUp(RPG.Inventories.Inventory inventory, int index)
+        public void SetUp(Inventory inventory, int index)
         {
             this.inventory = inventory;
             this.index = index;
