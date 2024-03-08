@@ -249,6 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxMana: 100
+  manaRecover: 2
 --- !u!114 &7625700185138666132
 MonoBehaviour:
   m_ObjectHideFlags: 0
