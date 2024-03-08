@@ -22,42 +22,27 @@ namespace RPG.Attributes
         #region Properties
         public float CurrentHealth
         {
-            get
-            {
-                return _currentHealth.Value;
-            }
+            get => _currentHealth.Value;
         }
 
         public float CurrentHealthFraction
         {
-            get
-            {
-                return _currentHealth.Value / GetComponent<BaseStats>().GetStat(Stat.Health);
-            }
+            get => _currentHealth.Value / GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
         public float CurrentHealthPercentage
         {
-            get
-            {
-                return CurrentHealthFraction * 100;
-            }
+            get => CurrentHealthFraction * 100;
         }
 
         public float MaxHealth
         {
-            get
-            {
-                return GetComponent<BaseStats>().GetStat(Stat.Health);
-            }
+            get => GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
         public bool IsDeath
         {
-            get
-            {
-                return _isDeath;
-            }
+            get => _isDeath;
         }
         #endregion
 

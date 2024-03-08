@@ -524,7 +524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scatterDistance: 1
-  dropLibrary: {fileID: 0}
+  dropLibrary: {fileID: 11400000, guid: e3fd387c75faebd4ea1c1fb13e886a19, type: 2}
 --- !u!4 &5422913865980319978 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6281042690639228794, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
