@@ -58,7 +58,7 @@ namespace RPG.Abilities.TargetingStrategies
                         data.SetTargetedPoint(raycastHit.point);
                         data.SetTargets(GetGameObjectsInRadius(raycastHit.point));
 
-                        yield break;
+                        break;
                     }
                 }
 

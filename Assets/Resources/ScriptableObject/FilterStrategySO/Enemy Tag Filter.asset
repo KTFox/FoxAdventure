@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c94cfea0dd3c1df418cb9e9be0d72d62, type: 3}
-  m_Name: Enemt Tag Filter
+  m_Name: Enemy Tag Filter
   m_EditorClassIdentifier: 
   filterTag: Enemy

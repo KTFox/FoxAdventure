@@ -10,20 +10,9 @@ namespace RPG.Attributes
         private LazyValue<float> _currentMana;
 
         #region Properties
-        public float MaxMana
-        {
-            get => GetComponent<BaseStats>().GetStat(Stat.Mana);
-        }
-
-        public float CurrentMana
-        {
-            get => _currentMana.Value;
-        }
-
-        public float ManaRecover
-        {
-            get => GetComponent<BaseStats>().GetStat(Stat.ManaRecover);
-        }
+        public float MaxMana => GetComponent<BaseStats>().GetStat(Stat.Mana);
+        public float CurrentMana => _currentMana.Value;
+        public float ManaRecover => GetComponent<BaseStats>().GetStat(Stat.ManaRecover);
         #endregion
 
         private void Awake()
@@ -58,12 +47,12 @@ namespace RPG.Attributes
         }
 
         #region ISaveable implements
-        public object CaptureState()
+        object ISaveable.CaptureState()
         {
             return _currentMana.Value;
         }
 
-        public void RestoreState(object state)
+        void ISaveable.RestoreState(object state)
         {
             _currentMana.Value = (float)state;
         }

@@ -640,7 +640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5847523829338304250, guid: ef7b3ac6f1eb99f4e940f7746228a461, type: 3}
       propertyPath: stockConfigs.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5847523829338304250, guid: ef7b3ac6f1eb99f4e940f7746228a461, type: 3}
       propertyPath: sellingDiscountPercentage
@@ -669,7 +669,7 @@ PrefabInstance:
     - target: {fileID: 5847523829338304250, guid: ef7b3ac6f1eb99f4e940f7746228a461, type: 3}
       propertyPath: stockConfigs.Array.data[5].item
       value: 
-      objectReference: {fileID: 11400000, guid: 664f6e6775a6aa542b29e295604af6f2, type: 2}
+      objectReference: {fileID: 11400000, guid: 1c62a158152b15542a9804f82f009262, type: 2}
     - target: {fileID: 5847523829338304250, guid: ef7b3ac6f1eb99f4e940f7746228a461, type: 3}
       propertyPath: stockConfigs.Array.data[0].initialStock
       value: 2
@@ -700,7 +700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5847523829338304250, guid: ef7b3ac6f1eb99f4e940f7746228a461, type: 3}
       propertyPath: stockConfigs.Array.data[5].levelToUnlock
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5847523829338304250, guid: ef7b3ac6f1eb99f4e940f7746228a461, type: 3}
       propertyPath: stockConfigs.Array.data[0].buyingPercentageDiscount
@@ -716,7 +716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5847523829338304250, guid: ef7b3ac6f1eb99f4e940f7746228a461, type: 3}
       propertyPath: stockConfigs.Array.data[5].buyingDiscountPercentage
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8964958593789369368, guid: ef7b3ac6f1eb99f4e940f7746228a461, type: 3}
       propertyPath: _uniqueIdentifier
