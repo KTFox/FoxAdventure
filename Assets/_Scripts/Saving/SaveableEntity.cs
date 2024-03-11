@@ -12,13 +12,7 @@ namespace RPG.Saving
 
         private static Dictionary<string, SaveableEntity> globalLookup = new Dictionary<string, SaveableEntity>();
 
-        public string UniqueIdentifier
-        {
-            get
-            {
-                return _uniqueIdentifier;
-            }
-        }
+        public string UniqueIdentifier=> _uniqueIdentifier;
 
         /// <summary>
         /// Capture all state of ISaveable components in gameObject

@@ -18,25 +18,10 @@ namespace RPG.Abilities
         }
 
         #region Properties
-        public GameObject User
-        {
-            get => _user;
-        }
-
-        public Vector3 TargetPoint
-        {
-            get => _targetedPoint;
-        }
-
-        public IEnumerable<GameObject> Targets
-        {
-            get => _targets;
-        }
-
-        public bool Cancelled
-        {
-            get => _cancelled;
-        }
+        public GameObject User => _user;
+        public Vector3 TargetPoint => _targetedPoint;
+        public IEnumerable<GameObject> Targets => _targets;
+        public bool Cancelled => _cancelled;
         #endregion
 
         public void SetTargetedPoint(Vector3 targetedPoint)

@@ -19,30 +19,11 @@ namespace RPG.Attributes
         private bool _isDeath;
 
         #region Properties
-        public float CurrentHealth
-        {
-            get => _currentHealth.Value;
-        }
-
-        public float CurrentHealthFraction
-        {
-            get => _currentHealth.Value / GetComponent<BaseStats>().GetStat(Stat.Health);
-        }
-
-        public float CurrentHealthPercentage
-        {
-            get => CurrentHealthFraction * 100;
-        }
-
-        public float MaxHealth
-        {
-            get => GetComponent<BaseStats>().GetStat(Stat.Health);
-        }
-
-        public bool IsDeath
-        {
-            get => _isDeath;
-        }
+        public float CurrentHealth => _currentHealth.Value;
+        public float CurrentHealthFraction => _currentHealth.Value / GetComponent<BaseStats>().GetStat(Stat.Health);
+        public float CurrentHealthPercentage => CurrentHealthFraction * 100;
+        public float MaxHealth => GetComponent<BaseStats>().GetStat(Stat.Health);
+        public bool IsDeath => _isDeath;
         #endregion
 
         private void Awake()

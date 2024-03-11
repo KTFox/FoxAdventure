@@ -11,9 +11,6 @@ namespace RPG.Inventories
         [Tooltip("Where are we allowed to put this _item.")]
         [SerializeField] EquipLocation _allowedEquipLocation;
 
-        public EquipLocation AllowedEquipLocation
-        {
-            get => _allowedEquipLocation;
-        }
+        public EquipLocation AllowedEquipLocation => _allowedEquipLocation;
     }
 }

@@ -11,35 +11,12 @@ namespace RPG.Shops
         private int _quantityInTransaction;
 
         #region Properties
-        public InventoryItemSO Item
-        {
-            get => _item;
-        }
-
-        public Sprite ItemIcon
-        {
-            get => _item.Icon;
-        }
-
-        public string ItemName
-        {
-            get => _item.DisplayName;
-        }
-
-        public int Stock
-        {
-            get => _stock;
-        }
-
-        public float Price
-        {
-            get => _price;
-        }
-
-        public int QuantityInTransaction
-        {
-            get => _quantityInTransaction;
-        }
+        public InventoryItemSO Item => _item;
+        public Sprite ItemIcon => _item.Icon;
+        public string ItemName => _item.DisplayName;
+        public int Stock => _stock;
+        public float Price => _price;
+        public int QuantityInTransaction => _quantityInTransaction;
         #endregion
 
         public ShopItem(InventoryItemSO item, int stock, float price, int quantityInTransaction)

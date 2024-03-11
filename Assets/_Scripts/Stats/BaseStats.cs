@@ -27,10 +27,7 @@ namespace RPG.Stats
         private Experience experience;
         private LazyValue<int> _currentLevel;
 
-        public int CurrentLevel
-        {
-            get => _currentLevel.Value;
-        }
+        public int CurrentLevel => _currentLevel.Value;
 
         private void Awake()
         {

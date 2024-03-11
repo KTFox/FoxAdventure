@@ -13,12 +13,7 @@ namespace RPG.Inventories
 
         private float _currentBalance;
 
-        #region Properties
-        public float CurrentBalance
-        {
-            get => _currentBalance;
-        }
-        #endregion
+        public float CurrentBalance => _currentBalance;
 
         private void Awake()
         {

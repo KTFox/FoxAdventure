@@ -19,15 +19,8 @@ namespace RPG.UI.Inventories
         private CooldownStore cooldownStore;
 
         #region Properties
-        public InventoryItemSO Item
-        {
-            get => store.GetActionItem(index);
-        }
-
-        public int ItemQuantity
-        {
-            get => store.GetItemQuantity(index);
-        }
+        public InventoryItemSO Item => store.GetActionItem(index);
+        public int ItemQuantity => store.GetItemQuantity(index);
         #endregion
 
         private void Awake()

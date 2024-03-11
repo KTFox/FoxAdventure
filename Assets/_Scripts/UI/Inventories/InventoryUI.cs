@@ -12,11 +12,11 @@ namespace RPG.UI.Inventories
         [SerializeField]
         private InventorySlotUI inventorySlotPrefab;
 
-        private RPG.Inventories.Inventory playerInventory;
+        private Inventory playerInventory;
 
         private void Awake()
         {
-            playerInventory = RPG.Inventories.Inventory.PlayerInventory;
+            playerInventory = Inventory.PlayerInventory;
         }
 
         private void OnEnable()

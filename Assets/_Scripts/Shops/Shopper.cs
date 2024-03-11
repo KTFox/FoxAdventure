@@ -9,12 +9,7 @@ namespace RPG.Shops
 
         private Shop activeShop;
 
-        #region Properties
-        public Shop ActiveShop
-        {
-            get => activeShop;
-        }
-        #endregion
+        public Shop ActiveShop => activeShop;
 
         /// <summary>
         /// Need to debug

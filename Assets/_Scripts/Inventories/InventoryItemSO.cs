@@ -49,40 +49,13 @@ namespace RPG.Inventories
         #endregion
 
         #region Properties
-        public string ItemID
-        {
-            get => _itemID;
-        }
-
-        public string DisplayName
-        {
-            get => _displayName;
-        }
-
-        public string Description
-        {
-            get => _description;
-        }
-
-        public Sprite Icon
-        {
-            get => _icon;
-        }
-
-        public bool Stackable
-        {
-            get => _stackable;
-        }
-
-        public float Price
-        {
-            get => _price;
-        }
-
-        public ItemCategory ItemCategory
-        {
-            get => _itemCategory;
-        }
+        public string ItemID => _itemID;
+        public string DisplayName => _displayName;
+        public string Description => _description;
+        public Sprite Icon => _icon;
+        public bool Stackable => _stackable;
+        public float Price => _price;
+        public ItemCategory ItemCategory => _itemCategory;
         #endregion
 
         /// <summary>

@@ -11,10 +11,7 @@ namespace RPG.Stats
         [SerializeField]
         private float _experiencePoints;
 
-        public float ExperiencePoint
-        {
-            get => _experiencePoints;
-        }
+        public float ExperiencePoint => _experiencePoints;
 
         private void Update()
         {

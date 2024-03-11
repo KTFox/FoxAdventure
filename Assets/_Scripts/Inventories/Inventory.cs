@@ -29,16 +29,8 @@ namespace RPG.Inventories
                 return player.GetComponent<Inventory>();
             }
         }
-
-        public int SlotSize
-        {
-            get => slots.Length;
-        }
-
-        public bool HasEmptySlot
-        {
-            get => FindFirstEmptySlotIndex() >= 0;
-        }
+        public int SlotSize => slots.Length;
+        public bool HasEmptySlot => FindFirstEmptySlotIndex() >= 0;
         #endregion
 
         private void Awake()

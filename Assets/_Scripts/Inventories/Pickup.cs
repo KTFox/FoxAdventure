@@ -14,20 +14,9 @@ namespace RPG.Inventories
         private int _number = 1;
 
         #region Properties
-        public InventoryItemSO Item
-        {
-            get => _item;
-        }
-
-        public bool CanBePickedUp
-        {
-            get => playerInventory.HasEmptySlot;
-        }
-
-        public int Number
-        {
-            get => _number;
-        }
+        public InventoryItemSO Item => _item;
+        public bool CanBePickedUp => playerInventory.HasEmptySlot;
+        public int Number => _number;
         #endregion
 
         private void Awake()

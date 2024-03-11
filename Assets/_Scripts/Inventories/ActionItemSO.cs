@@ -14,10 +14,7 @@ namespace RPG.Inventories
         [SerializeField] 
         private bool _consumable = false;
 
-        public bool Consumable
-        {
-            get => _consumable;
-        }
+        public bool Consumable => _consumable;
 
         /// <summary>
         /// Trigger the use of this _item. Override to provide functionality.

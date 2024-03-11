@@ -15,15 +15,8 @@ namespace RPG.UI.Inventories
         #endregion
 
         #region Properties
-        public InventoryItemSO Item
-        {
-            get => inventory.GetItemInSlot(index);
-        }
-
-        public int ItemQuantity
-        {
-            get => inventory.GetItemQuantityInSlot(index);
-        }
+        public InventoryItemSO Item => inventory.GetItemInSlot(index);
+        public int ItemQuantity => inventory.GetItemQuantityInSlot(index);
         #endregion
 
         public void SetUp(Inventory inventory, int index)

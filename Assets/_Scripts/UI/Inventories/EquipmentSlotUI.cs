@@ -17,21 +17,8 @@ namespace RPG.UI.Inventories
         private Equipment playerEquipment;
 
         #region Properties
-        public InventoryItemSO Item
-        {
-            get => playerEquipment.GetItemInSlot(equipLocation);
-        }
-
-        public int ItemQuantity
-        {
-            get
-            {
-                if (Item == null)
-                    return 0;
-                else
-                    return 1;
-            }
-        }
+        public InventoryItemSO Item => playerEquipment.GetItemInSlot(equipLocation);
+        public int ItemQuantity => !Item ? 0 : 1;
         #endregion
 
         private void Awake()

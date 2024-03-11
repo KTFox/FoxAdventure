@@ -19,15 +19,8 @@ namespace RPG.Inventories
         /// Returns the pickup spawned by this class if it exists.
         /// </summary>
         /// <returns>Returns null if the pickup has been collected.</returns>
-        public Pickup Pickup
-        {
-            get => GetComponentInChildren<Pickup>();
-        }
-
-        public bool IsCollected
-        {
-            get => Pickup == null;
-        }
+        public Pickup Pickup => GetComponentInChildren<Pickup>();
+        public bool IsCollected => Pickup == null;
         #endregion
 
         private void Awake()

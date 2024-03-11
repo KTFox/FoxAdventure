@@ -41,20 +41,9 @@ namespace RPG.Shops
         private ItemCategory _currentCategory;
 
         #region Properties
-        public string ShopName
-        {
-            get => _shopName;
-        }
-
-        public bool IsBuyingMode
-        {
-            get => _isBuyingMode;
-        }
-
-        public ItemCategory CurrentCategory
-        {
-            get => _currentCategory;
-        }
+        public string ShopName => _shopName;
+        public bool IsBuyingMode => _isBuyingMode;
+        public ItemCategory CurrentCategory => _currentCategory;
         #endregion
 
         public void SetShopper(Shopper shopper)
