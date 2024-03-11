@@ -6,6 +6,7 @@ namespace RPG.Combat
 {
     public class Projectile : MonoBehaviour
     {
+        #region Variables
         [SerializeField]
         private bool isChasingProjectTile = true;
         [SerializeField]
@@ -24,6 +25,8 @@ namespace RPG.Combat
         private Health target;
         private GameObject instigator;
         private float damage;
+        private Vector3 targetPoint;
+        #endregion
 
         private void Start()
         {
@@ -32,9 +35,7 @@ namespace RPG.Combat
 
         private void Update()
         {
-            if (target == null) return;
-
-            if (isChasingProjectTile && !target.IsDeath)
+            if (target != null && isChasingProjectTile && !target.IsDeath)
             {
                 transform.LookAt(GetAimLocation());
             }
@@ -44,29 +45,56 @@ namespace RPG.Combat
 
         private void OnTriggerEnter(Collider collision)
         {
-            if (collision.GetComponent<Health>() != target) return;
-            if (target.IsDeath) return;
+            // Check when to trigger Hit Effects
+            Health targetHealth = collision.GetComponent<Health>();
+            if (target != null && targetHealth != target) return;
+            if (targetHealth == null || targetHealth.IsDeath) return;
+            if (collision.gameObject == instigator) return;
 
+            // Trigger Hit Effects
             OnHit?.Invoke();
-
-            target.TakeDamage(instigator, damage);
+            targetHealth.TakeDamage(instigator, damage);
             flyingSpeed = 0f;
-
             if (hitEffect != null)
             {
                 Instantiate(hitEffect, GetAimLocation(), transform.rotation);
             }
-
             foreach (GameObject gameObject in destroyOnHitObjects)
             {
                 Destroy(gameObject);
             }
-
             Destroy(gameObject, lifeAfterImpact);
         }
 
+        #region SetTarget function overloads
+        public void SetTarget(GameObject instigator, float damage, Health target)
+        {
+            SetTarget(instigator, damage, target, Vector3.zero);
+        }
+        
+        public void SetTarget(GameObject instigator, float damage, Vector3 targetPoint)
+        {
+            SetTarget(instigator, damage, null, targetPoint);
+        }
+
+        private void SetTarget(GameObject instigator, float damage, Health target, Vector3 targetPoint)
+        {
+            this.instigator = instigator;
+            this.damage = damage;
+            this.target = target;
+            this.targetPoint = targetPoint;
+
+            Destroy(gameObject, maxLifeTime);
+        }
+        #endregion
+
         private Vector3 GetAimLocation()
         {
+            if (target == null)
+            {
+                return targetPoint;
+            }
+
             //Future problem: cannot get aim location of target that doesn't have capsucollider
             CapsuleCollider targetCap = target.GetComponent<CapsuleCollider>();
 
@@ -76,21 +104,6 @@ namespace RPG.Combat
             }
 
             return target.transform.position + Vector3.up * targetCap.height / 2;
-        }
-
-        /// <summary>
-        /// Set target, instigator and damage
-        /// </summary>
-        /// <param name="target"></param>
-        /// <param name="instigator"></param>
-        /// <param name="damage"></param>
-        public void SetTarget(Health target, GameObject instigator, float damage)
-        {
-            this.target = target;
-            this.instigator = instigator;
-            this.damage = damage;
-
-            Destroy(gameObject, maxLifeTime);
         }
     }
 }

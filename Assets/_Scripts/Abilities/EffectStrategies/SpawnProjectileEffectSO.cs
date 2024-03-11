@@ -14,18 +14,43 @@ namespace RPG.Abilities.EffectStrategies
         private float damage;
         [SerializeField]
         private bool isRightHand;
+        [SerializeField]
+        private bool useTargetPoint;
 
         public override void StartEffect(AbilityData data, Action finishEffect)
         {
             Fighter fighter = data.User.GetComponent<Fighter>();
+            Vector3 spawnPosition = fighter.GetHandTransform(isRightHand);
+
+            if (useTargetPoint)
+            {
+                SpawnProjectileForTargetPoint(data, spawnPosition);
+            }
+            else
+            {
+                SpawnProjectileForTargets(data, spawnPosition);
+            }
+
+            finishEffect();
+        }
+
+        private void SpawnProjectileForTargetPoint(AbilityData data, Vector3 spawnPosition)
+        {
+            Projectile projectile = Instantiate(projectileToSpawn);
+            projectile.transform.position = spawnPosition;
+            projectile.SetTarget(data.User, damage, data.TargetPoint);
+        }
+
+        private void SpawnProjectileForTargets(AbilityData data, Vector3 spawnPosition)
+        {
             foreach (GameObject target in data.Targets)
             {
                 Health targetHealth = target.GetComponent<Health>();
                 if (targetHealth)
                 {
                     Projectile projectile = Instantiate(projectileToSpawn);
-                    projectile.transform.position = fighter.GetHandTransform(isRightHand);
-                    projectile.SetTarget(targetHealth, data.User, damage);
+                    projectile.transform.position = spawnPosition;
+                    projectile.SetTarget(data.User, damage, targetHealth);
                 }
             }
         }
