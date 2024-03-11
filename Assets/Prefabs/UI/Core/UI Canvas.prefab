@@ -5027,13 +5027,17 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1463006236795145938, guid: 637aca0a0258f1345b2f31d05a842f0e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1913666228832830579, guid: 637aca0a0258f1345b2f31d05a842f0e, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1913666228832830579, guid: 637aca0a0258f1345b2f31d05a842f0e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0000032186508
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2055782529800470306, guid: 637aca0a0258f1345b2f31d05a842f0e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5046,6 +5050,18 @@ PrefabInstance:
     - target: {fileID: 2055782529800470306, guid: 637aca0a0258f1345b2f31d05a842f0e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055782529800470306, guid: 637aca0a0258f1345b2f31d05a842f0e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679359227278645759, guid: 637aca0a0258f1345b2f31d05a842f0e, type: 3}
+      propertyPath: m_VerticalFit
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6505836666385819746, guid: 637aca0a0258f1345b2f31d05a842f0e, type: 3}
+      propertyPath: m_Size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6505836666385819746, guid: 637aca0a0258f1345b2f31d05a842f0e, type: 3}
       propertyPath: m_Value
@@ -5089,10 +5105,10 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 3
+  m_ChildAlignment: 0
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -5847,6 +5863,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6329604693758558961, guid: 568a3fa886cce5749b9472d10e35dc65, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9015768710454544367, guid: 568a3fa886cce5749b9472d10e35dc65, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
