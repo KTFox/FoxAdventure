@@ -32,14 +32,6 @@ namespace RPG.Combat
         private LazyValue<Weapon> currentWeapon;
         private float timeSinceLastAttack = Mathf.Infinity;
 
-        public Health TargetHealth
-        {
-            get
-            {
-                return _targetHealth;
-            }
-        }
-
         private void Awake()
         {
             mover = GetComponent<Mover>();
@@ -159,6 +151,16 @@ namespace RPG.Combat
         {
             GetComponent<ActionScheduler>().StartAction(this);
             _targetHealth = targetObject.GetComponent<Health>();
+        }
+
+        public Vector3 GetHandTransform (bool isRightHand)
+        {
+            if (isRightHand)
+            {
+                return rightHandTransform.position;
+            }
+
+            return lefttHandTransform.position;
         }
 
         #region IAction interface implements
