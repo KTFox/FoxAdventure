@@ -7,24 +7,40 @@ namespace RPG.Stats
     {
         private Dictionary<Trait, int> assignedPoints = new Dictionary<Trait, int>();
         private Dictionary<Trait, int> stagedPoints = new Dictionary<Trait, int>();
-        private int _unAssignedPoints = 10;
 
-        public int UnAssignedPoints => _unAssignedPoints;
+        #region Properties
+        public int UnAssignedPoints => AssignablePoints - GetTotalProposedPoints();
+        public int AssignablePoints => (int)GetComponent<BaseStats>().GetStat(Stat.TotalTraitPoints);
+        #endregion
 
         public void AssignPoints(Trait trait, int points)
         {
             if (!CanAssignTraits(trait, points)) return;
 
             stagedPoints[trait] = GetStagedPoints(trait) + points;
-            _unAssignedPoints -= points;
         }
 
         public bool CanAssignTraits(Trait trait, int points)
         {
             if (GetStagedPoints(trait) + points < 0) return false;
-            if (_unAssignedPoints < points) return false;
+            if (UnAssignedPoints < points) return false;
 
             return true;
+        }
+
+        public int GetTotalProposedPoints()
+        {
+            int total = 0;
+            foreach(int point in assignedPoints.Values)
+            {
+                total += point;
+            }
+            foreach(int point in stagedPoints.Values)
+            {
+                total += point;
+            }
+
+            return total;
         }
 
         public int GetProposedPoints(Trait trait)
