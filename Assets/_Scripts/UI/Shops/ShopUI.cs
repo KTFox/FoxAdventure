@@ -12,7 +12,7 @@ namespace RPG.UI.Shops
         [SerializeField]
         private Transform rowUIListRoot;
         [SerializeField]
-        private RowUI rowUIPrefab;
+        private ShopItemRowUI rowUIPrefab;
         [SerializeField]
         private TextMeshProUGUI totalText;
         [SerializeField]
@@ -72,7 +72,7 @@ namespace RPG.UI.Shops
 
             foreach (ShopItem item in currentShop.GetFilteredItems())
             {
-                RowUI itemRow = Instantiate(rowUIPrefab, rowUIListRoot);
+                ShopItemRowUI itemRow = Instantiate(rowUIPrefab, rowUIListRoot);
                 itemRow.Setup(currentShop, item);
             }
 

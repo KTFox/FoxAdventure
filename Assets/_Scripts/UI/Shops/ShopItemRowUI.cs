@@ -5,7 +5,7 @@ using RPG.Shops;
 
 namespace RPG.UI.Shops
 {
-    public class RowUI : MonoBehaviour
+    public class ShopItemRowUI : MonoBehaviour
     {
         [SerializeField]
         private Image iconImage;
