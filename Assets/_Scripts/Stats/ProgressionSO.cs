@@ -28,7 +28,7 @@ namespace RPG.Stats
         private Dictionary<CharacterClass, Dictionary<Stat, float[]>> lookupTable;
 
         /// <summary>
-        /// Min value of level is 1
+        /// Min traitValue of level is 1
         /// </summary>
         /// <param name="characterClass"></param>
         /// <param name="stat"></param>

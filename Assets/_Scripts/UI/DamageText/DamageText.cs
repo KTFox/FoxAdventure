@@ -9,7 +9,7 @@ namespace RPG.UI.DamageText
         private TextMeshProUGUI damageText;
 
         /// <summary>
-        /// Set text value visual
+        /// Set text traitValue visual
         /// </summary>
         /// <param name="damageAmount"></param>
         public void UpdateText(float damageAmount)

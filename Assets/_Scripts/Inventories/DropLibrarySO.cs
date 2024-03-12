@@ -15,7 +15,7 @@ namespace RPG.Inventories
         {
             public InventoryItemSO item;
 
-            [Tooltip("The bigger value, the more chance to be dropped")]
+            [Tooltip("The bigger traitValue, the more chance to be dropped")]
             public float[] relativeChances;
 
             public int[] minNumbers;
@@ -38,7 +38,7 @@ namespace RPG.Inventories
             }
         }
 
-        [Tooltip("This value will determine the chance that enemy will drop items.")]
+        [Tooltip("This traitValue will determine the chance that enemy will drop items.")]
         [SerializeField]
         private float[] dropChancePercentage;
 
