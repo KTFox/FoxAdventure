@@ -34,6 +34,9 @@ namespace RPG.Shops
             public int levelToUnlock = 1;
         }
 
+        [SerializeField]
+        private float maximumBarterDiscount;
+
         private Shopper currentShopper;
         private Dictionary<InventoryItemSO, int> transactions = new Dictionary<InventoryItemSO, int>();
         private Dictionary<InventoryItemSO, int> stocksSold = new Dictionary<InventoryItemSO, int>();
@@ -227,7 +230,7 @@ namespace RPG.Shops
 
                     if (!prices.ContainsKey(stockConfig.item))
                     {
-                        prices[stockConfig.item] = stockConfig.item.Price;
+                        prices[stockConfig.item] = stockConfig.item.Price * GetBarterDiscount();
                     }
 
                     prices[stockConfig.item] *= (1 - stockConfig.buyingDiscountPercentage / 100);
@@ -363,6 +366,14 @@ namespace RPG.Shops
             if (shopperStat == null) return 0;
 
             return shopperStat.CurrentLevel;
+        }
+
+        private float GetBarterDiscount()
+        {
+            BaseStats baseStats = currentShopper.GetComponent<BaseStats>();
+            float discount = baseStats.GetStat(Stat.BuyingDiscountPercentage);
+
+            return (1 - Mathf.Min(discount, maximumBarterDiscount) / 100);
         }
 
         #region IRaycastable implements

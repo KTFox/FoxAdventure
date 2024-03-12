@@ -40,6 +40,9 @@ namespace RPG.Stats
 
             float[] levels = lookupTable[characterClass][stat];
 
+            if (!lookupTable[characterClass].ContainsKey(stat))
+                return 0;
+
             if (levels.Length == 0)
                 return 0;
 
@@ -69,7 +72,7 @@ namespace RPG.Stats
         /// </summary>
         private void BuildLookupTable()
         {
-            if (lookupTable != null) 
+            if (lookupTable != null)
                 return;
 
             lookupTable = new Dictionary<CharacterClass, Dictionary<Stat, float[]>>();
