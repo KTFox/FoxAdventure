@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Unarmed
   m_EditorClassIdentifier: 
   _itemID: 834f3a7c-ca62-4b67-8839-c76e9b832553
-  _displayName: 
+  _displayName: Unarmed
   _description: 
   _icon: {fileID: 0}
   pickup: {fileID: 0}
   _stackable: 0
+  _price: 0
+  _itemCategory: 0
   _allowedEquipLocation: 3
   equippedPrefab: {fileID: 1238587318507207985, guid: 76ce8bc272a828d429d3479cbbdc366f, type: 3}
   projectile: {fileID: 0}
