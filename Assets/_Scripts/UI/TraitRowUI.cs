@@ -31,12 +31,14 @@ namespace RPG.UI
             minusButton.interactable = playerTraitStore.CanAssignTraits(trait, -1);
             plusButton.interactable = playerTraitStore.CanAssignTraits(trait, 1);
 
-            traitValue.text = playerTraitStore.GetTraits(trait).ToString();
+            traitValue.text = playerTraitStore.GetProposedPoints(trait).ToString();
         }
 
+        #region Unity Events
         public void Allocate(int value)
         {
             playerTraitStore.AssignPoints(trait, value);
         }
+        #endregion
     }
 }
