@@ -1,7 +1,6 @@
 using UnityEngine;
 using RPG.SceneManagement;
 using RPG.Utility;
-using System;
 
 namespace RPG.UI
 {

@@ -11,7 +11,7 @@ namespace RPG.SceneManagement
         [SerializeField]
         private float fadeInTime;
 
-        private void Awake()
+        public void ContinueGame()
         {
             StartCoroutine(LoadLastScene());
         }
@@ -23,18 +23,6 @@ namespace RPG.SceneManagement
             Fader fader = FindObjectOfType<Fader>();
             fader.FadeOutImmediately();
             yield return fader.FadeIn(fadeInTime);
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                SaveGame();
-            }
-            else if (Input.GetKeyDown(KeyCode.L))
-            {
-                LoadGame();
-            }
         }
 
         public void LoadGame()
