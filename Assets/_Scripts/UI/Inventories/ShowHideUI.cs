@@ -4,46 +4,32 @@ namespace RPG.UI.Inventories
 {
     public class ShowHideUI : MonoBehaviour
     {
-        [SerializeField] KeyCode toggleKey = KeyCode.Escape;
-        [SerializeField] GameObject[] uiContainer = null;
+        [SerializeField]
+        private uiConfig[] uiConfigs;
 
-        private bool isShowing;
+        [System.Serializable]
+        private struct uiConfig
+        {
+            public GameObject uiObject;
+            public KeyCode toggleKey;
+        }
 
         private void Start()
         {
-            Hide();
+            foreach (var config in uiConfigs)
+            {
+                config.uiObject.SetActive(false);
+            }
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(toggleKey))
+            foreach (var config in uiConfigs)
             {
-                if (isShowing)
+                if (Input.GetKeyDown(config.toggleKey))
                 {
-                    Hide();
+                    config.uiObject.SetActive(!config.uiObject.activeSelf);
                 }
-                else
-                {
-                    Show();
-                }
-            }
-        }
-
-        private void Show()
-        {
-            foreach (GameObject uiObject in uiContainer)
-            {
-                uiObject.SetActive(true);
-                isShowing = true;
-            }
-        }
-
-        private void Hide()
-        {
-            foreach (GameObject uiObject in uiContainer)
-            {
-                uiObject.SetActive(false);
-                isShowing = false;
             }
         }
     }

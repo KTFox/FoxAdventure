@@ -20,6 +20,7 @@ namespace RPG.UI
             }
 
             SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
+            if (savingWrapper == null) return;
             foreach (string savedFileName in savingWrapper.SavedFileNames)
             {
                 GameObject buttonObject = Instantiate(buttonPrefab, rootTransform);
