@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 using RPG.Saving;
 
 namespace RPG.SceneManagement
@@ -14,12 +15,20 @@ namespace RPG.SceneManagement
         [SerializeField]
         private int firstSceneBuildIndex = 1;
 
+        public IEnumerable<string> SavedFileNames => GetComponent<SavingSystem>().GetSaveFileNames();
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.S))
             {
                 Save();
             }
+        }
+
+        public void LoadGameFromSavedFile(string savedFile)
+        {
+            SetCurrentSaveFileName(savedFile);
+            ContinueGame();
         }
 
         public void Load()

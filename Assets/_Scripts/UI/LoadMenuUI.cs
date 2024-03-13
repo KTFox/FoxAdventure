@@ -1,4 +1,7 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using RPG.SceneManagement;
 
 namespace RPG.UI
 {
@@ -14,6 +17,17 @@ namespace RPG.UI
             foreach (Transform child in rootTransform)
             {
                 Destroy(child.gameObject);
+            }
+
+            SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
+            foreach (string savedFileName in savingWrapper.SavedFileNames)
+            {
+                GameObject buttonObject = Instantiate(buttonPrefab, rootTransform);
+                TextMeshProUGUI buttonText = buttonObject.GetComponentInChildren<TextMeshProUGUI>();
+                Button button = buttonObject.GetComponent<Button>();
+
+                buttonText.text = savedFileName;
+                button.onClick.AddListener(() => savingWrapper.LoadGameFromSavedFile(savedFileName));
             }
         }
     }
