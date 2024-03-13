@@ -25,7 +25,7 @@ namespace RPG.Saving
         }
 
         /// <summary>
-        /// Save all SaveableEntity states into saveFile
+        /// SaveData all SaveableEntity states into saveFile
         /// </summary>
         /// <param name="saveFile"></param>
         public void Save(string saveFile)
@@ -37,7 +37,7 @@ namespace RPG.Saving
         }
 
         /// <summary>
-        /// Load all SaveableEntity states from saveFile
+        /// LoadData all SaveableEntity states from saveFile
         /// </summary>
         /// <param name="saveFile"></param>
         public void Load(string saveFile)

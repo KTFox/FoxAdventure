@@ -35,7 +35,7 @@ namespace GameDevTV.Saving
         }
 
         /// <summary>
-        /// Save the current scene to the provided save file.
+        /// SaveData the current scene to the provided save file.
         /// </summary>
         public void Save(string saveFile)
         {

@@ -11,9 +11,12 @@ namespace RPG.SceneManagement
         private const string CURRENT_SAVE_FILE_NAME = "CurrentSaveFileName";
 
         [SerializeField]
-        private float fadeInTime;
+        private float fadeInTime = 0.2f;
         [SerializeField]
-        private int firstSceneBuildIndex = 1;
+        private float fadeOutTime = 0.2f;
+
+        private int menuSceneBuildIndex = 0;
+        private int firstLevelBuildIndex = 1;
 
         public IEnumerable<string> SavedFileNames => GetComponent<SavingSystem>().GetSaveFileNames();
 
@@ -21,8 +24,13 @@ namespace RPG.SceneManagement
         {
             if (Input.GetKeyDown(KeyCode.S))
             {
-                Save();
+                SaveData();
             }
+        }
+
+        public void LoadMenuGame()
+        {
+            StartCoroutine(LoadMenuScene());
         }
 
         public void LoadGameFromSavedFile(string savedFile)
@@ -31,12 +39,12 @@ namespace RPG.SceneManagement
             ContinueGame();
         }
 
-        public void Load()
+        public void LoadData()
         {
             GetComponent<SavingSystem>().Load(GetCurrentSaveFileName());
         }
 
-        public void Save()
+        public void SaveData()
         {
             GetComponent<SavingSystem>().Save(GetCurrentSaveFileName());
         }
@@ -52,7 +60,7 @@ namespace RPG.SceneManagement
             StartCoroutine(LoadFirstScene());
         }
 
-        IEnumerator LoadLastScene()
+        private IEnumerator LoadLastScene()
         {
             yield return GetComponent<SavingSystem>().LoadLastScene(GetCurrentSaveFileName());
 
@@ -62,13 +70,21 @@ namespace RPG.SceneManagement
             yield return fader.FadeIn(fadeInTime);
         }
 
-        IEnumerator LoadFirstScene()
+        private IEnumerator LoadFirstScene()
         {
-            yield return SceneManager.LoadSceneAsync(firstSceneBuildIndex);
+            yield return SceneManager.LoadSceneAsync(firstLevelBuildIndex);
 
             Fader fader = FindObjectOfType<Fader>();
             fader.FadeOutImmediately();
 
+            yield return fader.FadeIn(fadeInTime);
+        }
+
+        private IEnumerator LoadMenuScene()
+        {
+            Fader fader = FindObjectOfType<Fader>();
+            yield return fader.FadeOut(fadeOutTime);
+            yield return SceneManager.LoadSceneAsync(menuSceneBuildIndex);
             yield return fader.FadeIn(fadeInTime);
         }
 
