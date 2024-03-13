@@ -1,38 +1,76 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using RPG.Saving;
 
 namespace RPG.SceneManagement
 {
     public class SavingWrapper : MonoBehaviour
     {
-        private const string defaultFileName = "KTFox_SavingFile";
+        private const string CURRENT_SAVE_FILE_NAME = "CurrentSaveFileName";
 
         [SerializeField]
         private float fadeInTime;
+        [SerializeField]
+        private int firstSceneBuildIndex = 1;
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                Save();
+            }
+        }
+
+        public void Load()
+        {
+            GetComponent<SavingSystem>().Load(GetCurrentSaveFileName());
+        }
+
+        public void Save()
+        {
+            GetComponent<SavingSystem>().Save(GetCurrentSaveFileName());
+        }
 
         public void ContinueGame()
         {
             StartCoroutine(LoadLastScene());
         }
 
+        public void NewGame(string saveFile)
+        {
+            SetCurrentSaveFileName(saveFile);
+            StartCoroutine(LoadFirstScene());
+        }
+
         IEnumerator LoadLastScene()
         {
-            yield return GetComponent<SavingSystem>().LoadLastScene(defaultFileName);
+            yield return GetComponent<SavingSystem>().LoadLastScene(GetCurrentSaveFileName());
 
             Fader fader = FindObjectOfType<Fader>();
             fader.FadeOutImmediately();
+
             yield return fader.FadeIn(fadeInTime);
         }
 
-        public void LoadGame()
+        IEnumerator LoadFirstScene()
         {
-            GetComponent<SavingSystem>().Load(defaultFileName);
+            yield return SceneManager.LoadSceneAsync(firstSceneBuildIndex);
+
+            Fader fader = FindObjectOfType<Fader>();
+            fader.FadeOutImmediately();
+
+            yield return fader.FadeIn(fadeInTime);
         }
 
-        public void SaveGame()
+        private void SetCurrentSaveFileName(string fileName)
         {
-            GetComponent<SavingSystem>().Save(defaultFileName);
+            PlayerPrefs.SetString(CURRENT_SAVE_FILE_NAME, fileName);
+        }
+
+        private string GetCurrentSaveFileName()
+        {
+            return PlayerPrefs.GetString(CURRENT_SAVE_FILE_NAME);
         }
     }
 }

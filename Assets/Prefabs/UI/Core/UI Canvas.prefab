@@ -4223,7 +4223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1214268696742110611, guid: 6bf9d608940e764499164795871bda1b, type: 3}
       propertyPath: trait
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2420704309327629138, guid: 6bf9d608940e764499164795871bda1b, type: 3}
       propertyPath: m_Pivot.x

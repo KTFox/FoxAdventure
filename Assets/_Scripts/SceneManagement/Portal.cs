@@ -48,17 +48,17 @@ namespace RPG.SceneManagement
             DisableControll();
 
             yield return fader.FadeOut(fadeOutTime);
-            savingWrapper.SaveGame();
+            savingWrapper.Save();
 
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
 
             DisableControll();
-            savingWrapper.LoadGame();
+            savingWrapper.Load();
 
             Portal otherPortal = GetOtherPortal();
             UpdatePlayer(otherPortal);
 
-            savingWrapper.SaveGame();
+            savingWrapper.Save();
 
             yield return new WaitForSeconds(fadeInWaitTime);
 
