@@ -675,6 +675,10 @@ PrefabInstance:
       propertyPath: spawnPosition
       value: 
       objectReference: {fileID: 375990276326120326}
+    - target: {fileID: 5763424427908578512, guid: 41b16aea4baa74344b6823804c2359dc, type: 3}
+      propertyPath: reSpawnPosition
+      value: 
+      objectReference: {fileID: 375990276326120326}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

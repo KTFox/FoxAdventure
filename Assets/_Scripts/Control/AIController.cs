@@ -4,6 +4,8 @@ using RPG.Combat;
 using RPG.Core;
 using RPG.Movement;
 using RPG.Utility;
+using System;
+using UnityEngine.AI;
 
 namespace RPG.Control
 {
@@ -179,6 +181,17 @@ namespace RPG.Control
             {
                 hasBeenAggroedRecently = false;
             }
+        }
+
+        public void ResetEnemy()
+        {
+            NavMeshAgent navMeshAgent = GetComponent<NavMeshAgent>();
+            navMeshAgent.Warp(guardPosition.Value);
+
+            timeSinceLastSawPlayer = Mathf.Infinity;
+            timeSinceArrivedAtWaypoint = Mathf.Infinity;
+            timeSinceLastAgrrevated = Mathf.Infinity;
+            currentWaypointIndex = 0;
         }
 
         private void OnDrawGizmosSelected()
