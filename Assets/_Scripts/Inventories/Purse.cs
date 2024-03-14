@@ -1,10 +1,10 @@
-using RPG.Saving;
 using System;
 using UnityEngine;
+using RPG.Saving;
 
 namespace RPG.Inventories
 {
-    public class Purse : MonoBehaviour, ISaveable
+    public class Purse : MonoBehaviour, ISaveable, IItemStore
     {
         public event Action OnPurseUpdated;
 
@@ -26,6 +26,19 @@ namespace RPG.Inventories
 
             OnPurseUpdated?.Invoke();
         }
+
+        #region IItemStore implements
+        int IItemStore.AddItems(InventoryItemSO item, int number)
+        {
+            if (item is CurrencyItemSO)
+            {
+                UpdateBalance(item.Price * number);
+                return number;
+            }
+
+            return 0;
+        }
+        #endregion
 
         #region ISaveable implements
         object ISaveable.CaptureState()

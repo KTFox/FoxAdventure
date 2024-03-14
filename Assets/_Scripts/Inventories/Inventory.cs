@@ -78,6 +78,13 @@ namespace RPG.Inventories
         /// </returns>
         public bool AddItemToFirstEmptySlot(InventoryItemSO item, int number)
         {
+            foreach (var store in GetComponents<IItemStore>())
+            {
+                number -= store.AddItems(item, number);
+            }
+            if (number <= 0) return true;
+
+
             int index = FindSlot(item);
 
             if (index < 0)
