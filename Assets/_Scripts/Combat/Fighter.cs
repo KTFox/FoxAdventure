@@ -6,6 +6,8 @@ using RPG.Attributes;
 using RPG.Stats;
 using RPG.Utility;
 using RPG.Inventories;
+using System;
+using System.Collections.Generic;
 
 namespace RPG.Combat
 {
@@ -24,6 +26,8 @@ namespace RPG.Combat
         private Transform rightHandTransform;
         [SerializeField]
         private Transform lefttHandTransform;
+        [SerializeField]
+        private float autoAttackRange = 4f;
 
         private Mover mover;
         private Health _targetHealth;
@@ -74,7 +78,11 @@ namespace RPG.Combat
             timeSinceLastAttack += Time.deltaTime;
 
             if (_targetHealth == null) return;
-            if (_targetHealth.IsDead) return;
+            if (_targetHealth.IsDead)
+            {
+                _targetHealth = FindNewTargetInRange();
+                if (_targetHealth == null) return;
+            }
 
             if (!TargetInAttackRange(_targetHealth.transform))
             {
@@ -89,6 +97,37 @@ namespace RPG.Combat
 
                 mover.Cancel();
                 AttackBehaviour();
+            }
+        }
+
+        private Health FindNewTargetInRange()
+        {
+            Health target = null;
+            float bestDistance = Mathf.Infinity;
+            foreach (var candidate in FindAllTargetsInRange())
+            {
+                float distanceToTarget = Vector3.Distance(transform.position, candidate.transform.position);
+                if (distanceToTarget < bestDistance)
+                {
+                    bestDistance = distanceToTarget;
+                    target = candidate;
+                }
+            }
+
+            return target;
+        }
+
+        private IEnumerable<Health> FindAllTargetsInRange()
+        {
+            RaycastHit[] raycastHits = Physics.SphereCastAll(transform.position, autoAttackRange, Vector3.up);
+            foreach (RaycastHit hit in raycastHits)
+            {
+                Health health = hit.transform.GetComponent<Health>();
+                if (health == null) continue;
+                if (health.IsDead) continue;
+                if (health.gameObject == gameObject) continue;
+
+                yield return health;
             }
         }
 
@@ -153,7 +192,7 @@ namespace RPG.Combat
             _targetHealth = targetObject.GetComponent<Health>();
         }
 
-        public Vector3 GetHandTransform (bool isRightHand)
+        public Vector3 GetHandTransform(bool isRightHand)
         {
             if (isRightHand)
             {
