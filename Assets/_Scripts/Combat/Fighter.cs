@@ -187,7 +187,7 @@ namespace RPG.Combat
         public void RestoreState(object state)
         {
             string weaponName = (string)state;
-            WeaponSO weapon = Resources.Load<WeaponSO>($"ScriptableObject/WeaponSO/{weaponName}");
+            WeaponSO weapon = Resources.Load<WeaponSO>($"ScriptableObject/InventoryItemSO/WeaponSO/{weaponName}");
 
             EquipWeapon(weapon);
         }
