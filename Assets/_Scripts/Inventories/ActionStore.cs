@@ -77,9 +77,8 @@ namespace RPG.Inventories
         {
             if (dockedItems.ContainsKey(index))
             {
-                dockedItems[index].item.Use(user);
-
-                if (dockedItems[index].item.Consumable)
+                bool wasUsed = dockedItems[index].item.Use(user);
+                if (wasUsed && dockedItems[index].item.Consumable)
                 {
                     RemoveActionItem(index, 1);
                 }

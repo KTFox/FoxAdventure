@@ -19,15 +19,15 @@ namespace RPG.Abilities
         [SerializeField]
         private float manaCost;
 
-        public override void Use(GameObject user)
+        public override bool Use(GameObject user)
         {
             // Checking ability mana cost
             Mana playerMana = user.GetComponent<Mana>();
-            if (playerMana.CurrentMana < manaCost) return;
+            if (playerMana.CurrentMana < manaCost) return false ;
 
             // Checking ablity cooldown time
             CooldownStore userCooldownStore = user.GetComponent<CooldownStore>();
-            if (userCooldownStore.GetRemainingTIme(this) > 0) return;
+            if (userCooldownStore.GetRemainingTIme(this) > 0) return false;
 
             // Initiate AbilityData
             AbilityData data = new AbilityData(user);
@@ -41,6 +41,8 @@ namespace RPG.Abilities
             {
                 GetAcquiredTargets(data);
             });
+
+            return true;
         }
 
         private void GetAcquiredTargets(AbilityData data)
