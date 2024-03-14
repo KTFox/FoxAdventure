@@ -16,7 +16,7 @@ namespace RPG.Attributes
 
         private void Update()
         {
-            healthValueText.text = $"Health: {playerHealth.CurrentHealth}/{playerHealth.MaxHealth}";
+            healthValueText.text = $"Health: {playerHealth.CurrentHealth:N2}/{playerHealth.MaxHealth:N2}";
         }
     }
 }

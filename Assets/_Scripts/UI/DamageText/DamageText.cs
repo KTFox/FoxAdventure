@@ -14,7 +14,7 @@ namespace RPG.UI.DamageText
         /// <param name="damageAmount"></param>
         public void UpdateText(float damageAmount)
         {
-            damageText.text = damageAmount.ToString();
+            damageText.text = $"{damageAmount:N2}";
         }
 
         #region Animation events

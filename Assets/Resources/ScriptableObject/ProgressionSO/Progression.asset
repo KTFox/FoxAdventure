@@ -35,17 +35,23 @@ MonoBehaviour:
       - 5
       - 10
       - 15
-    - stat: 5
+    - stat: 4
+      levels:
+      - 1
+      - 2
+      - 3
+    - stat: 6
       levels:
       - 50
       - 100
       - 150
-    - stat: 6
+    - stat: 7
       levels:
       - 5
       - 10
       - 15
-    - stat: 7
+      - 15
+    - stat: 8
       levels:
       - 5
       - 10

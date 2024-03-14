@@ -1,17 +1,15 @@
 using UnityEngine;
+using System.Collections.Generic;
 using RPG.Movement;
 using RPG.Core;
-using RPG.Saving;
 using RPG.Attributes;
 using RPG.Stats;
 using RPG.Utility;
 using RPG.Inventories;
-using System;
-using System.Collections.Generic;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction, ISaveable
+    public class Fighter : MonoBehaviour, IAction
     {
         #region Animation strings
         private const string ATTACK = "attack";
@@ -217,21 +215,6 @@ namespace RPG.Combat
         }
         #endregion
 
-        #region ISaveable interface implements
-        public object CaptureState()
-        {
-            return currentWeaponSO.name;
-        }
-
-        public void RestoreState(object state)
-        {
-            string weaponName = (string)state;
-            WeaponSO weapon = Resources.Load<WeaponSO>($"ScriptableObject/InventoryItemSO/WeaponSO/{weaponName}");
-
-            EquipWeapon(weapon);
-        }
-        #endregion
-
         #region Animation Events
         private void Hit()
         {
@@ -243,6 +226,13 @@ namespace RPG.Combat
             }
 
             float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
+            BaseStats targetBaseStats = _targetHealth.GetComponent<BaseStats>();
+            if (targetBaseStats != null)
+            {
+                float targetDefence = targetBaseStats.GetStat(Stat.Defence);
+                damage /= 1 + targetDefence / damage;
+            }
+
             if (!currentWeaponSO.HasProjectile())
             {
                 _targetHealth.TakeDamage(gameObject, damage);
