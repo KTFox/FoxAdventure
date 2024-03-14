@@ -35,7 +35,7 @@ namespace RPG.Combat
 
         private void Update()
         {
-            if (target != null && isChasingProjectTile && !target.IsDeath)
+            if (target != null && isChasingProjectTile && !target.IsDead)
             {
                 transform.LookAt(GetAimLocation());
             }
@@ -48,7 +48,7 @@ namespace RPG.Combat
             // Check when to trigger Hit Effects
             Health targetHealth = collision.GetComponent<Health>();
             if (target != null && targetHealth != target) return;
-            if (targetHealth == null || targetHealth.IsDeath) return;
+            if (targetHealth == null || targetHealth.IsDead) return;
             if (collision.gameObject == instigator) return;
 
             // Trigger Hit Effects

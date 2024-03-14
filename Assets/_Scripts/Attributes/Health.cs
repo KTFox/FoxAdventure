@@ -10,20 +10,20 @@ namespace RPG.Attributes
 {
     public class Health : MonoBehaviour, ISaveable
     {
+        public UnityEvent OnDie;
+
         [SerializeField]
         private UnityEvent<float> OnTakeDamage;
-        [SerializeField]
-        private UnityEvent OnDie;
 
         private LazyValue<float> _currentHealth;
-        private bool _isDeath;
+        private bool wasDeadLastFrame;
 
         #region Properties
         public float CurrentHealth => _currentHealth.Value;
         public float CurrentHealthFraction => _currentHealth.Value / GetComponent<BaseStats>().GetStat(Stat.Health);
         public float CurrentHealthPercentage => CurrentHealthFraction * 100;
         public float MaxHealth => GetComponent<BaseStats>().GetStat(Stat.Health);
-        public bool IsDeath => _isDeath;
+        public bool IsDead => _currentHealth.Value <= 0f;
         #endregion
 
         private void Awake()
@@ -66,9 +66,8 @@ namespace RPG.Attributes
         {
             _currentHealth.Value = Mathf.Max(_currentHealth.Value - damage, 0f);
 
-            if (_currentHealth.Value == 0f)
+            if (IsDead)
             {
-                Die();
                 AwardExperience(instigator);
                 OnDie?.Invoke();
             }
@@ -76,15 +75,8 @@ namespace RPG.Attributes
             {
                 OnTakeDamage?.Invoke(damage);
             }
-        }
 
-        private void Die()
-        {
-            if (_isDeath) return;
-
-            _isDeath = true;
-            GetComponent<Animator>().SetTrigger("death");
-            GetComponent<ActionScheduler>().CancelCurrentAction();
+            UpdateState();
         }
 
         /// <summary>
@@ -94,6 +86,25 @@ namespace RPG.Attributes
         public void Heal(float restoreAmount)
         {
             _currentHealth.Value = MathF.Min(MaxHealth, _currentHealth.Value + restoreAmount);
+            UpdateState();
+        }
+
+        private void UpdateState()
+        {
+            Animator animator = GetComponent<Animator>();
+
+            if (!wasDeadLastFrame && IsDead)
+            {
+                animator.SetTrigger("death");
+                GetComponent<ActionScheduler>().CancelCurrentAction();
+            }
+
+            if (wasDeadLastFrame && !IsDead)
+            {
+                animator.Rebind();
+            }
+
+            wasDeadLastFrame = IsDead;
         }
 
         /// <summary>
@@ -118,10 +129,7 @@ namespace RPG.Attributes
         {
             _currentHealth.Value = (float)state;
 
-            if (_currentHealth.Value <= 0f)
-            {
-                Die();
-            }
+            UpdateState();
         }
         #endregion
     }
