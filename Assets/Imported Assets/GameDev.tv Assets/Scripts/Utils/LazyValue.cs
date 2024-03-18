@@ -1,7 +1,7 @@
 ﻿namespace GameDevTV.Utils
 {
     /// <summary>
-    /// Container class that wraps a traitValue and ensures initialisation is 
+    /// Container class that wraps a _traitValueText and ensures initialisation is 
     /// called just before first use.
     /// </summary>
     public class LazyValue<T>
@@ -13,7 +13,7 @@
         public delegate T InitializerDelegate();
 
         /// <summary>
-        /// Setup the container but don't initialise the traitValue yet.
+        /// Setup the container but don't initialise the _traitValueText yet.
         /// </summary>
         /// <param name="initializer"> 
         /// The initialiser delegate to call when first used. 
@@ -27,14 +27,14 @@
         /// Get or set the contents of this container.
         /// </summary>
         /// <remarks>
-        /// Note that setting the traitValue before initialisation will initialise 
+        /// Note that setting the _traitValueText before initialisation will initialise 
         /// the class.
         /// </remarks>
         public T value
         {
             get
             {
-                // Ensure we init before returning a traitValue.
+                // Ensure we init before returning a _traitValueText.
                 ForceInit();
                 return _value;
             }
@@ -47,7 +47,7 @@
         }
 
         /// <summary>
-        /// Force the initialisation of the traitValue via the delegate.
+        /// Force the initialisation of the _traitValueText via the delegate.
         /// </summary>
         public void ForceInit()
         {

@@ -6,8 +6,8 @@ using GameDevTV.Inventories;
 namespace GameDevTV.UI.Inventories
 {
     /// <summary>
-    /// To be placed on the root of the inventory UI. Handles spawning all the
-    /// inventory slot prefabs.
+    /// To be placed on the root of the _inventory UI. Handles spawning all the
+    /// _inventory slot prefabs.
     /// </summary>
     public class InventoryUI : MonoBehaviour
     {

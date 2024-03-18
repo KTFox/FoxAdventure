@@ -11,100 +11,181 @@ namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, IAction
     {
-        #region Animation strings
+        // Variables
+
         private const string ATTACK = "attack";
         private const string STOPATTACK = "stopAttack";
-        #endregion
 
         [SerializeField]
-        private float timeBetweenAttacks;
+        private float _attackSpeed;
         [SerializeField]
-        private WeaponSO defaultWeaponSO;
+        private WeaponSO _defaultWeaponSO;
         [SerializeField]
-        private Transform rightHandTransform;
+        private Transform _rightHandTransform;
         [SerializeField]
-        private Transform lefttHandTransform;
+        private Transform _lefttHandTransform;
         [SerializeField]
-        private float autoAttackRange = 4f;
+        private float _autoAttackRange = 4f;
 
-        private Mover mover;
+        private Mover _mover;
         private Health _targetHealth;
-        private Equipment equipment;
-        private WeaponSO currentWeaponSO;
-        private LazyValue<Weapon> currentWeapon;
-        private float timeSinceLastAttack = Mathf.Infinity;
+        private Equipment _equipment;
+        private WeaponSO _currentWeaponSO;
+        private LazyValue<Weapon> _currentWeapon;
+        private float _timeSinceLastAttack = Mathf.Infinity;
+
+
+        // Methods
 
         private void Awake()
         {
-            mover = GetComponent<Mover>();
-            equipment = GetComponent<Equipment>();
+            _mover = GetComponent<Mover>();
+            _equipment = GetComponent<Equipment>();
 
-            currentWeaponSO = defaultWeaponSO;
-            currentWeapon = new LazyValue<Weapon>(SetupDefaultWeapon);
-
-            if (equipment)
-            {
-                equipment.OnEquipmentUpdated += UpdateWeapon;
-            }
+            _currentWeaponSO = _defaultWeaponSO;
+            _currentWeapon = new LazyValue<Weapon>(SetupDefaultWeapon);
         }
 
         Weapon SetupDefaultWeapon()
         {
-            return AttachWeapon(defaultWeaponSO);
-        }
-
-        void UpdateWeapon()
-        {
-            var weapon = equipment.GetItemInSlot(EquipLocation.Weapon) as WeaponSO;
-            if (!weapon)
-            {
-                EquipWeapon(defaultWeaponSO);
-            }
-            else
-            {
-                EquipWeapon(weapon);
-            }
+            return AttachWeaponIntoHand(_defaultWeaponSO);
         }
 
         private void Start()
         {
-            currentWeapon.ForceInit();
+            _equipment.OnEquipmentUpdated += Equipment_EquipmentUpdated;
+        }
+
+        void Equipment_EquipmentUpdated()
+        {
+            var weapon = _equipment.GetItemInSlot(EquipLocation.Weapon) as WeaponSO;
+
+            if (weapon == null)
+            {
+                SetupWeapon(_defaultWeaponSO);
+            }
+            else
+            {
+                SetupWeapon(weapon);
+            }
         }
 
         private void Update()
         {
-            timeSinceLastAttack += Time.deltaTime;
+            _timeSinceLastAttack += Time.deltaTime;
 
-            if (_targetHealth == null) return;
+            if (_targetHealth == null)
+            {
+                return;
+            }
+
             if (_targetHealth.IsDead)
             {
                 _targetHealth = FindNewTargetInRange();
-                if (_targetHealth == null) return;
+
+                if (_targetHealth == null)
+                {
+                    return;
+                }
             }
 
-            if (!TargetInAttackRange(_targetHealth.transform))
+            if (!IsTargetInAttackRange(_targetHealth.transform))
             {
-                //Target out of attack range
-
-                //Move to target
-                mover.MoveTo(_targetHealth.transform.position, 1f);
+                _mover.MoveTo(_targetHealth.transform.position, 1f);
             }
             else
             {
-                //Target in attack range
-
-                mover.Cancel();
+                _mover.Cancel();
                 AttackBehaviour();
             }
+        }
+
+        /// <summary>
+        /// Set _currentWeaponSO and _currentWepon. 
+        /// In addition, attach weapon into hand
+        /// </summary>
+        /// <param name="weaponSO"></param>
+        public void SetupWeapon(WeaponSO weaponSO)
+        {
+            _currentWeaponSO = weaponSO;
+            _currentWeapon.Value = AttachWeaponIntoHand(weaponSO);
+        }
+
+        /// <summary>
+        /// Call StartAction method from ActionScheduler and set _targetHealth
+        /// </summary>
+        /// <param name="targetObject"></param>
+        public void StartAttackAction(GameObject targetObject)
+        {
+            GetComponent<ActionScheduler>().StartAction(this);
+            _targetHealth = targetObject.GetComponent<Health>();
+        }
+
+        public bool CanAttack(GameObject target)
+        {
+            if (target == null)
+            {
+                return false;
+            }
+
+            if (!_mover.CanMoveTo(target.transform.position) && !IsTargetInAttackRange(target.transform))
+            {
+                return false;
+            }
+
+            var targetHealth = target.GetComponent<Health>();
+
+            return targetHealth != null && !targetHealth.IsDead;
+        }
+
+        public Vector3 GetHandPosition(bool isRightHand)
+        {
+            if (isRightHand)
+            {
+                return _rightHandTransform.position;
+            }
+
+            return _lefttHandTransform.position;
+        }
+
+        private Weapon AttachWeaponIntoHand(WeaponSO weaponSO)
+        {
+            Animator animator = GetComponent<Animator>();
+            return weaponSO.AttachWeaponToHand(_rightHandTransform, _lefttHandTransform, animator);
+        }
+
+        private void AttackBehaviour()
+        {
+            transform.LookAt(_targetHealth.transform);
+
+            if (_timeSinceLastAttack > _attackSpeed)
+            {
+                TriggerAttack();
+                _timeSinceLastAttack = 0f;
+            }
+        }
+
+        private void TriggerAttack()
+        {
+            GetComponent<Animator>().ResetTrigger(STOPATTACK);
+            GetComponent<Animator>().SetTrigger(ATTACK);
+        }
+
+        private bool IsTargetInAttackRange(Transform targetTransform)
+        {
+            float distanceToTarget = Vector3.Distance(transform.position, targetTransform.position);
+            return distanceToTarget < _currentWeaponSO.WeaponRange;
         }
 
         private Health FindNewTargetInRange()
         {
             Health target = null;
             float bestDistance = Mathf.Infinity;
+
             foreach (var candidate in FindAllTargetsInRange())
             {
                 float distanceToTarget = Vector3.Distance(transform.position, candidate.transform.position);
+
                 if (distanceToTarget < bestDistance)
                 {
                     bestDistance = distanceToTarget;
@@ -117,10 +198,12 @@ namespace RPG.Combat
 
         private IEnumerable<Health> FindAllTargetsInRange()
         {
-            RaycastHit[] raycastHits = Physics.SphereCastAll(transform.position, autoAttackRange, Vector3.up);
+            RaycastHit[] raycastHits = Physics.SphereCastAll(transform.position, _autoAttackRange, Vector3.up);
+
             foreach (RaycastHit hit in raycastHits)
             {
-                Health health = hit.transform.GetComponent<Health>();
+                var health = hit.transform.GetComponent<Health>();
+
                 if (health == null) continue;
                 if (health.IsDead) continue;
                 if (health.gameObject == gameObject) continue;
@@ -129,83 +212,12 @@ namespace RPG.Combat
             }
         }
 
-        /// <summary>
-        /// Set currentWeaonSO equal weaponSO. Spawn Weapon into handTransform.
-        /// </summary>
-        /// <param name="weaponSO"></param>
-        public void EquipWeapon(WeaponSO weaponSO)
-        {
-            currentWeaponSO = weaponSO;
-            currentWeapon.Value = AttachWeapon(weaponSO);
-        }
-
-        private Weapon AttachWeapon(WeaponSO weaponSO)
-        {
-            Animator animator = GetComponent<Animator>();
-            return weaponSO.Spawn(rightHandTransform, lefttHandTransform, animator);
-        }
-
-        private bool TargetInAttackRange(Transform targetTransform)
-        {
-            float distanceToTarget = Vector3.Distance(transform.position, targetTransform.position);
-            return distanceToTarget < currentWeaponSO.WeaponRange;
-        }
-
-        private void AttackBehaviour()
-        {
-            transform.LookAt(_targetHealth.transform);
-
-            if (timeSinceLastAttack > timeBetweenAttacks)
-            {
-                TriggerAttack();
-                timeSinceLastAttack = 0f;
-            }
-        }
-
-        private void TriggerAttack()
-        {
-            GetComponent<Animator>().ResetTrigger(STOPATTACK);
-            GetComponent<Animator>().SetTrigger(ATTACK);
-        }
-
-        public bool CanAttack(GameObject targetObject)
-        {
-            if (targetObject == null) return false;
-
-            //Can attack if target in attack range even if fighter cannot move to target
-            if (!mover.CanMoveTo(targetObject.transform.position) && !TargetInAttackRange(targetObject.transform)) return false;
-
-            Health targetToTest = targetObject.GetComponent<Health>();
-
-            return targetToTest != null && !targetToTest.IsDead;
-        }
-
-        /// <summary>
-        /// Call actionScheduler.StartAction() and Set fighter._targetHealth equal targetObject
-        /// </summary>
-        /// <param name="targetObject"></param>
-        public void StartAttackAction(GameObject targetObject)
-        {
-            GetComponent<ActionScheduler>().StartAction(this);
-            _targetHealth = targetObject.GetComponent<Health>();
-        }
-
-        public Vector3 GetHandTransform(bool isRightHand)
-        {
-            if (isRightHand)
-            {
-                return rightHandTransform.position;
-            }
-
-            return lefttHandTransform.position;
-        }
-
         #region IAction interface implements
         public void Cancel()
         {
             StopAttack();
             _targetHealth = null;
-            mover.Cancel();
+            _mover.Cancel();
         }
 
         private void StopAttack()
@@ -220,26 +232,27 @@ namespace RPG.Combat
         {
             if (_targetHealth == null) return;
 
-            if (currentWeapon.Value != null)
+            if (_currentWeapon.Value != null)
             {
-                currentWeapon.Value.CallHitEvent();
+                _currentWeapon.Value.OnHit();
             }
 
-            float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
+            float damage = GetComponent<BaseStats>().GetValueOfStat(Stat.Damage);
             BaseStats targetBaseStats = _targetHealth.GetComponent<BaseStats>();
+
             if (targetBaseStats != null)
             {
-                float targetDefence = targetBaseStats.GetStat(Stat.Defence);
+                float targetDefence = targetBaseStats.GetValueOfStat(Stat.Defence);
                 damage /= 1 + targetDefence / damage;
             }
 
-            if (!currentWeaponSO.HasProjectile())
+            if (!_currentWeaponSO.HasProjectTile)
             {
                 _targetHealth.TakeDamage(gameObject, damage);
             }
             else
             {
-                currentWeaponSO.LaunchProjectile(rightHandTransform, lefttHandTransform, _targetHealth, gameObject, damage);
+                _currentWeaponSO.LaunchProjectile(_rightHandTransform, _lefttHandTransform, _targetHealth, gameObject, damage);
             }
         }
 

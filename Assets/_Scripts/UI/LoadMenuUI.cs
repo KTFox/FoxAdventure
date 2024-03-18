@@ -7,23 +7,30 @@ namespace RPG.UI
 {
     public class LoadMenuUI : MonoBehaviour
     {
+        // Variables
+
         [SerializeField]
-        private Transform rootTransform;
+        private Transform _rootTransform;
         [SerializeField]
-        private GameObject buttonPrefab;
+        private GameObject _buttonPrefab;
+
+
+        // Methods
 
         private void OnEnable()
         {
-            foreach (Transform child in rootTransform)
+            foreach (Transform child in _rootTransform)
             {
                 Destroy(child.gameObject);
             }
 
-            SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
+            var savingWrapper = FindObjectOfType<SavingWrapper>();
+
             if (savingWrapper == null) return;
+
             foreach (string savedFileName in savingWrapper.SavedFileNames)
             {
-                GameObject buttonObject = Instantiate(buttonPrefab, rootTransform);
+                GameObject buttonObject = Instantiate(_buttonPrefab, _rootTransform);
                 TextMeshProUGUI buttonText = buttonObject.GetComponentInChildren<TextMeshProUGUI>();
                 Button button = buttonObject.GetComponent<Button>();
 

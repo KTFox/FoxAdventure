@@ -6,76 +6,79 @@ namespace RPG.UI.Inventories
     public class TabButtonGroup : MonoBehaviour
     {
         [SerializeField]
-        private Color tabIdle;
+        private Color _idleColor;
         [SerializeField]
-        private Color tabHover;
+        private Color _hoverColor;
         [SerializeField]
-        private Color tabActive;
+        private Color _activeColor;
         [SerializeField]
-        private List<GameObject> tabsToSwap;
+        private List<GameObject> _tabsToSwap;
 
-        private List<TabButton> tabButtons;
-        private TabButton selectedTab;
+        private List<TabButton> _tabButtons;
+        private TabButton _currentSelectedTab;
 
         private void Start()
         {
-            SubscribeAllButtons();
-            OnTabSelected(tabButtons[0].GetComponent<TabButton>());
+            SubscribeAllTabButtons();
+            OnTabSelected(_tabButtons[0].GetComponent<TabButton>());
         }
 
-        public void SubscribeAllButtons()
+        public void SubscribeAllTabButtons()
         {
-            if (tabButtons == null)
+            if (_tabButtons == null)
             {
-                tabButtons = new List<TabButton>();
+                _tabButtons = new List<TabButton>();
             }
 
-            foreach (TabButton tabButton in GetComponentsInChildren<TabButton>())
+            foreach (var tabButton in GetComponentsInChildren<TabButton>())
             {
-                tabButtons.Add(tabButton);
-            }
-        }
-
-        public void OnTabEnter(TabButton button)
-        {
-            ResetTabs();
-            if (selectedTab == null || button != selectedTab)
-            {
-                button.SetBackground(tabHover);
+                _tabButtons.Add(tabButton);
             }
         }
 
-        public void OnTabExit(TabButton button)
+        public void OnPointerEnterTab(TabButton tabButton)
         {
-            ResetTabs();
+            ResetTabButtons();
+
+            if (_currentSelectedTab == null || tabButton != _currentSelectedTab)
+            {
+                tabButton.SetBackground(_hoverColor);
+            }
         }
 
-        public void OnTabSelected(TabButton button)
+        public void OnPointerExitTab(TabButton tabButton)
         {
-            selectedTab = button;
-            ResetTabs();
-            button.SetBackground(tabActive);
+            ResetTabButtons();
+        }
 
-            int index = button.transform.GetSiblingIndex();
-            for (int i = 0; i < tabsToSwap.Count; i++)
+        public void OnTabSelected(TabButton tabButton)
+        {
+            _currentSelectedTab = tabButton;
+            ResetTabButtons();
+            tabButton.SetBackground(_activeColor);
+
+            int tabButtonIndex = tabButton.transform.GetSiblingIndex();
+
+            for (int i = 0; i < _tabsToSwap.Count; i++)
             {
-                if (i == index)
+                if (i == tabButtonIndex)
                 {
-                    tabsToSwap[i].SetActive(true);
+                    _tabsToSwap[i].SetActive(true);
                 }
                 else
                 {
-                    tabsToSwap[i].SetActive(false);
+                    _tabsToSwap[i].SetActive(false);
                 }
             }
         }
 
-        public void ResetTabs()
+        public void ResetTabButtons()
         {
-            foreach (TabButton button in tabButtons)
+            foreach (var button in _tabButtons)
             {
-                if (selectedTab != null && button == selectedTab) continue;
-                button.SetBackground(tabIdle);
+                if (_currentSelectedTab != null && button == _currentSelectedTab) continue;
+
+                button.SetBackground(_idleColor);
             }
         }
     }

@@ -5,8 +5,13 @@ namespace RPG.Attributes
 {
     public class ManaText : MonoBehaviour
     {
+        // Variables
+
         private Mana playerMana;
         private TextMeshProUGUI manaValueText;
+
+
+        // Methods
 
         private void Awake()
         {

@@ -6,7 +6,12 @@ namespace RPG.Control
     [RequireComponent(typeof(Pickup))]
     public class ClickablePickup : MonoBehaviour, IRaycastable
     {
+        // Variables
+
         private Pickup pickup;
+
+
+        // Methods
 
         private void Awake()
         {

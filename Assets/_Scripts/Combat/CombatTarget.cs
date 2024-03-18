@@ -8,18 +8,18 @@ namespace RPG.Combat
     public class CombatTarget : MonoBehaviour, IRaycastable
     {
         #region IRaycastable implements
-        public bool HandleRaycast(PlayerController callingController)
+        public bool HandleRaycast(PlayerController playerController)
         {
-            Fighter callingFighter = callingController.GetComponent<Fighter>();
+            var fighter = playerController.GetComponent<Fighter>();
 
-            if (!callingFighter.CanAttack(gameObject))
+            if (!fighter.CanAttack(gameObject))
             {
                 return false;
             }
 
             if (Input.GetMouseButton(1))
             {
-                callingFighter.StartAttackAction(gameObject);
+                fighter.StartAttackAction(gameObject);
             }
 
             return true;

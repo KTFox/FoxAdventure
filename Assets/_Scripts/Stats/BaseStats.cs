@@ -6,78 +6,136 @@ namespace RPG.Stats
 {
     public class BaseStats : MonoBehaviour
     {
-        public event Action OnLevelUp;
+        // Variables
 
         [SerializeField]
-        private ProgressionSO progressionSO;
+        private ProgressionSO _progressionSO;
         [SerializeField]
-        private CharacterClass characterClass;
+        private CharacterClass _characterClass;
 
         [Range(1, 3)]
         [SerializeField]
-        private int startLevel = 1;
+        private int _startLevel = 1;
 
         [Tooltip("Should be ticked in case this gameObject is Player")]
         [SerializeField]
-        private bool shouldUseModifier;
+        private bool _shouldUseModifier;
 
         [SerializeField]
-        private GameObject levelupParticleEffect;
+        private GameObject _levelupParticleEffect;
 
-        private Experience experience;
+        private Experience _experience;
         private LazyValue<int> _currentLevel;
+
+        // Properties
 
         public int CurrentLevel => _currentLevel.Value;
 
+        // Events
+
+        public event Action OnLevelUp;
+
+
+        // Methods
+
         private void Awake()
         {
-            experience = GetComponent<Experience>();
-            _currentLevel = new LazyValue<int>(CalculateLevel);
+            _experience = GetComponent<Experience>();
+            _currentLevel = new LazyValue<int>(GetCurrentLevel);
         }
 
         private void OnEnable()
         {
-            if (experience != null)
+            if (_experience != null)
             {
-                experience.OnExperienceGained += UpdateExperience;
+                _experience.OnExperienceGained += Experience_ExperienceGained;
             }
-        }
-
-        private void Start()
-        {
-            _currentLevel.ForceInit();
         }
 
         private void OnDisable()
         {
-            if (experience != null)
+            if (_experience != null)
             {
-                experience.OnExperienceGained -= UpdateExperience;
+                _experience.OnExperienceGained -= Experience_ExperienceGained;
             }
         }
 
-        private void UpdateExperience()
+        void Experience_ExperienceGained()
         {
-            if (_currentLevel.Value < CalculateLevel())
+            if (_currentLevel.Value < GetCurrentLevel())
             {
-                _currentLevel.Value = CalculateLevel();
-                LevelUpEffect();
+                _currentLevel.Value = GetCurrentLevel();
+                GenerateLevelUpEffect();
                 OnLevelUp?.Invoke();
             }
         }
 
-        private int CalculateLevel()
+        public float GetValueOfStat(Stat stat)
         {
-            Experience experience = GetComponent<Experience>();
+            return (GetBaseStat(stat) + GetAdditiveModifier(stat)) * (1 + GetPercentageModifier(stat) / 100);
+        }
 
-            //Return 1 if this gameObject doesn't have Experience component
-            if (experience == null) return startLevel;
+        private float GetBaseStat(Stat stat)
+        {
+            return _progressionSO.GetStat(_characterClass, stat, _currentLevel.Value);
+        }
+
+        private float GetAdditiveModifier(Stat stat)
+        {
+            if (!_shouldUseModifier)
+            {
+                return 0;
+            }
+
+            float total = 0;
+
+            foreach (IModifierProvider modifierProvider in GetComponents<IModifierProvider>())
+            {
+                foreach (float additiveModifier in modifierProvider.GetAdditiveModifiers(stat))
+                {
+                    total += additiveModifier;
+                }
+            }
+
+            return total;
+        }
+
+        private float GetPercentageModifier(Stat stat)
+        {
+            if (!_shouldUseModifier)
+            {
+                return 0;
+            }
+
+            float total = 0;
+
+            foreach (IModifierProvider modifierProvider in GetComponents<IModifierProvider>())
+            {
+                foreach (float percentageModifier in modifierProvider.GetPercentageModifiers(stat))
+                {
+                    total += percentageModifier;
+                }
+            }
+
+            return total;
+        }
+
+        private int GetCurrentLevel()
+        {
+            var experience = GetComponent<Experience>();
+
+            if (experience == null)
+            {
+                return _startLevel;
+            }
 
             float currentXP = experience.ExperiencePoint;
-            int penultimateLevel = progressionSO.GetLevelLength(characterClass, Stat.ExperienceToLevelUp);
+            int penultimateLevel = _progressionSO.GetLevelLength(_characterClass, Stat.ExperienceToLevelUp);
+
             for (int level = 1; level <= penultimateLevel; level++)
             {
-                float XPToLevelUp = progressionSO.GetStat(characterClass, Stat.ExperienceToLevelUp, level);
+                float XPToLevelUp = _progressionSO.GetStat(_characterClass, Stat.ExperienceToLevelUp, level);
+
                 if (XPToLevelUp > currentXP)
                 {
                     return level;
@@ -87,51 +145,9 @@ namespace RPG.Stats
             return penultimateLevel + 1;
         }
 
-        private void LevelUpEffect()
+        private void GenerateLevelUpEffect()
         {
-            Instantiate(levelupParticleEffect, transform);
-        }
-
-        public float GetStat(Stat stat)
-        {
-            return (GetBaseStat(stat) + GetAdditiveModifier(stat)) * (1 + GetPercentageModifier(stat) / 100);
-        }
-
-        private float GetBaseStat(Stat stat)
-        {
-            return progressionSO.GetStat(characterClass, stat, _currentLevel.Value);
-        }
-
-        private float GetAdditiveModifier(Stat stat)
-        {
-            if (!shouldUseModifier) return 0;
-
-            float total = 0;
-            foreach (IModifierProvider provider in GetComponents<IModifierProvider>())
-            {
-                foreach (float modifier in provider.GetAdditiveModifiers(stat))
-                {
-                    total += modifier;
-                }
-            }
-
-            return total;
-        }
-
-        private float GetPercentageModifier(Stat stat)
-        {
-            if (!shouldUseModifier) return 0;
-
-            float total = 0;
-            foreach (IModifierProvider provider in GetComponents<IModifierProvider>())
-            {
-                foreach (float modifier in provider.GetPercentageModifiers(stat))
-                {
-                    total += modifier;
-                }
-            }
-
-            return total;
+            Instantiate(_levelupParticleEffect, transform);
         }
     }
 }

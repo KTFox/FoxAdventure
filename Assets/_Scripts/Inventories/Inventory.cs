@@ -7,12 +7,14 @@ namespace RPG.Inventories
 {
     public class Inventory : MonoBehaviour, ISaveable
     {
-        public event Action OnInventoryUpdated;
+        // Structs
 
-        [SerializeField]
-        private int inventorySize = 16;
-
-        private InventorySlot[] slots;
+        [System.Serializable]
+        private struct InventorySlotRecord
+        {
+            public string itemID;
+            public int quantity;
+        }
 
         private struct InventorySlot
         {
@@ -20,92 +22,91 @@ namespace RPG.Inventories
             public int quantity;
         }
 
-        #region Properties
+        // Variables
+
+        [SerializeField]
+        private int _inventorySize = 4;
+        private InventorySlot[] slots;
+
+        // Properties
+
         public static Inventory PlayerInventory
         {
             get
             {
                 var player = GameObject.FindGameObjectWithTag("Player");
+
                 return player.GetComponent<Inventory>();
             }
         }
         public int SlotSize => slots.Length;
         public bool HasEmptySlot => FindFirstEmptySlotIndex() >= 0;
-        #endregion
+
+        // Events
+
+        public event Action OnInventoryUpdated;
+
+
+        // Methods
 
         private void Awake()
         {
-            slots = new InventorySlot[inventorySize];
+            slots = new InventorySlot[_inventorySize];
         }
 
-        /// <summary>
-        /// Will add an _item to the given slot if possible.
-        /// If there is already a stack of this type, it will be added into the exist stack. 
-        /// Otherwise, it will be added into the first empty slot
-        /// </summary>
-        /// <param name="slotIndex"></param>
-        /// <param name="item"></param>
-        /// <returns>
-        /// True if the _item was added anywhere in the inventory
-        /// </returns>
-        public bool AddItemToSlot(int slotIndex, InventoryItemSO item, int number)
+        public bool AddItemToSlot(int slotIndex, InventoryItemSO item, int quantity)
         {
             if (slots[slotIndex].item != null)
             {
-                return AddItemToFirstEmptySlot(item, number);
+                return AddItemToFirstEmptySlot(item, quantity);
             }
 
             var i = FindStack(item);
+
             if (i >= 0)
             {
                 slotIndex = i;
             }
 
             slots[slotIndex].item = item;
-            slots[slotIndex].quantity += number;
+            slots[slotIndex].quantity += quantity;
 
             OnInventoryUpdated?.Invoke();
 
             return true;
         }
 
-        /// <summary>
-        /// Attempt to add _item into the first empty slot
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns>
-        /// false if inventory is full
-        /// </returns>
-        public bool AddItemToFirstEmptySlot(InventoryItemSO item, int number)
+        public bool AddItemToFirstEmptySlot(InventoryItemSO item, int quantity)
         {
             foreach (var store in GetComponents<IItemStore>())
             {
-                number -= store.AddItems(item, number);
+                quantity -= store.AddItems(item, quantity);
             }
-            if (number <= 0) return true;
 
+            if (quantity <= 0)
+            {
+                return true;
+            }
 
             int index = FindSlot(item);
 
             if (index < 0)
+            {
                 return false;
+            }
 
             slots[index].item = item;
-            slots[index].quantity += number;
+            slots[index].quantity += quantity;
 
             OnInventoryUpdated?.Invoke();
 
             return true;
         }
 
-        /// <summary>
-        /// Remove the InventoryItemSO in given slot.
-        /// Will never remove more that there are.
-        /// </summary>
-        /// <param name="index"></param>
-        public void RemoveFromSlot(int index, int number)
+        public void RemoveFromSlot(int index, int quantity)
         {
-            slots[index].quantity -= number;
+            slots[index].quantity -= quantity;
+
             if (slots[index].quantity <= 0)
             {
                 slots[index].item = null;
@@ -115,31 +116,35 @@ namespace RPG.Inventories
             OnInventoryUpdated?.Invoke();
         }
 
-        /// <summary>
-        /// Get slotIndex of the first empty slot.
-        /// </summary>
-        /// <returns>
-        /// -1 if inventory is full
-        /// </returns>
-        private int FindFirstEmptySlotIndex()
+        public bool HasSpaceFor(IEnumerable<InventoryItemSO> items)
         {
-            for (int i = 0; i < slots.Length; i++)
+            int freeSlotsNumber = GetFreeSlotsNumber();
+            var stackedItems = new List<InventoryItemSO>();
+
+            foreach (InventoryItemSO item in items)
             {
-                if (slots[i].item == null)
-                    return i;
+                if (item.Stackable)
+                {
+                    if (HasItem(item)) continue;
+                    if (stackedItems.Contains(item)) continue;
+
+                    stackedItems.Add(item);
+                }
+
+                if (freeSlotsNumber <= 0)
+                {
+                    return false;
+                }
+
+                freeSlotsNumber--;
             }
 
-            return -1;
+            return true;
         }
 
-        /// <summary>
-        /// Get the InventoryItemSO in given slot
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        public InventoryItemSO GetItemInSlot(int index)
+        public InventoryItemSO GetItemInSlot(int slotIndex)
         {
-            return slots[index].item;
+            return slots[slotIndex].item;
         }
 
         public int GetItemQuantityInSlot(int index)
@@ -147,11 +152,19 @@ namespace RPG.Inventories
             return slots[index].quantity;
         }
 
-        /// <summary>
-        /// Find a slot that can accommodate the given _item
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns>returns -1 if slot is found</returns>
+        private int FindFirstEmptySlotIndex()
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (slots[i].item == null)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
         private int FindSlot(InventoryItemSO item)
         {
             var i = FindStack(item);
@@ -164,14 +177,12 @@ namespace RPG.Inventories
             return i;
         }
 
-        /// <summary>
-        /// Find an existing stack of this _item type.
-        /// </summary>
-        /// <returns>-1 if no stack exists or if the _item is not stackable.</returns>
         private int FindStack(InventoryItemSO item)
         {
             if (!item.Stackable)
+            {
                 return -1;
+            }
 
             for (int i = 0; i < slots.Length; i++)
             {
@@ -184,31 +195,10 @@ namespace RPG.Inventories
             return -1;
         }
 
-        public bool HasSpaceFor(IEnumerable<InventoryItemSO> items)
-        {
-            int freeSlotsNumber = GetFreeSlotsNumber();
-            List<InventoryItemSO> stackedItems = new List<InventoryItemSO>();
-
-            foreach (InventoryItemSO item in items)
-            {
-                if (item.Stackable)
-                {
-                    if (HasItem(item)) continue;
-                    if (stackedItems.Contains(item)) continue;
-
-                    stackedItems.Add(item);
-                }
-
-                if (freeSlotsNumber <= 0) return false;
-                freeSlotsNumber--;
-            }
-
-            return true;
-        }
-
         private int GetFreeSlotsNumber()
         {
             int count = 0;
+
             foreach (InventorySlot slot in slots)
             {
                 if (slot.quantity == 0)
@@ -221,7 +211,7 @@ namespace RPG.Inventories
         }
 
         /// <summary>
-        /// Is there an instance of _item in the inventory
+        /// Is there an instance of _inventoryItem in the _inventory
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
@@ -230,7 +220,9 @@ namespace RPG.Inventories
             for (int i = 0; i < slots.Length; i++)
             {
                 if (ReferenceEquals(slots[i].item, item))
+                {
                     return true;
+                }
             }
 
             return false;
@@ -239,9 +231,9 @@ namespace RPG.Inventories
         #region ISaveable implements
         object ISaveable.CaptureState()
         {
-            InventorySlotRecord[] slotRecordArray = new InventorySlotRecord[inventorySize];
+            InventorySlotRecord[] slotRecordArray = new InventorySlotRecord[_inventorySize];
 
-            for (int i = 0; i < inventorySize; i++)
+            for (int i = 0; i < _inventorySize; i++)
             {
                 if (slots[i].item != null)
                 {
@@ -257,20 +249,13 @@ namespace RPG.Inventories
         {
             InventorySlotRecord[] slotRecordArray = (InventorySlotRecord[])state;
 
-            for (int i = 0; i < inventorySize; i++)
+            for (int i = 0; i < _inventorySize; i++)
             {
                 slots[i].item = InventoryItemSO.GetItemFromID(slotRecordArray[i].itemID);
                 slots[i].quantity = slotRecordArray[i].quantity;
             }
 
             OnInventoryUpdated?.Invoke();
-        }
-
-        [System.Serializable]
-        private struct InventorySlotRecord
-        {
-            public string itemID;
-            public int quantity;
         }
         #endregion
     }

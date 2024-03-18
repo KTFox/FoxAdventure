@@ -6,41 +6,41 @@ namespace RPG.UI
 {
     public class PauseMenuUI : MonoBehaviour
     {
-        private PlayerController playerController;
+        private PlayerController _playerController;
 
         private void Awake()
         {
-            playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         }
 
         private void OnEnable()
         {
-            if (playerController == null) return;
+            if (_playerController == null) return;
 
             Time.timeScale = 0f;
-            playerController.enabled = false;
+            _playerController.enabled = false;
         }
 
         private void OnDisable()
         {
-            if (playerController == null) return;
+            if (_playerController == null) return;
 
             Time.timeScale = 1f;
-            playerController.enabled = true;
+            _playerController.enabled = true;
         }
 
         #region Unity events
         public void Save()
         {
-            SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
+            var savingWrapper = FindObjectOfType<SavingWrapper>();
             savingWrapper.SaveData();
         }
 
         public void SaveAndQuit()
         {
-            SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
+            var savingWrapper = FindObjectOfType<SavingWrapper>();
             savingWrapper.SaveData();
-            savingWrapper.LoadMenuGame();
+            savingWrapper.LoadMenuScene();
         }
         #endregion
     }

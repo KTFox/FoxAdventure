@@ -29,7 +29,7 @@ namespace GameDevTV.Inventories
         public event Action storeUpdated;
 
         /// <summary>
-        /// Get the action at the given index.
+        /// Get the action at the given _slotIndex.
         /// </summary>
         public ActionItem GetAction(int index)
         {
@@ -41,10 +41,10 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// Get the quantity of items left at the given index.
+        /// Get the quantity of items left at the given _slotIndex.
         /// </summary>
         /// <returns>
-        /// Will return 0 if no _item is in the index or the _item has
+        /// Will return 0 if no _inventoryItem is in the _slotIndex or the _inventoryItem has
         /// been fully consumed.
         /// </returns>
         public int GetNumber(int index)
@@ -57,10 +57,10 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// Add an _item to the given index.
+        /// Add an _inventoryItem to the given _slotIndex.
         /// </summary>
-        /// <param name="item">What _item should be added.</param>
-        /// <param name="index">Where should the _item be added.</param>
+        /// <param name="item">What _inventoryItem should be added.</param>
+        /// <param name="index">Where should the _inventoryItem be added.</param>
         /// <param name="number">How many items to add.</param>
         public void AddAction(InventoryItem item, int index, int number)
         {
@@ -85,8 +85,8 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// Use the _item at the given slot. If the _item is consumable one
-        /// instance will be destroyed until the _item is removed completely.
+        /// UseActionItem the _inventoryItem at the given slot. If the _inventoryItem is consumable one
+        /// instance will be destroyed until the _inventoryItem is removed completely.
         /// </summary>
         /// <param name="user">The character that wants to use this action.</param>
         /// <returns>False if the action could not be executed.</returns>
@@ -127,9 +127,9 @@ namespace GameDevTV.Inventories
         /// <summary>
         /// What is the maximum quantity of items allowed in this slot.
         /// 
-        /// This takes into account whether the slot already contains an _item
+        /// This takes into account whether the slot already contains an _inventoryItem
         /// and whether it is the same type. Will only accept multiple if the
-        /// _item is consumable.
+        /// _inventoryItem is consumable.
         /// </summary>
         /// <returns>Will return int.MaxValue when there is not effective bound.</returns>
         public int MaxAcceptable(InventoryItem item, int index)

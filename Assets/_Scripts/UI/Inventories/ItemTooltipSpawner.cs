@@ -3,9 +3,6 @@ using RPG.Utility.UI;
 
 namespace RPG.UI.Inventories
 {
-    /// <summary>
-    /// To be placed on the InventorySlot to spawn and show the correct _item tooltip.
-    /// </summary>
     [RequireComponent(typeof(IItemHolder))]
     public class ItemTooltipSpawner : TooltipSpawner
     {
@@ -14,7 +11,10 @@ namespace RPG.UI.Inventories
         {
             var item = GetComponent<IItemHolder>();
 
-            if (!item.Item) return false;
+            if (!item.InventoryItemSO)
+            {
+                return false;
+            }
 
             return true;
         }
@@ -25,7 +25,7 @@ namespace RPG.UI.Inventories
 
             if (!itemTooltip) return;
 
-            var item = GetComponent<IItemHolder>().Item;
+            var item = GetComponent<IItemHolder>().InventoryItemSO;
 
             itemTooltip.SetUp(item);
         }

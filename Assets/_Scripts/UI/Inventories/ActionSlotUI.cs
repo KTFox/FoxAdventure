@@ -8,53 +8,58 @@ namespace RPG.UI.Inventories
 {
     public class ActionSlotUI : MonoBehaviour, IItemHolder, IDragContainer<InventoryItemSO>
     {
+        // Variables
+
         [SerializeField]
-        private InventoryItemIcon icon;
+        private InventoryItemIcon _inventoryItemIcon;
         [SerializeField]
-        private int index;
+        private int _slotIndex;
         [SerializeField]
         private Image cooldownVisual;
 
-        private ActionStore store;
-        private CooldownStore cooldownStore;
+        private ActionStore _actionStore;
+        private CooldownStore _cooldownStore;
 
-        #region Properties
-        public InventoryItemSO Item => store.GetActionItem(index);
-        public int ItemQuantity => store.GetItemQuantity(index);
-        #endregion
+        // Properties
+
+        public InventoryItemSO InventoryItemSO => _actionStore.GetActionItem(_slotIndex);
+        public int ItemQuantity => _actionStore.GetItemQuantity(_slotIndex);
+        
+
+        // Methods
 
         private void Awake()
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            store = player.GetComponent<ActionStore>();
-            cooldownStore = player.GetComponent<CooldownStore>();
+            var player = GameObject.FindGameObjectWithTag("Player");
+            _actionStore = player.GetComponent<ActionStore>();
+            _cooldownStore = player.GetComponent<CooldownStore>();
 
-            store.OnActionStoreUpdated += UpdateIcon;
+            _actionStore.OnActionStoreUpdated += _actionStore_ActionStoreUpdated;
+        }
+
+        void _actionStore_ActionStoreUpdated()
+        {
+            _inventoryItemIcon.SetItem(InventoryItemSO, ItemQuantity);
         }
 
         private void Update()
         {
-            cooldownVisual.fillAmount = cooldownStore.GetFractionTime(Item);
+            cooldownVisual.fillAmount = _cooldownStore.GetFractionTime(InventoryItemSO);
         }
 
-        void UpdateIcon()
+        public void AddItems(InventoryItemSO inventoryItemSO, int quantity)
         {
-            icon.SetItem(Item, ItemQuantity);
-        }
-
-        public void AddItems(InventoryItemSO item, int quantity)
-        {
-            store.AddActionItem(item, index, quantity);
+            _actionStore.AddActionItem(inventoryItemSO, _slotIndex, quantity);
         }
 
         public void RemoveItems(int quantity)
         {
-            store.RemoveActionItem(index, quantity);
+            _actionStore.RemoveActionItem(_slotIndex, quantity);
         }
 
-        public int GetMaxAcceptable(InventoryItemSO item)
+        public int GetMaxAcceptable(InventoryItemSO inventoryItemSO)
         {
-            return store.GetMaxAcceptable(item, index);
+            return _actionStore.GetMaxAcceptable(inventoryItemSO, _slotIndex);
         }
     }
 }

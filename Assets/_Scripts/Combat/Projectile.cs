@@ -6,27 +6,33 @@ namespace RPG.Combat
 {
     public class Projectile : MonoBehaviour
     {
-        #region Variables
-        [SerializeField]
-        private bool isChasingProjectTile = true;
-        [SerializeField]
-        private float flyingSpeed;
-        [SerializeField]
-        private float lifeAfterImpact;
-        [SerializeField]
-        private float maxLifeTime;
-        [SerializeField]
-        private GameObject hitEffect;
-        [SerializeField]
-        private GameObject[] destroyOnHitObjects;
-        [SerializeField]
-        private UnityEvent OnHit;
+        // Variables
 
-        private Health target;
-        private GameObject instigator;
-        private float damage;
-        private Vector3 targetPoint;
-        #endregion
+        [SerializeField]
+        private bool _isChasingProjectTile = true;
+        [SerializeField]
+        private float _flyingSpeed;
+        [SerializeField]
+        private float _lifeAfterImpact;
+        [SerializeField]
+        private float _maxLifeTime;
+        [SerializeField]
+        private GameObject _hitEffect;
+        [SerializeField]
+        private GameObject[] _destroyOnHitObjects;
+
+        private Health _targetHealth;
+        private GameObject _instigator;
+        private float _damage;
+        private Vector3 _targetPoint;
+
+        // Events
+
+        [SerializeField]
+        private UnityEvent Hit;
+
+
+        // Methods
 
         private void Start()
         {
@@ -35,35 +41,38 @@ namespace RPG.Combat
 
         private void Update()
         {
-            if (target != null && isChasingProjectTile && !target.IsDead)
+            if (_targetHealth != null && _isChasingProjectTile && !_targetHealth.IsDead)
             {
                 transform.LookAt(GetAimLocation());
             }
 
-            transform.Translate(Vector3.forward * flyingSpeed * Time.deltaTime);
+            transform.Translate(Vector3.forward * _flyingSpeed * Time.deltaTime);
         }
 
         private void OnTriggerEnter(Collider collision)
         {
             // Check when to trigger Hit Effects
-            Health targetHealth = collision.GetComponent<Health>();
-            if (target != null && targetHealth != target) return;
-            if (targetHealth == null || targetHealth.IsDead) return;
-            if (collision.gameObject == instigator) return;
+            var targetHealth = collision.GetComponent<Health>();
 
-            // Trigger Hit Effects
-            OnHit?.Invoke();
-            targetHealth.TakeDamage(instigator, damage);
-            flyingSpeed = 0f;
-            if (hitEffect != null)
+            if (_targetHealth != null && targetHealth != _targetHealth) return;
+            if (targetHealth == null || targetHealth.IsDead) return;
+            if (collision.gameObject == _instigator) return;
+
+            OhHit();
+
+            targetHealth.TakeDamage(_instigator, _damage);
+
+            if (_hitEffect != null)
             {
-                Instantiate(hitEffect, GetAimLocation(), transform.rotation);
+                Instantiate(_hitEffect, GetAimLocation(), transform.rotation);
             }
-            foreach (GameObject gameObject in destroyOnHitObjects)
+
+            foreach (GameObject gameObject in _destroyOnHitObjects)
             {
                 Destroy(gameObject);
             }
-            Destroy(gameObject, lifeAfterImpact);
+
+            Destroy(gameObject, _lifeAfterImpact);
         }
 
         #region SetTarget function overloads
@@ -79,31 +88,37 @@ namespace RPG.Combat
 
         private void SetTarget(GameObject instigator, float damage, Health target, Vector3 targetPoint)
         {
-            this.instigator = instigator;
-            this.damage = damage;
-            this.target = target;
-            this.targetPoint = targetPoint;
+            _instigator = instigator;
+            _damage = damage;
+            _targetHealth = target;
+            _targetPoint = targetPoint;
 
-            Destroy(gameObject, maxLifeTime);
+            Destroy(gameObject, _maxLifeTime);
         }
         #endregion
 
         private Vector3 GetAimLocation()
         {
-            if (target == null)
+            if (_targetHealth == null)
             {
-                return targetPoint;
+                return _targetPoint;
             }
 
-            //Future problem: cannot get aim location of target that doesn't have capsucollider
-            CapsuleCollider targetCap = target.GetComponent<CapsuleCollider>();
+            //Future problem: cannot get aim location of _targetHealth that doesn't have capsucollider
+            CapsuleCollider targetCap = _targetHealth.GetComponent<CapsuleCollider>();
 
             if (targetCap == null)
             {
-                return target.transform.position;
+                return _targetHealth.transform.position;
             }
 
-            return target.transform.position + Vector3.up * targetCap.height / 2;
+            return _targetHealth.transform.position + Vector3.up * targetCap.height / 2;
+        }
+
+        private void OhHit()
+        {
+            Hit?.Invoke();
+            _flyingSpeed = 0f;
         }
     }
 }

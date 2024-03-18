@@ -2,41 +2,44 @@ using UnityEngine;
 using UnityEngine.UI;
 using RPG.Inventories;
 using RPG.Shops;
-using System;
 
 namespace RPG.UI.Shops
 {
     public class CategoryButtonUI : MonoBehaviour
     {
-        [SerializeField]
-        private ItemCategory category;
+        // Variables
 
-        private Shop currentShop;
-        private Button button;
+        [SerializeField]
+        private ItemCategory _itemCategory;
+        private Shop _currentShop;
+        private Button _button;
+
+
+        // Methods
 
         private void Awake()
         {
-            button = GetComponent<Button>();
+            _button = GetComponent<Button>();
         }
 
         private void Start()
         {
-            button.onClick.AddListener(SelectFilter);
+            _button.onClick.AddListener(SelectFilter);
         }
 
         void SelectFilter()
         {
-            currentShop.SelectFilter(category);
+            _currentShop.SelectFilter(_itemCategory);
         }
 
         public void RefreshUI()
         {
-            button.interactable = currentShop.CurrentCategory != category;
+            _button.interactable = _currentShop.CurrentCategory != _itemCategory;
         }
 
         public void SetShop(Shop shop)
         {
-            currentShop = shop;
+            _currentShop = shop;
         }
     }
 }

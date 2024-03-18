@@ -5,52 +5,57 @@ using RPG.Attributes;
 
 namespace RPG.Abilities.EffectStrategies
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/EffectStrategySO/SpawnProjectileEffectSO")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Strategy/EffectStrategy/SpawnProjectileEffect")]
     public class SpawnProjectileEffectSO : EffectStrategySO
     {
-        [SerializeField]
-        private Projectile projectileToSpawn;
-        [SerializeField]
-        private float damage;
-        [SerializeField]
-        private bool isRightHand;
-        [SerializeField]
-        private bool useTargetPoint;
+        // Variables
 
-        public override void StartEffect(AbilityData data, Action finishEffect)
+        [SerializeField]
+        private Projectile _projectileToSpawn;
+        [SerializeField]
+        private float _damage;
+        [SerializeField]
+        private bool _isRightHand;
+        [SerializeField]
+        private bool _useTargetPoint;
+
+
+        // Methods
+
+        public override void StartEffect(AbilityData abilityData, Action finishedCallback)
         {
-            Fighter fighter = data.User.GetComponent<Fighter>();
-            Vector3 spawnPosition = fighter.GetHandTransform(isRightHand);
+            var fighter = abilityData.Instigator.GetComponent<Fighter>();
+            var projectileSpawnPosition = fighter.GetHandPosition(_isRightHand);
 
-            if (useTargetPoint)
+            if (_useTargetPoint)
             {
-                SpawnProjectileForTargetPoint(data, spawnPosition);
+                SpawnProjectileForTargetPoint(abilityData, projectileSpawnPosition);
             }
             else
             {
-                SpawnProjectileForTargets(data, spawnPosition);
+                SpawnProjectileForTargets(abilityData, projectileSpawnPosition);
             }
 
-            finishEffect();
+            finishedCallback();
         }
 
-        private void SpawnProjectileForTargetPoint(AbilityData data, Vector3 spawnPosition)
+        private void SpawnProjectileForTargetPoint(AbilityData abilityData, Vector3 spawnPosition)
         {
-            Projectile projectile = Instantiate(projectileToSpawn);
+            Projectile projectile = Instantiate(_projectileToSpawn);
             projectile.transform.position = spawnPosition;
-            projectile.SetTarget(data.User, damage, data.TargetPoint);
+            projectile.SetTarget(abilityData.Instigator, _damage, abilityData.TargetPoint);
         }
 
-        private void SpawnProjectileForTargets(AbilityData data, Vector3 spawnPosition)
+        private void SpawnProjectileForTargets(AbilityData abilityData, Vector3 spawnPosition)
         {
-            foreach (GameObject target in data.Targets)
+            foreach (GameObject target in abilityData.Targets)
             {
                 Health targetHealth = target.GetComponent<Health>();
                 if (targetHealth)
                 {
-                    Projectile projectile = Instantiate(projectileToSpawn);
+                    Projectile projectile = Instantiate(_projectileToSpawn);
                     projectile.transform.position = spawnPosition;
-                    projectile.SetTarget(data.User, damage, targetHealth);
+                    projectile.SetTarget(abilityData.Instigator, _damage, targetHealth);
                 }
             }
         }

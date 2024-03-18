@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace RPG.Abilities.TargetingStrategies
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/TargetingStrategySO/SelfTargetingSO")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Strategy/TargetingStrategy/SelfTargeting")]
     public class SelfTargetingSO : TargetingStrategySO
     {
-        public override void StartTargeting(AbilityData data, Action finishTargeting)
+        public override void StartTargeting(AbilityData abilityData, Action finishedCallback)
         {
-            data.SetTargets(new GameObject[] { data.User });
-            data.SetTargetedPoint(data.User.transform.position);
-            finishTargeting();
+            abilityData.Targets = new GameObject[] { abilityData.Instigator };
+            abilityData.TargetPoint = abilityData.Instigator.transform.position;
+            finishedCallback();
         }
     }
 }

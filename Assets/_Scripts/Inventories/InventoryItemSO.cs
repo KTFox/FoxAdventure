@@ -5,40 +5,41 @@ using UnityEngine;
 namespace RPG.Inventories
 {
     /// <summary>
-    /// A ScriptableObject that represents any _item that can be put in an inventory
+    /// A ScriptableObject that represents any _inventoryItem that can be put in an _inventory
     /// </summary>
     /// <remarks>
     /// In practice, you are likely to use a subclass such as "ActionItemSO" or "EquipableItemSO"
     /// </remarks>
     public class InventoryItemSO : ScriptableObject, ISerializationCallbackReceiver
     {
-        #region Variables
+        // Variables
+
         [Tooltip("Auto-generated UUID for saving/loading. Clear this field if you want to generate a new one.")]
         [SerializeField]
         private string _itemID;
 
-        [Tooltip("Item name to be displayed in UI.")]
+        [Tooltip("InventoryItem name to be displayed in UI.")]
         [SerializeField]
         private string _displayName;
 
-        [Tooltip("Item description to be displayed in UI.")]
+        [Tooltip("InventoryItem _description to be displayed in UI.")]
         [SerializeField]
         [TextArea]
         private string _description;
 
-        [Tooltip("The UI icon to represent this _item in the inventory.")]
+        [Tooltip("The UI _inventoryItemIcon to represent this _inventoryItem in the _inventory.")]
         [SerializeField]
         private Sprite _icon;
 
-        [Tooltip("The prefab that should be spawned when this _item is dropped.")]
+        [Tooltip("The prefab that should be spawned when this _inventoryItem is dropped.")]
         [SerializeField]
         private Pickup pickup;
 
-        [Tooltip("If true, multiple items of this type can be stacked in the same inventory slot.")]
+        [Tooltip("If true, multiple items of this type can be stacked in the same _inventory slot.")]
         [SerializeField]
         private bool _stackable;
 
-        [Tooltip("Item's buying price in shop. ")]
+        [Tooltip("InventoryItem's buying price in shop.")]
         [SerializeField]
         private float _price;
 
@@ -46,9 +47,9 @@ namespace RPG.Inventories
         private ItemCategory _itemCategory;
 
         private static Dictionary<string, InventoryItemSO> itemLookupTable;
-        #endregion
 
-        #region Properties
+        // Properties
+
         public string ItemID => _itemID;
         public string DisplayName => _displayName;
         public string Description => _description;
@@ -56,10 +57,12 @@ namespace RPG.Inventories
         public bool Stackable => _stackable;
         public float Price => _price;
         public ItemCategory ItemCategory => _itemCategory;
-        #endregion
+
+
+        // Methods
 
         /// <summary>
-        /// Get the inventory _item from its ID
+        /// Get the _inventory _inventoryItem from its ID
         /// </summary>
         /// <param name="itemID">
         /// String UUID that persists between game instances.
@@ -67,7 +70,6 @@ namespace RPG.Inventories
         /// <returns></returns>
         public static InventoryItemSO GetItemFromID(string itemID)
         {
-            // Make sure itemLookupTable has been instantiated before getting _item from it
             if (itemLookupTable == null)
             {
                 itemLookupTable = new Dictionary<string, InventoryItemSO>();
@@ -86,21 +88,23 @@ namespace RPG.Inventories
             }
 
             if (itemID == null || !itemLookupTable.ContainsKey(itemID))
+            {
                 return null;
+            }
 
             return itemLookupTable[itemID];
         }
 
         /// <summary>
-        /// Spawn pickup into the world
+        /// AttachWeaponToHand pickup into the world
         /// </summary>
         /// <param name="position"></param>
         /// <returns></returns>
-        public Pickup SpawnPickup(Vector3 position, int number)
+        public Pickup SpawnPickup(Vector3 position, int quantity)
         {
             var pickup = Instantiate(this.pickup);
             pickup.transform.position = position;
-            pickup.SetUp(this, number);
+            pickup.SetUp(this, quantity);
 
             return pickup;
         }

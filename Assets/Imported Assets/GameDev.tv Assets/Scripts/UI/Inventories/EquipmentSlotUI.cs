@@ -8,7 +8,7 @@ using GameDevTV.Inventories;
 namespace GameDevTV.UI.Inventories
 {
     /// <summary>
-    /// An slot for the players equipment.
+    /// An slot for the players _equipment.
     /// </summary>
     public class EquipmentSlotUI : MonoBehaviour, IItemHolder, IDragContainer<InventoryItem>
     {

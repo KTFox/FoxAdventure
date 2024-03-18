@@ -6,8 +6,7 @@ namespace RPG.Stats
 {
     public class TraitStore : MonoBehaviour, IModifierProvider, ISaveable
     {
-        [SerializeField]
-        private TraitBonus[] bonusConfig;
+        // Structs
 
         [System.Serializable]
         private class TraitBonus
@@ -18,30 +17,39 @@ namespace RPG.Stats
             public float percentageBonusPerPoint;
         }
 
-        private Dictionary<Trait, int> assignedPoints = new Dictionary<Trait, int>();
-        private Dictionary<Trait, int> stagedPoints = new Dictionary<Trait, int>();
-        private Dictionary<Stat, Dictionary<Trait, float>> additiveBonusCache = new Dictionary<Stat, Dictionary<Trait, float>>();
-        private Dictionary<Stat, Dictionary<Trait, float>> percentageBonusCache = new Dictionary<Stat, Dictionary<Trait, float>>();
+        // Variables
 
-        #region Properties
+        [SerializeField]
+        private TraitBonus[] _traitBonuses;
+        private Dictionary<Trait, int> _assignedPoints = new Dictionary<Trait, int>();
+        private Dictionary<Trait, int> _stagedPoints = new Dictionary<Trait, int>();
+        private Dictionary<Stat, Dictionary<Trait, float>> _additiveBonusCache = new Dictionary<Stat, Dictionary<Trait, float>>();
+        private Dictionary<Stat, Dictionary<Trait, float>> _percentageBonusCache = new Dictionary<Stat, Dictionary<Trait, float>>();
+
+        // Properties
+
         public int UnAssignedPoints => AssignablePoints - GetTotalProposedPoints();
-        public int AssignablePoints => (int)GetComponent<BaseStats>().GetStat(Stat.TotalTraitPoints);
-        #endregion
+        public int AssignablePoints => (int)GetComponent<BaseStats>().GetValueOfStat(Stat.TotalTraitPoints);
+
+
+        // Methods
 
         private void Awake()
         {
-            foreach (var bonus in bonusConfig)
+            foreach (TraitBonus traitBonus in _traitBonuses)
             {
-                if (!additiveBonusCache.ContainsKey(bonus.stat))
+                if (!_additiveBonusCache.ContainsKey(traitBonus.stat))
                 {
-                    additiveBonusCache[bonus.stat] = new Dictionary<Trait, float>();
+                    _additiveBonusCache[traitBonus.stat] = new Dictionary<Trait, float>();
                 }
-                if (!percentageBonusCache.ContainsKey(bonus.stat))
+
+                if (!_percentageBonusCache.ContainsKey(traitBonus.stat))
                 {
-                    percentageBonusCache[bonus.stat] = new Dictionary<Trait, float>();
+                    _percentageBonusCache[traitBonus.stat] = new Dictionary<Trait, float>();
                 }
-                additiveBonusCache[bonus.stat][bonus.trait] = bonus.additiveBonusPerPoint;
-                percentageBonusCache[bonus.stat][bonus.trait] = bonus.percentageBonusPerPoint;
+
+                _additiveBonusCache[traitBonus.stat][traitBonus.trait] = traitBonus.additiveBonusPerPoint;
+                _percentageBonusCache[traitBonus.stat][traitBonus.trait] = traitBonus.percentageBonusPerPoint;
             }
         }
 
@@ -50,13 +58,20 @@ namespace RPG.Stats
         {
             if (!CanAssignTraits(trait, points)) return;
 
-            stagedPoints[trait] = GetStagedPoints(trait) + points;
+            _stagedPoints[trait] = GetStagedPoints(trait) + points;
         }
 
         public bool CanAssignTraits(Trait trait, int points)
         {
-            if (GetStagedPoints(trait) + points < 0) return false;
-            if (UnAssignedPoints < points) return false;
+            if (GetStagedPoints(trait) + points < 0)
+            {
+                return false;
+            }
+
+            if (UnAssignedPoints < points)
+            {
+                return false;
+            }
 
             return true;
         }
@@ -64,11 +79,13 @@ namespace RPG.Stats
         public int GetTotalProposedPoints()
         {
             int total = 0;
-            foreach (int point in assignedPoints.Values)
+
+            foreach (int point in _assignedPoints.Values)
             {
                 total += point;
             }
-            foreach (int point in stagedPoints.Values)
+
+            foreach (int point in _stagedPoints.Values)
             {
                 total += point;
             }
@@ -83,32 +100,32 @@ namespace RPG.Stats
 
         public int GetAssignedPoints(Trait trait)
         {
-            return assignedPoints.ContainsKey(trait) ? assignedPoints[trait] : 0;
+            return _assignedPoints.ContainsKey(trait) ? _assignedPoints[trait] : 0;
         }
 
         public int GetStagedPoints(Trait trait)
         {
-            return stagedPoints.ContainsKey(trait) ? stagedPoints[trait] : 0;
+            return _stagedPoints.ContainsKey(trait) ? _stagedPoints[trait] : 0;
         }
 
         #region IModifierProvider implements
         IEnumerable<float> IModifierProvider.GetAdditiveModifiers(Stat stat)
         {
-            if (!additiveBonusCache.ContainsKey(stat)) yield break;
+            if (!_additiveBonusCache.ContainsKey(stat)) yield break;
 
-            foreach (Trait trait in additiveBonusCache[stat].Keys)
+            foreach (Trait trait in _additiveBonusCache[stat].Keys)
             {
-                yield return GetAssignedPoints(trait) * additiveBonusCache[stat][trait];
+                yield return GetAssignedPoints(trait) * _additiveBonusCache[stat][trait];
             }
         }
 
         IEnumerable<float> IModifierProvider.GetPercentageModifiers(Stat stat)
         {
-            if (!percentageBonusCache.ContainsKey(stat)) yield break;
+            if (!_percentageBonusCache.ContainsKey(stat)) yield break;
 
-            foreach (Trait trait in percentageBonusCache[stat].Keys)
+            foreach (Trait trait in _percentageBonusCache[stat].Keys)
             {
-                yield return GetAssignedPoints(trait) * percentageBonusCache[stat][trait];
+                yield return GetAssignedPoints(trait) * _percentageBonusCache[stat][trait];
             }
         }
         #endregion
@@ -116,23 +133,23 @@ namespace RPG.Stats
         #region ISaveable implements
         object ISaveable.CaptureState()
         {
-            return assignedPoints;
+            return _assignedPoints;
         }
 
         void ISaveable.RestoreState(object state)
         {
-            assignedPoints = (Dictionary<Trait, int>)state;
+            _assignedPoints = (Dictionary<Trait, int>)state;
         }
         #endregion
 
         #region Unity Events
         public void Commit()
         {
-            foreach (var pair in stagedPoints.Keys)
+            foreach (var pair in _stagedPoints.Keys)
             {
-                assignedPoints[pair] = GetProposedPoints(pair);
+                _assignedPoints[pair] = GetProposedPoints(pair);
             }
-            stagedPoints.Clear();
+            _stagedPoints.Clear();
         }
         #endregion
     }

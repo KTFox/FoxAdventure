@@ -6,7 +6,7 @@ using GameDevTV.Saving;
 namespace GameDevTV.Inventories
 {
     /// <summary>
-    /// Provides a store for the items equipped to a player. Items are stored by
+    /// Provides a _actionStore for the items equipped to a _player. Items are stored by
     /// their equip locations.
     /// 
     /// This component should be placed on the GameObject tagged "Player".
@@ -24,7 +24,7 @@ namespace GameDevTV.Inventories
         public event Action equipmentUpdated;
 
         /// <summary>
-        /// Return the _item in the given equip location.
+        /// Return the _inventoryItem in the given equip location.
         /// </summary>
         public EquipableItem GetItemInSlot(EquipLocation equipLocation)
         {
@@ -37,7 +37,7 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// Add an _item to the given equip location. Do not attempt to equip to
+        /// Add an _inventoryItem to the given equip location. Do not attempt to equip to
         /// an incompatible slot.
         /// </summary>
         public void AddItem(EquipLocation slot, EquipableItem item)
@@ -53,7 +53,7 @@ namespace GameDevTV.Inventories
         }
 
         /// <summary>
-        /// Remove the _item for the given slot.
+        /// Remove the _inventoryItem for the given slot.
         /// </summary>
         public void RemoveItem(EquipLocation slot)
         {

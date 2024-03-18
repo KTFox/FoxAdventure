@@ -6,12 +6,21 @@ namespace RPG.Stats
 {
     public class Experience : MonoBehaviour, ISaveable
     {
-        public event Action OnExperienceGained;
+        // Variables
 
         [SerializeField]
         private float _experiencePoints;
 
+        // Properties
+
         public float ExperiencePoint => _experiencePoints;
+
+        // Events
+
+        public event Action OnExperienceGained;
+
+
+        // Methods
 
         private void Update()
         {

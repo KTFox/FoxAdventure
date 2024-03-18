@@ -4,20 +4,17 @@ using RPG.Inventories;
 
 namespace RPG.UI.Inventories
 {
-    /// <summary>
-    /// Root of the tooltip prefab to expose properties to other class
-    /// </summary>
     public class ItemTooltip : MonoBehaviour
     {
         [SerializeField]
-        private TextMeshProUGUI title;
+        private TextMeshProUGUI _title;
         [SerializeField]
-        private TextMeshProUGUI description;
+        private TextMeshProUGUI _description;
 
-        public void SetUp(InventoryItemSO item)
+        public void SetUp(InventoryItemSO inventoryItemSO)
         {
-            title.text = item.DisplayName;
-            description.text = item.Description;
+            _title.text = inventoryItemSO.DisplayName;
+            _description.text = inventoryItemSO.Description;
         }
     }
 }

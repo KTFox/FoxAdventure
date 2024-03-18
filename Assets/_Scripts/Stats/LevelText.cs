@@ -6,18 +6,23 @@ namespace RPG.Stats
 {
     public class LevelText : MonoBehaviour
     {
-        private BaseStats playerBaseStats;
-        private TextMeshProUGUI levelValueText;
+        // Variables
+
+        private BaseStats _playerBaseStats;
+        private TextMeshProUGUI _levelValueText;
+
+
+        // Methods
 
         private void Awake()
         {
-            playerBaseStats = GameObject.FindGameObjectWithTag("Player").GetComponent<BaseStats>();
-            levelValueText = GetComponent<TextMeshProUGUI>();
+            _playerBaseStats = GameObject.FindGameObjectWithTag("Player").GetComponent<BaseStats>();
+            _levelValueText = GetComponent<TextMeshProUGUI>();
         }
 
         private void Update()
         {
-            levelValueText.text = String.Format("Level: {0}", playerBaseStats.CurrentLevel);
+            _levelValueText.text = String.Format("Level: {0}", _playerBaseStats.CurrentLevel);
         }
     }
 }

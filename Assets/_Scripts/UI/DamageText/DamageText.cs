@@ -6,15 +6,11 @@ namespace RPG.UI.DamageText
     public class DamageText : MonoBehaviour
     {
         [SerializeField]
-        private TextMeshProUGUI damageText;
+        private TextMeshProUGUI _damageText;
 
-        /// <summary>
-        /// Set text traitValue visual
-        /// </summary>
-        /// <param name="damageAmount"></param>
         public void UpdateText(float damageAmount)
         {
-            damageText.text = $"{damageAmount:N2}";
+            _damageText.text = $"{damageAmount:N2}";
         }
 
         #region Animation events

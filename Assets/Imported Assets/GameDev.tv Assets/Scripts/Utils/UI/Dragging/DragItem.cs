@@ -11,14 +11,14 @@ namespace GameDevTV.Core.UI.Dragging
     /// Create a subclass for the type you want to be draggable. Then place on
     /// the UI element you want to make draggable.
     /// 
-    /// During dragging, the _item is reparented to the parent canvas.
+    /// During dragging, the _inventoryItem is reparented to the parent canvas.
     /// 
-    /// After the _item is dropped it will be automatically return to the
+    /// After the _inventoryItem is dropped it will be automatically return to the
     /// original UI parent. It is the job of components implementing `IDragContainer`,
     /// `IDragDestination and `IDragSource` to update the interface after a drag
     /// has occurred.
     /// </summary>
-    /// <typeparam name="T">The type that represents the _item being dragged.</typeparam>
+    /// <typeparam name="T">The type that represents the _inventoryItem being dragged.</typeparam>
     public class DragItem<T> : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
         where T : class
     {
@@ -108,7 +108,7 @@ namespace GameDevTV.Core.UI.Dragging
 
         private void AttemptSwap(IDragContainer<T> destination, IDragContainer<T> source)
         {
-            // Provisionally remove _item from both sides. 
+            // Provisionally remove _inventoryItem from both sides. 
             var removedSourceNumber = source.GetNumber();
             var removedSourceItem = source.GetItem();
             var removedDestinationNumber = destination.GetNumber();

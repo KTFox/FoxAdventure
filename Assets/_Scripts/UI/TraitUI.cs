@@ -7,23 +7,28 @@ namespace RPG.UI
 {
     public class TraitUI : MonoBehaviour
     {
-        [SerializeField]
-        private TextMeshProUGUI availableTraitText;
-        [SerializeField]
-        private Button confirmButton;
+        // Variables
 
-        private TraitStore playerTraitStore;
+        [SerializeField]
+        private TextMeshProUGUI _availableTraitsText;
+        [SerializeField]
+        private Button _confirmButton;
+
+        private TraitStore _playerTraitStore;
+
+
+        // Methods
 
         private void Start()
         {
-            playerTraitStore = GameObject.FindGameObjectWithTag("Player").GetComponent<TraitStore>();
+            _playerTraitStore = GameObject.FindGameObjectWithTag("Player").GetComponent<TraitStore>();
 
-            confirmButton.onClick.AddListener(() => playerTraitStore.Commit());
+            _confirmButton.onClick.AddListener(() => _playerTraitStore.Commit());
         }
 
         private void Update()
         {
-            availableTraitText.text = playerTraitStore.UnAssignedPoints.ToString();
+            _availableTraitsText.text = _playerTraitStore.UnAssignedPoints.ToString();
         }
     }
 }

@@ -8,77 +8,91 @@ namespace RPG.Movement
 {
     public class Mover : MonoBehaviour, IAction, ISaveable
     {
-        [SerializeField]
-        private float maxSpeed;
-        [SerializeField]
-        private float maxNavPathLength;
+        // Variables
 
-        private ActionScheduler actionScheduler;
-        private NavMeshAgent navMeshAgent;
-        private Animator animator;
-        private Health health;
+        private const string FORWARD_SPEED = "forwardSpeed";
+
+        [SerializeField]
+        private float _maxSpeed;
+        [SerializeField]
+        private float _maxNavPathLength;
+
+        private ActionScheduler _actionScheduler;
+        private NavMeshAgent _navMeshAgent;
+        private Animator _animator;
+        private Health _health;
+
+
+        // Methods
 
         private void Awake()
         {
-            actionScheduler = GetComponent<ActionScheduler>();
-            navMeshAgent = GetComponent<NavMeshAgent>();
-            animator = GetComponent<Animator>();
-            health = GetComponent<Health>();
+            _actionScheduler = GetComponent<ActionScheduler>();
+            _navMeshAgent = GetComponent<NavMeshAgent>();
+            _animator = GetComponent<Animator>();
+            _health = GetComponent<Health>();
         }
 
         private void Update()
         {
-            navMeshAgent.enabled = !health.IsDead;
+            _navMeshAgent.enabled = !_health.IsDead;
 
             UpdateAnimator();
         }
 
-        private void UpdateAnimator()
-        {
-            Vector3 velocity = navMeshAgent.velocity;
-            Vector3 localVelocity = transform.InverseTransformDirection(velocity);
-            float speed = localVelocity.z;
-
-            animator.SetFloat("forwardSpeed", speed);
-        }
-
-        /// <summary>
-        /// Call ActionScheduler.StartAction() and MoveTo(destination) functions
-        /// </summary>
-        /// <param name="destination"></param>
         public void StartMoveAction(Vector3 destination, float moveSpeedFraction)
         {
-            actionScheduler.StartAction(this);
+            _actionScheduler.StartAction(this);
             MoveTo(destination, moveSpeedFraction);
         }
 
-        /// <summary>
-        /// Set navMeshAgent.destination equal position
-        /// </summary>
-        /// <param name="position"></param>
-        public void MoveTo(Vector3 position, float moveSpeedFraction)
+        public void MoveTo(Vector3 destination, float moveSpeedFraction)
         {
-            navMeshAgent.destination = position;
-            navMeshAgent.speed = maxSpeed * Mathf.Clamp01(moveSpeedFraction);
-            navMeshAgent.isStopped = false;
+            _navMeshAgent.destination = destination;
+            _navMeshAgent.speed = _maxSpeed * Mathf.Clamp01(moveSpeedFraction);
+            _navMeshAgent.isStopped = false;
         }
 
-        public bool CanMoveTo(Vector3 position)
+        public bool CanMoveTo(Vector3 destination)
         {
             NavMeshPath path = new NavMeshPath();
-            bool hasPath = NavMesh.CalculatePath(transform.position, position, NavMesh.AllAreas, path);
-            if (!hasPath) return false;
-            if (path.status != NavMeshPathStatus.PathComplete) return false;
-            if (GetNavPathLength(path) > maxNavPathLength) return false;
+            bool hasPath = NavMesh.CalculatePath(transform.position, destination, NavMesh.AllAreas, path);
+
+            if (!hasPath)
+            {
+                return false;
+            }
+
+            if (path.status != NavMeshPathStatus.PathComplete)
+            {
+                return false;
+            }
+
+            if (GetNavPathLength(path) > _maxNavPathLength)
+            {
+                return false;
+            }
 
             return true;
+        }
+
+        private void UpdateAnimator()
+        {
+            Vector3 velocity = _navMeshAgent.velocity;
+            Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+            float speed = localVelocity.z;
+
+            _animator.SetFloat(FORWARD_SPEED, speed);
         }
 
         private float GetNavPathLength(NavMeshPath path)
         {
             float pathLength = 0f;
 
-            if (path.corners.Length < 2) return pathLength;
+            if (path.corners.Length < 2)
+            {
+                return pathLength;
+            }
 
             for (int i = 0; i < path.corners.Length - 1; i++)
             {
@@ -91,11 +105,11 @@ namespace RPG.Movement
 
         #region IAction Interface implements
         /// <summary>
-        /// Set navMeshAgent.isStopped = true
+        /// Set _navMeshAgent.isStopped = true
         /// </summary>
         public void Cancel()
         {
-            navMeshAgent.isStopped = true;
+            _navMeshAgent.isStopped = true;
         }
         #endregion
 
@@ -107,9 +121,9 @@ namespace RPG.Movement
 
         void ISaveable.RestoreState(object state)
         {
-            navMeshAgent.enabled = false;
+            _navMeshAgent.enabled = false;
             transform.position = ((SerializableVector3)(state)).ToVector();
-            navMeshAgent.enabled = true;
+            _navMeshAgent.enabled = true;
             GetComponent<ActionScheduler>().CancelCurrentAction();
         }
         #endregion

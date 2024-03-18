@@ -3,14 +3,14 @@ using UnityEngine;
 namespace GameDevTV.Inventories
 {
     /// <summary>
-    /// An inventory _item that can be equipped to the player. Weapons could be a
+    /// An _inventory _inventoryItem that can be equipped to the _player. Weapons could be a
     /// subclass of this.
     /// </summary>
-    [CreateAssetMenu(menuName = ("GameDevTV/GameDevTV.UI.Inventories/Equipable Item"))]
+    [CreateAssetMenu(menuName = ("GameDevTV/GameDevTV.UI.Inventories/Equipable InventoryItem"))]
     public class EquipableItem : InventoryItem
     {
         // CONFIG DATA
-        [Tooltip("Where are we allowed to put this _item.")]
+        [Tooltip("Where are we allowed to put this _inventoryItem.")]
         [SerializeField] EquipLocation allowedEquipLocation = EquipLocation.Weapon;
 
         // PUBLIC

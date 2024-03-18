@@ -1,35 +1,35 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using RPG.Attributes;
 
 namespace RPG.Abilities.EffectStrategies
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/EffectStrategySO/HealthEffectSO")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Strategy/EffectStrategy/HealthEffect")]
     public class HealthEffectSO : EffectStrategySO
     {
         [SerializeField]
-        private float healthChange;
+        private float _healthChange;
 
-        public override void StartEffect(AbilityData data, Action finishEffect)
+
+        public override void StartEffect(AbilityData abilityData, Action finishedCallback)
         {
-            foreach (var target in data.Targets)
+            foreach (var target in abilityData.Targets)
             {
-                Health health = target.GetComponent<Health>();
-                if (health)
+                Health targetHealth = target.GetComponent<Health>();
+                if (targetHealth)
                 {
-                    if (healthChange < 0)
+                    if (_healthChange < 0)
                     {
-                        health.TakeDamage(data.User, -healthChange);
+                        targetHealth.TakeDamage(abilityData.Instigator, -_healthChange);
                     }
                     else
                     {
-                        health.Heal(healthChange);
+                        targetHealth.Heal(_healthChange);
                     }
                 }
             }
 
-            finishEffect();
+            finishedCallback();
         }
     }
 }

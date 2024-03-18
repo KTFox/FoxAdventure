@@ -2,48 +2,44 @@ using UnityEngine;
 
 namespace RPG.Inventories
 {
-    /// <summary>
-    /// To be placed at the root of a Pickup prefab. Contains the data about the
-    /// pickup such as the type of _item and the quantity.
-    /// </summary>
     public class Pickup : MonoBehaviour
     {
-        private InventoryItemSO _item;
-        private Inventory playerInventory;
+        // Variables
 
-        private int _number = 1;
+        private InventoryItemSO _inventoryItem;
+        private Inventory _playerInventory;
+        private int _quantity = 1;
 
-        #region Properties
-        public InventoryItemSO Item => _item;
-        public bool CanBePickedUp => playerInventory.HasEmptySlot;
-        public int Number => _number;
-        #endregion
+        // Properties
+
+        public InventoryItemSO Item => _inventoryItem;
+        public bool CanBePickedUp => _playerInventory.HasEmptySlot;
+        public int Quantity => _quantity;
+        
+
+        // Methods
 
         private void Awake()
         {
-            playerInventory = Inventory.PlayerInventory;
+            _playerInventory = Inventory.PlayerInventory;
         }
 
-        /// <summary>
-        /// Set the vital data after creating the prefab
-        /// </summary>
-        /// <param name="item"></param>
-        public void SetUp(in InventoryItemSO item, int number)
+        public void SetUp(in InventoryItemSO item, int quantity)
         {
-            _item = item;
+            _inventoryItem = item;
 
-            if (!_item.Stackable)
+            if (!_inventoryItem.Stackable)
             {
-                number = 1;
+                quantity = 1;
             }
 
-            _number = number;
+            _quantity = quantity;
 
         }
 
         public void PickupItem()
         {
-            bool foundSlot = playerInventory.AddItemToFirstEmptySlot(_item, _number);
+            bool foundSlot = _playerInventory.AddItemToFirstEmptySlot(_inventoryItem, _quantity);
 
             if (foundSlot)
             {

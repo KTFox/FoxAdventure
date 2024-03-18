@@ -4,23 +4,28 @@ namespace RPG.Attributes
 {
     public class HealthBar : MonoBehaviour
     {
+        // Variables
+
         [SerializeField]
-        private Health characterHealth;
+        private Health _healthComponent;
         [SerializeField]
-        private Transform foreground;
+        private Transform _healthVisual;
         [SerializeField]
-        private Canvas rootCanvas;
+        private Canvas _rootCanvas;
+
+
+        // Methods
 
         private void Update()
         {
-            if (Mathf.Approximately(characterHealth.CurrentHealthFraction, 1f) || Mathf.Approximately(characterHealth.CurrentHealthFraction, 0f))
+            if (Mathf.Approximately(_healthComponent.CurrentHealthFraction, 1f) || Mathf.Approximately(_healthComponent.CurrentHealthFraction, 0f))
             {
-                rootCanvas.enabled = false;
+                _rootCanvas.enabled = false;
                 return;
             }
 
-            rootCanvas.enabled = true;
-            foreground.localScale = new Vector3(characterHealth.CurrentHealthFraction, 1f, 1f);
+            _rootCanvas.enabled = true;
+            _healthVisual.localScale = new Vector3(_healthComponent.CurrentHealthFraction, 1f, 1f);
         }
     }
 }

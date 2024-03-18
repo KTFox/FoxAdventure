@@ -7,42 +7,56 @@ namespace RPG.Attributes
 {
     public class Mana : MonoBehaviour, ISaveable
     {
+        // Variables
+
         private LazyValue<float> _currentMana;
 
-        #region Properties
-        public float MaxMana => GetComponent<BaseStats>().GetStat(Stat.Mana);
+        // Properties
+
+        public float MaxMana => GetComponent<BaseStats>().GetValueOfStat(Stat.Mana);
         public float CurrentMana => _currentMana.Value;
-        public float ManaRecover => GetComponent<BaseStats>().GetStat(Stat.ManaRecover);
-        #endregion
+        public float ManaRecover => GetComponent<BaseStats>().GetValueOfStat(Stat.ManaRecover);
+
+
+        // Methods
 
         private void Awake()
         {
-            _currentMana = new LazyValue<float>(GetMaxMana);
+            _currentMana = new LazyValue<float>(GetInitialMana);
         }
 
-        float GetMaxMana()
+        float GetInitialMana()
         {
-            return GetComponent<BaseStats>().GetStat(Stat.Mana);
+            return GetComponent<BaseStats>().GetValueOfStat(Stat.Mana);
         }
 
         private void Update()
         {
-            if (_currentMana.Value < GetMaxMana())
+            RestoreManaOverTime();
+        }
+
+        void RestoreManaOverTime()
+        {
+            if (_currentMana.Value < GetInitialMana())
             {
                 _currentMana.Value += ManaRecover * Time.deltaTime;
 
-                if (_currentMana.Value > GetMaxMana())
+                if (_currentMana.Value > GetInitialMana())
                 {
-                    _currentMana.Value = GetMaxMana();
+                    _currentMana.Value = GetInitialMana();
                 }
             }
         }
 
         public bool UseMana(float manaToUse)
         {
-            if (manaToUse > _currentMana.Value) return false;
+            if (manaToUse > _currentMana.Value)
+            {
+                return false;
+            }
 
             _currentMana.Value -= manaToUse;
+
             return true;
         }
 

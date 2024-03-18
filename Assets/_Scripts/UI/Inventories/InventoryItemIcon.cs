@@ -8,40 +8,45 @@ namespace RPG.UI.Inventories
     [RequireComponent(typeof(Image))]
     public class InventoryItemIcon : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject itemQuantityTextContainer;
-        [SerializeField]
-        private TextMeshProUGUI itemQuantityText;
+        // Variables
 
-        public void SetItem(InventoryItemSO item)
+        [SerializeField]
+        private GameObject _itemQuantityTextContainer;
+        [SerializeField]
+        private TextMeshProUGUI _itemQuantityText;
+
+
+        // Methods
+
+        public void SetItem(InventoryItemSO inventoryItemSO)
         {
-            SetItem(item, 0);
+            SetItem(inventoryItemSO, 0);
         }
 
-        public void SetItem(InventoryItemSO item, int number)
+        public void SetItem(InventoryItemSO inventoryItemSO, int quantity)
         {
             var itemImage = GetComponent<Image>();
 
-            if (item == null)
+            if (inventoryItemSO == null)
             {
                 itemImage.enabled = false;
             }
             else
             {
                 itemImage.enabled = true;
-                itemImage.sprite = item.Icon;
+                itemImage.sprite = inventoryItemSO.Icon;
             }
 
-            if (itemQuantityText)
+            if (_itemQuantityText)
             {
-                if (number <= 1)
+                if (quantity <= 1)
                 {
-                    itemQuantityTextContainer.SetActive(false);
+                    _itemQuantityTextContainer.SetActive(false);
                 }
                 else
                 {
-                    itemQuantityTextContainer.SetActive(true);
-                    itemQuantityText.text = number.ToString();
+                    _itemQuantityTextContainer.SetActive(true);
+                    _itemQuantityText.text = quantity.ToString();
                 }
             }
         }

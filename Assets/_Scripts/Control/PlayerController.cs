@@ -10,10 +10,9 @@ namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField]
-        private CursorMapping[] cursorMappings;
+        // Structs
 
-        [System.Serializable]
+        [Serializable]
         private struct CursorMapping
         {
             public CursorType cursorType;
@@ -21,57 +20,70 @@ namespace RPG.Control
             public Vector2 hotspot;
         }
 
-        private Mover mover;
-        private Health health;
-        private ActionStore actionStore;
+        // Variables
 
-        private float maxNavMeshProjectionDistance = 1f;
-        private bool isDraggingUI;
+        [SerializeField]
+        private CursorMapping[] _cursorMappings;
+
+        private Mover _mover;
+        private Health _health;
+        private ActionStore _actionStore;
+        private bool _isDraggingUI;
+
+
+        // Methods
 
         private void Awake()
         {
-            mover = GetComponent<Mover>();
-            health = GetComponent<Health>();
-            actionStore = GetComponent<ActionStore>();
+            _mover = GetComponent<Mover>();
+            _health = GetComponent<Health>();
+            _actionStore = GetComponent<ActionStore>();
         }
 
         private void Update()
         {
             if (InteractWithUI()) return;
 
-            if (health.IsDead)
+            if (_health.IsDead)
             {
                 SetCursor(CursorType.None);
                 return;
             }
 
-            UseAbilities();
+            UseAbilitiesFromActionStore();
 
             if (InteractWithComponent()) return;
+
             if (InteractWithMovement()) return;
 
             SetCursor(CursorType.None);
+        }
+
+        public static Ray GetMouseRay()
+        {
+            return Camera.main.ScreenPointToRay(Input.mousePosition);
         }
 
         private bool InteractWithUI()
         {
             if (Input.GetMouseButtonUp(0))
             {
-                isDraggingUI = false;
+                _isDraggingUI = false;
             }
 
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    isDraggingUI = true;
+                    _isDraggingUI = true;
                 }
 
                 SetCursor(CursorType.UI);
+
                 return true;
             }
 
-            if (isDraggingUI)
+            if (_isDraggingUI)
             {
                 return true;
             }
@@ -79,13 +91,13 @@ namespace RPG.Control
             return false;
         }
 
-        private void UseAbilities()
+        private void UseAbilitiesFromActionStore()
         {
             for (int i = 0; i < 4; i++)
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1 + i))
                 {
-                    actionStore.UseActionItem(i, gameObject);
+                    _actionStore.UseActionItem(i, gameObject);
                 }
             }
         }
@@ -103,6 +115,7 @@ namespace RPG.Control
                     if (raycastable.HandleRaycast(this))
                     {
                         SetCursor(raycastable.GetCursorType());
+
                         return true;
                     }
                 }
@@ -126,43 +139,57 @@ namespace RPG.Control
             }
 
             Array.Sort(distances, hits);
+
             return hits;
         }
 
         private bool InteractWithMovement()
         {
-            Vector3 target;
-            bool hasHit = RaycastNavMesh(out target);
+            Vector3 targetPosition;
+            bool hasHit = RaycastNavMesh(out targetPosition);
 
             if (hasHit)
             {
-                if (!mover.CanMoveTo(target)) return false;
+                if (!_mover.CanMoveTo(targetPosition))
+                {
+                    return false;
+                }
 
                 if (Input.GetMouseButton(1))
                 {
-                    mover.StartMoveAction(target, 1f);
+                    _mover.StartMoveAction(targetPosition, 1f);
                 }
 
                 SetCursor(CursorType.Movement);
+
                 return true;
             }
 
             return false;
         }
 
-        private bool RaycastNavMesh(out Vector3 target)
+        private bool RaycastNavMesh(out Vector3 targetPosition)
         {
-            target = new Vector3();
+            targetPosition = new Vector3();
 
             RaycastHit hit;
             bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
-            if (!hasHit) return false;
+
+            if (!hasHit)
+            {
+                return false;
+            }
 
             NavMeshHit navMeshHit;
+            float maxNavMeshProjectionDistance = 1f;
             bool hasCastToNavMesh = NavMesh.SamplePosition(hit.point, out navMeshHit, maxNavMeshProjectionDistance, NavMesh.AllAreas);
-            if (!hasCastToNavMesh) return false;
 
-            target = navMeshHit.position;
+            if (!hasCastToNavMesh)
+            {
+                return false;
+            }
+
+            targetPosition = navMeshHit.position;
 
             return true;
         }
@@ -175,7 +202,7 @@ namespace RPG.Control
 
         private CursorMapping GetCursorMapping(CursorType type)
         {
-            foreach (CursorMapping mapping in cursorMappings)
+            foreach (CursorMapping mapping in _cursorMappings)
             {
                 if (mapping.cursorType == type)
                 {
@@ -183,12 +210,7 @@ namespace RPG.Control
                 }
             }
 
-            return cursorMappings[0];
-        }
-
-        public static Ray GetMouseRay()
-        {
-            return Camera.main.ScreenPointToRay(Input.mousePosition);
+            return _cursorMappings[0];
         }
     }
 }

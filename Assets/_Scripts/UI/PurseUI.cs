@@ -6,26 +6,30 @@ namespace RPG.UI
 {
     public class PurseUI : MonoBehaviour
     {
-        [SerializeField]
-        private TextMeshProUGUI balanceAmount;
+        // Variables
 
-        private Purse playerPurse;
+        [SerializeField]
+        private TextMeshProUGUI _balanceText;
+        private Purse _playerPurse;
+
+
+        // Methods
 
         private void Awake()
         {
-            playerPurse = GameObject.FindGameObjectWithTag("Player").GetComponent<Purse>();
+            _playerPurse = GameObject.FindGameObjectWithTag("Player").GetComponent<Purse>();
         }
 
         private void Start()
         {
-            RefreshUI();
+            _playerPurse_OnPurseUpdated();
 
-            playerPurse.OnPurseUpdated += RefreshUI;
+            _playerPurse.OnPurseUpdated += _playerPurse_OnPurseUpdated;
         }
 
-        void RefreshUI()
+        void _playerPurse_OnPurseUpdated()
         {
-            balanceAmount.text = $"${playerPurse.CurrentBalance:N2}";
+            _balanceText.text = $"${_playerPurse.CurrentBalance:N2}";
         }
     }
 }

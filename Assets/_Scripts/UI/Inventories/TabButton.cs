@@ -6,35 +6,35 @@ namespace RPG.UI.Inventories
 {
     public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
     {
-        private TabButtonGroup tabButtonGroup;
-        private Image background;
+        private TabButtonGroup _tabButtonGroup;
+        private Image _background;
 
         private void Awake()
         {
-            background = GetComponent<Image>();
-            tabButtonGroup = GetComponentInParent<TabButtonGroup>();
+            _background = GetComponent<Image>();
+            _tabButtonGroup = GetComponentInParent<TabButtonGroup>();
         }
 
         #region IPointerHandler implements
         public void OnPointerEnter(PointerEventData eventData)
         {
-            tabButtonGroup.OnTabEnter(this);
+            _tabButtonGroup.OnPointerEnterTab(this);
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            tabButtonGroup.OnTabSelected(this);
+            _tabButtonGroup.OnTabSelected(this);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            tabButtonGroup.OnTabExit(this);
+            _tabButtonGroup.OnPointerExitTab(this);
         }
         #endregion
 
-        public void SetBackground(Color buttonColor)
+        public void SetBackground(Color color)
         {
-            background.color = buttonColor;
+            _background.color = color;
         }
     }
 }

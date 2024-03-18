@@ -6,7 +6,7 @@ using GameDevTV.Core.UI.Tooltips;
 namespace GameDevTV.UI.Inventories
 {
     /// <summary>
-    /// To be placed on a UI slot to spawn and show the correct _item tooltip.
+    /// To be placed on a UI slot to spawn and show the correct _inventoryItem _tooltip.
     /// </summary>
     [RequireComponent(typeof(IItemHolder))]
     public class ItemTooltipSpawner : TooltipSpawner

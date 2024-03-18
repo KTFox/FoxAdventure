@@ -5,23 +5,27 @@ namespace RPG.Shops
 {
     public class ShopItem
     {
-        private InventoryItemSO _item;
+        // Variables
+
+        private InventoryItemSO _inventoryItem;
         private int _stock;
         private float _price;
         private int _quantityInTransaction;
 
-        #region Properties
-        public InventoryItemSO Item => _item;
-        public Sprite ItemIcon => _item.Icon;
-        public string ItemName => _item.DisplayName;
+        // Properties
+
+        public InventoryItemSO InventoryItem => _inventoryItem;
+        public Sprite ItemIcon => _inventoryItem.Icon;
+        public string ItemName => _inventoryItem.DisplayName;
         public int Stock => _stock;
         public float Price => _price;
         public int QuantityInTransaction => _quantityInTransaction;
-        #endregion
+
+        // Constructors
 
         public ShopItem(InventoryItemSO item, int stock, float price, int quantityInTransaction)
         {
-            _item = item;
+            _inventoryItem = item;
             _stock = stock;
             _price = price;
             _quantityInTransaction = quantityInTransaction;

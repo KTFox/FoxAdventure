@@ -11,8 +11,8 @@ namespace RPG.Inventories
             foreach (var slot in GetAllPopulatedSlots())
             {
                 var item = GetItemInSlot(slot) as IModifierProvider;
-                if (item == null)
-                    continue;
+
+                if (item == null) continue;
 
                 foreach (float modifier in item.GetAdditiveModifiers(stat))
                 {
@@ -26,8 +26,8 @@ namespace RPG.Inventories
             foreach (var slot in GetAllPopulatedSlots())
             {
                 var item = GetItemInSlot(slot) as IModifierProvider;
-                if (item == null)
-                    continue;
+
+                if (item == null) continue;
 
                 foreach (float modifier in item.GetPercentageModifiers(stat))
                 {

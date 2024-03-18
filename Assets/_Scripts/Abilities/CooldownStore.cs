@@ -6,53 +6,58 @@ namespace RPG.Abilities
 {
     public class CooldownStore : MonoBehaviour
     {
-        private Dictionary<InventoryItemSO, float> cooldownTimers = new Dictionary<InventoryItemSO, float>();
-        private Dictionary<InventoryItemSO, float> initialCooldown = new Dictionary<InventoryItemSO, float>();
+        // Variables
+
+        private Dictionary<InventoryItemSO, float> _cooldownTimers = new Dictionary<InventoryItemSO, float>();
+        private Dictionary<InventoryItemSO, float> _initialCooldowns = new Dictionary<InventoryItemSO, float>();
+
+
+        // Methods
 
         private void Update()
         {
-            var keys = new List<InventoryItemSO>(cooldownTimers.Keys);
+            OperateCooldownTimers();
+        }
+
+        void OperateCooldownTimers()
+        {
+            var keys = new List<InventoryItemSO>(_cooldownTimers.Keys);
             foreach (var ability in keys)
             {
-                cooldownTimers[ability] -= Time.deltaTime;
+                _cooldownTimers[ability] -= Time.deltaTime;
 
-                if (cooldownTimers[ability] <= 0)
+                if (_cooldownTimers[ability] <= 0)
                 {
-                    cooldownTimers.Remove(ability);
-                    initialCooldown.Remove(ability);
+                    _cooldownTimers.Remove(ability);
+                    _initialCooldowns.Remove(ability);
                 }
             }
         }
 
         public void StartCooldown(InventoryItemSO ability, float cooldownTime)
         {
-            cooldownTimers[ability] = cooldownTime;
-            initialCooldown[ability] = cooldownTime;
+            _cooldownTimers[ability] = cooldownTime;
+            _initialCooldowns[ability] = cooldownTime;
         }
 
-        public float GetRemainingTIme(InventoryItemSO ability)
+        public float GetRemainingTime(InventoryItemSO ability)
         {
-            if (!cooldownTimers.ContainsKey(ability))
+            if (!_cooldownTimers.ContainsKey(ability))
             {
                 return 0;
             }
 
-            return cooldownTimers[ability];
+            return _cooldownTimers[ability];
         }
 
         public float GetFractionTime(InventoryItemSO ability)
         {
-            if (ability == null)
+            if (!_cooldownTimers.ContainsKey(ability))
             {
                 return 0;
             }
 
-            if (!cooldownTimers.ContainsKey(ability))
-            {
-                return 0;
-            }
-
-            return cooldownTimers[ability] / initialCooldown[ability];
+            return _cooldownTimers[ability] / _initialCooldowns[ability];
         }
     }
 }

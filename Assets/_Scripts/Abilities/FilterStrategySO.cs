@@ -5,6 +5,6 @@ namespace RPG.Abilities
 {
     public abstract class FilterStrategySO : ScriptableObject
     {
-        public abstract IEnumerable<GameObject> Filter(IEnumerable<GameObject> objectsToFilter);
+        public abstract IEnumerable<GameObject> GetFilteredGameObjects(IEnumerable<GameObject> objectsToFilter);
     }
 }

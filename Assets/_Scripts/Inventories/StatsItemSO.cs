@@ -4,13 +4,10 @@ using RPG.Stats;
 
 namespace RPG.Inventories
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Item/StatsItemSO")]
+    [CreateAssetMenu(menuName = "ScriptableObject/InventoryItem/StatsItemSO")]
     public class StatsItemSO : EquipableItemSO, IModifierProvider
     {
-        [SerializeField]
-        private Modifier[] additiveModifiers;
-        [SerializeField]
-        private Modifier[] percentageModifiers;
+        // Struct
 
         [System.Serializable]
         private struct Modifier
@@ -19,10 +16,17 @@ namespace RPG.Inventories
             public float value;
         }
 
+        // Variables
+
+        [SerializeField]
+        private Modifier[] _additiveModifiers;
+        [SerializeField]
+        private Modifier[] _percentageModifiers;
+
         #region IModifierProvider implements
         IEnumerable<float> IModifierProvider.GetAdditiveModifiers(Stat stat)
         {
-            foreach (var modifier in additiveModifiers)
+            foreach (var modifier in _additiveModifiers)
             {
                 if (modifier.stat == stat)
                 {
@@ -33,7 +37,7 @@ namespace RPG.Inventories
 
         IEnumerable<float> IModifierProvider.GetPercentageModifiers(Stat stat)
         {
-            foreach (var modifier in percentageModifiers)
+            foreach (var modifier in _percentageModifiers)
             {
                 if (modifier.stat == stat)
                 {

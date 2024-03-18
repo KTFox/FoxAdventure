@@ -3,25 +3,22 @@ using RPG.Saving;
 
 namespace RPG.Inventories
 {
-    /// <summary>
-    /// Spawns pickups that should exist on first load in a level. 
-    /// This automatically spawns the correct prefab for a given inventory _item.
-    /// </summary>
     public class PickupSpawner : MonoBehaviour, ISaveable
     {
-        [SerializeField]
-        private InventoryItemSO item;
-        [SerializeField]
-        private int number = 1;
+        // Variables
 
-        #region Properties
-        /// <summary>
-        /// Returns the pickup spawned by this class if it exists.
-        /// </summary>
-        /// <returns>Returns null if the pickup has been collected.</returns>
-        public Pickup Pickup => GetComponentInChildren<Pickup>();
-        public bool IsCollected => Pickup == null;
-        #endregion
+        [SerializeField]
+        private InventoryItemSO _inventoryItem;
+        [SerializeField]
+        private int _quantity = 1;
+
+        // Properties
+
+        public Pickup PickupToSpawn => GetComponentInChildren<Pickup>();
+        public bool IsCollected => PickupToSpawn == null;
+
+
+        // Methods
 
         private void Awake()
         {
@@ -30,15 +27,15 @@ namespace RPG.Inventories
 
         private void SpawnPickup()
         {
-            var spawnedPickup = item.SpawnPickup(transform.position, number);
+            var spawnedPickup = _inventoryItem.SpawnPickup(transform.position, _quantity);
             spawnedPickup.transform.SetParent(transform);
         }
 
         private void DestroyPickup()
         {
-            if (Pickup)
+            if (PickupToSpawn)
             {
-                Destroy(Pickup.gameObject);
+                Destroy(PickupToSpawn.gameObject);
             }
         }
 

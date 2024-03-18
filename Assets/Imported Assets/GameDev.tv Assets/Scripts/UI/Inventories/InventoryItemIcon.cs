@@ -8,8 +8,8 @@ using TMPro;
 namespace GameDevTV.UI.Inventories
 {
     /// <summary>
-    /// To be put on the icon representing an inventory _item. Allows the slot to
-    /// update the icon and quantity.
+    /// To be put on the _inventoryItemIcon representing an _inventory _inventoryItem. Allows the slot to
+    /// update the _inventoryItemIcon and quantity.
     /// </summary>
     [RequireComponent(typeof(Image))]
     public class InventoryItemIcon : MonoBehaviour

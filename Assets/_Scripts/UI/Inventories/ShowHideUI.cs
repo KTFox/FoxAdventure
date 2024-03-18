@@ -4,8 +4,7 @@ namespace RPG.UI.Inventories
 {
     public class ShowHideUI : MonoBehaviour
     {
-        [SerializeField]
-        private uiConfig[] uiConfigs;
+        // Structs
 
         [System.Serializable]
         private struct uiConfig
@@ -14,21 +13,29 @@ namespace RPG.UI.Inventories
             public KeyCode toggleKey;
         }
 
+        // Variables
+
+        [SerializeField]
+        private uiConfig[] uiConfigs;
+
+
+        // Methods
+
         private void Start()
         {
-            foreach (var config in uiConfigs)
+            foreach (var uiConfig in uiConfigs)
             {
-                config.uiObject.SetActive(false);
+                uiConfig.uiObject.SetActive(false);
             }
         }
 
         private void Update()
         {
-            foreach (var config in uiConfigs)
+            foreach (var uiConfig in uiConfigs)
             {
-                if (Input.GetKeyDown(config.toggleKey))
+                if (Input.GetKeyDown(uiConfig.toggleKey))
                 {
-                    config.uiObject.SetActive(!config.uiObject.activeSelf);
+                    uiConfig.uiObject.SetActive(!uiConfig.uiObject.activeSelf);
                 }
             }
         }

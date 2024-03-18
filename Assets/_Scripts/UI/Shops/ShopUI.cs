@@ -8,82 +8,81 @@ namespace RPG.UI.Shops
     public class ShopUI : MonoBehaviour
     {
         [SerializeField]
-        private TextMeshProUGUI shopName;
+        private TextMeshProUGUI _shopNameText;
         [SerializeField]
-        private Transform rowUIListRoot;
+        private Transform _rowUIRoot;
         [SerializeField]
-        private ShopItemRowUI rowUIPrefab;
+        private ShopItemRowUI _rowUIPrefab;
         [SerializeField]
-        private TextMeshProUGUI totalText;
+        private TextMeshProUGUI _totalText;
         [SerializeField]
-        private Button switchModeButton;
+        private Button _switchModeButton;
         [SerializeField]
-        private Button confirmButton;
+        private Button _confirmButton;
 
-        private Shop currentShop;
-        private Shopper shopper;
-        private Color originalTotalTextColor;
+        private Shop _currentShop;
+        private Shopper _shopper;
+        private Color _originalTotalTextColor;
 
         private void Awake()
         {
-            shopper = GameObject.FindGameObjectWithTag("Player").GetComponent<Shopper>();
+            _shopper = GameObject.FindGameObjectWithTag("Player").GetComponent<Shopper>();
         }
 
         private void Start()
         {
-            originalTotalTextColor = totalText.color;
+            _originalTotalTextColor = _totalText.color;
 
-            ChangeCurrentShop();
+            _shopper_OnActiveShopChanged();
 
-            shopper.OnActiveShopChanged += ChangeCurrentShop;
-            switchModeButton.onClick.AddListener(SwitchMode);
-            confirmButton.onClick.AddListener(ConfirmTransaction);
+            _shopper.OnActiveShopChanged += _shopper_OnActiveShopChanged;
+            _switchModeButton.onClick.AddListener(SwitchMode);
+            _confirmButton.onClick.AddListener(ConfirmTransaction);
         }
 
-        void ChangeCurrentShop()
+        void _shopper_OnActiveShopChanged()
         {
-            if (currentShop != null)
+            if (_currentShop != null)
             {
-                currentShop.OnShopUpdated -= RefreshShopUI;
+                _currentShop.OnShopUpdated -= RefreshShopUI;
             }
 
-            currentShop = shopper.ActiveShop;
-            gameObject.SetActive(currentShop != null);
+            _currentShop = _shopper.ActiveShop;
+            gameObject.SetActive(_currentShop != null);
 
-            foreach (CategoryButtonUI button in GetComponentsInChildren<CategoryButtonUI>())
+            foreach (var button in GetComponentsInChildren<CategoryButtonUI>())
             {
-                button.SetShop(currentShop);
+                button.SetShop(_currentShop);
             }
 
-            if (currentShop == null) return;
+            if (_currentShop == null) return;
 
-            shopName.text = currentShop.ShopName;
-            currentShop.OnShopUpdated += RefreshShopUI;
-
+            _shopNameText.text = _currentShop.ShopName;
+            _currentShop.OnShopUpdated += RefreshShopUI;
             RefreshShopUI();
         }
 
         void RefreshShopUI()
         {
-            foreach (Transform transform in rowUIListRoot)
+            foreach (Transform transform in _rowUIRoot)
             {
                 Destroy(transform.gameObject);
             }
 
-            foreach (ShopItem item in currentShop.GetFilteredItems())
+            foreach (ShopItem shopItem in _currentShop.GetFilteredShopItems())
             {
-                ShopItemRowUI itemRow = Instantiate(rowUIPrefab, rowUIListRoot);
-                itemRow.Setup(currentShop, item);
+                ShopItemRowUI shopItemRow = Instantiate(_rowUIPrefab, _rowUIRoot);
+                shopItemRow.Setup(_currentShop, shopItem);
             }
 
-            totalText.color = currentShop.HasSufficientFund() ? originalTotalTextColor : Color.red;
-            totalText.text = $"Total: ${currentShop.GetTransactionTotal():N2}";
-            confirmButton.interactable = currentShop.CanTransact();
+            _totalText.color = _currentShop.HasSufficientFund() ? _originalTotalTextColor : Color.red;
+            _totalText.text = $"Total: ${_currentShop.GetTransactionTotal():N2}";
+            _confirmButton.interactable = _currentShop.CanTransact();
 
-            // Update switch button and confirm button text
-            TextMeshProUGUI switchButtonText = switchModeButton.GetComponentInChildren<TextMeshProUGUI>();
-            TextMeshProUGUI confirmButtonText = confirmButton.GetComponentInChildren<TextMeshProUGUI>();
-            if (currentShop.IsBuyingMode)
+            var switchButtonText = _switchModeButton.GetComponentInChildren<TextMeshProUGUI>();
+            var confirmButtonText = _confirmButton.GetComponentInChildren<TextMeshProUGUI>();
+
+            if (_currentShop.IsBuyingMode)
             {
                 switchButtonText.text = "Switch to selling";
                 confirmButtonText.text = "Buy";
@@ -94,8 +93,7 @@ namespace RPG.UI.Shops
                 confirmButtonText.text = "Sell";
             }
 
-            // Update category button's interactable state 
-            foreach (CategoryButtonUI button in GetComponentsInChildren<CategoryButtonUI>())
+            foreach (var button in GetComponentsInChildren<CategoryButtonUI>())
             {
                 button.RefreshUI();
             }
@@ -104,17 +102,17 @@ namespace RPG.UI.Shops
         #region Unity events
         public void CloseShopUI()
         {
-            shopper.SetActiveShop(null);
+            _shopper.SetActiveShop(null);
         }
 
         public void ConfirmTransaction()
         {
-            currentShop.ConfirmTransaction();
+            _currentShop.ConfirmTransaction();
         }
 
         public void SwitchMode()
         {
-            currentShop.SelectMode(!currentShop.IsBuyingMode);
+            _currentShop.SelectMode(!_currentShop.IsBuyingMode);
         }
         #endregion
     }

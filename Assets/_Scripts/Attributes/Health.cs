@@ -10,21 +10,28 @@ namespace RPG.Attributes
 {
     public class Health : MonoBehaviour, ISaveable
     {
-        public UnityEvent OnDie;
-
-        [SerializeField]
-        private UnityEvent<float> OnTakeDamage;
+        // Variables
 
         private LazyValue<float> _currentHealth;
-        private bool wasDeadLastFrame;
+        private bool _wasDeadLastFrame;
 
-        #region Properties
+        // Properties
+
         public float CurrentHealth => _currentHealth.Value;
-        public float CurrentHealthFraction => _currentHealth.Value / GetComponent<BaseStats>().GetStat(Stat.Health);
+        public float CurrentHealthFraction => _currentHealth.Value / GetComponent<BaseStats>().GetValueOfStat(Stat.Health);
         public float CurrentHealthPercentage => CurrentHealthFraction * 100;
-        public float MaxHealth => GetComponent<BaseStats>().GetStat(Stat.Health);
+        public float MaxHealth => GetComponent<BaseStats>().GetValueOfStat(Stat.Health);
         public bool IsDead => _currentHealth.Value <= 0f;
-        #endregion
+
+        // Events
+
+        public UnityEvent Death;
+
+        [SerializeField]
+        private UnityEvent<float> TakingDamage;
+
+
+        // Methods
 
         private void Awake()
         {
@@ -33,17 +40,17 @@ namespace RPG.Attributes
 
         float GetInitialHealth()
         {
-            return GetComponent<BaseStats>().GetStat(Stat.Health);
+            return GetComponent<BaseStats>().GetValueOfStat(Stat.Health);
         }
 
         private void OnEnable()
         {
-            GetComponent<BaseStats>().OnLevelUp += RegenerateHealth;
+            GetComponent<BaseStats>().OnLevelUp += BaseStats_LevelUp;
         }
 
-        void RegenerateHealth()
+        void BaseStats_LevelUp()
         {
-            _currentHealth.Value = GetComponent<BaseStats>().GetStat(Stat.Health);
+            _currentHealth.Value = GetComponent<BaseStats>().GetValueOfStat(Stat.Health);
         }
 
         private void Start()
@@ -53,15 +60,9 @@ namespace RPG.Attributes
 
         private void OnDisable()
         {
-            GetComponent<BaseStats>().OnLevelUp -= RegenerateHealth;
+            GetComponent<BaseStats>().OnLevelUp -= BaseStats_LevelUp;
         }
 
-        /// <summary>
-        /// Reduce _currentHealth by an amount equal to damage.
-        /// Callback OnDie() and OnTakeDamage() event.
-        /// </summary>
-        /// <param name="instigator"></param>
-        /// <param name="damage"></param>
         public void TakeDamage(GameObject instigator, float damage)
         {
             _currentHealth.Value = Mathf.Max(_currentHealth.Value - damage, 0f);
@@ -69,54 +70,46 @@ namespace RPG.Attributes
             if (IsDead)
             {
                 AwardExperience(instigator);
-                OnDie?.Invoke();
+                Death?.Invoke();
             }
             else
             {
-                OnTakeDamage?.Invoke(damage);
+                TakingDamage?.Invoke(damage);
             }
 
             UpdateState();
         }
 
-        /// <summary>
-        /// Increase _currentHealth by an amount equal to restoreAmount
-        /// </summary>
-        /// <param name="restoreAmount"></param>
-        public void Heal(float restoreAmount)
+        public void Heal(float healingAmount)
         {
-            _currentHealth.Value = MathF.Min(MaxHealth, _currentHealth.Value + restoreAmount);
+            _currentHealth.Value = MathF.Min(MaxHealth, _currentHealth.Value + healingAmount);
             UpdateState();
+        }
+
+        private void AwardExperience(GameObject instigator)
+        {
+            var instigatorExperience = instigator.GetComponent<Experience>();
+            if (instigatorExperience == null) return;
+
+            instigatorExperience.GainExperience(GetComponent<BaseStats>().GetValueOfStat(Stat.ExperienceReward));
         }
 
         private void UpdateState()
         {
-            Animator animator = GetComponent<Animator>();
+            var animator = GetComponent<Animator>();
 
-            if (!wasDeadLastFrame && IsDead)
+            if (!_wasDeadLastFrame && IsDead)
             {
                 animator.SetTrigger("death");
                 GetComponent<ActionScheduler>().CancelCurrentAction();
             }
 
-            if (wasDeadLastFrame && !IsDead)
+            if (_wasDeadLastFrame && !IsDead)
             {
                 animator.Rebind();
             }
 
-            wasDeadLastFrame = IsDead;
-        }
-
-        /// <summary>
-        /// Gain instigator's experience 
-        /// </summary>
-        /// <param name="instigator"></param>
-        private void AwardExperience(GameObject instigator)
-        {
-            Experience instigatorExperience = instigator.GetComponent<Experience>();
-            if (instigatorExperience == null) return;
-
-            instigatorExperience.GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
+            _wasDeadLastFrame = IsDead;
         }
 
         #region ISaveable interface implements

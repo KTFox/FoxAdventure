@@ -3,43 +3,43 @@ using UnityEngine;
 
 namespace RPG.UI.Inventories
 {
-    /// <summary>
-    /// To be placed on the root of the inventory UI. Handles spawning all the
-    /// inventory slot prefabs.
-    /// </summary>
     public class InventoryUI : MonoBehaviour
     {
-        [SerializeField]
-        private InventorySlotUI inventorySlotPrefab;
+        // Variables
 
-        private Inventory playerInventory;
+        [SerializeField]
+        private InventorySlotUI _inventorySlotUIPrefab;
+        private Inventory _playerInventory;
+
+
+        // Methods
 
         private void Awake()
         {
-            playerInventory = Inventory.PlayerInventory;
+            _playerInventory = Inventory.PlayerInventory;
         }
 
         private void OnEnable()
         {
-            playerInventory.OnInventoryUpdated += Redraw;
+            _playerInventory.OnInventoryUpdated += _playerInventory_InventoryUpdated;
         }
 
         private void Start()
         {
-            Redraw();
+            _playerInventory_InventoryUpdated();
         }
 
-        private void Redraw()
+        void _playerInventory_InventoryUpdated()
         {
             foreach (Transform child in transform)
             {
                 Destroy(child.gameObject);
             }
 
-            for (int i = 0; i < playerInventory.SlotSize; i++)
+            for (int i = 0; i < _playerInventory.SlotSize; i++)
             {
-                var inventorySlot = Instantiate(inventorySlotPrefab, transform);
-                inventorySlot.SetUp(playerInventory, i);
+                var inventorySlotUI = Instantiate(_inventorySlotUIPrefab, transform);
+                inventorySlotUI.SetUp(_playerInventory, i);
             }
         }
     }

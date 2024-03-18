@@ -1,27 +1,25 @@
-using RPG.Stats;
 using UnityEngine;
 using UnityEngine.AI;
+using RPG.Stats;
 
 namespace RPG.Inventories
 {
     public class RandomDropper : ItemDropper
     {
-        [Tooltip("How far the pickups can be scattered from the dropper.")]
-        [SerializeField]
-        private float scatterDistance = 1f;
-
-        [SerializeField]
-        private DropLibrarySO dropLibrary;
-
         private const int ATTEMPS = 30;
+
+        [SerializeField]
+        private float _scatterDistance = 1f;
+        [SerializeField]
+        private DropLibrarySO _dropLibrary;
 
         protected override Vector3 GetDropLocation()
         {
-            // We might need to try more than once to get on the NavMesh
             for (int i = 0; i < ATTEMPS; i++)
             {
-                Vector3 randomPoint = transform.position + Random.insideUnitSphere * scatterDistance;
+                Vector3 randomPoint = transform.position + Random.insideUnitSphere * _scatterDistance;
                 NavMeshHit hit;
+                
                 if (NavMesh.SamplePosition(randomPoint, out hit, 0.1f, NavMesh.AllAreas))
                 {
                     return hit.position;
@@ -36,7 +34,7 @@ namespace RPG.Inventories
         {
             BaseStats stat = GetComponent<BaseStats>();
 
-            var drops = dropLibrary.GetRandomDrops(stat.CurrentLevel);
+            var drops = _dropLibrary.GetRandomDrops(stat.CurrentLevel);
             foreach(var drop in drops)
             {
                 DropItem(drop.item, drop.number);

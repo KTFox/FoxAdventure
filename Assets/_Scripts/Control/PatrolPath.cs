@@ -4,40 +4,34 @@ namespace RPG.Control
 {
     public class PatrolPath : MonoBehaviour
     {
-        private float waypointGizmosRadius = 0.3f;
+        // Variables
+
+        private float _waypointGizmosRadius = 0.3f;
+
+
+        // Methods
 
         private void OnDrawGizmos()
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                Gizmos.DrawSphere(GetWaypointPosition(i), waypointGizmosRadius);
-                Gizmos.DrawLine(GetWaypointPosition(i), GetWaypointPosition(GetNextIndex(i)));
+                Gizmos.DrawSphere(GetWaypointPosition(i), _waypointGizmosRadius);
+                Gizmos.DrawLine(GetWaypointPosition(i), GetWaypointPosition(GetNextWaypointIndex(i)));
             }
         }
 
-        /// <summary>
-        /// Return the next point of current waypoint.
-        /// If current waypoint is the end of patrol path, return the first waypoint
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        public int GetNextIndex(int index)
+        public int GetNextWaypointIndex(int currentWaypointIndex)
         {
-            if (index == transform.childCount - 1)
+            if (currentWaypointIndex == transform.childCount - 1)
             {
                 return 0;
             }
             else
             {
-                return index + 1;
+                return currentWaypointIndex + 1;
             }
         }
 
-        /// <summary>
-        /// Return current waypoint position
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
         public Vector3 GetWaypointPosition(int index)
         {
             return transform.GetChild(index).position;

@@ -5,7 +5,7 @@ namespace GameDevTV.Inventories
 {
     /// <summary>
     /// Spawns pickups that should exist on first load in a level. This
-    /// automatically spawns the correct prefab for a given inventory _item.
+    /// automatically spawns the correct prefab for a given _inventory _inventoryItem.
     /// </summary>
     public class PickupSpawner : MonoBehaviour, ISaveable
     {
@@ -16,7 +16,7 @@ namespace GameDevTV.Inventories
         // LIFECYCLE METHODS
         private void Awake()
         {
-            // Spawn in Awake so can be destroyed by save system after.
+            // AttachWeaponToHand in Awake so can be destroyed by save system after.
             SpawnPickup();
         }
 

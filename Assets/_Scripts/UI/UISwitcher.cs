@@ -5,21 +5,20 @@ namespace RPG.UI
     public class UISwitcher : MonoBehaviour
     {
         [SerializeField]
-        private GameObject entryPoint;
+        private GameObject _entryUI;
 
         private void Start()
         {
-            SwitchTo(entryPoint);
+            SwitchTo(_entryUI);
         }
 
-        public void SwitchTo(GameObject toDisplay)
+        public void SwitchTo(GameObject uiToDisplay)
         {
-            if (toDisplay.transform.parent != transform)
-                return;
+            if (uiToDisplay.transform.parent != transform) return;
 
             foreach (Transform child in transform)
             {
-                child.gameObject.SetActive(child.gameObject == toDisplay);
+                child.gameObject.SetActive(child.gameObject == uiToDisplay);
             }
         }
     }

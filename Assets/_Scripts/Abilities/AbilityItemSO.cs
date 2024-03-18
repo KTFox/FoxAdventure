@@ -5,74 +5,89 @@ using RPG.Core;
 
 namespace RPG.Abilities
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Item/AbilityItemSO")]
+    [CreateAssetMenu(menuName = "ScriptableObject/InventoryItem/AbilityItem")]
     public class AbilityItemSO : ActionItemSO
     {
-        [SerializeField]
-        private TargetingStrategySO targetingStrategy;
-        [SerializeField]
-        private FilterStrategySO[] filterStrategies;
-        [SerializeField]
-        private EffectStrategySO[] effectStrategies;
-        [SerializeField]
-        private float cooldownTime;
-        [SerializeField]
-        private float manaCost;
+        // Variables
 
-        public override bool Use(GameObject user)
+        [SerializeField]
+        private TargetingStrategySO _targetingStrategy;
+        [SerializeField]
+        private FilterStrategySO[] _filterStrategies;
+        [SerializeField]
+        private EffectStrategySO[] _effectStrategies;
+        [SerializeField]
+        private float _cooldownTime;
+        [SerializeField]
+        private float _manaCost;
+
+
+        // Methods
+
+        public override bool UseActionItem(GameObject instigator)
         {
-            // Checking ability mana cost
-            Mana playerMana = user.GetComponent<Mana>();
-            if (playerMana.CurrentMana < manaCost) return false ;
+            // Checking if current mana is enough for using ability
+            var instigatorMana = instigator.GetComponent<Mana>();
+            if (instigatorMana.CurrentMana < _manaCost)
+            {
+                return false;
+            }
 
-            // Checking ablity cooldown time
-            CooldownStore userCooldownStore = user.GetComponent<CooldownStore>();
-            if (userCooldownStore.GetRemainingTIme(this) > 0) return false;
+            // Checking ability cooldown time
+            var instigatorCooldownStore = instigator.GetComponent<CooldownStore>();
+            if (instigatorCooldownStore.GetRemainingTime(this) > 0)
+            {
+                return false;
+            }
 
             // Initiate AbilityData
-            AbilityData data = new AbilityData(user);
+            var abilityData = new AbilityData(instigator);
 
-            // Call StartAction function from ActionScheduler
-            ActionScheduler actionScheduler = user.GetComponent<ActionScheduler>();
-            actionScheduler.StartAction(data);
+            // Call StartAction method from ActionScheduler
+            var actionScheduler = instigator.GetComponent<ActionScheduler>();
+            actionScheduler.StartAction(abilityData);
 
-            // TargetingStrategies action
-            targetingStrategy.StartTargeting(data, () =>
+            // Start Targeting strategy
+            _targetingStrategy.StartTargeting(abilityData, () =>
             {
-                GetAcquiredTargets(data);
+                ApplyEffectForFilteredTargets(abilityData);
             });
 
             return true;
         }
 
-        private void GetAcquiredTargets(AbilityData data)
+        private void ApplyEffectForFilteredTargets(AbilityData abilityData)
         {
-            // Return if Ability is cancelled while in targetingStrategy
-            if (data.Cancelled) return;
+            // Return if Ability is cancelled while in _targetingStrategy state
+            if (abilityData.IsCancelled)
+            {
+                return;
+            }
 
-            Mana playerMana = data.User.GetComponent<Mana>();
-            if (!playerMana.UseMana(manaCost)) return;
+            // Check if the _instigator's mana is enough for using ability
+            var instigatorMana = abilityData.Instigator.GetComponent<Mana>();
+            if (!instigatorMana.UseMana(_manaCost))
+            {
+                return;
+            }
 
             // Set cooldown time for this ability
-            CooldownStore userCooldownStore = data.User.GetComponent<CooldownStore>();
-            userCooldownStore.StartCooldown(this, cooldownTime);
+            var instigatorCooldownStore = abilityData.Instigator.GetComponent<CooldownStore>();
+            instigatorCooldownStore.StartCooldown(this, _cooldownTime);
 
-            // Filter targets
-            foreach (FilterStrategySO filter in filterStrategies)
+            // Set filterd targets to abilityData's targets
+            foreach (FilterStrategySO filter in _filterStrategies)
             {
-                data.SetTargets(filter.Filter(data.Targets));
+                abilityData.Targets = filter.GetFilteredGameObjects(abilityData.Targets);
             }
 
-            // Apply effects
-            foreach (EffectStrategySO effect in effectStrategies)
+            // Start effect strategies
+            foreach (EffectStrategySO effect in _effectStrategies)
             {
-                effect.StartEffect(data, finishEffect);
+                effect.StartEffect(abilityData, finishedCallback);
             }
         }
 
-        private void finishEffect()
-        {
-
-        }
+        private void finishedCallback() { }
     }
 }

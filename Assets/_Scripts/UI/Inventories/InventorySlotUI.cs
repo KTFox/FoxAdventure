@@ -6,42 +6,46 @@ namespace RPG.UI.Inventories
 {
     public class InventorySlotUI : MonoBehaviour, IDragContainer<InventoryItemSO>, IItemHolder
     {
-        #region Variables
+        // Variables
+
         [SerializeField]
-        private InventoryItemIcon icon;
+        private InventoryItemIcon _inventoryItemIcon;
 
-        private int index;
-        private RPG.Inventories.Inventory inventory;
-        #endregion
+        private int _slotIndex;
+        private Inventory _inventory;
 
-        #region Properties
-        public InventoryItemSO Item => inventory.GetItemInSlot(index);
-        public int ItemQuantity => inventory.GetItemQuantityInSlot(index);
-        #endregion
+        // Properties
 
-        public void SetUp(Inventory inventory, int index)
+        public InventoryItemSO InventoryItemSO => _inventory.GetItemInSlot(_slotIndex);
+        public int ItemQuantity => _inventory.GetItemQuantityInSlot(_slotIndex);
+        
+
+        // Methods
+
+        public void SetUp(Inventory inventory, int slotIndex)
         {
-            this.inventory = inventory;
-            this.index = index;
-            icon.SetItem(inventory.GetItemInSlot(index), inventory.GetItemQuantityInSlot(index));
+            _inventory = inventory;
+            _slotIndex = slotIndex;
+            _inventoryItemIcon.SetItem(inventory.GetItemInSlot(slotIndex), inventory.GetItemQuantityInSlot(slotIndex));
         }
 
-        public void AddItems(InventoryItemSO item, int number)
+        public void AddItems(InventoryItemSO inventoryItemSO, int quantity)
         {
-            inventory.AddItemToSlot(index, item, number);
+            _inventory.AddItemToSlot(_slotIndex, inventoryItemSO, quantity);
         }
 
         public void RemoveItems(int quantity)
         {
-            inventory.RemoveFromSlot(index, quantity);
+            _inventory.RemoveFromSlot(_slotIndex, quantity);
         }
 
-        public int GetMaxAcceptable(InventoryItemSO item)
+        public int GetMaxAcceptable(InventoryItemSO inventoryItemSO)
         {
-            if (Item == null)
+            if (InventoryItemSO == null)
             {
                 return int.MaxValue;
             }
+
             return 0;
         }
     }

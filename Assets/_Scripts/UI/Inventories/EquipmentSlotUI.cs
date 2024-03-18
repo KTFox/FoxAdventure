@@ -4,59 +4,69 @@ using RPG.Utility.UI;
 
 namespace RPG.UI.Inventories
 {
-    /// <summary>
-    /// An slot for the players equipment.
-    /// </summary>
     public class EquipmentSlotUI : MonoBehaviour, IItemHolder, IDragContainer<InventoryItemSO>
     {
-        [SerializeField]
-        private InventoryItemIcon icon;
-        [SerializeField]
-        private EquipLocation equipLocation;
+        // Variables
 
-        private Equipment playerEquipment;
+        [SerializeField]
+        private InventoryItemIcon _inventoryItemIcon;
+        [SerializeField]
+        private EquipLocation _equipLocation;
+        private Equipment _playerEquipment;
 
-        #region Properties
-        public InventoryItemSO Item => playerEquipment.GetItemInSlot(equipLocation);
-        public int ItemQuantity => !Item ? 0 : 1;
-        #endregion
+        // Properties
+
+        public InventoryItemSO InventoryItemSO => _playerEquipment.GetItemInSlot(_equipLocation);
+        public int ItemQuantity => !InventoryItemSO ? 0 : 1;
+
+
+        // Methods
 
         private void Awake()
         {
-            playerEquipment = GameObject.FindGameObjectWithTag("Player").GetComponent<Equipment>();
-            playerEquipment.OnEquipmentUpdated += RedrawUI;
+            _playerEquipment = GameObject.FindGameObjectWithTag("Player").GetComponent<Equipment>();
+
+            _playerEquipment.OnEquipmentUpdated += _playerEquipment_EquipmentUpdated;
         }
 
         private void Start()
         {
-            RedrawUI();
+            _playerEquipment_EquipmentUpdated();
         }
 
-        private void RedrawUI()
+        void _playerEquipment_EquipmentUpdated()
         {
-            icon.SetItem(playerEquipment.GetItemInSlot(equipLocation));
+            _inventoryItemIcon.SetItem(_playerEquipment.GetItemInSlot(_equipLocation));
         }
 
-        public void AddItems(InventoryItemSO item, int quantity)
+        public void AddItems(InventoryItemSO inventoryItemSO, int quantity)
         {
-            playerEquipment.AddItem(equipLocation, (EquipableItemSO)item);
+            _playerEquipment.AddItem(_equipLocation, (EquipableItemSO)inventoryItemSO);
         }
 
         public void RemoveItems(int quantity)
         {
-            playerEquipment.RemoveItem(equipLocation);
+            _playerEquipment.RemoveItem(_equipLocation);
         }
 
-        public int GetMaxAcceptable(InventoryItemSO item)
+        public int GetMaxAcceptable(InventoryItemSO inventoryItemSO)
         {
-            EquipableItemSO equipableItem = item as EquipableItemSO;
+            var equipableItemSO = inventoryItemSO as EquipableItemSO;
 
-            if (equipableItem == null)
+            if (equipableItemSO == null)
+            {
                 return 0;
-            if (equipableItem.AllowedEquipLocation != equipLocation)
+            }
+
+            if (equipableItemSO.AllowedEquipLocation != _equipLocation)
+            {
                 return 0;
-            if (Item != null)
+            }
+
+            if (InventoryItemSO != null)
+            {
                 return 0;
+            }
 
             return 1;
         }

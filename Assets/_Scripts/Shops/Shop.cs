@@ -10,17 +10,7 @@ namespace RPG.Shops
 {
     public class Shop : MonoBehaviour, IRaycastable, ISaveable
     {
-        public event Action OnShopUpdated;
-
-        [SerializeField]
-        private string _shopName;
-
-        [Range(0, 100)]
-        [SerializeField]
-        private float sellingDiscountPercentage;
-
-        [SerializeField]
-        private StockItemConfig[] stockConfigs;
+        // Structs
 
         [System.Serializable]
         private class StockItemConfig
@@ -34,38 +24,54 @@ namespace RPG.Shops
             public int levelToUnlock = 1;
         }
 
-        [SerializeField]
-        private float maximumBarterDiscount;
+        // Variables
 
-        private Shopper currentShopper;
-        private Dictionary<InventoryItemSO, int> transactions = new Dictionary<InventoryItemSO, int>();
-        private Dictionary<InventoryItemSO, int> stocksSold = new Dictionary<InventoryItemSO, int>();
+        [SerializeField]
+        private string _shopName;
+        [Range(0, 100)]
+        [SerializeField]
+        private float _sellingDiscountPercentage;
+        [SerializeField]
+        private StockItemConfig[] _stockItemConfigs;
+        [SerializeField]
+        private float _maximumBarterDiscount;
+
+        private Shopper _currentShopper;
+        private Dictionary<InventoryItemSO, int> _transactions = new Dictionary<InventoryItemSO, int>();
+        private Dictionary<InventoryItemSO, int> _soldItems = new Dictionary<InventoryItemSO, int>();
         private bool _isBuyingMode = true;
         private ItemCategory _currentCategory;
 
-        #region Properties
+        // Properties
+
         public string ShopName => _shopName;
+        public Shopper CurrentShopper
+        {
+            get => _currentShopper;
+            set => _currentShopper = value;
+        }
         public bool IsBuyingMode => _isBuyingMode;
         public ItemCategory CurrentCategory => _currentCategory;
-        #endregion
 
-        public void SetShopper(Shopper shopper)
-        {
-            currentShopper = shopper;
-        }
+        // Events
 
-        public IEnumerable<ShopItem> GetFilteredItems()
+        public event Action OnShopUpdated;
+
+
+        // Methods
+
+        public IEnumerable<ShopItem> GetFilteredShopItems()
         {
-            foreach (ShopItem shopItem in GetAllItems())
+            foreach (ShopItem shopItem in GetAllShopItems())
             {
-                if (_currentCategory == ItemCategory.None || shopItem.Item.ItemCategory == _currentCategory)
+                if (_currentCategory == ItemCategory.None || shopItem.InventoryItem.ItemCategory == _currentCategory)
                 {
                     yield return shopItem;
                 }
             }
         }
 
-        public IEnumerable<ShopItem> GetAllItems()
+        public IEnumerable<ShopItem> GetAllShopItems()
         {
             Dictionary<InventoryItemSO, int> availabilities = GetAvailabillities();
             Dictionary<InventoryItemSO, float> prices = GetPrices();
@@ -74,15 +80,11 @@ namespace RPG.Shops
             {
                 if (availabilities[item] <= 0) continue;
 
-                // Actual price after discounting
                 float price = prices[item];
-
-                // Get quantity in transastion
                 int quantityInTransaction;
-                transactions.TryGetValue(item, out quantityInTransaction);
-
-                // Get current stock 
                 int stock = availabilities[item];
+
+                _transactions.TryGetValue(item, out quantityInTransaction);
 
                 yield return new ShopItem(item, stock, price, quantityInTransaction);
             }
@@ -97,30 +99,26 @@ namespace RPG.Shops
 
         public void ConfirmTransaction()
         {
-            // Get Shopper's Inventories
-            Inventory shopperInventory = currentShopper.GetComponent<Inventory>();
+            var shopperInventory = _currentShopper.GetComponent<Inventory>();
             if (shopperInventory == null) return;
 
-            // Get Shopper's Purse
-            Purse shopperPurse = currentShopper.GetComponent<Purse>();
+            var shopperPurse = _currentShopper.GetComponent<Purse>();
             if (shopperPurse == null) return;
 
-            // Confirm transaction in buying/selling mode
-            foreach (ShopItem shopItem in GetAllItems())
+            foreach (ShopItem shopItem in GetAllShopItems())
             {
-                InventoryItemSO inventoryItem = shopItem.Item;
+                InventoryItemSO inventoryItem = shopItem.InventoryItem;
                 int quantity = shopItem.QuantityInTransaction;
                 float price = shopItem.Price;
+
                 for (int i = 0; i < quantity; i++)
                 {
                     if (_isBuyingMode)
                     {
-                        // Buying transaction
                         BuyItems(shopperInventory, shopperPurse, inventoryItem, price);
                     }
                     else
                     {
-                        // Selling transaction
                         SellItems(shopperInventory, shopperPurse, inventoryItem, price);
                     }
                 }
@@ -131,24 +129,25 @@ namespace RPG.Shops
 
         public void AddTransaction(InventoryItemSO item, int quantity)
         {
-            if (!transactions.ContainsKey(item))
+            if (!_transactions.ContainsKey(item))
             {
-                transactions[item] = 0;
+                _transactions[item] = 0;
             }
 
             int stock = GetAvailabillities()[item];
-            if (transactions[item] + quantity > stock)
+
+            if (_transactions[item] + quantity > stock)
             {
-                transactions[item] = stock;
+                _transactions[item] = stock;
             }
             else
             {
-                transactions[item] += quantity;
+                _transactions[item] += quantity;
             }
 
-            if (transactions[item] <= 0)
+            if (_transactions[item] <= 0)
             {
-                transactions.Remove(item);
+                _transactions.Remove(item);
             }
 
             OnShopUpdated?.Invoke();
@@ -165,10 +164,17 @@ namespace RPG.Shops
 
         public bool HasSufficientFund()
         {
-            if (!_isBuyingMode) return true;
+            if (!_isBuyingMode)
+            {
+                return true;
+            }
 
-            Purse currentShopperPurse = currentShopper.GetComponent<Purse>();
-            if (currentShopperPurse == null) return false;
+            var currentShopperPurse = _currentShopper.GetComponent<Purse>();
+
+            if (currentShopperPurse == null)
+            {
+                return false;
+            }
 
             return currentShopperPurse.CurrentBalance >= GetTransactionTotal();
         }
@@ -176,7 +182,8 @@ namespace RPG.Shops
         public float GetTransactionTotal()
         {
             float total = 0;
-            foreach (ShopItem item in GetAllItems())
+
+            foreach (ShopItem item in GetAllShopItems())
             {
                 total += item.QuantityInTransaction * item.Price;
             }
@@ -193,25 +200,23 @@ namespace RPG.Shops
 
         private Dictionary<InventoryItemSO, int> GetAvailabillities()
         {
-            Dictionary<InventoryItemSO, int> availabilities = new Dictionary<InventoryItemSO, int>();
-            foreach (StockItemConfig stockConfig in GetAvailableConfigs())
+            var availabilities = new Dictionary<InventoryItemSO, int>();
+
+            foreach (StockItemConfig stockConfig in GetAvailableStockItemConfigs())
             {
                 if (_isBuyingMode)
                 {
-                    // Availabilities in Buying Mode
-
                     if (!availabilities.ContainsKey(stockConfig.item))
                     {
                         int soldItemAmount = 0;
-                        stocksSold.TryGetValue(stockConfig.item, out soldItemAmount);
+                        _soldItems.TryGetValue(stockConfig.item, out soldItemAmount);
                         availabilities[stockConfig.item] = -soldItemAmount;
                     }
+
                     availabilities[stockConfig.item] += stockConfig.initialStock;
                 }
                 else
                 {
-                    // Availabilities in Selling Mode
-
                     availabilities[stockConfig.item] = ItemCountInInventory(stockConfig.item);
                 }
             }
@@ -221,13 +226,12 @@ namespace RPG.Shops
 
         private Dictionary<InventoryItemSO, float> GetPrices()
         {
-            Dictionary<InventoryItemSO, float> prices = new Dictionary<InventoryItemSO, float>();
-            foreach (StockItemConfig stockConfig in GetAvailableConfigs())
+            var prices = new Dictionary<InventoryItemSO, float>();
+
+            foreach (StockItemConfig stockConfig in GetAvailableStockItemConfigs())
             {
                 if (_isBuyingMode)
                 {
-                    // Prices in Buying Mode
-
                     if (!prices.ContainsKey(stockConfig.item))
                     {
                         prices[stockConfig.item] = stockConfig.item.Price * GetBarterDiscount();
@@ -237,32 +241,34 @@ namespace RPG.Shops
                 }
                 else
                 {
-                    // Prices in Selling Mode
-
-                    prices[stockConfig.item] = stockConfig.item.Price * (1 - sellingDiscountPercentage / 100);
+                    prices[stockConfig.item] = stockConfig.item.Price * (1 - _sellingDiscountPercentage / 100);
                 }
             }
 
             return prices;
         }
 
-        private IEnumerable<StockItemConfig> GetAvailableConfigs()
+        private IEnumerable<StockItemConfig> GetAvailableStockItemConfigs()
         {
-            foreach (StockItemConfig stockConfig in stockConfigs)
+            foreach (StockItemConfig stockConfig in _stockItemConfigs)
             {
                 if (stockConfig.levelToUnlock > GetShopperLevel()) continue;
+
                 yield return stockConfig;
             }
         }
 
         private int ItemCountInInventory(InventoryItemSO item)
         {
-            // Get Shopper's Inventories
-            Inventory shopperInventory = currentShopper.GetComponent<Inventory>();
-            if (shopperInventory == null) return 0;
+            var shopperInventory = _currentShopper.GetComponent<Inventory>();
 
-            // Get item count in shopper inventory
+            if (shopperInventory == null)
+            {
+                return 0;
+            }
+
             int total = 0;
+
             for (int i = 0; i < shopperInventory.SlotSize; i++)
             {
                 if (item == shopperInventory.GetItemInSlot(i))
@@ -282,17 +288,14 @@ namespace RPG.Shops
 
             if (successTransaction)
             {
-                // Update Transaction
                 AddTransaction(inventoryItem, -1);
 
-                // Update stocks sold dictionary
-                if (!stocksSold.ContainsKey(inventoryItem))
+                if (!_soldItems.ContainsKey(inventoryItem))
                 {
-                    stocksSold[inventoryItem] = 0;
+                    _soldItems[inventoryItem] = 0;
                 }
-                stocksSold[inventoryItem]++;
 
-                // Update Shopper's Purse
+                _soldItems[inventoryItem]++;
                 shopperPurse.UpdateBalance(-price);
             }
         }
@@ -300,22 +303,18 @@ namespace RPG.Shops
         private void SellItems(Inventory shopperInventory, Purse shopperPurse, InventoryItemSO inventoryItem, float price)
         {
             int slotIndex = FindFirstItemSlot(shopperInventory, inventoryItem);
+
             if (slotIndex == -1) return;
 
-            // Update Transaction
             AddTransaction(inventoryItem, -1);
 
-            // Update Stocks sold dictionary
-            if (!stocksSold.ContainsKey(inventoryItem))
+            if (!_soldItems.ContainsKey(inventoryItem))
             {
-                stocksSold[inventoryItem] = 0;
+                _soldItems[inventoryItem] = 0;
             }
-            stocksSold[inventoryItem]--;
 
-            // Remove sold item from shopper's inventory
+            _soldItems[inventoryItem]--;
             shopperInventory.RemoveFromSlot(slotIndex, 1);
-
-            // Update Shopper's Purse
             shopperPurse.UpdateBalance(price);
         }
 
@@ -334,18 +333,25 @@ namespace RPG.Shops
 
         private bool HasInventorySpace()
         {
-            if (!_isBuyingMode) return true;
-
-            // Get current shopper's inventory
-            Inventory shopperInventory = currentShopper.GetComponent<Inventory>();
-            if (shopperInventory == null) return false;
-
-            // Build flat items list
-            List<InventoryItemSO> flatItemList = new List<InventoryItemSO>();
-            foreach (ShopItem shopItem in GetAllItems())
+            if (!_isBuyingMode)
             {
-                InventoryItemSO inventoryItem = shopItem.Item;
+                return true;
+            }
+
+            var shopperInventory = _currentShopper.GetComponent<Inventory>();
+
+            if (shopperInventory == null)
+            {
+                return false;
+            }
+
+            var flatItemList = new List<InventoryItemSO>();
+
+            foreach (ShopItem shopItem in GetAllShopItems())
+            {
+                InventoryItemSO inventoryItem = shopItem.InventoryItem;
                 int quantity = shopItem.QuantityInTransaction;
+
                 for (int i = 0; i < quantity; i++)
                 {
                     flatItemList.Add(inventoryItem);
@@ -357,23 +363,27 @@ namespace RPG.Shops
 
         private bool IsEmptyTransaction()
         {
-            return transactions.Count == 0;
+            return _transactions.Count == 0;
         }
 
         private int GetShopperLevel()
         {
-            BaseStats shopperStat = currentShopper.GetComponent<BaseStats>();
-            if (shopperStat == null) return 0;
+            var currentShopperBaseStats = _currentShopper.GetComponent<BaseStats>();
 
-            return shopperStat.CurrentLevel;
+            if (currentShopperBaseStats == null)
+            {
+                return 0;
+            }
+
+            return currentShopperBaseStats.CurrentLevel;
         }
 
         private float GetBarterDiscount()
         {
-            BaseStats baseStats = currentShopper.GetComponent<BaseStats>();
-            float discount = baseStats.GetStat(Stat.BuyingDiscountPercentage);
+            var currentShopperBaseStats = _currentShopper.GetComponent<BaseStats>();
+            float discount = currentShopperBaseStats.GetValueOfStat(Stat.BuyingDiscountPercentage);
 
-            return (1 - Mathf.Min(discount, maximumBarterDiscount) / 100);
+            return (1 - Mathf.Min(discount, _maximumBarterDiscount) / 100);
         }
 
         #region IRaycastable implements
@@ -397,7 +407,7 @@ namespace RPG.Shops
         object ISaveable.CaptureState()
         {
             Dictionary<string, int> saveObject = new Dictionary<string, int>();
-            foreach (var pair in stocksSold)
+            foreach (var pair in _soldItems)
             {
                 saveObject[pair.Key.ItemID] = pair.Value;
             }
@@ -408,10 +418,10 @@ namespace RPG.Shops
         void ISaveable.RestoreState(object state)
         {
             Dictionary<string, int> saveObject = (Dictionary<string, int>)state;
-            stocksSold.Clear();
+            _soldItems.Clear();
             foreach (var pair in saveObject)
             {
-                stocksSold[InventoryItemSO.GetItemFromID(pair.Key)] = pair.Value;
+                _soldItems[InventoryItemSO.GetItemFromID(pair.Key)] = pair.Value;
             }
         }
         #endregion

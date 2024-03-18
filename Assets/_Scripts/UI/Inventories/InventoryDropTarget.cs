@@ -4,21 +4,16 @@ using RPG.Utility.UI;
 
 namespace RPG.UI.Inventories
 {
-    /// <summary>
-    /// Handles spawning pickups when _item dropped into the world.
-    /// Must be placed on the roof canvas where items can be dragged. 
-    /// Will be called if dropped over empty space. 
-    /// </summary>
     public class InventoryDropTarget : MonoBehaviour, IDragDestination<InventoryItemSO>
     {
         #region IDragDestination implements
-        public void AddItems(InventoryItemSO item, int number)
+        public void AddItems(InventoryItemSO inventoryItemSO, int quantity)
         {
             var player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<ItemDropper>().DropItem(item, number);
+            player.GetComponent<ItemDropper>().DropItem(inventoryItemSO, quantity);
         }
 
-        public int GetMaxAcceptable(InventoryItemSO item)
+        public int GetMaxAcceptable(InventoryItemSO inventoryItemSO)
         {
             return int.MaxValue;
         }

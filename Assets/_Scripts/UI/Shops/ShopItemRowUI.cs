@@ -7,41 +7,45 @@ namespace RPG.UI.Shops
 {
     public class ShopItemRowUI : MonoBehaviour
     {
-        [SerializeField]
-        private Image iconImage;
-        [SerializeField]
-        private TextMeshProUGUI itemName;
-        [SerializeField]
-        private TextMeshProUGUI stockNumber;
-        [SerializeField]
-        private TextMeshProUGUI priceNumber;
-        [SerializeField]
-        private TextMeshProUGUI quantityNumber;
+        // Variables
 
-        private Shop currentShop;
-        private ShopItem shopItem;
+        [SerializeField]
+        private Image _iconImage;
+        [SerializeField]
+        private TextMeshProUGUI _itemNameText;
+        [SerializeField]
+        private TextMeshProUGUI _stockValueText;
+        [SerializeField]
+        private TextMeshProUGUI _priceText;
+        [SerializeField]
+        private TextMeshProUGUI _quantityText;
 
-        public void Setup(Shop currentShop, ShopItem shopItem)
+        private Shop _currentShop;
+        private ShopItem _shopItem;
+
+
+        // Methods
+
+        public void Setup(Shop shop, ShopItem shopItem)
         {
-            iconImage.sprite = shopItem.ItemIcon;
-            itemName.text = shopItem.ItemName;
-            stockNumber.text = shopItem.Stock.ToString();
-            priceNumber.text = $"${shopItem.Price:N2}";
-            quantityNumber.text = $"{shopItem.QuantityInTransaction}";
-
-            this.currentShop = currentShop;
-            this.shopItem = shopItem;
+            _iconImage.sprite = shopItem.ItemIcon;
+            _itemNameText.text = shopItem.ItemName;
+            _stockValueText.text = shopItem.Stock.ToString();
+            _priceText.text = $"${shopItem.Price:N2}";
+            _quantityText.text = $"{shopItem.QuantityInTransaction}";
+            _currentShop = shop;
+            _shopItem = shopItem;
         }
 
         #region Unity events
         public void AddQuantity()
         {
-            currentShop.AddTransaction(shopItem.Item, 1);
+            _currentShop.AddTransaction(_shopItem.InventoryItem, 1);
         }
 
         public void RemoveQuantity()
         {
-            currentShop.AddTransaction(shopItem.Item, -1);
+            _currentShop.AddTransaction(_shopItem.InventoryItem, -1);
         }
         #endregion
     }

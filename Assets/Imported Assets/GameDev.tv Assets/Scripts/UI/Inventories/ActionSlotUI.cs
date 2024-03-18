@@ -7,7 +7,7 @@ using UnityEngine;
 namespace GameDevTV.UI.Inventories
 {
     /// <summary>
-    /// The UI slot for the player action bar.
+    /// The UI slot for the _player action bar.
     /// </summary>
     public class ActionSlotUI : MonoBehaviour, IItemHolder, IDragContainer<InventoryItem>
     {

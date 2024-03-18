@@ -18,9 +18,9 @@ namespace GameDevTV.Inventories
         /// <summary>
         /// Create a pickup at the current position.
         /// </summary>
-        /// <param name="item">The _item type for the pickup.</param>
+        /// <param name="item">The _inventoryItem type for the pickup.</param>
         /// <param name="number">
-        /// The quantity of items contained in the pickup. Only used if the _item
+        /// The quantity of items contained in the pickup. Only used if the _inventoryItem
         /// is stackable.
         /// </param>
         public void DropItem(InventoryItem item, int number)
@@ -31,7 +31,7 @@ namespace GameDevTV.Inventories
         /// <summary>
         /// Create a pickup at the current position.
         /// </summary>
-        /// <param name="item">The _item type for the pickup.</param>
+        /// <param name="item">The _inventoryItem type for the pickup.</param>
         public void DropItem(InventoryItem item)
         {
             SpawnPickup(item, GetDropLocation(), 1);

@@ -11,9 +11,9 @@ namespace RPG.Saving
     {
         public IEnumerator LoadLastScene(string saveFile)
         {
-            Dictionary<string, object> state = LoadFile(saveFile);
-
+            Dictionary<string, object> state = LoadFileFromPath(saveFile);
             int buildIndex = SceneManager.GetActiveScene().buildIndex;
+
             if (state.ContainsKey("LastSceneIndex"))
             {
                 buildIndex = (int)state["LastSceneIndex"];
@@ -21,28 +21,20 @@ namespace RPG.Saving
 
             yield return SceneManager.LoadSceneAsync(buildIndex);
 
-            RestoreSaveableEntityState(state);
+            RestoreAllSaveableEntities(state);
         }
 
-        /// <summary>
-        /// SaveData all SaveableEntity states into saveFile
-        /// </summary>
-        /// <param name="saveFile"></param>
         public void Save(string saveFile)
         {
-            Dictionary<string, object> state = LoadFile(saveFile);
+            Dictionary<string, object> state = LoadFileFromPath(saveFile);
 
-            CaptureSaveableEntityState(state);
-            SaveFile(saveFile, state);
+            CaptureAllSaveableEntities(state);
+            SaveFileToPath(saveFile, state);
         }
 
-        /// <summary>
-        /// LoadData all SaveableEntity states from saveFile
-        /// </summary>
-        /// <param name="saveFile"></param>
         public void Load(string saveFile)
         {
-            RestoreSaveableEntityState(LoadFile(saveFile));
+            RestoreAllSaveableEntities(LoadFileFromPath(saveFile));
         }
 
         public void Delete(string saveFile)
@@ -61,7 +53,7 @@ namespace RPG.Saving
             }
         }
 
-        private void SaveFile(string saveFile, Dictionary<string, object> state)
+        private void SaveFileToPath(string saveFile, Dictionary<string, object> state)
         {
             string path = GetPathFromSaveFile(saveFile);
 
@@ -74,7 +66,7 @@ namespace RPG.Saving
             Debug.Log($"Saving to {path}");
         }
 
-        private Dictionary<string, object> LoadFile(string saveFile)
+        private Dictionary<string, object> LoadFileFromPath(string saveFile)
         {
             string path = GetPathFromSaveFile(saveFile);
 
@@ -86,23 +78,24 @@ namespace RPG.Saving
             using (FileStream stream = File.Open(path, FileMode.Open))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
+
                 return (Dictionary<string, object>)formatter.Deserialize(stream);
             }
         }
 
-        private void CaptureSaveableEntityState(Dictionary<string, object> state)
+        private void CaptureAllSaveableEntities(Dictionary<string, object> state)
         {
             SaveableEntity[] saveableEntities = FindObjectsOfType<SaveableEntity>();
 
             foreach (SaveableEntity saveableEntity in saveableEntities)
             {
-                state[saveableEntity.UniqueIdentifier] = saveableEntity.CaptureISaveableState();
+                state[saveableEntity.UniqueIdentifier] = saveableEntity.CaptureAllISaveableComponents();
             }
 
             state["LastSceneIndex"] = SceneManager.GetActiveScene().buildIndex;
         }
 
-        private void RestoreSaveableEntityState(Dictionary<string, object> state)
+        private void RestoreAllSaveableEntities(Dictionary<string, object> state)
         {
             SaveableEntity[] saveableEntities = FindObjectsOfType<SaveableEntity>();
 
@@ -112,16 +105,11 @@ namespace RPG.Saving
 
                 if (state.ContainsKey(identifier))
                 {
-                    saveableEntity.RestoreISaveableState(state[identifier]);
+                    saveableEntity.RestoreAllISavableComponents(state[identifier]);
                 }
             }
         }
 
-        /// <summary>
-        /// Get Persistent Data Path from saveFile
-        /// </summary>
-        /// <param name="saveFile"></param>
-        /// <returns></returns>
         private string GetPathFromSaveFile(string saveFile)
         {
             return Path.Combine(Application.persistentDataPath, saveFile + ".sav");

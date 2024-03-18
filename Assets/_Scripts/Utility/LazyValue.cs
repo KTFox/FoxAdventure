@@ -1,21 +1,22 @@
 namespace RPG.Utility
 {
-    /// <summary>
-    /// Container class that wraps a traitValue and ensures initialisation is called just before first use.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class LazyValue<T>
+   public class LazyValue<T>
     {
+        // Constructor
+        public LazyValue(InitializerDelegate initializer)
+        {
+            this._initializer = initializer;
+        }
+
+        // Variables
+
         private T _value;
-        private bool hasInitialized = false;
-        private InitializerDelegate initializer;
+        private bool _hasInitialized = false;
+        private InitializerDelegate _initializer;
 
         public delegate T InitializerDelegate();
 
-        public LazyValue(InitializerDelegate initializer)
-        {
-            this.initializer = initializer;
-        }
+        // Properties
 
         public T Value
         {
@@ -26,17 +27,20 @@ namespace RPG.Utility
             }
             set
             {
-                hasInitialized = true;
+                _hasInitialized = true;
                 _value = value;
             }
         }
 
+
+        // Methods
+
         public void ForceInit()
         {
-            if (!hasInitialized)
+            if (!_hasInitialized)
             {
-                _value = initializer();
-                hasInitialized = true;
+                _value = _initializer();
+                _hasInitialized = true;
             }
         }
     }

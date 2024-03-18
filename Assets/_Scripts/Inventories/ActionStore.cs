@@ -5,14 +5,9 @@ using RPG.Saving;
 
 namespace RPG.Inventories
 {
-    /// <summary>
-    /// Contain information about items in the ActionBar".
-    /// This component should be placed on the GameObject tagged "Player".
     public class ActionStore : MonoBehaviour, ISaveable
     {
-        public event Action OnActionStoreUpdated;
-
-        private Dictionary<int, DockedItemSlot> dockedItems = new Dictionary<int, DockedItemSlot>();
+        // Structs
 
         private class DockedItemSlot
         {
@@ -20,12 +15,41 @@ namespace RPG.Inventories
             public int quantity;
         }
 
-        /// <summary>
-        /// Add the given quantity of the items into the given slot.
-        /// </summary>
-        /// <param name="item"></param>
-        /// <param name="slotIndex"></param>
-        /// <param name="quantity"></param>
+        [System.Serializable]
+        private struct DockedItemRecord
+        {
+            public string itemID;
+            public int quantity;
+        }
+
+        // Variables
+
+        private Dictionary<int, DockedItemSlot> dockedItems = new Dictionary<int, DockedItemSlot>();
+
+        // Events
+
+        public event Action OnActionStoreUpdated;
+
+
+        // Methods
+
+        public bool UseActionItem(int slotIndex, GameObject user)
+        {
+            if (dockedItems.ContainsKey(slotIndex))
+            {
+                bool wasUsed = dockedItems[slotIndex].item.UseActionItem(user);
+
+                if (wasUsed && dockedItems[slotIndex].item.Consumable)
+                {
+                    RemoveActionItem(slotIndex, 1);
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
         public void AddActionItem(InventoryItemSO item, int slotIndex, int quantity)
         {
             if (dockedItems.ContainsKey(slotIndex))
@@ -47,11 +71,6 @@ namespace RPG.Inventories
             OnActionStoreUpdated?.Invoke();
         }
 
-        /// <summary>
-        /// Remove the given quantity of the items at the given slot.
-        /// </summary>
-        /// <param name="slotIndex"></param>
-        /// <param name="quantity"></param>
         public void RemoveActionItem(int slotIndex, int quantity)
         {
             if (dockedItems.ContainsKey(slotIndex))
@@ -67,54 +86,21 @@ namespace RPG.Inventories
             }
         }
 
-        /// <summary>
-        /// Use the item at the given slot. 
-        /// If the item is consumable, one instance will be destroyed until the item is removed completely.
-        /// </summary>
-        /// <param name="user">The character that wants to use this action.</param>
-        /// <returns>False if the action could not be executed.</returns>
-        public bool UseActionItem(int index, GameObject user)
+        public ActionItemSO GetActionItem(int slotIndex)
         {
-            if (dockedItems.ContainsKey(index))
+            if (dockedItems.ContainsKey(slotIndex))
             {
-                bool wasUsed = dockedItems[index].item.Use(user);
-                if (wasUsed && dockedItems[index].item.Consumable)
-                {
-                    RemoveActionItem(index, 1);
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Get the action item at the given slotIndex
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        public ActionItemSO GetActionItem(int index)
-        {
-            if (dockedItems.ContainsKey(index))
-            {
-                return dockedItems[index].item;
+                return dockedItems[slotIndex].item;
             }
 
             return null;
         }
 
-        /// <summary>
-        /// Get the quantity of items left at the given slotIndex.
-        /// </summary>
-        /// <returns>
-        /// Will return 0 if no item is in the slotIndex or the item has been fully consumed.
-        /// </returns>
-        public int GetItemQuantity(int index)
+        public int GetItemQuantity(int slotIndex)
         {
-            if (dockedItems.ContainsKey(index))
+            if (dockedItems.ContainsKey(slotIndex))
             {
-                return dockedItems[index].quantity;
+                return dockedItems[slotIndex].quantity;
             }
 
             return 0;
@@ -122,27 +108,31 @@ namespace RPG.Inventories
 
         /// <summary>
         /// What is the maximum quantity of items allowed in this slot.
-        /// This takes into account whether the slot already contains an item and whether it is the same type.
-        /// Will only accept multiple if the item is consumable.
+        /// This takes into account whether the slot already contains an _inventoryItem and whether it is the same type.
+        /// Will only accept multiple if the _inventoryItem is consumable.
         /// </summary>
         /// <returns>Will return int.MaxValue when there is not effective bound.</returns>
-        public int GetMaxAcceptable(InventoryItemSO item, int index)
+        public int GetMaxAcceptable(InventoryItemSO item, int slotIndex)
         {
             var actionItem = item as ActionItemSO;
-            if (!actionItem) return 0;
+
+            if (!actionItem)
+            {
+                return 0;
+            }
 
             /* 
             1. Slot is empty:
-                - Input item is consumable => int.maxvalue
-                - Input item isn't consumable => 1
-            2. Slot already has had item:
+                - Input _inventoryItem is consumable => int.maxvalue
+                - Input _inventoryItem isn't consumable => 1
+            2. Slot already has had _inventoryItem:
                 - Two items are similar
-                    + Input item is consumable => int.maxValue
-                    + Input item isn't consumable => 0
+                    + Input _inventoryItem is consumable => int.maxValue
+                    + Input _inventoryItem isn't consumable => 0
                 - Two items are different => 0
             */
 
-            if (dockedItems.ContainsKey(index) && !ReferenceEquals(item, dockedItems[index].item))
+            if (dockedItems.ContainsKey(slotIndex) && !ReferenceEquals(item, dockedItems[slotIndex].item))
             {
                 return 0;
             }
@@ -152,7 +142,7 @@ namespace RPG.Inventories
                 return int.MaxValue;
             }
 
-            if (dockedItems.ContainsKey(index))
+            if (dockedItems.ContainsKey(slotIndex))
             {
                 return 0;
             }
@@ -185,13 +175,6 @@ namespace RPG.Inventories
             {
                 AddActionItem(InventoryItemSO.GetItemFromID(pair.Value.itemID), pair.Key, pair.Value.quantity);
             }
-        }
-
-        [System.Serializable]
-        private struct DockedItemRecord
-        {
-            public string itemID;
-            public int quantity;
         }
         #endregion
     }

@@ -1,81 +1,83 @@
 using UnityEngine;
+using System;
+using UnityEngine.AI;
 using RPG.Attributes;
 using RPG.Combat;
 using RPG.Core;
 using RPG.Movement;
 using RPG.Utility;
-using System;
-using UnityEngine.AI;
 
 namespace RPG.Control
 {
     public class AIController : MonoBehaviour
     {
+        // Variables
+
         [SerializeField]
-        private float chaseDistance;
+        private float _chaseDistance;
         [SerializeField]
-        private float aggroCooldown;
+        private float _aggroCooldown;
         [SerializeField]
-        private float shoutDistance;
+        private float _shoutDistance;
         [SerializeField]
-        private float suspiciousTime;
+        private float _suspiciousTime;
         [SerializeField]
-        private float waypointDwellTime;
+        private float _waypointDwellTime;
 
         [Range(0f, 1f)]
         [SerializeField]
-        private float patrolSpeedFraction;
+        private float _patrolSpeedFraction;
 
-        [Tooltip("If patrolPath equal null, the enemy will not patrol and stay at guardPosition.")]
+        [Tooltip("If _patrolPath equal null, the enemy will not patrol and stay at guardPosition.")]
         [SerializeField]
-        private PatrolPath patrolPath;
+        private PatrolPath _patrolPath;
 
-        private ActionScheduler actionScheduler;
-        private Fighter fighter;
-        private Mover mover;
-        private GameObject player;
-        private Health health;
-
-        private float waypointTolerance = 1f;
-        private float timeSinceLastSawPlayer = Mathf.Infinity;
-        private float timeSinceArrivedAtWaypoint = Mathf.Infinity;
-        private float timeSinceLastAgrrevated = Mathf.Infinity;
-        private bool hasBeenAggroedRecently;
-        private int currentWaypointIndex;
+        private ActionScheduler _actionScheduler;
+        private Fighter _fighter;
+        private Mover _mover;
+        private Health _health;
+        private GameObject _player;
 
         private LazyValue<Vector3> guardPosition;
 
+        private float _waypointTolerance = 1f;
+        private float _timeSinceLastSawPlayer = Mathf.Infinity;
+        private float _timeSinceArrivedAtWaypoint = Mathf.Infinity;
+        private float _timeSinceLastAgrrevated = Mathf.Infinity;
+        private int _currentWaypointIndex;
+        private bool _hasBeenAggroedRecently;
+
+
+        // Methods
+
         private void Awake()
         {
-            actionScheduler = GetComponent<ActionScheduler>();
-            fighter = GetComponent<Fighter>();
-            mover = GetComponent<Mover>();
-            health = GetComponent<Health>();
+            _actionScheduler = GetComponent<ActionScheduler>();
+            _fighter = GetComponent<Fighter>();
+            _mover = GetComponent<Mover>();
+            _health = GetComponent<Health>();
 
-            player = GameObject.FindGameObjectWithTag("Player");
+            _player = GameObject.FindGameObjectWithTag("Player");
 
-            guardPosition = new LazyValue<Vector3>(GetInitGuardPosition);
+            guardPosition = new LazyValue<Vector3>(GetDefaultGuardPosition);
         }
 
-        Vector3 GetInitGuardPosition()
+        Vector3 GetDefaultGuardPosition()
         {
             return transform.position;
         }
 
-        private void Start()
-        {
-            guardPosition.ForceInit();
-        }
-
         private void Update()
         {
-            if (health.IsDead) return;
+            if (_health.IsDead) return;
 
-            if (IsAggrevated() && fighter.CanAttack(player))
+            UpdateTimers();
+
+            if (IsAggrevated() && _fighter.CanAttack(_player))
             {
                 AttackBehaviour();
             }
-            else if (timeSinceLastSawPlayer < suspiciousTime)
+            else if (_timeSinceLastSawPlayer < _suspiciousTime)
             {
                 SuspiciousBehaviour();
             }
@@ -83,122 +85,121 @@ namespace RPG.Control
             {
                 PatrolBehaviour();
             }
-
-            UpdateTimer();
-        }
-
-        /// <summary>
-        /// return true 
-        /// if distanceToPlayer is less than chaseDistance
-        /// or if timeSinceLastAgrrevated is less than aggroCooldown
-        /// </summary>
-        /// <returns></returns>
-        private bool IsAggrevated()
-        {
-            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-            return distanceToPlayer < chaseDistance || timeSinceLastAgrrevated < aggroCooldown;
-        }
-
-        private void AttackBehaviour()
-        {
-            timeSinceLastSawPlayer = 0f;
-            fighter.StartAttackAction(player);
-
-            AggrevateNearbyEnemies();
-        }
-
-        private void AggrevateNearbyEnemies()
-        {
-            RaycastHit[] hits = Physics.SphereCastAll(transform.position, shoutDistance, Vector3.up, 0f);
-            foreach (RaycastHit hit in hits)
-            {
-                AIController controller = hit.collider.GetComponent<AIController>();
-                if (controller == null || controller == this) continue;
-                controller.BeAggrevated();
-            }
         }
 
         public void BeAggrevated()
         {
-            if (hasBeenAggroedRecently) return;
+            if (_hasBeenAggroedRecently)
+            {
+                return;
+            }
             else
             {
-                timeSinceLastSawPlayer = 0f;
-
-                timeSinceLastAgrrevated = 0f;
-                hasBeenAggroedRecently = true;
+                _timeSinceLastSawPlayer = 0f;
+                _timeSinceLastAgrrevated = 0f;
+                _hasBeenAggroedRecently = true;
             }
         }
 
-        private void SuspiciousBehaviour()
-        {
-            actionScheduler.CancelCurrentAction();
-        }
-
-        private void PatrolBehaviour()
-        {
-            Vector3 nextPosition = guardPosition.Value;
-
-            if (patrolPath != null)
-            {
-                if (AtWaypoint())
-                {
-                    CycleWaypoint();
-                    timeSinceArrivedAtWaypoint = 0f;
-                }
-                nextPosition = GetCurrentWaypoint();
-            }
-
-            if (timeSinceArrivedAtWaypoint > waypointDwellTime)
-            {
-                mover.StartMoveAction(nextPosition, patrolSpeedFraction);
-            }
-        }
-
-        private bool AtWaypoint()
-        {
-            float distanceToWaypoint = Vector3.Distance(transform.position, GetCurrentWaypoint());
-            return distanceToWaypoint < waypointTolerance;
-        }
-
-        private void CycleWaypoint()
-        {
-            currentWaypointIndex = patrolPath.GetNextIndex(currentWaypointIndex);
-        }
-
-        private Vector3 GetCurrentWaypoint()
-        {
-            return patrolPath.GetWaypointPosition(currentWaypointIndex);
-        }
-
-        private void UpdateTimer()
-        {
-            timeSinceLastSawPlayer += Time.deltaTime;
-            timeSinceArrivedAtWaypoint += Time.deltaTime;
-            timeSinceLastAgrrevated += Time.deltaTime;
-
-            if (timeSinceLastAgrrevated >= aggroCooldown && timeSinceLastSawPlayer >= suspiciousTime)
-            {
-                hasBeenAggroedRecently = false;
-            }
-        }
-
-        public void ResetEnemy()
+        public void Reset()
         {
             NavMeshAgent navMeshAgent = GetComponent<NavMeshAgent>();
             navMeshAgent.Warp(guardPosition.Value);
 
-            timeSinceLastSawPlayer = Mathf.Infinity;
-            timeSinceArrivedAtWaypoint = Mathf.Infinity;
-            timeSinceLastAgrrevated = Mathf.Infinity;
-            currentWaypointIndex = 0;
+            _timeSinceLastSawPlayer = Mathf.Infinity;
+            _timeSinceArrivedAtWaypoint = Mathf.Infinity;
+            _timeSinceLastAgrrevated = Mathf.Infinity;
+            _currentWaypointIndex = 0;
+        }
+
+        private bool IsAggrevated()
+        {
+            float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
+
+            return distanceToPlayer < _chaseDistance || _timeSinceLastAgrrevated < _aggroCooldown;
+        }
+
+        private void AttackBehaviour()
+        {
+            _timeSinceLastSawPlayer = 0f;
+            _fighter.StartAttackAction(_player);
+            AggrevateNearbyEnemies();
+        }
+
+        private void SuspiciousBehaviour()
+        {
+            _actionScheduler.CancelCurrentAction();
+        }
+
+        private void PatrolBehaviour()
+        {
+            Vector3 nextWaypointPosition = guardPosition.Value;
+
+            if (_patrolPath != null)
+            {
+                if (HasReachedWaypoint())
+                {
+                    CycleWaypoint();
+                    _timeSinceArrivedAtWaypoint = 0f;
+                }
+
+                nextWaypointPosition = GetCurrentWaypoint();
+            }
+
+            if (_timeSinceArrivedAtWaypoint > _waypointDwellTime)
+            {
+                _mover.StartMoveAction(nextWaypointPosition, _patrolSpeedFraction);
+            }
+        }
+
+        private void AggrevateNearbyEnemies()
+        {
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position, _shoutDistance, Vector3.up, 0f);
+
+            foreach (RaycastHit hit in hits)
+            {
+                var nearbyEnemyController = hit.collider.GetComponent<AIController>();
+
+                if (nearbyEnemyController == null || nearbyEnemyController == this) continue;
+
+                nearbyEnemyController.BeAggrevated();
+            }
+        }
+
+        private bool HasReachedWaypoint()
+        {
+            float distanceToWaypoint = Vector3.Distance(transform.position, GetCurrentWaypoint());
+
+            return distanceToWaypoint < _waypointTolerance;
+        }
+
+        private void CycleWaypoint()
+        {
+            _currentWaypointIndex = _patrolPath.GetNextWaypointIndex(_currentWaypointIndex);
+        }
+
+        private Vector3 GetCurrentWaypoint()
+        {
+            return _patrolPath.GetWaypointPosition(_currentWaypointIndex);
+        }
+
+        private void UpdateTimers()
+        {
+            _timeSinceLastSawPlayer += Time.deltaTime;
+            _timeSinceArrivedAtWaypoint += Time.deltaTime;
+            _timeSinceLastAgrrevated += Time.deltaTime;
+
+            if (_timeSinceLastAgrrevated >= _aggroCooldown && _timeSinceLastSawPlayer >= _suspiciousTime)
+            {
+                _hasBeenAggroedRecently = false;
+            }
         }
 
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, chaseDistance);
-            Gizmos.DrawWireSphere(transform.position, shoutDistance);
+            Gizmos.DrawWireSphere(transform.position, _chaseDistance);
+            Gizmos.DrawWireSphere(transform.position, _shoutDistance);
         }
     }
 }

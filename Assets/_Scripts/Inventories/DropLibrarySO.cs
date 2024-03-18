@@ -6,26 +6,25 @@ namespace RPG.Inventories
     [CreateAssetMenu(menuName = "ScriptableObject/DropLibrarySO")]
     public class DropLibrarySO : ScriptableObject
     {
-        [Tooltip("List of DropConfig that enemy can drop.")]
-        [SerializeField]
-        private DropConfig[] potentialDrops;
+        // Structs
+
+        public struct Dropped
+        {
+            public InventoryItemSO item;
+            public int number;
+        }
 
         [System.Serializable]
         private class DropConfig
         {
             public InventoryItemSO item;
 
-            [Tooltip("The bigger traitValue, the more chance to be dropped")]
+            [Tooltip("The bigger value, the more chance to be dropped")]
             public float[] relativeChances;
 
             public int[] minNumbers;
             public int[] maxNumbers;
 
-            /// <summary>
-            /// Get random number of items to be dropped.
-            /// </summary>
-            /// <param name="level"></param>
-            /// <returns></returns>
             public int GetRandomNumber(int level)
             {
                 if (!item.Stackable)
@@ -38,17 +37,23 @@ namespace RPG.Inventories
             }
         }
 
-        [Tooltip("This traitValue will determine the chance that enemy will drop items.")]
-        [SerializeField]
-        private float[] dropChancePercentage;
+        // Variables
 
-        [Tooltip("Min number of items that enemy can drop.")]
+        [Tooltip("List of DropConfig that enemy can dropConfig.")]
         [SerializeField]
-        private int[] minDropsQuantity;
+        private DropConfig[] _dropConfigs;
+        [Tooltip("This value will determine the chance that enemy will dropConfig items.")]
+        [SerializeField]
+        private float[] _dropChancePercentage;
+        [Tooltip("Min _quantity of items that enemy can dropConfig.")]
+        [SerializeField]
+        private int[] _minDropQuantity;
+        [Tooltip("Max _quantity of pickups that enemy can dropConfig.")]
+        [SerializeField]
+        private int[] _maxDropQuantity;
 
-        [Tooltip("Max number of pickups that enemy can drop.")]
-        [SerializeField]
-        private int[] maxDropsQuantity;
+
+        // Methods
 
         /// <summary>
         /// Return dropped items and their quantity.
@@ -57,7 +62,7 @@ namespace RPG.Inventories
         /// <returns></returns>
         public IEnumerable<Dropped> GetRandomDrops(int level)
         {
-            if (!ShouldRandomDrop(level))
+            if (!ShouldDrop(level))
             {
                 yield break;
             }
@@ -68,39 +73,23 @@ namespace RPG.Inventories
             }
         }
 
-        public struct Dropped
+        private bool ShouldDrop(int level)
         {
-            public InventoryItemSO item;
-            public int number;
+            return Random.Range(0, 100f) < GetByLevel(_dropChancePercentage, level);
         }
 
-        /// <summary>
-        /// Determine whether Enemy drops items or not
-        /// </summary>
-        /// <param name="level"></param>
-        /// <returns></returns>
-        private bool ShouldRandomDrop(int level)
-        {
-            return Random.Range(0, 100f) < GetByLevel(dropChancePercentage, level);
-        }
-
-        /// <summary>
-        /// Return number of DropConfig that will be dropped.
-        /// </summary>
-        /// <param name="level"></param>
-        /// <returns></returns>
         private int GetRandomNumberOfDrops(int level)
         {
-            int min = GetByLevel(minDropsQuantity, level);
-            int max = GetByLevel(maxDropsQuantity, level);
+            int min = GetByLevel(_minDropQuantity, level);
+            int max = GetByLevel(_maxDropQuantity, level);
 
             return Random.Range(min, max + 1);
         }
 
         private Dropped GetRandomDrop(int level)
         {
-            DropConfig dropConfig = SelectRandomItem(level);
-            Dropped drop = new Dropped();
+            var dropConfig = SelectRandomDropConfig(level);
+            var drop = new Dropped();
 
             drop.item = dropConfig.item;
             drop.number = dropConfig.GetRandomNumber(level);
@@ -108,17 +97,19 @@ namespace RPG.Inventories
             return drop;
         }
 
-        private DropConfig SelectRandomItem(int level)
+        private DropConfig SelectRandomDropConfig(int level)
         {
             float totalRelativeChance = GetTotalRelativeChance(level);
             float randomRoll = Random.Range(0, totalRelativeChance);
             float chanceTotal = 0;
-            foreach (var drop in potentialDrops)
+
+            foreach (var dropConfig in _dropConfigs)
             {
-                chanceTotal += GetByLevel(drop.relativeChances, level);
+                chanceTotal += GetByLevel(dropConfig.relativeChances, level);
+
                 if (chanceTotal > randomRoll)
                 {
-                    return drop;
+                    return dropConfig;
                 }
             }
 
@@ -128,9 +119,10 @@ namespace RPG.Inventories
         private float GetTotalRelativeChance(int level)
         {
             float total = 0;
-            foreach (var drop in potentialDrops)
+
+            foreach (var dropConfig in _dropConfigs)
             {
-                total += GetByLevel(drop.relativeChances, level);
+                total += GetByLevel(dropConfig.relativeChances, level);
             }
 
             return total;
@@ -139,11 +131,19 @@ namespace RPG.Inventories
         private static T GetByLevel<T>(T[] values, int level)
         {
             if (values.Length == 0)
+            {
                 return default;
+            }
+
             if (level > values.Length)
+            {
                 return values[values.Length - 1];
+            }
+
             if (level < 1)
+            {
                 return default;
+            }
 
             return values[level - 1];
         }

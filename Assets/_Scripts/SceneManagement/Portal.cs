@@ -9,91 +9,87 @@ namespace RPG.SceneManagement
 {
     public class Portal : MonoBehaviour
     {
-        [Tooltip("Teleport to the portal that has the same identifier")]
-        [SerializeField]
-        private DestinationIdentifier identifier;
-
         enum DestinationIdentifier
         {
             A, B, C
         }
 
+        // Variables
+
+        [Tooltip("Teleport to the portal that has the same _portalIdentifier")]
         [SerializeField]
-        private int sceneToLoad;
+        private DestinationIdentifier _portalIdentifier;
         [SerializeField]
-        private float fadeOutTime;
+        private int _sceneIndexToLoad;
         [SerializeField]
-        private float fadeInTime;
+        private float _fadeTime;
         [SerializeField]
-        private float fadeInWaitTime;
+        private float _waitingTimeBeforeFadingIn;
         [SerializeField]
-        private Transform spawnPoint;
+        private Transform _positionToSpawn;
+
+
+        // Methods
 
         private void OnTriggerEnter(Collider collistion)
         {
             if (collistion.gameObject.CompareTag("Player"))
             {
-                StartCoroutine(SceneTransition());
+                StartCoroutine(SceneTransitionCoroutine());
             }
         }
 
-        IEnumerator SceneTransition()
+        private IEnumerator SceneTransitionCoroutine()
         {
             DontDestroyOnLoad(gameObject);
 
-            //fader and savingWrapper are persistent objects
-            Fader fader = FindObjectOfType<Fader>();
-            SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
+            var fader = FindObjectOfType<Fader>();
+            var savingWrapper = FindObjectOfType<SavingWrapper>();
 
-            DisableControll();
+            DisablePlayerController();
 
-            yield return fader.FadeOut(fadeOutTime);
+            yield return fader.FadeOut(_fadeTime);
+
             savingWrapper.SaveData();
 
-            yield return SceneManager.LoadSceneAsync(sceneToLoad);
+            yield return SceneManager.LoadSceneAsync(_sceneIndexToLoad);
 
-            DisableControll();
+            DisablePlayerController();
             savingWrapper.LoadData();
-
-            Portal otherPortal = GetOtherPortal();
-            UpdatePlayer(otherPortal);
-
+            Portal otherPortal = GetSameIdentifierPortal();
+            UpdatePlayerTransform(otherPortal);
             savingWrapper.SaveData();
 
-            yield return new WaitForSeconds(fadeInWaitTime);
+            yield return new WaitForSeconds(_waitingTimeBeforeFadingIn);
 
-            fader.FadeIn(fadeInTime);
-            EnableControll();
-
+            fader.FadeIn(_fadeTime);
+            EnablePlayerController();
             Destroy(gameObject);
         }
 
-        private void DisableControll()
+        private void DisablePlayerController()
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            var player = GameObject.FindGameObjectWithTag("Player");
 
             player.GetComponent<ActionScheduler>().CancelCurrentAction();
             player.GetComponent<PlayerController>().enabled = false;
         }
 
-        private void EnableControll()
+        private void EnablePlayerController()
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            var player = GameObject.FindGameObjectWithTag("Player");
+
             player.GetComponent<PlayerController>().enabled = true;
         }
 
-        /// <summary>
-        /// Return the portal that has the same identifier with this
-        /// </summary>
-        /// <returns></returns>
-        private Portal GetOtherPortal()
+        private Portal GetSameIdentifierPortal()
         {
             Portal[] portals = FindObjectsOfType<Portal>();
 
             foreach (Portal portal in portals)
             {
                 if (portal == this) continue;
-                if (portal.identifier != this.identifier) continue;
+                if (portal._portalIdentifier != _portalIdentifier) continue;
 
                 return portal;
             }
@@ -101,12 +97,12 @@ namespace RPG.SceneManagement
             return null;
         }
 
-        private void UpdatePlayer(Portal portal)
+        private void UpdatePlayerTransform(Portal portal)
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            var player = GameObject.FindGameObjectWithTag("Player");
 
-            player.GetComponent<NavMeshAgent>().Warp(portal.spawnPoint.position);
-            player.transform.rotation = portal.spawnPoint.rotation;
+            player.GetComponent<NavMeshAgent>().Warp(portal._positionToSpawn.position);
+            player.transform.rotation = portal._positionToSpawn.rotation;
         }
     }
 }

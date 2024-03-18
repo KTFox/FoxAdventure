@@ -6,18 +6,23 @@ namespace RPG.Stats
 {
     public class ExperienceText : MonoBehaviour
     {
-        private Experience experience;
-        private TextMeshProUGUI experienceValueText;
+        // Variables
+
+        private Experience _experience;
+        private TextMeshProUGUI _experienceValueText;
+
+        
+        // Methods
 
         private void Awake()
         {
-            experience = GameObject.FindGameObjectWithTag("Player").GetComponent<Experience>();
-            experienceValueText = GetComponent<TextMeshProUGUI>();
+            _experience = GameObject.FindGameObjectWithTag("Player").GetComponent<Experience>();
+            _experienceValueText = GetComponent<TextMeshProUGUI>();
         }
 
         private void Update()
         {
-            experienceValueText.text = String.Format("Experience: {0:0}", experience.ExperiencePoint);
+            _experienceValueText.text = String.Format("Experience: {0:0}", _experience.ExperiencePoint);
         }
     }
 }

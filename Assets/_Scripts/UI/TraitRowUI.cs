@@ -7,37 +7,42 @@ namespace RPG.UI
 {
     public class TraitRowUI : MonoBehaviour
     {
-        [SerializeField]
-        private Trait trait;
-        [SerializeField]
-        private TextMeshProUGUI traitValue;
-        [SerializeField]
-        private Button minusButton;
-        [SerializeField]
-        private Button plusButton;
+        // Variables
 
-        private TraitStore playerTraitStore;
+        [SerializeField]
+        private Trait _trait;
+        [SerializeField]
+        private TextMeshProUGUI _traitValueText;
+        [SerializeField]
+        private Button _minusButton;
+        [SerializeField]
+        private Button _plusButton;
+
+        private TraitStore _playerTraitStore;
+
+
+        // Methods
 
         private void Start()
         {
-            playerTraitStore = GameObject.FindGameObjectWithTag("Player").GetComponent<TraitStore>();
+            _playerTraitStore = GameObject.FindGameObjectWithTag("Player").GetComponent<TraitStore>();
 
-            minusButton.onClick.AddListener(() => Allocate(-1));
-            plusButton.onClick.AddListener(() => Allocate(1));
+            _minusButton.onClick.AddListener(() => AllocateTraitPoint(-1));
+            _plusButton.onClick.AddListener(() => AllocateTraitPoint(1));
         }
 
         private void Update()
         {
-            minusButton.interactable = playerTraitStore.CanAssignTraits(trait, -1);
-            plusButton.interactable = playerTraitStore.CanAssignTraits(trait, 1);
+            _minusButton.interactable = _playerTraitStore.CanAssignTraits(_trait, -1);
+            _plusButton.interactable = _playerTraitStore.CanAssignTraits(_trait, 1);
 
-            traitValue.text = playerTraitStore.GetProposedPoints(trait).ToString();
+            _traitValueText.text = _playerTraitStore.GetProposedPoints(_trait).ToString();
         }
 
         #region Unity Events
-        public void Allocate(int value)
+        public void AllocateTraitPoint(int value)
         {
-            playerTraitStore.AssignPoints(trait, value);
+            _playerTraitStore.AssignPoints(_trait, value);
         }
         #endregion
     }

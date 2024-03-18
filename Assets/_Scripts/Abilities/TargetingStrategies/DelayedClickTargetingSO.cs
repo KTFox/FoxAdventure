@@ -6,48 +6,51 @@ using RPG.Control;
 
 namespace RPG.Abilities.TargetingStrategies
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/TargetingStrategySO/DelayedClickTargetingSO")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Strategy/TargetingStrategy/DelayedClickTargeting")]
     public class DelayedClickTargetingSO : TargetingStrategySO
     {
-        [SerializeField]
-        private Texture2D cursorTexture;
-        [SerializeField]
-        private Vector3 cursorHotSpot;
-        [SerializeField]
-        private LayerMask affectedLayerMask;
-        [SerializeField]
-        private float areaAffectRadius;
-        [SerializeField]
-        private Transform targetingVisualPrefab;
+        // Variables 
 
+        [SerializeField]
+        private Texture2D _cursorTexture;
+        [SerializeField]
+        private Vector3 _cursorHotSpot;
+        [SerializeField]
+        private LayerMask _affectedLayerMask;
+        [SerializeField]
+        private float _areaAffectRadius;
+        [SerializeField]
+        private Transform _targetingVisualPrefab;
         private Transform targetingVisualInstance;
 
-        public override void StartTargeting(AbilityData data, Action finishTargeting)
+
+        //Methods
+
+        public override void StartTargeting(AbilityData abilityData, Action finishedCallback)
         {
-            PlayerController playerController = data.User.GetComponent<PlayerController>();
-            playerController.StartCoroutine(Targeting(data, playerController, finishTargeting));
+            var playerController = abilityData.Instigator.GetComponent<PlayerController>();
+            playerController.StartCoroutine(TargetingCoroutine(abilityData, playerController, finishedCallback));
         }
 
-        private IEnumerator Targeting(AbilityData data, PlayerController playerController, Action finishTargeting)
+        private IEnumerator TargetingCoroutine(AbilityData abilityData, PlayerController playerController, Action finishedCallback)
         {
             playerController.enabled = false;
 
             // Set active targeting visual
             if (targetingVisualInstance == null)
             {
-                targetingVisualInstance = Instantiate(targetingVisualPrefab);
+                targetingVisualInstance = Instantiate(_targetingVisualPrefab);
             }
             else
             {
                 targetingVisualInstance.gameObject.SetActive(true);
             }
-            // The Squad has 0.5f radius by default. Therefore, it need to be doubly
-            targetingVisualInstance.localScale = new Vector3(areaAffectRadius * 2, 1, areaAffectRadius * 2);
+            targetingVisualInstance.localScale = new Vector3(_areaAffectRadius * 2, 1, _areaAffectRadius * 2);
 
-            while (!data.Cancelled)
+            while (!abilityData.IsCancelled)
             {
                 RaycastHit raycastHit;
-                if (Physics.Raycast(PlayerController.GetMouseRay(), out raycastHit, 1000, affectedLayerMask))
+                if (Physics.Raycast(PlayerController.GetMouseRay(), out raycastHit, 1000, _affectedLayerMask))
                 {
                     targetingVisualInstance.position = raycastHit.point;
 
@@ -55,8 +58,8 @@ namespace RPG.Abilities.TargetingStrategies
                     {
                         yield return new WaitWhile(() => Input.GetMouseButtonDown(0));
 
-                        data.SetTargetedPoint(raycastHit.point);
-                        data.SetTargets(GetGameObjectsInRadius(raycastHit.point));
+                        abilityData.TargetPoint = raycastHit.point;
+                        abilityData.Targets = GetGameObjectsInRadius(raycastHit.point);
 
                         break;
                     }
@@ -67,12 +70,12 @@ namespace RPG.Abilities.TargetingStrategies
 
             playerController.enabled = true;
             targetingVisualInstance.gameObject.SetActive(false);
-            finishTargeting();
+            finishedCallback();
         }
 
-        private IEnumerable<GameObject> GetGameObjectsInRadius(Vector3 point)
+        private IEnumerable<GameObject> GetGameObjectsInRadius(Vector3 centerPoint)
         {
-            RaycastHit[] hits = Physics.SphereCastAll(point, areaAffectRadius, Vector3.up, 0);
+            RaycastHit[] hits = Physics.SphereCastAll(centerPoint, _areaAffectRadius, Vector3.up, 0);
             foreach (RaycastHit hit in hits)
             {
                 yield return hit.collider.gameObject;

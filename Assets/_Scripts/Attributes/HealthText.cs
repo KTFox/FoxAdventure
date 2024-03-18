@@ -5,8 +5,13 @@ namespace RPG.Attributes
 {
     public class HealthText : MonoBehaviour
     {
+        // Variables
+
         private Health playerHealth;
         private TextMeshProUGUI healthValueText;
+
+
+        // Methods
 
         private void Awake()
         {

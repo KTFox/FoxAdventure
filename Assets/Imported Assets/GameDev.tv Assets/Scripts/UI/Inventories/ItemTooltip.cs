@@ -5,7 +5,7 @@ using GameDevTV.Inventories;
 namespace GameDevTV.UI.Inventories
 {
     /// <summary>
-    /// Root of the tooltip prefab to expose properties to other classes.
+    /// Root of the _tooltip prefab to expose properties to other classes.
     /// </summary>
     public class ItemTooltip : MonoBehaviour
     {

@@ -7,42 +7,47 @@ namespace RPG.Abilities
 {
     public class AbilityData : IAction
     {
-        private GameObject _user;
+        // Variables
+
+        private GameObject _instigator;
         private Vector3 _targetedPoint;
         private IEnumerable<GameObject> _targets;
-        private bool _cancelled;
+        private bool _isCancelled;
+
+        // Constructor
 
         public AbilityData(GameObject user)
         {
-            _user = user;
+            _instigator = user;
         }
 
-        #region Properties
-        public GameObject User => _user;
-        public Vector3 TargetPoint => _targetedPoint;
-        public IEnumerable<GameObject> Targets => _targets;
-        public bool Cancelled => _cancelled;
-        #endregion
+        // Properties
 
-        public void SetTargetedPoint(Vector3 targetedPoint)
+        public GameObject Instigator => _instigator;
+        public Vector3 TargetPoint
         {
-            _targetedPoint = targetedPoint;
+            get => _targetedPoint;
+            set => _targetedPoint = value;
         }
-
-        public void SetTargets(IEnumerable<GameObject> targets)
+        public IEnumerable<GameObject> Targets
         {
-            _targets = targets;
+            get => _targets;
+            set => _targets = value;
         }
+        public bool IsCancelled => _isCancelled;
+
+
+        // Methods
 
         public void StartCoroutine(IEnumerator coroutine)
         {
-            _user.GetComponent<MonoBehaviour>().StartCoroutine(coroutine);
+            _instigator.GetComponent<MonoBehaviour>().StartCoroutine(coroutine);
         }
 
         #region IAction implements
         public void Cancel()
         {
-            _cancelled = true;
+            _isCancelled = true;
         }
         #endregion
     }

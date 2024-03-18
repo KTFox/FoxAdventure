@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace RPG.Abilities.EffectStrategies
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/EffectStrategySO/OrientToTargetEffectSO")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Strategy/EffectStrategy/OrientToTargetEffect")]
     public class OrientToTargetEffectSO : EffectStrategySO
     {
-        public override void StartEffect(AbilityData data, Action finishEffect)
+        public override void StartEffect(AbilityData abilityData, Action finishedCallback)
         {
-            data.User.transform.LookAt(data.TargetPoint);
-            finishEffect();
+            abilityData.Instigator.transform.LookAt(abilityData.TargetPoint);
+            finishedCallback();
         }
     }
 }

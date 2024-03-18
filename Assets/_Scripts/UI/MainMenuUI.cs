@@ -7,10 +7,14 @@ namespace RPG.UI
 {
     public class MainMenuUI : MonoBehaviour
     {
-        [SerializeField]
-        private TMP_InputField inputField;
+        // Variables
 
+        [SerializeField]
+        private TMP_InputField _inputField;
         private LazyValue<SavingWrapper> savingWrapper;
+
+
+        // Methods
 
         private void Awake()
         {
@@ -30,7 +34,7 @@ namespace RPG.UI
 
         public void NewGame()
         {
-            savingWrapper.Value.NewGame(inputField.text);
+            savingWrapper.Value.CreateNewGame(_inputField.text);
         }
 
         public void Quit()

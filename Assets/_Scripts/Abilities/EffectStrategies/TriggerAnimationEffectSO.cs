@@ -3,16 +3,17 @@ using UnityEngine;
 
 namespace RPG.Abilities.EffectStrategies
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/EffectStrategySO/TriggerAnimationEffectSO")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Strategy/EffectStrategy/TriggerAnimationEffect")]
     public class TriggerAnimationEffectSO : EffectStrategySO
     {
         [SerializeField]
-        private string animationParameter;
+        private string _triggerParameter;
 
-        public override void StartEffect(AbilityData data, Action finishEffect)
+
+        public override void StartEffect(AbilityData abilityData, Action finishedCallback)
         {
-            data.User.GetComponent<Animator>().SetTrigger(animationParameter);
-            finishEffect();
+            abilityData.Instigator.GetComponent<Animator>().SetTrigger(_triggerParameter);
+            finishedCallback();
         }
     }
 }

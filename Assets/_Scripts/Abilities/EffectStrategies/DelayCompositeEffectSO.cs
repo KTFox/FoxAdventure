@@ -4,30 +4,38 @@ using UnityEngine;
 
 namespace RPG.Abilities.EffectStrategies
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/EffectStrategySO/DelayCompositeEffectSO")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Strategy/EffectStrategy/DelayCompositeEffect")]
     public class DelayCompositeEffectSO : EffectStrategySO
     {
-        [SerializeField]
-        private EffectStrategySO[] delayedEffects;
-        [SerializeField]
-        private float delayTime;
-        [SerializeField]
-        private bool abortIfCancelled;
+        // Variables
 
-        public override void StartEffect(AbilityData data, Action finishEffect)
+        [SerializeField]
+        private EffectStrategySO[] _delayedEffects;
+        [SerializeField]
+        private float _delayTime;
+        [SerializeField]
+        private bool _canBeCancelled;
+
+
+        // Methods
+
+        public override void StartEffect(AbilityData abilityData, Action finishedCallback)
         {
-            data.StartCoroutine(DelayEffects(data, finishEffect));
+            abilityData.StartCoroutine(DelayEffectsCoroutine(abilityData, finishedCallback));
         }
 
-        private IEnumerator DelayEffects(AbilityData data, Action finishEffect)
+        private IEnumerator DelayEffectsCoroutine(AbilityData abilityData, Action finishedCallback)
         {
-            yield return new WaitForSeconds(delayTime);
+            yield return new WaitForSeconds(_delayTime);
 
-            if (abortIfCancelled && data.Cancelled) yield break;
-
-            foreach (var effect in delayedEffects)
+            if (_canBeCancelled && abilityData.IsCancelled)
             {
-                effect.StartEffect(data, finishEffect);
+                yield break;
+            }
+
+            foreach (var effect in _delayedEffects)
+            {
+                effect.StartEffect(abilityData, finishedCallback);
             }
         }
     }

@@ -5,8 +5,8 @@ using UnityEngine;
 namespace GameDevTV.Inventories
 {
     /// <summary>
-    /// A ScriptableObject that represents any _item that can be put in an
-    /// inventory.
+    /// A ScriptableObject that represents any _inventoryItem that can be put in an
+    /// _inventory.
     /// </summary>
     /// <remarks>
     /// In practice, you are likely to use a subclass such as `ActionItemSO` or
@@ -17,15 +17,15 @@ namespace GameDevTV.Inventories
         // CONFIG DATA
         [Tooltip("Auto-generated UUID for saving/loading. Clear this field if you want to generate a new one.")]
         [SerializeField] string itemID = null;
-        [Tooltip("Item name to be displayed in UI.")]
+        [Tooltip("InventoryItem name to be displayed in UI.")]
         [SerializeField] string displayName = null;
-        [Tooltip("Item description to be displayed in UI.")]
+        [Tooltip("InventoryItem _description to be displayed in UI.")]
         [SerializeField][TextArea] string description = null;
-        [Tooltip("The UI icon to represent this _item in the inventory.")]
+        [Tooltip("The UI _inventoryItemIcon to represent this _inventoryItem in the _inventory.")]
         [SerializeField] Sprite icon = null;
-        [Tooltip("The prefab that should be spawned when this _item is dropped.")]
+        [Tooltip("The prefab that should be spawned when this _inventoryItem is dropped.")]
         [SerializeField] Pickup pickup = null;
-        [Tooltip("If true, multiple items of this type can be stacked in the same inventory slot.")]
+        [Tooltip("If true, multiple items of this type can be stacked in the same _inventory slot.")]
         [SerializeField] bool stackable = false;
 
         // STATE
@@ -34,13 +34,13 @@ namespace GameDevTV.Inventories
         // PUBLIC
 
         /// <summary>
-        /// Get the inventory _item instance from its UUID.
+        /// Get the _inventory _inventoryItem instance from its UUID.
         /// </summary>
         /// <param name="itemID">
         /// String UUID that persists between game instances.
         /// </param>
         /// <returns>
-        /// Inventories _item instance corresponding to the ID.
+        /// Inventories _inventoryItem instance corresponding to the ID.
         /// </returns>
         public static InventoryItem GetFromID(string itemID)
         {
@@ -65,10 +65,10 @@ namespace GameDevTV.Inventories
         }
         
         /// <summary>
-        /// Spawn the pickup gameobject into the world.
+        /// AttachWeaponToHand the pickup gameobject into the world.
         /// </summary>
         /// <param name="position">Where to spawn the pickup.</param>
-        /// <param name="number">How many instances of the _item does the pickup represent.</param>
+        /// <param name="number">How many instances of the _inventoryItem does the pickup represent.</param>
         /// <returns>Reference to the pickup object spawned.</returns>
         public Pickup SpawnPickup(Vector3 position, int number)
         {

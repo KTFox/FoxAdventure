@@ -5,28 +5,25 @@ namespace RPG.Shops
 {
     public class Shopper : MonoBehaviour
     {
+
+        private Shop _activeShop;
+
+        public Shop ActiveShop => _activeShop;
+
         public event Action OnActiveShopChanged;
 
-        private Shop activeShop;
-
-        public Shop ActiveShop => activeShop;
-
-        /// <summary>
-        /// Need to debug
-        /// </summary>
-        /// <param name="shop"></param>
         public void SetActiveShop(Shop shop)
         {
-            if (activeShop != null)
+            if (_activeShop != null)
             {
-                activeShop.SetShopper(null);
+                _activeShop.CurrentShopper = null;
             }
 
-            activeShop = shop;
+            _activeShop = shop;
 
-            if (activeShop != null)
+            if (_activeShop != null)
             {
-                activeShop.SetShopper(this);
+                _activeShop.CurrentShopper = this;
             }
 
             OnActiveShopChanged?.Invoke();

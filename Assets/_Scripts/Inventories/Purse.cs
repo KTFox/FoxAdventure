@@ -6,18 +6,26 @@ namespace RPG.Inventories
 {
     public class Purse : MonoBehaviour, ISaveable, IItemStore
     {
-        public event Action OnPurseUpdated;
+        // Variables
 
         [SerializeField]
-        private float startingBalance = 50f;
-
+        private float _startingBalance = 50f;
         private float _currentBalance;
+
+        // Properties
 
         public float CurrentBalance => _currentBalance;
 
+        // Events
+
+        public event Action OnPurseUpdated;
+
+
+        // Methods
+
         private void Awake()
         {
-            _currentBalance = startingBalance;
+            _currentBalance = _startingBalance;
         }
 
         public void UpdateBalance(float amount)
@@ -33,6 +41,7 @@ namespace RPG.Inventories
             if (item is CurrencyItemSO)
             {
                 UpdateBalance(item.Price * number);
+                
                 return number;
             }
 

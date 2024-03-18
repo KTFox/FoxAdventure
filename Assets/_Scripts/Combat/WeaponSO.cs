@@ -6,51 +6,37 @@ using RPG.Stats;
 
 namespace RPG.Combat
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Item/WeaponSO")]
+    [CreateAssetMenu(menuName = "ScriptableObject/InventoryItem/WeaponSO")]
     public class WeaponSO : EquipableItemSO, IModifierProvider
     {
-        private const string weaponName = "weapon";
+        // Variables
+
+        private const string WEAPON = "weapon";
 
         [SerializeField]
-        private Weapon equippedPrefab;
+        private Weapon _weaponToAttach;
         [SerializeField]
-        private Projectile projectile;
+        private Projectile _projectile;
         [SerializeField]
-        private AnimatorOverrideController animatorOverrideController;
+        private AnimatorOverrideController _animatorOverrideController;
         [SerializeField]
-        private bool rightHandWeapon;
+        private bool _isRightHandWeapon;
         [SerializeField]
         private float _weaponRange;
         [SerializeField]
-        private float _weaponDamage;
+        private float _additiveDamage;
         [SerializeField]
-        private float _percentageBonus;
+        private float _percentageDamage;
 
-        #region Properties
-        public float WeaponRange
-        {
-            get
-            {
-                return _weaponRange;
-            }
-        }
+        // Properties
 
-        public float WeaponDamage
-        {
-            get
-            {
-                return _weaponDamage;
-            }
-        }
+        public float WeaponRange => _weaponRange;
+        public float AdditiveDamage => _additiveDamage;
+        public float PercentageDamage => _percentageDamage;
+        public bool HasProjectTile => _projectile != null;
 
-        public float PercentageBonus
-        {
-            get
-            {
-                return _percentageBonus;
-            }
-        }
-        #endregion
+
+        // Methods
 
         /// <summary>
         /// Attach weapon to the hand and set AnimatorOverrideController
@@ -59,24 +45,26 @@ namespace RPG.Combat
         /// <param name="leftHandTransform"></param>
         /// <param name="animator"></param>
         /// <returns></returns>
-        public Weapon Spawn(Transform rightHandTransform, Transform leftHandTransform, Animator animator)
+        public Weapon AttachWeaponToHand(Transform rightHandTransform, Transform leftHandTransform, Animator animator)
         {
-            //Destroy old weapon attached to the hand
+            // Destroy old weapon attached to the hand
             DestroyOldWeapon(rightHandTransform, leftHandTransform);
 
-            //Attach weapon to the hand
+            // Attach weapon to the hand
             Weapon equippedWeapon = null;
-            if (equippedPrefab != null)
+
+            if (_weaponToAttach != null)
             {
-                equippedWeapon = Instantiate(equippedPrefab, GetHandTransform(rightHandTransform, leftHandTransform));
-                equippedWeapon.gameObject.name = weaponName;
+                equippedWeapon = Instantiate(_weaponToAttach, GetHoldingWeaponHandTransform(rightHandTransform, leftHandTransform));
+                equippedWeapon.gameObject.name = WEAPON;
             }
 
-            //Set overrideController
+            // Set animatorOverrideController
             var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
-            if (animatorOverrideController != null)
+
+            if (_animatorOverrideController != null)
             {
-                animator.runtimeAnimatorController = animatorOverrideController;
+                animator.runtimeAnimatorController = _animatorOverrideController;
             }
             else if (overrideController != null)
             {
@@ -86,55 +74,36 @@ namespace RPG.Combat
             return equippedWeapon;
         }
 
+        public void LaunchProjectile(Transform rightHandTransform, Transform leftHandTransform, Health targetHealth, GameObject instigator, float calculatedDamage)
+        {
+            Projectile projecttileInstance = Instantiate(_projectile, GetHoldingWeaponHandTransform(rightHandTransform, leftHandTransform).position, Quaternion.identity);
+            projecttileInstance.SetTarget(instigator, calculatedDamage, targetHealth);
+        }
+
         private void DestroyOldWeapon(Transform rightHandTransform, Transform leftHandTransform)
         {
-            Transform oldWeapon = rightHandTransform.Find(weaponName);
+            Transform oldWeapon = rightHandTransform.Find(WEAPON);
+
             if (oldWeapon == null)
             {
-                //Old weapon is not be placed on right hand
-
-                oldWeapon = leftHandTransform.Find(weaponName);
+                oldWeapon = leftHandTransform.Find(WEAPON);
             }
 
             if (oldWeapon == null) return;
 
             oldWeapon.name = "DESTROYING";
+
             Destroy(oldWeapon.gameObject);
         }
 
-        /// <summary>
-        /// Spawn projectitle and set target
-        /// </summary>
-        /// <param name="rightHandTransform"></param>
-        /// <param name="leftHandTransform"></param>
-        /// <param name="target"></param>
-        /// <param name="instigator"></param>
-        /// <param name="calculatedDamage"></param>
-        public void LaunchProjectile(Transform rightHandTransform, Transform leftHandTransform, Health target, GameObject instigator, float calculatedDamage)
+        private Transform GetHoldingWeaponHandTransform(Transform rightHandTransform, Transform leftHandTransform)
         {
-            Projectile projecttileInstance = Instantiate(projectile, GetHandTransform(rightHandTransform, leftHandTransform).position, Quaternion.identity);
-            projecttileInstance.SetTarget(instigator, calculatedDamage, target);
-        }
-
-        public bool HasProjectile()
-        {
-            return projectile != null;
-        }
-
-        private Transform GetHandTransform(Transform rightHandTransform, Transform leftHandTransform)
-        {
-            Transform handTransform;
-
-            if (rightHandWeapon)
+            if (_isRightHandWeapon)
             {
-                handTransform = rightHandTransform;
-            }
-            else
-            {
-                handTransform = leftHandTransform;
+                return rightHandTransform;
             }
 
-            return handTransform;
+            return leftHandTransform;
         }
 
         #region IModifierProvider implements
@@ -142,7 +111,7 @@ namespace RPG.Combat
         {
             if (stat == Stat.Damage)
             {
-                yield return _weaponDamage;
+                yield return _additiveDamage;
             }
         }
 
@@ -150,7 +119,7 @@ namespace RPG.Combat
         {
             if (stat == Stat.Damage)
             {
-                yield return _percentageBonus;
+                yield return _percentageDamage;
             }
         }
         #endregion

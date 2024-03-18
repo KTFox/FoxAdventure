@@ -4,26 +4,31 @@ namespace RPG.Core
 {
     public class ActionScheduler : MonoBehaviour
     {
-        private IAction currentAction;
+        // Variables
+
+        private IAction _currentAction;
+
+
+        // Methods
 
         /// <summary>
-        /// Call currentAction.Cancel() and set currentAction = action
+        /// Cancel current action and set new action
         /// </summary>
         /// <param name="action"></param>
         public void StartAction(IAction action)
         {
-            if (currentAction == action) return;
+            if (_currentAction == action) return;
 
-            if (currentAction != null)
+            if (_currentAction != null)
             {
-                currentAction.Cancel();
+                _currentAction.Cancel();
             }
 
-            currentAction = action;
+            _currentAction = action;
         }
 
         /// <summary>
-        /// Set ActionScheduler.currentAction = null
+        /// Set ActionScheduler._currentAction = null
         /// </summary>
         public void CancelCurrentAction()
         {

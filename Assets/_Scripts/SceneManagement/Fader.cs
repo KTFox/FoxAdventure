@@ -5,17 +5,22 @@ namespace RPG.SceneManagement
 {
     public class Fader : MonoBehaviour
     {
-        private CanvasGroup canvasGroup;
-        private Coroutine currentActiveFade;
+        // Variables
+
+        private CanvasGroup _canvasGroup;
+        private Coroutine _currentActiveFade;
+
+
+        // Methods
 
         private void Awake()
         {
-            canvasGroup = GetComponent<CanvasGroup>();
+            _canvasGroup = GetComponent<CanvasGroup>();
         }
 
         public void FadeOutImmediately()
         {
-            canvasGroup.alpha = 1f;
+            _canvasGroup.alpha = 1f;
         }
 
         public Coroutine FadeOut(float fadeTime)
@@ -28,34 +33,24 @@ namespace RPG.SceneManagement
             return Fade(0, fadeTime);
         }
 
-        /// <summary>
-        /// Stop currentActive Fade Coroutine and set a new one
-        /// </summary>
-        /// <param name="target"></param>
-        /// <param name="fadeTime"></param>
-        /// <returns></returns>
-        private Coroutine Fade(float target, float fadeTime)
+        private Coroutine Fade(float targetGroupAlpha, float fadeTime)
         {
-            if (currentActiveFade != null)
+            if (_currentActiveFade != null)
             {
-                StopCoroutine(currentActiveFade);
+                StopCoroutine(_currentActiveFade);
             }
 
-            currentActiveFade = StartCoroutine(FadeRoutine(target, fadeTime));
-            return currentActiveFade;
+            _currentActiveFade = StartCoroutine(FadingCoroutine(targetGroupAlpha, fadeTime));
+
+            return _currentActiveFade;
         }
 
-        /// <summary>
-        /// Set canvasGroup.alpha move to target by fadeTime
-        /// </summary>
-        /// <param name="target"></param>
-        /// <param name="fadeTime"></param>
-        /// <returns></returns>
-        private IEnumerator FadeRoutine(float target, float fadeTime)
+        private IEnumerator FadingCoroutine(float targetGroupAlpha, float fadeTime)
         {
-            while (!Mathf.Approximately(canvasGroup.alpha, target))
+            while (!Mathf.Approximately(_canvasGroup.alpha, targetGroupAlpha))
             {
-                canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, target, Time.unscaledTime / fadeTime);
+                _canvasGroup.alpha = Mathf.MoveTowards(_canvasGroup.alpha, targetGroupAlpha, Time.unscaledTime / fadeTime);
+
                 yield return null;
             }
         }
