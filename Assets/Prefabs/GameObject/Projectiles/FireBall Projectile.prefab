@@ -69,14 +69,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccd8e5cb2a012747ad60fd0b8931eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flyingSpeed: 8
-  isChasingProjectTile: 1
-  hitEffect: {fileID: 180128, guid: 6586ff0f14125534cae2f5d8f04b7871, type: 3}
-  destroyOnHit:
+  _isChasingProjectTile: 1
+  _flyingSpeed: 10
+  _lifeAfterImpact: 1
+  _maxLifeTime: 3
+  _hitEffect: {fileID: 191186, guid: 079954accd64b32419ec069129c81273, type: 3}
+  _destroyOnHitObjects:
   - {fileID: 3325622608054227449}
   - {fileID: 3826131047286996357}
-  lifeAfterImpact: 0.2
-  maxLifeTime: 5
   OnHit:
     m_PersistentCalls:
       m_Calls:

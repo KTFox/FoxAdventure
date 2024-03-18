@@ -1737,10 +1737,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5439b7712cb7bce4b887af7805b61616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _idleColor: {r: 0, g: 0, b: 0, a: 0}
-  _hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  _activeColor: {r: 0, g: 0, b: 0, a: 0}
-  _tabsToSwap: []
+  _idleColor: {r: 0.18867922, g: 0.16108933, b: 0.16108933, a: 1}
+  _hoverColor: {r: 0.2830189, g: 0.21493416, b: 0.21493416, a: 1}
+  _activeColor: {r: 0.4056604, g: 0.26214847, b: 0.26214847, a: 1}
+  _tabsToSwap:
+  - {fileID: 64416587127494105}
+  - {fileID: 5057212803858739006}
 --- !u!1 &4014483849474418533
 GameObject:
   m_ObjectHideFlags: 0
@@ -5615,6 +5617,10 @@ PrefabInstance:
       propertyPath: index
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8805484821718956145, guid: 94c1db31a1b194548a5bb519d656d489, type: 3}
+      propertyPath: _slotIndex
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8383,6 +8389,10 @@ PrefabInstance:
       propertyPath: index
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8805484821718956145, guid: 94c1db31a1b194548a5bb519d656d489, type: 3}
+      propertyPath: _slotIndex
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9807,6 +9817,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8805484821718956145, guid: 94c1db31a1b194548a5bb519d656d489, type: 3}
       propertyPath: index
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8805484821718956145, guid: 94c1db31a1b194548a5bb519d656d489, type: 3}
+      propertyPath: _slotIndex
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

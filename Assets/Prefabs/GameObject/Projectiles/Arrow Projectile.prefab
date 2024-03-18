@@ -55,8 +55,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.1, y: 0.1, z: 0.68264097}
-  m_Center: {x: 0, y: 0, z: 0.34132048}
+  m_Size: {x: 0.1, y: 0.1, z: 0.4}
+  m_Center: {x: 0, y: 0, z: 0.2}
 --- !u!114 &7889304657907939108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,12 +69,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccd8e5cb2a012747ad60fd0b8931eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flyingSpeed: 20
-  isChasingProjectTile: 1
-  hitEffect: {fileID: 120410, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
-  destroyOnHit: []
-  lifeAfterImpact: 0.2
-  maxLifeTime: 5
+  _isChasingProjectTile: 1
+  _flyingSpeed: 0
+  _lifeAfterImpact: 0
+  _maxLifeTime: 0
+  _hitEffect: {fileID: 0}
+  _destroyOnHitObjects: []
   OnHit:
     m_PersistentCalls:
       m_Calls:

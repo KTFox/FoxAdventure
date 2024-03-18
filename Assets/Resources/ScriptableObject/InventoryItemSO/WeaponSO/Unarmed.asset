@@ -21,7 +21,7 @@ MonoBehaviour:
   _price: 0
   _itemCategory: 0
   _allowedEquipLocation: 3
-  _weaponToAttach: {fileID: 0}
+  _weaponToAttach: {fileID: 1238587318507207985, guid: 76ce8bc272a828d429d3479cbbdc366f, type: 3}
   _projectile: {fileID: 0}
   _animatorOverrideController: {fileID: 0}
   _isRightHandWeapon: 0

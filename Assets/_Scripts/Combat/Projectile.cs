@@ -29,7 +29,7 @@ namespace RPG.Combat
         // Events
 
         [SerializeField]
-        private UnityEvent Hit;
+        private UnityEvent OnHit;
 
 
         // Methods
@@ -51,7 +51,7 @@ namespace RPG.Combat
 
         private void OnTriggerEnter(Collider collision)
         {
-            // Check when to trigger Hit Effects
+            // Check when to trigger OnHit Effects
             var targetHealth = collision.GetComponent<Health>();
 
             if (_targetHealth != null && targetHealth != _targetHealth) return;
@@ -117,7 +117,7 @@ namespace RPG.Combat
 
         private void OhHit()
         {
-            Hit?.Invoke();
+            OnHit?.Invoke();
             _flyingSpeed = 0f;
         }
     }

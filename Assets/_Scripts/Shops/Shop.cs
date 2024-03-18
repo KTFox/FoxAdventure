@@ -21,6 +21,7 @@ namespace RPG.Shops
             [Range(0, 100)]
             public float buyingDiscountPercentage;
 
+            [Range(1,100)]
             public int levelToUnlock = 1;
         }
 

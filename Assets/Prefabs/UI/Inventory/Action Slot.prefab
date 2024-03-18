@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5382cbd7438e104f9de13dbfd7e365d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipPrefab: {fileID: 550562606887424610, guid: 2686acf824ee6ae4b8c4d403596eeea9, type: 3}
+  _tooltipPrefab: {fileID: 550562606887424610, guid: 2686acf824ee6ae4b8c4d403596eeea9, type: 3}
 --- !u!114 &8805484821718956145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,8 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ebc541adfd79094c906876acd6a7f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 7712988644661439419}
-  index: 0
+  _inventoryItemIcon: {fileID: 7712988644661439419}
+  _slotIndex: 0
   cooldownVisual: {fileID: 3934519606229545693}
 --- !u!1 &5029975742937658901
 GameObject:
@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 1668158119948299374}
   - component: {fileID: 4606350275647592359}
   - component: {fileID: 3934519606229545693}
+  - component: {fileID: 2144329321004743889}
   m_Layer: 0
   m_Name: Cooldown Visual
   m_TagString: Untagged
@@ -316,6 +317,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &2144329321004743889
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374966736353188869}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &7286874914740599501
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,8 +444,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9414996598f7474ca2bff41da35e6b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemQuantityTextContainer: {fileID: 7528726654672118113}
-  itemQuantityText: {fileID: 4919840162356768038}
+  _itemQuantityTextContainer: {fileID: 7528726654672118113}
+  _itemQuantityText: {fileID: 4919840162356768038}
 --- !u!1 &7528726654672118113
 GameObject:
   m_ObjectHideFlags: 0
