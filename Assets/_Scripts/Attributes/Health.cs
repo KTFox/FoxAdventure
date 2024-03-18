@@ -25,10 +25,10 @@ namespace RPG.Attributes
 
         // Events
 
-        public UnityEvent Death;
+        public UnityEvent OnDeath;
 
         [SerializeField]
-        private UnityEvent<float> TakingDamage;
+        private UnityEvent<float> OnTakingDamage;
 
 
         // Methods
@@ -70,11 +70,11 @@ namespace RPG.Attributes
             if (IsDead)
             {
                 AwardExperience(instigator);
-                Death?.Invoke();
+                OnDeath?.Invoke();
             }
             else
             {
-                TakingDamage?.Invoke(damage);
+                OnTakingDamage?.Invoke(damage);
             }
 
             UpdateState();

@@ -34,12 +34,12 @@ namespace RPG.Stats
         {
             BuildLookupTable();
 
-            float[] levels = _lookupTable[characterClass][stat];
-
             if (!_lookupTable[characterClass].ContainsKey(stat))
             {
                 return 0;
             }
+
+            float[] levels = _lookupTable[characterClass][stat];
 
             if (levels.Length == 0)
             {

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7817f176475dbad43ba7a27ada64ae63, type: 3}
   m_Name: Fire Ball Directional Spawn Projectile Effect
   m_EditorClassIdentifier: 
-  projectileToSpawn: {fileID: 7889304657907939108, guid: 208a193fa2168a4499fad037c04078b5, type: 3}
-  damage: 20
-  isRightHand: 0
-  useTargetPoint: 1
+  _projectileToSpawn: {fileID: 7889304657907939108, guid: 208a193fa2168a4499fad037c04078b5, type: 3}
+  _damage: 20
+  _isRightHand: 0
+  _useTargetPoint: 1

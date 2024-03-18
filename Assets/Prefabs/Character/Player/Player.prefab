@@ -141,6 +141,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7128718470566842638, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: _shouldUseModifier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128718470566842638, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       propertyPath: levelupParticleEffect
       value: 
       objectReference: {fileID: 6964394230416901256, guid: 7167d2e5288c9824089d6b9a57aecf7c, type: 3}
@@ -173,6 +177,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 69dde7e5d74ced440a6acfe3dd509b16, type: 2}
     - target: {fileID: 8380802605935938911, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: _defaultWeaponSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 69dde7e5d74ced440a6acfe3dd509b16, type: 2}
+    - target: {fileID: 8380802605935938911, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       propertyPath: defaultWeaponName
       value: ScriptableObject/Unarmed
       objectReference: {fileID: 0}
@@ -182,6 +190,14 @@ PrefabInstance:
       objectReference: {fileID: 3830110662817723759}
     - target: {fileID: 8380802605935938911, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       propertyPath: rightHandTransform
+      value: 
+      objectReference: {fileID: 3830110662817649927}
+    - target: {fileID: 8380802605935938911, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: _lefttHandTransform
+      value: 
+      objectReference: {fileID: 3830110662817723759}
+    - target: {fileID: 8380802605935938911, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: _rightHandTransform
       value: 
       objectReference: {fileID: 3830110662817649927}
     - target: {fileID: 8380802605935938911, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
@@ -270,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa7f9a6e737a1c40acc9f26e9d88302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorMappings:
+  _cursorMappings:
   - cursorType: 0
     texture: {fileID: 2800000, guid: 21628736160fcc9488493401da3ef621, type: 3}
     hotspot: {x: 0, y: 0}
@@ -284,7 +300,7 @@ MonoBehaviour:
     texture: {fileID: 2800000, guid: f8c873f1e53e83f4aabf342d6be1dfc3, type: 3}
     hotspot: {x: 0, y: 0}
   - cursorType: 4
-    texture: {fileID: 2800000, guid: a2e17fe4fd24da348aa43901f817958f, type: 3}
+    texture: {fileID: 2800000, guid: 21628736160fcc9488493401da3ef621, type: 3}
     hotspot: {x: 0, y: 0}
   - cursorType: 5
     texture: {fileID: 2800000, guid: 2d18e23e3ce249b4489b8bcdd02d3f48, type: 3}
@@ -317,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b3da190056f579428556e583127adf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySize: 4
+  _inventorySize: 4
 --- !u!114 &7192144258419061643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fc269b03a0e99345ae5f1787fca9bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingBalance: 50
+  _startingBalance: 50
 --- !u!114 &1486956417512673575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,8 +359,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b95f3c3e50cc5b84483292fc5a4a6511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scatterDistance: 1
-  dropLibrary: {fileID: 0}
+  _scatterDistance: 1
+  _dropLibrary: {fileID: 0}
 --- !u!114 &659033012444164166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,25 +385,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b961188cc7dd944848a1aa549a8e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bonusConfig:
+  _traitBonuses:
   - trait: 0
     stat: 3
-    additiveBonusPerPoint: 10
+    additiveBonusPerPoint: 5
+    percentageBonusPerPoint: 0
+  - trait: 0
+    stat: 0
+    additiveBonusPerPoint: 20
     percentageBonusPerPoint: 0
   - trait: 1
     stat: 0
-    additiveBonusPerPoint: 10
+    additiveBonusPerPoint: 20
     percentageBonusPerPoint: 0
   - trait: 1
     stat: 1
-    additiveBonusPerPoint: 10
+    additiveBonusPerPoint: 20
     percentageBonusPerPoint: 0
   - trait: 1
     stat: 2
-    additiveBonusPerPoint: 1
+    additiveBonusPerPoint: 2
     percentageBonusPerPoint: 0
   - trait: 2
-    stat: 2
+    stat: 4
     additiveBonusPerPoint: 2
     percentageBonusPerPoint: 0
 --- !u!114 &6074582957176983012
@@ -438,7 +458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cc9c1e952afe3540a38cab9fe30aeaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPosition: {fileID: 0}
-  fadeTime: 2
-  fadeDelay: 2
-  healthRegeneratePercentage: 30
+  _reSpawnTrasform: {fileID: 0}
+  _fadeTime: 2
+  _fadeDelay: 2
+  _playerHealthRegeneratePercentage: 30
+  _enemyHealthRegeneratePercentage: 30

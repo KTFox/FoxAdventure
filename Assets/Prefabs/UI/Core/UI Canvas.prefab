@@ -133,12 +133,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75916da2b0f97ac4ca6f996a02993211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopName: {fileID: 408092437261717997}
-  rowUIListRoot: {fileID: 2917668453054851006}
-  rowUIPrefab: {fileID: 2635936523562321066, guid: 568a3fa886cce5749b9472d10e35dc65, type: 3}
-  totalText: {fileID: 5925866942457341611}
-  switchModeButton: {fileID: 6581989649775428641}
-  confirmButton: {fileID: 7416707344527774927}
+  _shopNameText: {fileID: 408092437261717997}
+  _rowUIRoot: {fileID: 2917668453054851006}
+  _rowUIPrefab: {fileID: 2635936523562321066, guid: 568a3fa886cce5749b9472d10e35dc65, type: 3}
+  _totalText: {fileID: 5925866942457341611}
+  _switchModeButton: {fileID: 6581989649775428641}
+  _confirmButton: {fileID: 7416707344527774927}
 --- !u!1 &335905785925617018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1737,12 +1737,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5439b7712cb7bce4b887af7805b61616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tabIdle: {r: 0.3529412, g: 0.25882354, b: 0.22352943, a: 1}
-  tabHover: {r: 0.2830189, g: 0.21408461, b: 0.18823425, a: 1}
-  tabActive: {r: 0.16981131, g: 0.14312811, b: 0.13697045, a: 1}
-  tabsToSwap:
-  - {fileID: 64416587127494105}
-  - {fileID: 5057212803858739006}
+  _idleColor: {r: 0, g: 0, b: 0, a: 0}
+  _hoverColor: {r: 0, g: 0, b: 0, a: 0}
+  _activeColor: {r: 0, g: 0, b: 0, a: 0}
+  _tabsToSwap: []
 --- !u!1 &4014483849474418533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,8 +1949,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a639a462c114b7428b96690494ff92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availableTraitText: {fileID: 3274345311152814846}
-  confirmButton: {fileID: 6258138946185782782}
+  _availableTraitsText: {fileID: 3274345311152814846}
+  _confirmButton: {fileID: 6258138946185782782}
 --- !u!1 &5238417219140272416
 GameObject:
   m_ObjectHideFlags: 0
@@ -2292,7 +2290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 378e47881286f3b4fb1ca5ced973cf8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  balanceAmount: {fileID: 6179391693314515738}
+  _balanceText: {fileID: 6179391693314515738}
 --- !u!1 &5970655741940219070
 GameObject:
   m_ObjectHideFlags: 0
@@ -4153,7 +4151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1b85f27ac24aa4c8b1ef9d30bdcbd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  category: 0
+  _itemCategory: 0
 --- !u!1001 &1301942583537225758
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4268,6 +4266,10 @@ PrefabInstance:
       propertyPath: equipLocation
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: _equipLocation
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6480972321850690205, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Name
       value: Shield Slot
@@ -4380,6 +4382,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1214268696742110611, guid: 6bf9d608940e764499164795871bda1b, type: 3}
       propertyPath: trait
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1214268696742110611, guid: 6bf9d608940e764499164795871bda1b, type: 3}
+      propertyPath: _trait
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2420704309327629138, guid: 6bf9d608940e764499164795871bda1b, type: 3}
@@ -5362,7 +5368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1b85f27ac24aa4c8b1ef9d30bdcbd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  category: 1
+  _itemCategory: 0
 --- !u!224 &7491105523215409525 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8670681518861339049, guid: 8e28097954909e6448efb746abba90ce, type: 3}
@@ -6006,7 +6012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d30ce97bb7211c4b951b59b17c805f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySlotPrefab: {fileID: 4959906407328014107, guid: 2ed971d6f4885fc42a4c93631e663686, type: 3}
+  _inventorySlotUIPrefab: {fileID: 4959906407328014107, guid: 2ed971d6f4885fc42a4c93631e663686, type: 3}
 --- !u!224 &2460010767790422717 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 936762538086348788, guid: 637aca0a0258f1345b2f31d05a842f0e, type: 3}
@@ -6641,7 +6647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1b85f27ac24aa4c8b1ef9d30bdcbd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  category: 2
+  _itemCategory: 0
 --- !u!224 &5695494559055634173 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8670681518861339049, guid: 8e28097954909e6448efb746abba90ce, type: 3}
@@ -6759,6 +6765,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: equipLocation
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: _equipLocation
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6480972321850690205, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
@@ -6995,6 +7005,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: equipLocation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: _equipLocation
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6480972321850690205, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
@@ -7341,6 +7355,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: equipLocation
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: _equipLocation
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6480972321850690205, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
@@ -8167,6 +8185,10 @@ PrefabInstance:
       propertyPath: equipLocation
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: _equipLocation
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6480972321850690205, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Name
       value: Necklace Slot
@@ -8615,6 +8637,10 @@ PrefabInstance:
       propertyPath: equipLocation
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: _equipLocation
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6480972321850690205, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: m_Name
       value: Trousers Slot
@@ -8727,6 +8753,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1214268696742110611, guid: 6bf9d608940e764499164795871bda1b, type: 3}
       propertyPath: trait
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1214268696742110611, guid: 6bf9d608940e764499164795871bda1b, type: 3}
+      propertyPath: _trait
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2420704309327629138, guid: 6bf9d608940e764499164795871bda1b, type: 3}
@@ -9579,6 +9609,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
       propertyPath: equipLocation
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5386104506602932071, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
+      propertyPath: _equipLocation
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6480972321850690205, guid: 44d88071bbaf60e498c02c088605c9df, type: 3}
@@ -10488,7 +10522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1b85f27ac24aa4c8b1ef9d30bdcbd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  category: 3
+  _itemCategory: 0
 --- !u!1001 &9194418750279805218
 PrefabInstance:
   m_ObjectHideFlags: 0

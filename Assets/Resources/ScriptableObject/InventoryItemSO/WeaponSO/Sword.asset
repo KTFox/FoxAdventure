@@ -18,13 +18,13 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: d19901b0ee3c38743a7d383bd484b0b5, type: 3}
   pickup: {fileID: 5645910293267560492, guid: b9dc600370de7be40b0b10ae98c218d5, type: 3}
   _stackable: 0
-  _price: 15
+  _price: 30
   _itemCategory: 1
   _allowedEquipLocation: 3
-  equippedPrefab: {fileID: 1238587318507207985, guid: e360c564b310f544da29ffdc3ac1f8db, type: 3}
-  projectile: {fileID: 0}
-  animatorOverrideController: {fileID: 22100000, guid: d68143d433ec79b4cb8470f72fab0f5d, type: 2}
-  rightHandWeapon: 1
+  _weaponToAttach: {fileID: 1238587318507207985, guid: e360c564b310f544da29ffdc3ac1f8db, type: 3}
+  _projectile: {fileID: 0}
+  _animatorOverrideController: {fileID: 22100000, guid: d68143d433ec79b4cb8470f72fab0f5d, type: 2}
+  _isRightHandWeapon: 0
   _weaponRange: 1
-  _weaponDamage: 10
-  _percentageBonus: 0
+  _additiveDamage: 3
+  _percentageDamage: 0

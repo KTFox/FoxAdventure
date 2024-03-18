@@ -21,7 +21,7 @@ MonoBehaviour:
   _price: 20
   _itemCategory: 2
   _allowedEquipLocation: 5
-  additiveModifiers:
+  _additiveModifiers:
   - stat: 4
     value: 3
-  percentageModifiers: []
+  _percentageModifiers: []

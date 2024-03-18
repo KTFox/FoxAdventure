@@ -53,7 +53,10 @@ namespace RPG.Combat
 
         private void Start()
         {
-            _equipment.OnEquipmentUpdated += Equipment_EquipmentUpdated;
+            if (_equipment != null)
+            {
+                _equipment.OnEquipmentUpdated += Equipment_EquipmentUpdated;
+            }
         }
 
         void Equipment_EquipmentUpdated()

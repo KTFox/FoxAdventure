@@ -22,6 +22,7 @@ namespace RPG.Abilities
         void OperateCooldownTimers()
         {
             var keys = new List<InventoryItemSO>(_cooldownTimers.Keys);
+
             foreach (var ability in keys)
             {
                 _cooldownTimers[ability] -= Time.deltaTime;
@@ -52,7 +53,7 @@ namespace RPG.Abilities
 
         public float GetFractionTime(InventoryItemSO ability)
         {
-            if (!_cooldownTimers.ContainsKey(ability))
+            if (ability == null || !_cooldownTimers.ContainsKey(ability))
             {
                 return 0;
             }

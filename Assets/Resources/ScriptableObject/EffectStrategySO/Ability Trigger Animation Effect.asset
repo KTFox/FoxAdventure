@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72baa3086e7282c45a7677e186526119, type: 3}
   m_Name: Ability Trigger Animation Effect
   m_EditorClassIdentifier: 
-  animationParameter: ability1
+  _triggerParameter: ability1

@@ -114,8 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9414996598f7474ca2bff41da35e6b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemQuantityTextContainer: {fileID: 0}
-  itemQuantityText: {fileID: 0}
+  _itemQuantityTextContainer: {fileID: 0}
+  _itemQuantityText: {fileID: 0}
 --- !u!1 &6480972321850690205
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5382cbd7438e104f9de13dbfd7e365d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipPrefab: {fileID: 550562606887424610, guid: 2686acf824ee6ae4b8c4d403596eeea9, type: 3}
+  _tooltipPrefab: {fileID: 550562606887424610, guid: 2686acf824ee6ae4b8c4d403596eeea9, type: 3}
 --- !u!114 &5386104506602932071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,5 +219,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03cf34a27a5adfd46aee98343d9c7b4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 1943470531365001083}
-  equipLocation: 0
+  _inventoryItemIcon: {fileID: 1943470531365001083}
+  _equipLocation: 0

@@ -32,9 +32,9 @@ namespace RPG.Inventories
         #region Unity events
         public void RandomDrop()
         {
-            BaseStats stat = GetComponent<BaseStats>();
+            var baseStats = GetComponent<BaseStats>();
+            var drops = _dropLibrary.GetRandomDrops(baseStats.CurrentLevel);
 
-            var drops = _dropLibrary.GetRandomDrops(stat.CurrentLevel);
             foreach(var drop in drops)
             {
                 DropItem(drop.item, drop.number);

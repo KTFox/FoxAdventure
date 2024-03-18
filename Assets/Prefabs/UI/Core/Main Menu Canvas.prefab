@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c714695f3b6bd7744aefa4379e93b1c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entryPoint: {fileID: 1831498074793175080}
+  _entryUI: {fileID: 1831498074793175080}
 --- !u!1 &1242717032234662360
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f8c32e4d790e8541959e0253a611bd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputField: {fileID: 510430400072213979}
+  _inputField: {fileID: 510430400072213979}
 --- !u!1 &3733015423813050234
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33d3cfa691cefa145b3efb096a35be05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistentObjectPrefab: {fileID: 4174991290101052567, guid: de57bafd92dc2e440bf5fb44107cfa70, type: 3}
+  _persistentObjectPrefab: {fileID: 4174991290101052567, guid: de57bafd92dc2e440bf5fb44107cfa70, type: 3}
 --- !u!1 &4553029475228643143
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,8 +784,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0352df016f5336448e41e87c99cbe01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rootTransform: {fileID: 4897332767526177074}
-  buttonPrefab: {fileID: 9184553925748587061, guid: dae23a80245b68a43a69ede422da9bef, type: 3}
+  _rootTransform: {fileID: 4897332767526177074}
+  _buttonPrefab: {fileID: 9184553925748587061, guid: dae23a80245b68a43a69ede422da9bef, type: 3}
 --- !u!1 &6734581928634925922
 GameObject:
   m_ObjectHideFlags: 0

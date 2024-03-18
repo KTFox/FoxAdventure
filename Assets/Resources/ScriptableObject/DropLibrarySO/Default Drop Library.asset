@@ -12,24 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317d05483bad1a545bb70987693c4ffd, type: 3}
   m_Name: Default Drop Library
   m_EditorClassIdentifier: 
-  potentialDrops:
-  - item: {fileID: 11400000, guid: 58b0cdc7a57dbca4daede40c7486fb72, type: 2}
+  _dropConfigs:
+  - item: {fileID: 11400000, guid: 41c067020e2f53a42907240ddb1936f3, type: 2}
     relativeChances:
-    - 5
-    - 5
-    - 5
-    minNumbers: 010000000100000001000000
-    maxNumbers: 020000000200000002000000
-  - item: {fileID: 11400000, guid: 623a4464cd1340245b8308452e39d4fd, type: 2}
-    relativeChances:
-    - 5
-    - 5
-    - 5
-    minNumbers: 010000000100000001000000
-    maxNumbers: 020000000200000002000000
-  dropChancePercentage:
+    - 1
+    - 1
+    - 1
+    minNumbers: 0a000000140000001e000000
+    maxNumbers: 140000001e00000028000000
+  _dropChancePercentage:
   - 50
-  - 75
+  - 80
   - 100
-  minDropsQuantity: 010000000100000001000000
-  maxDropsQuantity: 020000000200000002000000
+  _minDropQuantity: 010000000100000001000000
+  _maxDropQuantity: 010000000100000001000000

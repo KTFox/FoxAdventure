@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bcb7a9471c8a4542bb36e0fbf1274d4, type: 3}
   m_Name: Fire Ball Direcional Targeting
   m_EditorClassIdentifier: 
-  layerMask:
+  _affectedLayerMask:
     serializedVersion: 2
     m_Bits: 1024
-  groundOffset: 1
+  _groundOffset: 1

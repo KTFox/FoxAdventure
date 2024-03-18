@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 119191e37efcc324e8ab2bd0a006c187, type: 3}
   m_Name: Fire Ball Directional Delay Effect
   m_EditorClassIdentifier: 
-  delayedEffects:
-  - {fileID: 11400000, guid: e6c80f33dd213cc44b50cdae69fe0d95, type: 2}
+  _delayedEffects:
   - {fileID: 11400000, guid: efc730b5acbe0cc47ad40397750cde92, type: 2}
-  delayTime: 0.5
-  abortIfCancelled: 0
+  _delayTime: 0.5
+  _canBeCancelled: 1

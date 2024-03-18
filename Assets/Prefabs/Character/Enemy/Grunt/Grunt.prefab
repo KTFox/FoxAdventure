@@ -53,6 +53,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7504729743165209295, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
+      propertyPath: _defaultWeaponSO
+      value: 
+      objectReference: {fileID: 11400000, guid: b5982aa8156c4384bad277710bd7e48e, type: 2}
+    - target: {fileID: 7504729743165209295, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
       propertyPath: lefttHandTransform
       value: 
       objectReference: {fileID: 7355386367350599969}
@@ -60,15 +64,27 @@ PrefabInstance:
       propertyPath: rightHandTransform
       value: 
       objectReference: {fileID: 7355386367350657315}
+    - target: {fileID: 7504729743165209295, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
+      propertyPath: _lefttHandTransform
+      value: 
+      objectReference: {fileID: 7355386367350599969}
+    - target: {fileID: 7504729743165209295, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
+      propertyPath: _rightHandTransform
+      value: 
+      objectReference: {fileID: 7355386367350657315}
     - target: {fileID: 8232666371657700237, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
       propertyPath: numberOfDrops
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9117251351166215838, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
+      propertyPath: _characterClass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5422913865980319978, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
-      insertIndex: -1
+      insertIndex: 0
       addedObject: {fileID: 7355386367350667605}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f91155b28ed446e4899eec7bda66a103, type: 3}

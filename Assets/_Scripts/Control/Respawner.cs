@@ -30,7 +30,7 @@ namespace RPG.Control
         private void Awake()
         {
             _playerHealth = GetComponent<Health>();
-            _playerHealth.Death.AddListener(Health_Death);
+            _playerHealth.OnDeath.AddListener(Health_Death);
         }
 
         private void Start()

@@ -11,14 +11,14 @@ namespace RPG.UI
 
         [SerializeField]
         private TMP_InputField _inputField;
-        private LazyValue<SavingWrapper> savingWrapper;
+        private LazyValue<SavingWrapper> _savingWrapper;
 
 
         // Methods
 
         private void Awake()
         {
-            savingWrapper = new LazyValue<SavingWrapper>(GetSavingWrapper);
+            _savingWrapper = new LazyValue<SavingWrapper>(GetSavingWrapper);
         }
 
         private SavingWrapper GetSavingWrapper()
@@ -29,12 +29,12 @@ namespace RPG.UI
         #region Unity events
         public void ContinueGame()
         {
-            savingWrapper.Value.ContinueGame();
+            _savingWrapper.Value.ContinueGame();
         }
 
         public void NewGame()
         {
-            savingWrapper.Value.CreateNewGame(_inputField.text);
+            _savingWrapper.Value.CreateNewGame(_inputField.text);
         }
 
         public void Quit()

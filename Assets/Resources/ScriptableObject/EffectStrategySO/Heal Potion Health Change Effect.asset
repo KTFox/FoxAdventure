@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce35c45f806070b469baf2d13c1cf2ee, type: 3}
   m_Name: Heal Potion Health Change Effect
   m_EditorClassIdentifier: 
-  healthChange: 20
+  _healthChange: 50

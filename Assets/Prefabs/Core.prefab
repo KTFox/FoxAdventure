@@ -390,7 +390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 375990276326120326}
   m_Layer: 0
-  m_Name: RespawnPosition
+  m_Name: Respawn Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461,7 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33d3cfa691cefa145b3efb096a35be05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistentObjectPrefab: {fileID: 4174991290101052567, guid: de57bafd92dc2e440bf5fb44107cfa70, type: 3}
+  _persistentObjectPrefab: {fileID: 4174991290101052567, guid: de57bafd92dc2e440bf5fb44107cfa70, type: 3}
 --- !u!1 &8882212004068011362
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +677,10 @@ PrefabInstance:
       objectReference: {fileID: 375990276326120326}
     - target: {fileID: 5763424427908578512, guid: 41b16aea4baa74344b6823804c2359dc, type: 3}
       propertyPath: reSpawnPosition
+      value: 
+      objectReference: {fileID: 375990276326120326}
+    - target: {fileID: 5763424427908578512, guid: 41b16aea4baa74344b6823804c2359dc, type: 3}
+      propertyPath: _reSpawnTrasform
       value: 
       objectReference: {fileID: 375990276326120326}
     m_RemovedComponents: []

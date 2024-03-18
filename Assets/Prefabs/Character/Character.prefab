@@ -205,11 +205,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abf431eb0b24e643aece3cd6fb07828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progressionSO: {fileID: 11400000, guid: 2130b7bb60d23c34592bea2d18200d13, type: 2}
-  characterClass: 1
-  startLevel: 2
-  shouldUseModifier: 0
-  levelupParticleEffect: {fileID: 0}
+  _progressionSO: {fileID: 11400000, guid: 2130b7bb60d23c34592bea2d18200d13, type: 2}
+  _characterClass: 0
+  _startLevel: 1
+  _shouldUseModifier: 0
+  _levelupParticleEffect: {fileID: 180128, guid: 6586ff0f14125534cae2f5d8f04b7871, type: 3}
 --- !u!114 &1798984306716900888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,8 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dce9704054d34c4990d4acdbee31abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 0
-  maxNavPathLength: 20
+  _maxSpeed: 3
+  _maxNavPathLength: 20
 --- !u!114 &8380802605935938911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,10 +248,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d41ef25658242ff49b7daa48e2d15be7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenAttacks: 2
-  defaultWeaponSO: {fileID: 11400000, guid: 69dde7e5d74ced440a6acfe3dd509b16, type: 2}
-  rightHandTransform: {fileID: 0}
-  lefttHandTransform: {fileID: 0}
+  _attackSpeed: 3
+  _defaultWeaponSO: {fileID: 0}
+  _rightHandTransform: {fileID: 0}
+  _lefttHandTransform: {fileID: 0}
+  _autoAttackRange: 4
 --- !u!114 &5257418737176178497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,40 +265,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b2a03bfb90f514abf4dcbffce0fd5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnTakeDamage:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7440252857587444542}
-        m_TargetAssemblyTypeName: RPG.UI.DamageText.DamageTextSpawner, Assembly-CSharp
-        m_MethodName: SpawnDamageText
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 6641315180710825090}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDie:
+  OnDeath:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2776685029795334442}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: Play
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnTakingDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7440252857587444542}
+        m_TargetAssemblyTypeName: RPG.UI.DamageText.DamageTextSpawner, Assembly-CSharp
+        m_MethodName: SpawnDamageText
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

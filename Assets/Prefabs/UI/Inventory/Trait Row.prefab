@@ -88,10 +88,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2070c38fbadf22841933de3edcce8728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trait: 0
-  traitValue: {fileID: 2183694193942864103}
-  minusButton: {fileID: 6447381468699619268}
-  plusButton: {fileID: 5978829367713868832}
+  _trait: 0
+  _traitValueText: {fileID: 2183694193942864103}
+  _minusButton: {fileID: 6447381468699619268}
+  _plusButton: {fileID: 5978829367713868832}
 --- !u!1 &4413680822353417600
 GameObject:
   m_ObjectHideFlags: 0

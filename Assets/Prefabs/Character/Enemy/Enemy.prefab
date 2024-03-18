@@ -236,9 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aa2e835f4355964e87f16bd19e361be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterHealth: {fileID: 6097497987423869137}
-  foreground: {fileID: 391721930121538077}
-  rootCanvas: {fileID: 6643199257298455798}
+  _healthComponent: {fileID: 6097497987423869137}
+  _healthVisual: {fileID: 391721930121538077}
+  _rootCanvas: {fileID: 6643199257298455798}
 --- !u!1 &8996798630717501294
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,13 +504,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9250e3176db3d4c45812331b2a7ae14c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseDistance: 4
-  aggroCooldown: 2
-  shoutDistance: 3
-  suspiciousTime: 3
-  waypointDwellTime: 1
-  patrolSpeedFraction: 0.5
-  patrolPath: {fileID: 0}
+  _chaseDistance: 5
+  _aggroCooldown: 3
+  _shoutDistance: 3
+  _suspiciousTime: 2
+  _waypointDwellTime: 1
+  _patrolSpeedFraction: 0.5
+  _patrolPath: {fileID: 0}
 --- !u!114 &8232666371657700237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,8 +523,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b95f3c3e50cc5b84483292fc5a4a6511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scatterDistance: 1
-  dropLibrary: {fileID: 11400000, guid: e3fd387c75faebd4ea1c1fb13e886a19, type: 2}
+  _scatterDistance: 1
+  _dropLibrary: {fileID: 11400000, guid: e3fd387c75faebd4ea1c1fb13e886a19, type: 2}
 --- !u!4 &5422913865980319978 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6281042690639228794, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}

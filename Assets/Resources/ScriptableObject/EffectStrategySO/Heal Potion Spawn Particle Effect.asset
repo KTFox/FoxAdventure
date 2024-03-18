@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99bc3a5c2bcaf6d4e965281c1b24e6ce, type: 3}
   m_Name: Heal Potion Spawn Particle Effect
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 4829491530746772, guid: 7098bdbdcde165049872f566c6a00e5f, type: 3}
-  timeToDestroy: -1
+  _prefabToSpawn: {fileID: 459750, guid: cd4d7020429cde74db076ffa72495419, type: 3}
+  _timeToBeDestroyed: 2

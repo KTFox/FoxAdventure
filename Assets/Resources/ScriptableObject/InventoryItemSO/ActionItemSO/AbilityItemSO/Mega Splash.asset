@@ -21,12 +21,12 @@ MonoBehaviour:
   _price: 5
   _itemCategory: 3
   _consumable: 0
-  targetingStrategy: {fileID: 11400000, guid: f4bdb847baec33d488eb9c96e98253fd, type: 2}
-  filterStrategies:
+  _targetingStrategy: {fileID: 11400000, guid: f4bdb847baec33d488eb9c96e98253fd, type: 2}
+  _filterStrategies:
   - {fileID: 11400000, guid: c72e1c1b2431a8b44a8efa43246ab8db, type: 2}
-  effectStrategies:
-  - {fileID: 11400000, guid: 3ad9ace0f9f99d04abbcb71ceb4fdca6, type: 2}
+  _effectStrategies:
   - {fileID: 11400000, guid: e6c80f33dd213cc44b50cdae69fe0d95, type: 2}
+  - {fileID: 11400000, guid: 3ad9ace0f9f99d04abbcb71ceb4fdca6, type: 2}
   - {fileID: 11400000, guid: 1ea780cd5d5144c4b91dc4ae962636be, type: 2}
-  cooldownTime: 3
-  manaCost: 20
+  _cooldownTime: 5
+  _manaCost: 20

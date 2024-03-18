@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 119191e37efcc324e8ab2bd0a006c187, type: 3}
   m_Name: Mega Fire Ball Delay Effect
   m_EditorClassIdentifier: 
-  delayedEffects:
+  _delayedEffects:
   - {fileID: 11400000, guid: cdd281008e275bf47b59f24b6f3e1025, type: 2}
-  delayTime: 0.5
-  abortIfCancelled: 0
+  _delayTime: 0.5
+  _canBeCancelled: 1

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99bc3a5c2bcaf6d4e965281c1b24e6ce, type: 3}
   m_Name: Mega Splash Spawn Prefab Effect
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 403952, guid: 6586ff0f14125534cae2f5d8f04b7871, type: 3}
-  timeToDestroy: -1
+  _prefabToSpawn: {fileID: 402300, guid: 079954accd64b32419ec069129c81273, type: 3}
+  _timeToBeDestroyed: 1

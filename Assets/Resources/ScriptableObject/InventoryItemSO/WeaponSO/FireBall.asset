@@ -21,10 +21,10 @@ MonoBehaviour:
   _price: 40
   _itemCategory: 1
   _allowedEquipLocation: 3
-  equippedPrefab: {fileID: 0}
-  projectile: {fileID: 7889304657907939108, guid: 208a193fa2168a4499fad037c04078b5, type: 3}
-  animatorOverrideController: {fileID: 22100000, guid: 995822a866b901845abbf62c4289864a, type: 2}
-  rightHandWeapon: 0
-  _weaponRange: 3
-  _weaponDamage: 20
-  _percentageBonus: 0
+  _weaponToAttach: {fileID: 0}
+  _projectile: {fileID: 7889304657907939108, guid: 208a193fa2168a4499fad037c04078b5, type: 3}
+  _animatorOverrideController: {fileID: 22100000, guid: 995822a866b901845abbf62c4289864a, type: 2}
+  _isRightHandWeapon: 0
+  _weaponRange: 5
+  _additiveDamage: 10
+  _percentageDamage: 0

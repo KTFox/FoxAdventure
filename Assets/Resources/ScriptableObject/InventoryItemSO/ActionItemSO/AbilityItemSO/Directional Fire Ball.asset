@@ -18,13 +18,14 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: a1ec2c0ddc0da634b85f0f465fec2d0d, type: 3}
   pickup: {fileID: 6118481731957384448, guid: 6a0e571d581c9fb41adda27e450a571e, type: 3}
   _stackable: 0
-  _price: 20
+  _price: 50
   _itemCategory: 3
   _consumable: 0
-  targetingStrategy: {fileID: 11400000, guid: 7b0cb32c0d18dd247a9a3ef68c304dce, type: 2}
-  filterStrategies: []
-  effectStrategies:
+  _targetingStrategy: {fileID: 11400000, guid: 7b0cb32c0d18dd247a9a3ef68c304dce, type: 2}
+  _filterStrategies: []
+  _effectStrategies:
+  - {fileID: 11400000, guid: e6c80f33dd213cc44b50cdae69fe0d95, type: 2}
   - {fileID: 11400000, guid: 3ad9ace0f9f99d04abbcb71ceb4fdca6, type: 2}
   - {fileID: 11400000, guid: cb47641b6eae26c4da9371b29b90318f, type: 2}
-  cooldownTime: 3
-  manaCost: 10
+  _cooldownTime: 5
+  _manaCost: 20
