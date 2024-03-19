@@ -11,7 +11,7 @@ namespace RPG.Inventories
 
         private class DockedItemSlot
         {
-            public ActionItemSO item;
+            public ActionItemSO actionItemSO;
             public int quantity;
         }
 
@@ -37,9 +37,9 @@ namespace RPG.Inventories
         {
             if (dockedItems.ContainsKey(slotIndex))
             {
-                bool wasUsed = dockedItems[slotIndex].item.UseActionItem(user);
+                bool wasUsed = dockedItems[slotIndex].actionItemSO.UseActionItem(user);
 
-                if (wasUsed && dockedItems[slotIndex].item.Consumable)
+                if (wasUsed && dockedItems[slotIndex].actionItemSO.Consumable)
                 {
                     RemoveActionItem(slotIndex, 1);
                 }
@@ -50,11 +50,11 @@ namespace RPG.Inventories
             return false;
         }
 
-        public void AddActionItem(InventoryItemSO item, int slotIndex, int quantity)
+        public void AddActionItem(InventoryItemSO inventoryItemSO, int slotIndex, int quantity)
         {
             if (dockedItems.ContainsKey(slotIndex))
             {
-                if (ReferenceEquals(dockedItems[slotIndex], (ActionItemSO)item))
+                if (ReferenceEquals(dockedItems[slotIndex].actionItemSO, (ActionItemSO)inventoryItemSO))
                 {
                     dockedItems[slotIndex].quantity += quantity;
                 }
@@ -62,7 +62,7 @@ namespace RPG.Inventories
             else
             {
                 var dockedItemSlot = new DockedItemSlot();
-                dockedItemSlot.item = (ActionItemSO)(item);
+                dockedItemSlot.actionItemSO = (ActionItemSO)(inventoryItemSO);
                 dockedItemSlot.quantity = quantity;
 
                 dockedItems[slotIndex] = dockedItemSlot;
@@ -90,7 +90,7 @@ namespace RPG.Inventories
         {
             if (dockedItems.ContainsKey(slotIndex))
             {
-                return dockedItems[slotIndex].item;
+                return dockedItems[slotIndex].actionItemSO;
             }
 
             return null;
@@ -132,7 +132,7 @@ namespace RPG.Inventories
                 - Two items are different => 0
             */
 
-            if (dockedItems.ContainsKey(slotIndex) && !ReferenceEquals(item, dockedItems[slotIndex].item))
+            if (dockedItems.ContainsKey(slotIndex) && !ReferenceEquals(item, dockedItems[slotIndex].actionItemSO))
             {
                 return 0;
             }
@@ -158,7 +158,7 @@ namespace RPG.Inventories
             foreach (var pair in dockedItems)
             {
                 var record = new DockedItemRecord();
-                record.itemID = pair.Value.item.ItemID;
+                record.itemID = pair.Value.actionItemSO.ItemID;
                 record.quantity = pair.Value.quantity;
 
                 state[pair.Key] = record;

@@ -208,6 +208,10 @@ PrefabInstance:
       propertyPath: maxSpeed
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8651850123553397496, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      propertyPath: _maxSpeed
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -346,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fc269b03a0e99345ae5f1787fca9bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingBalance: 500
+  _startingBalance: 50
 --- !u!114 &1486956417512673575
 MonoBehaviour:
   m_ObjectHideFlags: 0

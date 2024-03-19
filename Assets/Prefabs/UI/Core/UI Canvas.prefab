@@ -1737,9 +1737,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5439b7712cb7bce4b887af7805b61616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _idleColor: {r: 0.18867922, g: 0.16108933, b: 0.16108933, a: 1}
-  _hoverColor: {r: 0.2830189, g: 0.21493416, b: 0.21493416, a: 1}
-  _activeColor: {r: 0.4056604, g: 0.26214847, b: 0.26214847, a: 1}
+  _idleColor: {r: 0.3679245, g: 0.26900142, b: 0.26900142, a: 1}
+  _hoverColor: {r: 0.2830189, g: 0.22561412, b: 0.22561412, a: 1}
+  _activeColor: {r: 0.18823531, g: 0.16078432, b: 0.16078432, a: 1}
   _tabsToSwap:
   - {fileID: 64416587127494105}
   - {fileID: 5057212803858739006}

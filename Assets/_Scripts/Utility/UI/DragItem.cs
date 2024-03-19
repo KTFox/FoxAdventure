@@ -10,7 +10,7 @@ namespace RPG.Utility.UI
         private IDragSource<T> _source;
         private Canvas _parentCanvas;
         private Vector3 _startPosition;
-        private Transform _originalParent;
+        private Transform _originalParentTransform;
 
 
         // Methods
@@ -25,7 +25,7 @@ namespace RPG.Utility.UI
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
             _startPosition = transform.position;
-            _originalParent = transform.parent;
+            _originalParentTransform = transform.parent;
 
             GetComponent<CanvasGroup>().blocksRaycasts = false;
 
@@ -40,7 +40,7 @@ namespace RPG.Utility.UI
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
             transform.position = _startPosition;
-            transform.SetParent(_originalParent, true);
+            transform.SetParent(_originalParentTransform, true);
 
             GetComponent<CanvasGroup>().blocksRaycasts = true;
 
@@ -48,7 +48,7 @@ namespace RPG.Utility.UI
 
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                // Drop item into the world
+                // Drop actionItemSO into the world
 
                 container = _parentCanvas.GetComponent<IDragDestination<T>>();
             }
@@ -57,7 +57,7 @@ namespace RPG.Utility.UI
                 container = GetContainer(eventData);
             }
 
-            // Drop item into destination container
+            // Drop actionItemSO into destination container
             if (container != null)
             {
                 DropItemIntoContainer(container);
