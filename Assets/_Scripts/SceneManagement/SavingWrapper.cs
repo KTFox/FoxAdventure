@@ -13,7 +13,7 @@ namespace RPG.SceneManagement
         private const string CURRENT_SAVE_FILE_NAME = "CurrentSaveFileName";
 
         [SerializeField]
-        private float _fadeTime = 0.2f;
+        private float _fadeTime = 0.5f;
 
         private int _menuSceneBuildIndex = 0;
         private int _firstLevelBuildIndex = 1;
@@ -23,16 +23,7 @@ namespace RPG.SceneManagement
         public IEnumerable<string> SavedFileNames => GetComponent<SavingSystem>().GetSaveFileNames();
 
 
-
         // Methods
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                SaveData();
-            }
-        }
 
         public void LoadMenuScene()
         {
@@ -68,27 +59,26 @@ namespace RPG.SceneManagement
 
         private IEnumerator LoadLastSceneCoroutine()
         {
-            yield return GetComponent<SavingSystem>().LoadLastScene(GetCurrentSaveFileName());
-
             Fader fader = FindObjectOfType<Fader>();
-            fader.FadeOutImmediately();
 
+            yield return fader.FadeOut(_fadeTime);
+            yield return GetComponent<SavingSystem>().LoadLastScene(GetCurrentSaveFileName());
             yield return fader.FadeIn(_fadeTime);
         }
 
         private IEnumerator LoadFirstSceneCoroutine()
         {
-            yield return SceneManager.LoadSceneAsync(_firstLevelBuildIndex);
-
             Fader fader = FindObjectOfType<Fader>();
-            fader.FadeOutImmediately();
 
+            yield return fader.FadeOut(_fadeTime);
+            yield return SceneManager.LoadSceneAsync(_firstLevelBuildIndex);
             yield return fader.FadeIn(_fadeTime);
         }
 
         private IEnumerator LoadMenuSceneCoroutine()
         {
             Fader fader = FindObjectOfType<Fader>();
+
             yield return fader.FadeOut(_fadeTime);
             yield return SceneManager.LoadSceneAsync(_menuSceneBuildIndex);
             yield return fader.FadeIn(_fadeTime);

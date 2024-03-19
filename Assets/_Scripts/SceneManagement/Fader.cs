@@ -18,11 +18,6 @@ namespace RPG.SceneManagement
             _canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        public void FadeOutImmediately()
-        {
-            _canvasGroup.alpha = 1f;
-        }
-
         public Coroutine FadeOut(float fadeTime)
         {
             return Fade(1, fadeTime);
@@ -49,7 +44,7 @@ namespace RPG.SceneManagement
         {
             while (!Mathf.Approximately(_canvasGroup.alpha, targetGroupAlpha))
             {
-                _canvasGroup.alpha = Mathf.MoveTowards(_canvasGroup.alpha, targetGroupAlpha, Time.unscaledTime / fadeTime);
+                _canvasGroup.alpha = Mathf.MoveTowards(_canvasGroup.alpha, targetGroupAlpha, Time.unscaledDeltaTime / fadeTime);
 
                 yield return null;
             }
