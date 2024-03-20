@@ -6,8 +6,8 @@ namespace RPG.Dialogues
     public class DialogueNode
     {
         public string UniqueId;
-        public string DialogueText;
+        public string Text;
         public string[] ChildrenDialogues;
-        public Rect Position;
+        public Rect Rect = new Rect(0, 0, 200, 100);
     }
 }

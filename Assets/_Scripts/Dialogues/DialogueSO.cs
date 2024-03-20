@@ -14,6 +14,7 @@ namespace RPG.Dialogues
         // Properties
 
         public IEnumerable<DialogueNode> DialogueNodes => _dialogueNodes;
+        public DialogueNode RootNode => _dialogueNodes[0];
 
 
         // Methods
