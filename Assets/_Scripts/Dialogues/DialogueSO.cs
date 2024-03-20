@@ -1,13 +1,31 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Dialogues
 {
-    [CreateAssetMenu(menuName ="ScriptableObject/Dialogue")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Dialogue")]
     public class DialogueSO : ScriptableObject
     {
         // Variables
 
         [SerializeField]
-        private DialogueNode[] _dialogueNodes;
+        private List<DialogueNode> _dialogueNodes;
+
+        // Properties
+
+        public IEnumerable<DialogueNode> DialogueNodes => _dialogueNodes;
+
+
+        // Methods
+
+#if UNITY_EDITOR
+        private void Awake()
+        {
+            if (_dialogueNodes.Count == 0)
+            {
+                _dialogueNodes.Add(new DialogueNode());
+            }
+        }
+#endif
     }
 }

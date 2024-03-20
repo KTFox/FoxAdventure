@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace RPG.Dialogues
 {
     [System.Serializable]
@@ -6,5 +8,6 @@ namespace RPG.Dialogues
         public string UniqueId;
         public string DialogueText;
         public string[] ChildrenDialogues;
+        public Rect Position;
     }
 }
