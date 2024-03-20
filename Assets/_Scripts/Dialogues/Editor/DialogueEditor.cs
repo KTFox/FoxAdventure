@@ -18,6 +18,7 @@ namespace RPG.Dialogues.Editor
 
         // Methods
 
+        #region Editor Window
         [MenuItem("Window/Dialogue Editor")]
         public static void ShowDialogueEditorWindow()
         {
@@ -38,6 +39,7 @@ namespace RPG.Dialogues.Editor
 
             return false;
         }
+        #endregion
 
         private void OnEnable()
         {
@@ -64,11 +66,11 @@ namespace RPG.Dialogues.Editor
         {
             if (selectedDialogue != null)
             {
-                ProcessEvents();
+                HandleInteractionWithGUI();
 
                 foreach (DialogueNode dialogueNode in selectedDialogue.DialogueNodes)
                 {
-                    OnGUINode(dialogueNode);
+                    CreateNodeGUI(dialogueNode);
                 }
             }
             else
@@ -77,7 +79,7 @@ namespace RPG.Dialogues.Editor
             }
         }
 
-        void ProcessEvents()
+        void HandleInteractionWithGUI()
         {
             if (Event.current.type == EventType.MouseDown && beingDraggedNode == null)
             {
@@ -100,21 +102,25 @@ namespace RPG.Dialogues.Editor
             }
         }
 
-        void OnGUINode(DialogueNode dialogueNode)
+        void CreateNodeGUI(DialogueNode dialogueNode)
         {
             GUILayout.BeginArea(dialogueNode.Rect, dialogueNodeStyle);
             EditorGUI.BeginChangeCheck();
 
-            EditorGUILayout.LabelField("Nodes: ");
+            string newUniqueID = EditorGUILayout.TextField(dialogueNode.UniqueID);
             string newText = EditorGUILayout.TextField(dialogueNode.Text);
-            string newUniqueID = EditorGUILayout.TextField(dialogueNode.UniqueId);
 
             if (EditorGUI.EndChangeCheck())
             {
                 Undo.RecordObject(selectedDialogue, "Update DialogueSO");
 
                 dialogueNode.Text = newText;
-                dialogueNode.UniqueId = newUniqueID;
+                dialogueNode.UniqueID = newUniqueID;
+            }
+
+            foreach (DialogueNode childNode in selectedDialogue.GetAllChildrenNodes(dialogueNode))
+            {
+                EditorGUILayout.LabelField(childNode.Text);
             }
 
             GUILayout.EndArea();

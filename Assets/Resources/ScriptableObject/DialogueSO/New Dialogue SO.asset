@@ -13,30 +13,31 @@ MonoBehaviour:
   m_Name: New Dialogue SO
   m_EditorClassIdentifier: 
   _dialogueNodes:
-  - UniqueId: 1
+  - UniqueID: 1
     Text: Dialogue 1
-    ChildrenDialogues: []
+    ChildrenUniqueIDs:
+    - 2
     Rect:
       serializedVersion: 2
-      x: 16
-      y: 195
+      x: 210
+      y: 189
       width: 200
       height: 100
-  - UniqueId: 2
+  - UniqueID: 2
     Text: Dialogue 2
-    ChildrenDialogues: []
+    ChildrenUniqueIDs: []
     Rect:
       serializedVersion: 2
-      x: 0
-      y: 0
+      x: 465
+      y: 237
       width: 200
       height: 100
-  - UniqueId: 3
+  - UniqueID: 3
     Text: Dialogue 3
-    ChildrenDialogues: []
+    ChildrenUniqueIDs: []
     Rect:
       serializedVersion: 2
-      x: 0
-      y: 0
+      x: 721
+      y: 221
       width: 200
       height: 100
