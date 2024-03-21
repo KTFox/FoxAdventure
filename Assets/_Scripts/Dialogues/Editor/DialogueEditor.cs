@@ -23,6 +23,8 @@ namespace RPG.Dialogues.Editor
         private DialogueNode _creatingNode;
         [NonSerialized]
         private DialogueNode _deletingNode;
+        [NonSerialized]
+        private DialogueNode _linkingParentNode;
 
 
         // Methods
@@ -107,7 +109,7 @@ namespace RPG.Dialogues.Editor
             }
         }
 
-        void HandleInteraction()
+        private void HandleInteraction()
         {
             if (Event.current.type == EventType.MouseDown && _beingDraggedNode == null)
             {
@@ -130,7 +132,7 @@ namespace RPG.Dialogues.Editor
             }
         }
 
-        void DrawNode(DialogueNode dialogueNode)
+        private void DrawNode(DialogueNode dialogueNode)
         {
             GUILayout.BeginArea(dialogueNode.Rect, _dialogueNodeStyle);
             EditorGUI.BeginChangeCheck();
@@ -151,6 +153,8 @@ namespace RPG.Dialogues.Editor
                 _deletingNode = dialogueNode;
             }
 
+            DrawLinkButton(dialogueNode);
+
             if (GUILayout.Button("+"))
             {
                 _creatingNode = dialogueNode;
@@ -160,7 +164,7 @@ namespace RPG.Dialogues.Editor
             GUILayout.EndArea();
         }
 
-        void DrawConnections(DialogueNode dialogueNode)
+        private void DrawConnections(DialogueNode dialogueNode)
         {
             Vector2 startPosition = new Vector2(dialogueNode.Rect.xMax, dialogueNode.Rect.center.y);
 
@@ -191,6 +195,42 @@ namespace RPG.Dialogues.Editor
             }
 
             return foundNode;
+        }
+
+        private void DrawLinkButton(DialogueNode dialogueNode)
+        {
+            if (_linkingParentNode == null)
+            {
+                if (GUILayout.Button("link"))
+                {
+                    _linkingParentNode = dialogueNode;
+                }
+            }
+            else if (_linkingParentNode == dialogueNode)
+            {
+                if (GUILayout.Button("cancel"))
+                {
+                    _linkingParentNode = null;
+                }
+            }
+            else if (_linkingParentNode.ChildrenUniqueIDs.Contains(dialogueNode.UniqueID))
+            {
+                if (GUILayout.Button("unlink"))
+                {
+                    Undo.RecordObject(_selectedDialogue, "Remove Dialogue link");
+                    _linkingParentNode.ChildrenUniqueIDs.Remove(dialogueNode.UniqueID);
+                    _linkingParentNode = null;
+                }
+            }
+            else
+            {
+                if (GUILayout.Button("child"))
+                {
+                    Undo.RecordObject(_selectedDialogue, "Add Dialogue link");
+                    _linkingParentNode.ChildrenUniqueIDs.Add(dialogueNode.UniqueID);
+                    _linkingParentNode = null;
+                }
+            }
         }
     }
 }
