@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Xml;
+using UnityEditor;
 using UnityEngine;
 
 namespace RPG.Dialogues
@@ -10,14 +12,14 @@ namespace RPG.Dialogues
         // Variables
 
         [SerializeField]
-        private List<DialogueNode> _dialogueNodes = new List<DialogueNode>();
+        private List<DialogueNodeSO> _dialogueNodes = new List<DialogueNodeSO>();
 
-        private Dictionary<string, DialogueNode> _nodeLookup = new Dictionary<string, DialogueNode>();
+        private Dictionary<string, DialogueNodeSO> _nodeLookup = new Dictionary<string, DialogueNodeSO>();
 
         // Properties
 
-        public IEnumerable<DialogueNode> DialogueNodes => _dialogueNodes;
-        public DialogueNode RootNode => _dialogueNodes[0];
+        public IEnumerable<DialogueNodeSO> DialogueNodes => _dialogueNodes;
+        public DialogueNodeSO RootNode => _dialogueNodes[0];
 
 
         // Methods
@@ -27,10 +29,7 @@ namespace RPG.Dialogues
         {
             if (_dialogueNodes.Count == 0)
             {
-                DialogueNode rootNode = new DialogueNode();
-                rootNode.UniqueID = Guid.NewGuid().ToString();
-
-                _dialogueNodes.Add(rootNode);
+                CreateNewNode(null);
             }
         }
 
@@ -38,14 +37,14 @@ namespace RPG.Dialogues
         {
             _nodeLookup.Clear();
 
-            foreach (DialogueNode node in _dialogueNodes)
+            foreach (DialogueNodeSO node in _dialogueNodes)
             {
-                _nodeLookup[node.UniqueID] = node;
+                _nodeLookup[node.name] = node;
             }
         }
 #endif
 
-        public IEnumerable<DialogueNode> GetAllChildrenOf(DialogueNode parentNode)
+        public IEnumerable<DialogueNodeSO> GetAllChildrenOf(DialogueNodeSO parentNode)
         {
             foreach (string childID in parentNode.ChildrenUniqueIDs)
             {
@@ -56,25 +55,30 @@ namespace RPG.Dialogues
             }
         }
 
-        public void CreateNewNode(DialogueNode parentNode)
+        public void CreateNewNode(DialogueNodeSO parentNode)
         {
-            var newNode = new DialogueNode
-            {
-                UniqueID = Guid.NewGuid().ToString()
-            };
+            var newNode = CreateInstance<DialogueNodeSO>();
+            newNode.name = Guid.NewGuid().ToString();
+            Undo.RegisterCreatedObjectUndo(newNode, "Added new node");
 
-            parentNode.ChildrenUniqueIDs.Add(newNode.UniqueID);
             _dialogueNodes.Add(newNode);
+
+            if (parentNode != null)
+            {
+                parentNode.ChildrenUniqueIDs.Add(newNode.name);
+            }
+
             OnValidate();
         }
 
-        public void DeleteNode(DialogueNode nodeToDelete)
+        public void DeleteNode(DialogueNodeSO nodeToDelete)
         {
             _dialogueNodes.Remove(nodeToDelete);
+            Undo.DestroyObjectImmediate(nodeToDelete);
 
-            foreach (DialogueNode node in _dialogueNodes)
+            foreach (DialogueNodeSO node in _dialogueNodes)
             {
-                node.ChildrenUniqueIDs.Remove(nodeToDelete.UniqueID);
+                node.ChildrenUniqueIDs.Remove(nodeToDelete.name);
             }
 
             OnValidate();
