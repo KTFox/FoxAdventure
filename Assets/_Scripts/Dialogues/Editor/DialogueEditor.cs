@@ -9,11 +9,18 @@ namespace RPG.Dialogues.Editor
     {
         // Variables
 
-        private DialogueSO selectedDialogue;
-        private GUIStyle dialogueNodeStyle;
+        private DialogueSO _selectedDialogue;
 
-        private DialogueNode beingDraggedNode;
-        private Vector2 draggingOffset;
+        [NonSerialized]
+        private GUIStyle _dialogueNodeStyle;
+
+        [NonSerialized]
+        private DialogueNode _beingDraggedNode;
+        [NonSerialized]
+        private Vector2 _draggingOffset;
+
+        [NonSerialized]
+        private DialogueNode _creatingNode;
 
 
         // Methods
@@ -45,10 +52,10 @@ namespace RPG.Dialogues.Editor
         {
             Selection.selectionChanged += OnSelectionChanged;
 
-            dialogueNodeStyle = new GUIStyle();
-            dialogueNodeStyle.normal.background = EditorGUIUtility.Load("Node0") as Texture2D;
-            dialogueNodeStyle.padding = new RectOffset(10, 10, 10, 10);
-            dialogueNodeStyle.border = new RectOffset(12, 12, 12, 12);
+            _dialogueNodeStyle = new GUIStyle();
+            _dialogueNodeStyle.normal.background = EditorGUIUtility.Load("Node0") as Texture2D;
+            _dialogueNodeStyle.padding = new RectOffset(10, 10, 10, 10);
+            _dialogueNodeStyle.border = new RectOffset(12, 12, 12, 12);
         }
 
         void OnSelectionChanged()
@@ -57,20 +64,32 @@ namespace RPG.Dialogues.Editor
 
             if (newDialogue != null)
             {
-                selectedDialogue = newDialogue;
+                _selectedDialogue = newDialogue;
                 Repaint();
             }
         }
 
         private void OnGUI()
         {
-            if (selectedDialogue != null)
+            if (_selectedDialogue != null)
             {
-                HandleInteractionWithGUI();
+                HandleInteraction();
 
-                foreach (DialogueNode dialogueNode in selectedDialogue.DialogueNodes)
+                foreach (DialogueNode dialogueNode in _selectedDialogue.DialogueNodes)
                 {
-                    CreateNodeGUI(dialogueNode);
+                    DrawConnections(dialogueNode);
+                }
+
+                foreach (DialogueNode dialogueNode in _selectedDialogue.DialogueNodes)
+                {
+                    DrawNode(dialogueNode);
+                }
+
+                if (_creatingNode != null)
+                {
+                    Undo.RecordObject(_selectedDialogue, "Added Dialogue Node");
+                    _selectedDialogue.CreateNewNode(_creatingNode);
+                    _creatingNode = null;
                 }
             }
             else
@@ -79,58 +98,74 @@ namespace RPG.Dialogues.Editor
             }
         }
 
-        void HandleInteractionWithGUI()
+        void HandleInteraction()
         {
-            if (Event.current.type == EventType.MouseDown && beingDraggedNode == null)
+            if (Event.current.type == EventType.MouseDown && _beingDraggedNode == null)
             {
-                beingDraggedNode = GetNodeAtPoint(Event.current.mousePosition);
+                _beingDraggedNode = GetNodeAtPoint(Event.current.mousePosition);
 
-                if (beingDraggedNode != null)
+                if (_beingDraggedNode != null)
                 {
-                    draggingOffset = beingDraggedNode.Rect.position - Event.current.mousePosition;
+                    _draggingOffset = _beingDraggedNode.Rect.position - Event.current.mousePosition;
                 }
             }
-            else if (Event.current.type == EventType.MouseDrag && beingDraggedNode != null)
+            else if (Event.current.type == EventType.MouseDrag && _beingDraggedNode != null)
             {
-                Undo.RecordObject(selectedDialogue, "Update Node Position");
-                beingDraggedNode.Rect.position = Event.current.mousePosition + draggingOffset;
+                Undo.RecordObject(_selectedDialogue, "Update Node Position");
+                _beingDraggedNode.Rect.position = Event.current.mousePosition + _draggingOffset;
                 GUI.changed = true;
             }
-            else if (Event.current.type == EventType.MouseUp && beingDraggedNode != null)
+            else if (Event.current.type == EventType.MouseUp && _beingDraggedNode != null)
             {
-                beingDraggedNode = null;
+                _beingDraggedNode = null;
             }
         }
 
-        void CreateNodeGUI(DialogueNode dialogueNode)
+        void DrawNode(DialogueNode dialogueNode)
         {
-            GUILayout.BeginArea(dialogueNode.Rect, dialogueNodeStyle);
+            GUILayout.BeginArea(dialogueNode.Rect, _dialogueNodeStyle);
             EditorGUI.BeginChangeCheck();
 
-            string newUniqueID = EditorGUILayout.TextField(dialogueNode.UniqueID);
             string newText = EditorGUILayout.TextField(dialogueNode.Text);
 
             if (EditorGUI.EndChangeCheck())
             {
-                Undo.RecordObject(selectedDialogue, "Update DialogueSO");
+                Undo.RecordObject(_selectedDialogue, "Update DialogueSO");
 
                 dialogueNode.Text = newText;
-                dialogueNode.UniqueID = newUniqueID;
             }
 
-            foreach (DialogueNode childNode in selectedDialogue.GetAllChildrenNodes(dialogueNode))
+            if (GUILayout.Button("+"))
             {
-                EditorGUILayout.LabelField(childNode.Text);
+                _creatingNode = dialogueNode;
             }
 
             GUILayout.EndArea();
+        }
+
+        void DrawConnections(DialogueNode dialogueNode)
+        {
+            Vector2 startPosition = new Vector2(dialogueNode.Rect.xMax, dialogueNode.Rect.center.y);
+
+            foreach (DialogueNode child in _selectedDialogue.GetAllChildrenOf(dialogueNode))
+            {
+                Vector2 endPosition = new Vector2(child.Rect.xMin, child.Rect.center.y);
+                Vector2 controlPointOffset = endPosition - startPosition;
+                controlPointOffset.y = 0;
+                controlPointOffset.x *= 0.8f;
+
+                Handles.DrawBezier(startPosition, endPosition,
+                    startPosition + controlPointOffset,
+                    endPosition - controlPointOffset,
+                    Color.white, null, 4f);
+            }
         }
 
         private DialogueNode GetNodeAtPoint(Vector2 point)
         {
             DialogueNode foundNode = null;
 
-            foreach (DialogueNode dialogueNode in selectedDialogue.DialogueNodes)
+            foreach (DialogueNode dialogueNode in _selectedDialogue.DialogueNodes)
             {
                 if (dialogueNode.Rect.Contains(point))
                 {

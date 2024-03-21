@@ -10,7 +10,7 @@ namespace RPG.Dialogues
         // Variables
 
         [SerializeField]
-        private List<DialogueNode> _dialogueNodes;
+        private List<DialogueNode> _dialogueNodes = new List<DialogueNode>();
 
         private Dictionary<string, DialogueNode> _nodeLookup = new Dictionary<string, DialogueNode>();
 
@@ -27,7 +27,10 @@ namespace RPG.Dialogues
         {
             if (_dialogueNodes.Count == 0)
             {
-                _dialogueNodes.Add(new DialogueNode());
+                DialogueNode rootNode = new DialogueNode();
+                rootNode.UniqueID = Guid.NewGuid().ToString();
+
+                _dialogueNodes.Add(rootNode);
             }
         }
 
@@ -42,7 +45,7 @@ namespace RPG.Dialogues
         }
 #endif
 
-        public IEnumerable<DialogueNode> GetAllChildrenNodes(DialogueNode parentNode)
+        public IEnumerable<DialogueNode> GetAllChildrenOf(DialogueNode parentNode)
         {
             foreach (string childID in parentNode.ChildrenUniqueIDs)
             {
@@ -51,6 +54,18 @@ namespace RPG.Dialogues
                     yield return _nodeLookup[childID];
                 }
             }
+        }
+
+        public void CreateNewNode(DialogueNode parentNode)
+        {
+            var newNode = new DialogueNode
+            {
+                UniqueID = Guid.NewGuid().ToString()
+            };
+
+            parentNode.ChildrenUniqueIDs.Add(newNode.UniqueID);
+            _dialogueNodes.Add(newNode);
+            OnValidate();
         }
     }
 }

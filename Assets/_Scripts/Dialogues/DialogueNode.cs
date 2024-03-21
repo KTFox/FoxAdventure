@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Dialogues
@@ -7,7 +8,7 @@ namespace RPG.Dialogues
     {
         public string UniqueID;
         public string Text;
-        public string[] ChildrenUniqueIDs;
+        public List<string> ChildrenUniqueIDs = new List<string>();
         public Rect Rect = new Rect(0, 0, 200, 100);
     }
 }
