@@ -12,4 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d501b9c034abf664f939ee3af9ccc052, type: 3}
   m_Name: Dialogue 1
   m_EditorClassIdentifier: 
-  _dialogueNodes: []
+  _dialogueNodes:
+  - UniqueID: 6eff2c29-52fb-45e9-87f7-c0c050306717
+    Text: 
+    ChildrenUniqueIDs:
+    - 2fbe6aeb-e92c-4af0-99fe-83817ecf8d3a
+    Rect:
+      serializedVersion: 2
+      x: 183
+      y: 196
+      width: 200
+      height: 100
+  - UniqueID: 3a877548-a77b-49d0-8d18-b32bce1af3f6
+    Text: 
+    ChildrenUniqueIDs: []
+    Rect:
+      serializedVersion: 2
+      x: 555
+      y: 138
+      width: 200
+      height: 100
