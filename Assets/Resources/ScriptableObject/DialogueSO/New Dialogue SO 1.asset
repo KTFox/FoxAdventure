@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2010694658246917639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: 6cbaf4fc-09ce-4c63-a770-f88f93366999
+  m_EditorClassIdentifier: 
+  _text: 
+  _childrenUniqueIds:
+  - 3360a2bb-4a21-4049-bf09-73d72d5c8093
+  _rect:
+    serializedVersion: 2
+    x: 589
+    y: 51
+    width: 200
+    height: 100
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d501b9c034abf664f939ee3af9ccc052, type: 3}
+  m_Name: New Dialogue SO 1
+  m_EditorClassIdentifier: 
+  _dialogueNodes:
+  - {fileID: 1193612474784121210}
+  - {fileID: -2010694658246917639}
+  - {fileID: 2044265870775555736}
+--- !u!114 &1193612474784121210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: 5b6718ce-dd79-43db-8c3e-fe2feedb92ea
+  m_EditorClassIdentifier: 
+  _text: 
+  _childrenUniqueIds:
+  - dfecd24e-64d2-4de2-aed7-49c06a64a27c
+  - 79f443e9-457c-4056-be38-d47eac4d7fc5
+  - 6cbaf4fc-09ce-4c63-a770-f88f93366999
+  - 3360a2bb-4a21-4049-bf09-73d72d5c8093
+  _rect:
+    serializedVersion: 2
+    x: 230
+    y: 111
+    width: 200
+    height: 100
+--- !u!114 &2044265870775555736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: 3360a2bb-4a21-4049-bf09-73d72d5c8093
+  m_EditorClassIdentifier: 
+  _text: 
+  _childrenUniqueIds: []
+  _rect:
+    serializedVersion: 2
+    x: 928
+    y: 291
+    width: 200
+    height: 100
