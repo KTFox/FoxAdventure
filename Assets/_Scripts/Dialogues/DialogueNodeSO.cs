@@ -9,6 +9,8 @@ namespace RPG.Dialogues
         // Variables
 
         [SerializeField]
+        private bool _isPlayerDialogue;
+        [SerializeField]
         private string _text;
         [SerializeField]
         private List<string> _childrenUniqueIds = new List<string>();
@@ -17,6 +19,11 @@ namespace RPG.Dialogues
 
 
         // Methods
+
+        public bool IsPlayerDialogue()
+        {
+            return _isPlayerDialogue;
+        }
 
         public string GetText()
         {
@@ -39,6 +46,12 @@ namespace RPG.Dialogues
         }
 
 #if UNITY_EDITOR
+        public void SetIsPlayerDialogue(bool newValue)
+        {
+            Undo.RecordObject(this, "Update dialogue speaker");
+            _isPlayerDialogue = newValue;
+            EditorUtility.SetDirty(this);
+        }
         public void SetText(string text)
         {
             if (text != _text)
@@ -51,7 +64,7 @@ namespace RPG.Dialogues
 
         public void SetPosition(Vector3 newPosition)
         {
-            Undo.RecordObject(this, "Update node newPosition");
+            Undo.RecordObject(this, "Update node position");
             _rect.position = newPosition;
             EditorUtility.SetDirty(this);
         }

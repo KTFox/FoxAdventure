@@ -13,6 +13,8 @@ namespace RPG.Dialogues
 
         [SerializeField]
         private List<DialogueNodeSO> _dialogueNodes = new List<DialogueNodeSO>();
+        [SerializeField]
+        private Vector2 _newNodeOffset = new Vector2(250, 0);
 
         private Dictionary<string, DialogueNodeSO> _nodeLookup = new Dictionary<string, DialogueNodeSO>();
 
@@ -63,21 +65,23 @@ namespace RPG.Dialogues
 
             foreach (DialogueNodeSO node in _dialogueNodes)
             {
-                node.GetChildrenUniqueIds().Remove(nodeToDelete.name);
+                node.RemoveChild(nodeToDelete.name);
             }
 
             OnValidate();
             Undo.DestroyObjectImmediate(nodeToDelete);
         }
 
-        private static DialogueNodeSO InstantiateNode(DialogueNodeSO parentNode)
+        private DialogueNodeSO InstantiateNode(DialogueNodeSO parentNode)
         {
             var newNode = CreateInstance<DialogueNodeSO>();
             newNode.name = Guid.NewGuid().ToString();
 
             if (parentNode != null)
             {
-                parentNode.GetChildrenUniqueIds().Add(newNode.name);
+                parentNode.AddChild(newNode.name);
+                newNode.SetIsPlayerDialogue(!parentNode.IsPlayerDialogue());
+                newNode.SetPosition(parentNode.GetPosition() + _newNodeOffset);
             }
 
             return newNode;
