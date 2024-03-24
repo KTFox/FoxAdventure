@@ -255,6 +255,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1348450288652152666, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5763424427908578512}
+    - targetCorrespondingSourceObject: {fileID: 1348450288652152666, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6763550396204615515}
   m_SourcePrefab: {fileID: 100100000, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
 --- !u!4 &140518475945222082 stripped
 Transform:
@@ -467,3 +470,16 @@ MonoBehaviour:
   _fadeDelay: 2
   _playerHealthRegeneratePercentage: 30
   _enemyHealthRegeneratePercentage: 30
+--- !u!114 &6763550396204615515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931212515291373538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06b420a4e1d805542b6cef37005defbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentDialogue: {fileID: 11400000, guid: 258da2e2a4fa89d41aee190f178a44ac, type: 2}
