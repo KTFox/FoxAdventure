@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using RPG.Dialogues;
 
 namespace RPG.UI
@@ -10,6 +11,8 @@ namespace RPG.UI
 
         [SerializeField]
         private TextMeshProUGUI _AIText;
+        [SerializeField]
+        private Button _nextButton;
 
         private PlayerConversant _playerConversant;
 
@@ -19,8 +22,21 @@ namespace RPG.UI
         private void Start()
         {
             _playerConversant = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConversant>();
+            _nextButton.onClick.AddListener(NextButton_OnClick);
 
-            _AIText.text = _playerConversant.GetText();
+            UpdateUI();
+        }
+
+        private void NextButton_OnClick()
+        {
+            _playerConversant.MoveToNextDialogueNode();
+            UpdateUI();
+        }
+
+        private void UpdateUI()
+        {
+            _AIText.text = _playerConversant.GetCurrentDialogueText();
+            _nextButton.gameObject.SetActive(_playerConversant.HasNextDialogueNode());
         }
     }
 }
