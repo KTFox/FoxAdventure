@@ -3059,6 +3059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d6fbb204928f7b448cd5237b8fa38f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _conversantName: {fileID: 2949673722207588998}
   _AIText: {fileID: 16375539945088750}
   _AIResponse: {fileID: 24558643210792188}
   _nextButton: {fileID: 8510138333419112564}

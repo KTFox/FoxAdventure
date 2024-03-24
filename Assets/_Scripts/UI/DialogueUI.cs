@@ -10,6 +10,8 @@ namespace RPG.UI
         // Variables
 
         [SerializeField]
+        private TextMeshProUGUI _conversantName;
+        [SerializeField]
         private TextMeshProUGUI _AIText;
         [SerializeField]
         private GameObject _AIResponse;
@@ -50,6 +52,7 @@ namespace RPG.UI
 
             if (!_playerConversant.IsActiveDialogue()) return;
 
+            _conversantName.text = _playerConversant.GetCurrentConversantName();
             _choiceRoot.gameObject.SetActive(_playerConversant.IsChoosing());
             _AIResponse.SetActive(!_playerConversant.IsChoosing());
 

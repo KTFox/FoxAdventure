@@ -3275,6 +3275,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5517372338644914759, guid: b8ef87b9562bd284eb66e38ce0f1bbcc, type: 3}
+      propertyPath: _conversantName
+      value: Villiage's Guard
+      objectReference: {fileID: 0}
     - target: {fileID: 5520005716597478117, guid: b8ef87b9562bd284eb66e38ce0f1bbcc, type: 3}
       propertyPath: OnTrigger.m_PersistentCalls.m_Calls.Array.size
       value: 1

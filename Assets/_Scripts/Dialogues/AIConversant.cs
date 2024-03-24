@@ -9,6 +9,12 @@ namespace RPG.Dialogues
 
         [SerializeField]
         private DialogueSO _dialogueSO;
+        [SerializeField]
+        private string _conversantName;
+
+        // Properties
+
+        public string ConversantName => _conversantName;
 
 
         // Methods

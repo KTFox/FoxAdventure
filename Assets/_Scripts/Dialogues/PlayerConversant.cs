@@ -9,6 +9,9 @@ namespace RPG.Dialogues
     {
         // Variables
 
+        [SerializeField]
+        private string _playerName;
+
         private AIConversant _currentAIConversant;
         private DialogueSO _currentDialogue;
         private DialogueNodeSO _currentDialogueNode;
@@ -76,6 +79,18 @@ namespace RPG.Dialogues
 
             TriggerExitAction();
             OnConversationUpdated?.Invoke();
+        }
+
+        public string GetCurrentConversantName()
+        {
+            if (_isChoosing)
+            {
+                return _playerName;
+            }
+            else
+            {
+                return _currentAIConversant.ConversantName;
+            }
         }
 
         public IEnumerable<DialogueNodeSO> GetChoices()

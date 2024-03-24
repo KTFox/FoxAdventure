@@ -485,3 +485,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06b420a4e1d805542b6cef37005defbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerName: Mr.Fox
