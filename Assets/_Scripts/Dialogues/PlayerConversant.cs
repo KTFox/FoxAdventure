@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RPG.Dialogues
 {
-    public class PlayerConversation : MonoBehaviour
+    public class PlayerConversant : MonoBehaviour
     {
         // Variables
 

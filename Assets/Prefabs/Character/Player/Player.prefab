@@ -304,7 +304,7 @@ MonoBehaviour:
     texture: {fileID: 2800000, guid: 8859fce41c5d0a148ad0b7eebfca7fe9, type: 3}
     hotspot: {x: 0, y: 0}
   - cursorType: 3
-    texture: {fileID: 2800000, guid: f8c873f1e53e83f4aabf342d6be1dfc3, type: 3}
+    texture: {fileID: 2800000, guid: fe2443101ded6f544b32f8dc8690c367, type: 3}
     hotspot: {x: 0, y: 0}
   - cursorType: 4
     texture: {fileID: 2800000, guid: 21628736160fcc9488493401da3ef621, type: 3}
@@ -313,6 +313,9 @@ MonoBehaviour:
     texture: {fileID: 2800000, guid: 2d18e23e3ce249b4489b8bcdd02d3f48, type: 3}
     hotspot: {x: 0, y: 0}
   - cursorType: 6
+    texture: {fileID: 2800000, guid: f8c873f1e53e83f4aabf342d6be1dfc3, type: 3}
+    hotspot: {x: 0, y: 0}
+  - cursorType: 7
     texture: {fileID: 2800000, guid: 96d4bfdb0d6d8c042bf8fccf6524d239, type: 3}
     hotspot: {x: 0, y: 0}
 --- !u!114 &8202745706633830008
@@ -482,4 +485,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06b420a4e1d805542b6cef37005defbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentDialogue: {fileID: 11400000, guid: 258da2e2a4fa89d41aee190f178a44ac, type: 2}

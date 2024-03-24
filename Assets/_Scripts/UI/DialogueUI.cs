@@ -22,14 +22,14 @@ namespace RPG.UI
         [SerializeField]
         private GameObject _choiceButtonPrefab;
 
-        private PlayerConversation _playerConversant;
+        private PlayerConversant _playerConversant;
 
 
         // Methods
 
         private void Start()
         {
-            _playerConversant = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConversation>();
+            _playerConversant = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConversant>();
 
             _playerConversant.OnConversationUpdated += UpdateUI;
             _nextButton.onClick.AddListener(() =>
