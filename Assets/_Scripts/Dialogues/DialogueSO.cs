@@ -35,7 +35,29 @@ namespace RPG.Dialogues
             }
         }
 
-        public IEnumerable<DialogueNodeSO> GetAllChildrenOf(DialogueNodeSO parentNode)
+        public IEnumerable<DialogueNodeSO> GetPlayerDialogueNodeChildrenOf(DialogueNodeSO parentNode)
+        {
+            foreach (DialogueNodeSO node in GetDialogueNodeChildrenOf(parentNode))
+            {
+                if (node.IsPlayerDialogue())
+                {
+                    yield return node;
+                }
+            }
+        }
+
+        public IEnumerable<DialogueNodeSO> GetAIDialogueChildrenOf(DialogueNodeSO parentNode)
+        {
+            foreach (DialogueNodeSO node in GetDialogueNodeChildrenOf(parentNode))
+            {
+                if (!node.IsPlayerDialogue())
+                {
+                    yield return node;
+                }
+            }
+        }
+
+        public IEnumerable<DialogueNodeSO> GetDialogueNodeChildrenOf(DialogueNodeSO parentNode)
         {
             foreach (string childID in parentNode.GetChildrenUniqueIds())
             {
@@ -120,6 +142,6 @@ namespace RPG.Dialogues
         {
 
         }
-        #endregion 
+        #endregion
     }
 }

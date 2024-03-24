@@ -12,7 +12,13 @@ namespace RPG.UI
         [SerializeField]
         private TextMeshProUGUI _AIText;
         [SerializeField]
+        private GameObject _AIResponse;
+        [SerializeField]
         private Button _nextButton;
+        [SerializeField]
+        private Transform _choiceRoot;
+        [SerializeField]
+        private GameObject _choiceButtonPrefab;
 
         private PlayerConversant _playerConversant;
 
@@ -35,8 +41,41 @@ namespace RPG.UI
 
         private void UpdateUI()
         {
-            _AIText.text = _playerConversant.GetCurrentDialogueText();
-            _nextButton.gameObject.SetActive(_playerConversant.HasNextDialogueNode());
+            _choiceRoot.gameObject.SetActive(_playerConversant.IsChoosing());
+            _AIResponse.SetActive(!_playerConversant.IsChoosing());
+
+            if (_playerConversant.IsChoosing())
+            {
+                BuildChoicesList();
+            }
+            else
+            {
+                _AIText.text = _playerConversant.GetCurrentDialogueText();
+                _nextButton.gameObject.SetActive(_playerConversant.HasNextDialogueNode());
+            }
+        }
+
+        private void BuildChoicesList()
+        {
+            foreach (Transform child in _choiceRoot)
+            {
+                Destroy(child.gameObject);
+            }
+
+            foreach (DialogueNodeSO choiceDialogue in _playerConversant.GetChoices())
+            {
+                GameObject choiceInstance = Instantiate(_choiceButtonPrefab, _choiceRoot);
+
+                TextMeshProUGUI choiceText = choiceInstance.GetComponentInChildren<TextMeshProUGUI>();
+                choiceText.text = choiceDialogue.GetText();
+
+                Button choiceButton = choiceInstance.GetComponentInChildren<Button>();
+                choiceButton.onClick.AddListener(() =>
+                {
+                    _playerConversant.SelectChoice(choiceDialogue);
+                    UpdateUI();
+                });
+            }
         }
     }
 }

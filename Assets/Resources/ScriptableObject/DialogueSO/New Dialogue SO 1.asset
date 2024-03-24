@@ -17,8 +17,8 @@ MonoBehaviour:
   _childrenUniqueIds: []
   _rect:
     serializedVersion: 2
-    x: 787
-    y: 259
+    x: 834
+    y: 149.00003
     width: 200
     height: 100
 --- !u!114 &-2248951092623459124
@@ -39,8 +39,8 @@ MonoBehaviour:
   - 31fbd47d-e368-4834-9809-f8ea053d3895
   _rect:
     serializedVersion: 2
-    x: 425
-    y: 95
+    x: 574
+    y: -8
     width: 200
     height: 100
 --- !u!114 &-418396938840964195
@@ -61,8 +61,8 @@ MonoBehaviour:
   - 9f1258c8-e32e-4439-8014-824017395897
   _rect:
     serializedVersion: 2
-    x: 662
-    y: 60
+    x: 837
+    y: 3
     width: 200
     height: 100
 --- !u!114 &11400000
@@ -84,6 +84,8 @@ MonoBehaviour:
   - {fileID: -2645546037137141880}
   - {fileID: -418396938840964195}
   - {fileID: 1298951363845303338}
+  - {fileID: 3498862170147322879}
+  - {fileID: 9011020873968834187}
   _newNodeOffset: {x: 250, y: 0}
 --- !u!114 &1298951363845303338
 MonoBehaviour:
@@ -98,12 +100,36 @@ MonoBehaviour:
   m_Name: 9f1258c8-e32e-4439-8014-824017395897
   m_EditorClassIdentifier: 
   _isPlayerDialogue: 1
-  _text: I'm Khoi
-  _childrenUniqueIds: []
+  _text: Mind your business.
+  _childrenUniqueIds:
+  - c47f5c0e-5329-4de3-8cd9-168586e077cd
   _rect:
     serializedVersion: 2
-    x: 979
-    y: 124
+    x: 1099
+    y: 2
+    width: 200
+    height: 100
+--- !u!114 &3498862170147322879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: 7d18c1ec-0b3b-4909-82dd-484b72f07777
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 0
+  _text: Where are you from?
+  _childrenUniqueIds:
+  - 89156ad6-bf03-4048-a76e-7b5aa6ffe338
+  - da50a035-fadf-4d07-840d-ce2424b1975e
+  _rect:
+    serializedVersion: 2
+    x: 299
+    y: 60.000015
     width: 200
     height: 100
 --- !u!114 &6509044971571121891
@@ -119,14 +145,13 @@ MonoBehaviour:
   m_Name: 1cf66fad-43fb-41c1-a35f-2a9312aba012
   m_EditorClassIdentifier: 
   _isPlayerDialogue: 0
-  _text: Hello, I'm village's guard. Where are you from?
+  _text: Hello, I'm village's guard.
   _childrenUniqueIds:
-  - 89156ad6-bf03-4048-a76e-7b5aa6ffe338
-  - da50a035-fadf-4d07-840d-ce2424b1975e
+  - 7d18c1ec-0b3b-4909-82dd-484b72f07777
   _rect:
     serializedVersion: 2
-    x: 93
-    y: 206
+    x: 33
+    y: 58.000015
     width: 200
     height: 100
 --- !u!114 &6944127853965376202
@@ -147,7 +172,28 @@ MonoBehaviour:
   - 7ebfec2a-5595-43ce-9670-84a059e41261
   _rect:
     serializedVersion: 2
-    x: 436
-    y: 295
+    x: 568
+    y: 150.00002
+    width: 200
+    height: 100
+--- !u!114 &9011020873968834187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: c47f5c0e-5329-4de3-8cd9-168586e077cd
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 0
+  _text: Get away!!!
+  _childrenUniqueIds: []
+  _rect:
+    serializedVersion: 2
+    x: 1349
+    y: 2
     width: 200
     height: 100

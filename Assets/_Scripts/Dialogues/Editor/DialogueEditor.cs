@@ -208,7 +208,7 @@ namespace RPG.Dialogues.Editor
         {
             Vector2 startPosition = new Vector2(dialogueNode.GetRect().xMax, dialogueNode.GetRect().center.y);
 
-            foreach (DialogueNodeSO child in _selectedDialogue.GetAllChildrenOf(dialogueNode))
+            foreach (DialogueNodeSO child in _selectedDialogue.GetDialogueNodeChildrenOf(dialogueNode))
             {
                 Vector2 endPosition = new Vector2(child.GetRect().xMin, child.GetRect().center.y);
                 Vector2 controlPointOffset = endPosition - startPosition;

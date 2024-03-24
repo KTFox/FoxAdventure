@@ -3060,7 +3060,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _AIText: {fileID: 16375539945088750}
+  _AIResponse: {fileID: 24558643210792188}
   _nextButton: {fileID: 8510138333419112564}
+  _choiceRoot: {fileID: 3259573580363331058}
+  _choiceButtonPrefab: {fileID: 7636132269947038326, guid: d4fcec431a7d64942bcf2d3a5b81a943, type: 3}
 --- !u!1 &7661273448123522159
 GameObject:
   m_ObjectHideFlags: 0

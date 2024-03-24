@@ -52,6 +52,7 @@ namespace RPG.Dialogues
             _isPlayerDialogue = newValue;
             EditorUtility.SetDirty(this);
         }
+
         public void SetText(string text)
         {
             if (text != _text)
