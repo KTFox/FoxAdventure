@@ -16,31 +16,40 @@ namespace RPG.UI
         [SerializeField]
         private Button _nextButton;
         [SerializeField]
+        private Button _quitButton;
+        [SerializeField]
         private Transform _choiceRoot;
         [SerializeField]
         private GameObject _choiceButtonPrefab;
 
-        private PlayerConversant _playerConversant;
+        private PlayerConversation _playerConversant;
 
 
         // Methods
 
         private void Start()
         {
-            _playerConversant = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConversant>();
-            _nextButton.onClick.AddListener(NextButton_OnClick);
+            _playerConversant = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConversation>();
 
-            UpdateUI();
-        }
+            _playerConversant.OnConversationUpdated += UpdateUI;
+            _nextButton.onClick.AddListener(() =>
+            {
+                _playerConversant.MoveToNextDialogueNode();
+            });
+            _quitButton.onClick.AddListener(() =>
+            {
+                _playerConversant.QuitDialogue();
+            });
 
-        private void NextButton_OnClick()
-        {
-            _playerConversant.MoveToNextDialogueNode();
             UpdateUI();
         }
 
         private void UpdateUI()
         {
+            gameObject.SetActive(_playerConversant.IsActiveDialogue());
+
+            if (!_playerConversant.IsActiveDialogue()) return;
+
             _choiceRoot.gameObject.SetActive(_playerConversant.IsChoosing());
             _AIResponse.SetActive(!_playerConversant.IsChoosing());
 
@@ -73,7 +82,6 @@ namespace RPG.UI
                 choiceButton.onClick.AddListener(() =>
                 {
                     _playerConversant.SelectChoice(choiceDialogue);
-                    UpdateUI();
                 });
             }
         }

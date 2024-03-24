@@ -3062,6 +3062,7 @@ MonoBehaviour:
   _AIText: {fileID: 16375539945088750}
   _AIResponse: {fileID: 24558643210792188}
   _nextButton: {fileID: 8510138333419112564}
+  _quitButton: {fileID: 2348983540614484524}
   _choiceRoot: {fileID: 3259573580363331058}
   _choiceButtonPrefab: {fileID: 7636132269947038326, guid: d4fcec431a7d64942bcf2d3a5b81a943, type: 3}
 --- !u!1 &7661273448123522159
@@ -7897,6 +7898,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2322865226195865871, guid: 127c02307abc7714aacfae589097fde5, type: 3}
   m_PrefabInstance: {fileID: 4147932568389848782}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2348983540614484524 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1804024407827832034, guid: 127c02307abc7714aacfae589097fde5, type: 3}
+  m_PrefabInstance: {fileID: 4147932568389848782}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4665967474758872145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4665967474758872145 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8741682606197826207, guid: 127c02307abc7714aacfae589097fde5, type: 3}
