@@ -9,6 +9,7 @@ namespace RPG.Dialogues
     {
         // Variables
 
+        private AIConversant _currentAIConversant;
         private DialogueSO _currentDialogue;
         private DialogueNodeSO _currentDialogueNode;
         private bool _isChoosing;
@@ -20,19 +21,25 @@ namespace RPG.Dialogues
 
         // Methods
 
-        public void StartDialogue(DialogueSO dialogueToStart)
+        public void StartDialogue(AIConversant newAIConversant, DialogueSO newDialogue)
         {
-            _currentDialogue = dialogueToStart;
-            _currentDialogueNode = dialogueToStart.RootNode;
+            _currentAIConversant = newAIConversant;
+            _currentDialogue = newDialogue;
+            _currentDialogueNode = newDialogue.RootNode;
 
+            TriggerEnterAction();
             OnConversationUpdated?.Invoke();
         }
 
         public void QuitDialogue()
         {
             _currentDialogue = null;
+
+            TriggerExitAction();
+
             _currentDialogueNode = null;
             _isChoosing = false;
+            _currentAIConversant = null;
 
             OnConversationUpdated?.Invoke();
         }
@@ -40,6 +47,9 @@ namespace RPG.Dialogues
         public void SelectChoice(DialogueNodeSO chosenNode)
         {
             _currentDialogueNode = chosenNode;
+
+            TriggerEnterAction();
+
             _isChoosing = false;
             MoveToNextDialogueNode();
         }
@@ -51,6 +61,7 @@ namespace RPG.Dialogues
             {
                 _isChoosing = true;
 
+                TriggerExitAction();
                 OnConversationUpdated?.Invoke();
 
                 return;
@@ -59,8 +70,11 @@ namespace RPG.Dialogues
             DialogueNodeSO[] childNodes = _currentDialogue.GetAIDialogueChildrenOf(_currentDialogueNode).ToArray();
             int randomIndex = UnityEngine.Random.Range(0, childNodes.Count());
 
+            TriggerEnterAction();
+
             _currentDialogueNode = childNodes[randomIndex];
 
+            TriggerExitAction();
             OnConversationUpdated?.Invoke();
         }
 
@@ -95,6 +109,32 @@ namespace RPG.Dialogues
         public bool IsActiveDialogue()
         {
             return _currentDialogue != null;
+        }
+
+        private void TriggerEnterAction()
+        {
+            if (_currentDialogueNode != null)
+            {
+                TriggerAction(_currentDialogueNode.GetOnEnterAction());
+            }
+        }
+
+        private void TriggerExitAction()
+        {
+            if (_currentDialogueNode != null && _currentDialogueNode.GetOnExitAction() != "")
+            {
+                TriggerAction(_currentDialogueNode.GetOnExitAction());
+            }
+        }
+
+        private void TriggerAction(string action)
+        {
+            if (action == "") return;
+
+            foreach (DialogueTrigger trigger in _currentAIConversant.GetComponents<DialogueTrigger>())
+            {
+                trigger.TriggerAction(action);
+            }
         }
     }
 }

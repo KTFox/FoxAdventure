@@ -10,16 +10,19 @@ namespace RPG.Combat
         #region IRaycastable implements
         public bool HandleRaycast(PlayerController playerController)
         {
-            var fighter = playerController.GetComponent<Fighter>();
+            if (!enabled)
+            {
+                return false;
+            }
 
-            if (!fighter.CanAttack(gameObject))
+            if (!playerController.GetComponent<Fighter>().CanAttack(gameObject))
             {
                 return false;
             }
 
             if (Input.GetMouseButton(1))
             {
-                fighter.StartAttackAction(gameObject);
+                playerController.GetComponent<Fighter>().StartAttackAction(gameObject);
             }
 
             return true;

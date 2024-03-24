@@ -17,6 +17,11 @@ namespace RPG.Dialogues
         [SerializeField]
         private Rect _rect = new Rect(0, 0, 200, 100);
 
+        [SerializeField]
+        private string _onEnterAction;
+        [SerializeField]
+        private string _onExitAction;
+
 
         // Methods
 
@@ -43,6 +48,16 @@ namespace RPG.Dialogues
         public Vector2 GetPosition()
         {
             return _rect.position;
+        }
+
+        public string GetOnEnterAction()
+        {
+            return _onEnterAction;
+        }
+
+        public string GetOnExitAction()
+        {
+            return _onExitAction;
         }
 
 #if UNITY_EDITOR

@@ -21,6 +21,8 @@ MonoBehaviour:
     y: 149.00003
     width: 200
     height: 100
+  _onEnterAction: 
+  _onExitAction: Attack
 --- !u!114 &-2248951092623459124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43,6 +45,8 @@ MonoBehaviour:
     y: -8
     width: 200
     height: 100
+  _onEnterAction: 
+  _onExitAction: 
 --- !u!114 &-418396938840964195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,6 +69,8 @@ MonoBehaviour:
     y: 3
     width: 200
     height: 100
+  _onEnterAction: 
+  _onExitAction: 
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +115,8 @@ MonoBehaviour:
     y: 2
     width: 200
     height: 100
+  _onEnterAction: 
+  _onExitAction: 
 --- !u!114 &3498862170147322879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +140,8 @@ MonoBehaviour:
     y: 60.000015
     width: 200
     height: 100
+  _onEnterAction: 
+  _onExitAction: 
 --- !u!114 &6509044971571121891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,10 +160,12 @@ MonoBehaviour:
   - 7d18c1ec-0b3b-4909-82dd-484b72f07777
   _rect:
     serializedVersion: 2
-    x: 33
+    x: 32
     y: 58.000015
     width: 200
     height: 100
+  _onEnterAction: 
+  _onExitAction: 
 --- !u!114 &6944127853965376202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +188,8 @@ MonoBehaviour:
     y: 150.00002
     width: 200
     height: 100
+  _onEnterAction: 
+  _onExitAction: 
 --- !u!114 &9011020873968834187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,6 +208,8 @@ MonoBehaviour:
   _rect:
     serializedVersion: 2
     x: 1349
-    y: 2
+    y: 1
     width: 200
     height: 100
+  _onEnterAction: 
+  _onExitAction: Attack

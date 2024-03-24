@@ -28,7 +28,7 @@ namespace RPG.Dialogues
 
             if (Input.GetMouseButton(0))
             {
-                playerController.GetComponent<PlayerConversant>().StartDialogue(_dialogueSO);
+                playerController.GetComponent<PlayerConversant>().StartDialogue(this, _dialogueSO);
             }
 
             return true;
