@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2521197821581004500}
   - component: {fileID: 78761065567311738}
   - component: {fileID: 8601089581558276320}
+  - component: {fileID: 4924610923542554885}
   m_Layer: 0
   m_Name: Quest Row
   m_TagString: Untagged
@@ -93,6 +94,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tooltipPrefab: {fileID: 3050808553000992323, guid: 5f74bbe72e9ca0b47ac10e0b480aeff4, type: 3}
+--- !u!114 &4924610923542554885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621205188600409792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e097a6eb617bac488463e183be7eba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: {fileID: 1265773097756084423}
+  _progress: {fileID: 1382214897706355132}
 --- !u!1 &7679854094108277450
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,7 +363,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
