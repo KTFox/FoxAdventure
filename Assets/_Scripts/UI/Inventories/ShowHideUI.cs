@@ -35,9 +35,16 @@ namespace RPG.UI.Inventories
             {
                 if (Input.GetKeyDown(uiConfig.toggleKey))
                 {
-                    uiConfig.uiObject.SetActive(!uiConfig.uiObject.activeSelf);
+                    ToggleUI(uiConfig.uiObject);
                 }
             }
         }
+
+        #region Unity events
+        public void ToggleUI(GameObject UIToToggle)
+        {
+            UIToToggle.SetActive(!UIToToggle.activeSelf);
+        }
+        #endregion
     }
 }
