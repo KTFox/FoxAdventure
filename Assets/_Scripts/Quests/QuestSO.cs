@@ -9,12 +9,20 @@ namespace RPG.Quests
         // Variables
 
         [SerializeField]
-        private string[] _objectives;
+        private List<string> _objectives;
 
         // Properties
 
         public string Title => name;
         public IEnumerable<string> Objectives => _objectives;
-        public int ObjectiveCount => _objectives.Length;
+        public int ObjectiveCount => _objectives.Count;
+
+
+        // Methods
+
+        public bool HasObjective(string objectiveToCheck)
+        {
+            return _objectives.Contains(objectiveToCheck);
+        }
     }
 }

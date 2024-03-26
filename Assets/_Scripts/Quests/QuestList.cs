@@ -31,17 +31,30 @@ namespace RPG.Quests
             OnQuestListUpdated?.Invoke();
         }
 
+        public void CompleteObjective(QuestSO questSO, string objectiveToComplete)
+        {
+            QuestStatus questStatus = GetQuestStatusOf(questSO);
+            questStatus.CompleteObjective(objectiveToComplete);
+
+            OnQuestListUpdated?.Invoke();
+        }
+
         private bool HasQuest(QuestSO quest)
+        {
+            return GetQuestStatusOf(quest) != null;
+        }
+
+        private QuestStatus GetQuestStatusOf(QuestSO quest)
         {
             foreach (QuestStatus questStatus in _questStatuses)
             {
                 if (questStatus.QuestSO == quest)
                 {
-                    return true;
+                    return questStatus;
                 }
             }
 
-            return false;
+            return null;
         }
     }
 }

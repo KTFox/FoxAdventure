@@ -26,6 +26,14 @@ namespace RPG.Quests
 
         // Methods
 
+        public void CompleteObjective(string objectiveToComplete)
+        {
+            if (_questSO.HasObjective(objectiveToComplete))
+            {
+                _completedObjectives.Add(objectiveToComplete);
+            }
+        }
+
         public bool IsCompletedObjective(string objective)
         {
             return _completedObjectives.Contains(objective);
