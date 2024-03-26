@@ -7,13 +7,13 @@ namespace RPG.Quests
         // Variables
 
         private QuestSO _questSO;
-        private List<string> _completedObjectives = new List<string>();
+        private List<string> _completedObjectiveReferences = new List<string>();
 
         // Properties
 
         public QuestSO QuestSO => _questSO;
-        public List<string> CompletedObjectives => _completedObjectives;
-        public int CompletedObjectivesCount => _completedObjectives.Count;
+        public List<string> CompletedObjectiveReferences => _completedObjectiveReferences;
+        public int CompletedObjectivesCount => _completedObjectiveReferences.Count;
 
         // Constructors
 
@@ -27,7 +27,7 @@ namespace RPG.Quests
             QuestStatusRecord questStatusRecord = stateObject as QuestStatusRecord;
 
             _questSO = QuestSO.GetQuestSOByName(questStatusRecord.Name);
-            _completedObjectives = questStatusRecord.CompletedObjectives;
+            _completedObjectiveReferences = questStatusRecord.CompletedObjectives;
         }
 
         // Structs
@@ -46,7 +46,7 @@ namespace RPG.Quests
         {
             QuestStatusRecord questStatusRecord = new QuestStatusRecord();
             questStatusRecord.Name = _questSO.QuestName;
-            questStatusRecord.CompletedObjectives = _completedObjectives;
+            questStatusRecord.CompletedObjectives = _completedObjectiveReferences;
 
             return questStatusRecord;
         }
@@ -55,13 +55,26 @@ namespace RPG.Quests
         {
             if (_questSO.HasObjective(objectiveToComplete))
             {
-                _completedObjectives.Add(objectiveToComplete);
+                _completedObjectiveReferences.Add(objectiveToComplete);
             }
         }
 
         public bool IsCompletedObjective(string objective)
         {
-            return _completedObjectives.Contains(objective);
+            return _completedObjectiveReferences.Contains(objective);
+        }
+
+        public bool HasCompleted()
+        {
+            foreach (var objective in _questSO.Objectives)
+            {
+                if (!_completedObjectiveReferences.Contains(objective.Reference))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

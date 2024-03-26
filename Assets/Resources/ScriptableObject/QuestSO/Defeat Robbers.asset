@@ -20,7 +20,7 @@ MonoBehaviour:
   - Reference: 2
     Description: Defeat Archer
   _rewards:
-  - Number: 50
+  - Quantity: 50
     Item: {fileID: 11400000, guid: 41c067020e2f53a42907240ddb1936f3, type: 2}
-  - Number: 1
+  - Quantity: 1
     Item: {fileID: 11400000, guid: 0e3a03ab8a2c73d4c8c0804701fd9d72, type: 2}

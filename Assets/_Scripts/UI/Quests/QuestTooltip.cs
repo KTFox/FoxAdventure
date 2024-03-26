@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using RPG.Quests;
+using System;
 
 namespace RPG.UI.Quests
 {
@@ -10,6 +11,8 @@ namespace RPG.UI.Quests
 
         [SerializeField]
         private TextMeshProUGUI _title;
+        [SerializeField]
+        private TextMeshProUGUI _rewardText;
         [SerializeField]
         private Transform _objectiveContainer;
         [SerializeField]
@@ -23,6 +26,7 @@ namespace RPG.UI.Quests
         public void SetUp(QuestStatus questStatus)
         {
             _title.text = questStatus.QuestSO.QuestName;
+            _rewardText.text = GetRewardText(questStatus.QuestSO);
 
             foreach (Transform child in _objectiveContainer)
             {
@@ -46,6 +50,30 @@ namespace RPG.UI.Quests
 
                 objectiveText.text = objective.Description;
             }
+        }
+
+        private string GetRewardText(QuestSO questSO)
+        {
+            string rewardText = "";
+
+            foreach (var reward in questSO.Rewards)
+            {
+                if (rewardText != "")
+                {
+                    rewardText += ", ";
+                }
+
+                rewardText += $"{reward.Quantity} {reward.Item.DisplayName}";
+            }
+
+            if (rewardText == "")
+            {
+                return "No reward.";
+            }
+
+            rewardText += ".";
+
+            return rewardText;
         }
     }
 }

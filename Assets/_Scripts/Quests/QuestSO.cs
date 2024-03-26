@@ -19,6 +19,7 @@ namespace RPG.Quests
         public string QuestName => name;
         public IEnumerable<Objective> Objectives => _objectives;
         public int ObjectiveCount => _objectives.Count;
+        public IEnumerable<Reward> Rewards => _rewards;
 
         // Structs
 
@@ -30,9 +31,11 @@ namespace RPG.Quests
         }
 
         [System.Serializable]
-        private class Reward
+        public class Reward
         {
-            public int Number;
+            [Min(1)]
+            public int Quantity;
+
             public InventoryItemSO Item;
         }
 

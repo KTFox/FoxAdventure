@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using RPG.Saving;
+using RPG.Inventories;
 
 namespace RPG.Quests
 {
@@ -37,7 +38,28 @@ namespace RPG.Quests
             QuestStatus questStatus = GetQuestStatusOf(questSO);
             questStatus.CompleteObjective(objectiveToComplete);
 
+            if (questStatus.HasCompleted())
+            {
+                ReceiveQuestReward(questSO);
+            }
+
             OnQuestListUpdated?.Invoke();
+        }
+
+        private void ReceiveQuestReward(QuestSO questSO)
+        {
+            foreach (var reward in questSO.Rewards)
+            {
+                Inventory playerInventory = GetComponent<Inventory>();
+                InventoryItemSO itemReward = reward.Item;
+                int itemQuantity = reward.Quantity;
+
+                bool success = playerInventory.AddItemToFirstEmptySlot(itemReward, itemQuantity);
+                if (!success)
+                {
+                    GetComponent<ItemDropper>().DropItem(itemReward, itemQuantity);
+                }
+            }
         }
 
         private bool HasQuest(QuestSO quest)

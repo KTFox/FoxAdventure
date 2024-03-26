@@ -7,21 +7,6 @@ namespace RPG.Inventories
 {
     public class Inventory : MonoBehaviour, ISaveable
     {
-        // Structs
-
-        [System.Serializable]
-        private struct InventorySlotRecord
-        {
-            public string itemID;
-            public int quantity;
-        }
-
-        private struct InventorySlot
-        {
-            public InventoryItemSO item;
-            public int quantity;
-        }
-
         // Variables
 
         [SerializeField]
@@ -45,6 +30,21 @@ namespace RPG.Inventories
         // Events
 
         public event Action OnInventoryUpdated;
+
+        // Structs
+
+        [System.Serializable]
+        private struct InventorySlotRecord
+        {
+            public string itemID;
+            public int quantity;
+        }
+
+        private struct InventorySlot
+        {
+            public InventoryItemSO item;
+            public int quantity;
+        }
 
 
         // Methods

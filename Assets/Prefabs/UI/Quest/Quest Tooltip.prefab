@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _title: {fileID: 737880967171731662}
+  _rewardText: {fileID: 7422308620433037855}
   _objectiveContainer: {fileID: 5447656748633799217}
   _objectiveCompletedPrefab: {fileID: 4065131325207943573, guid: e37970fc77d0f1f418285db3738e1ab0, type: 3}
   _objectiveInCompletedPrefab: {fileID: 4065131325207943573, guid: 553f124b4d7dbb74697da4758af597c1, type: 3}
