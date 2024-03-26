@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using RPG.Saving;
 
 namespace RPG.Quests
 {
-    public class QuestList : MonoBehaviour
+    public class QuestList : MonoBehaviour, ISaveable
     {
         // Variables
 
@@ -56,5 +57,32 @@ namespace RPG.Quests
 
             return null;
         }
+
+        #region ISaveable implements
+        object ISaveable.CaptureState()
+        {
+            var state = new List<object>();
+
+            foreach (QuestStatus questStatus in _questStatuses)
+            {
+                state.Add(questStatus.CaptureState());
+            }
+
+            return state;
+        }
+
+        void ISaveable.RestoreState(object state)
+        {
+            var stateToRestore = (List<object>)state;
+            if (stateToRestore == null) return;
+
+            _questStatuses.Clear();
+
+            foreach (object stateObject in stateToRestore)
+            {
+                _questStatuses.Add(new QuestStatus(stateObject));
+            }
+        }
+        #endregion
     }
 }

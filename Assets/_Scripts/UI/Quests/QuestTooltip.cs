@@ -22,7 +22,7 @@ namespace RPG.UI.Quests
 
         public void SetUp(QuestStatus questStatus)
         {
-            _title.text = questStatus.QuestSO.Title;
+            _title.text = questStatus.QuestSO.QuestName;
 
             foreach (Transform child in _objectiveContainer)
             {

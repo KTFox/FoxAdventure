@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace RPG.Quests
 {
@@ -10,6 +9,23 @@ namespace RPG.Quests
         public QuestStatus(QuestSO newQuest)
         {
             _questSO = newQuest;
+        }
+
+        public QuestStatus(object stateObject)
+        {
+            QuestStatusRecord questStatusRecord = stateObject as QuestStatusRecord;
+
+            _questSO = QuestSO.GetQuestSOByName(questStatusRecord.Name);
+            _completedObjectives = questStatusRecord.CompletedObjectives;
+        }
+
+        // Structs
+
+        [System.Serializable]
+        private class QuestStatusRecord
+        {
+            public string Name;
+            public List<string> CompletedObjectives;
         }
 
         // Variables
@@ -25,6 +41,15 @@ namespace RPG.Quests
 
 
         // Methods
+
+        public object CaptureState()
+        {
+            QuestStatusRecord questStatusRecord = new QuestStatusRecord();
+            questStatusRecord.Name = _questSO.QuestName;
+            questStatusRecord.CompletedObjectives = _completedObjectives;
+
+            return questStatusRecord;
+        }
 
         public void CompleteObjective(string objectiveToComplete)
         {

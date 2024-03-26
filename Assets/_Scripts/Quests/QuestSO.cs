@@ -13,7 +13,7 @@ namespace RPG.Quests
 
         // Properties
 
-        public string Title => name;
+        public string QuestName => name;
         public IEnumerable<string> Objectives => _objectives;
         public int ObjectiveCount => _objectives.Count;
 
@@ -23,6 +23,19 @@ namespace RPG.Quests
         public bool HasObjective(string objectiveToCheck)
         {
             return _objectives.Contains(objectiveToCheck);
+        }
+
+        public static QuestSO GetQuestSOByName(string questName)
+        {
+            foreach (QuestSO questSO in Resources.LoadAll<QuestSO>(""))
+            {
+                if (questSO.name == questName)
+                {
+                    return questSO;
+                }
+            }
+
+            return null;
         }
     }
 }

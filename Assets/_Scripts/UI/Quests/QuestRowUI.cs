@@ -25,7 +25,7 @@ namespace RPG.UI.Quests
         public void SetUp(QuestStatus questStatus)
         {
             _questStatus = questStatus;
-            _title.text = questStatus.QuestSO.Title;
+            _title.text = questStatus.QuestSO.QuestName;
             _progress.text = $"{questStatus.CompletedObjectivesCount}/{questStatus.QuestSO.ObjectiveCount}";
         }
     }
