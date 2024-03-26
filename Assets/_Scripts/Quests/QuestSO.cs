@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using RPG.Inventories;
 
 namespace RPG.Quests
 {
@@ -9,20 +10,46 @@ namespace RPG.Quests
         // Variables
 
         [SerializeField]
-        private List<string> _objectives;
+        private List<Objective> _objectives = new List<Objective>();
+        [SerializeField]
+        private List<Reward> _rewards = new List<Reward>();
 
         // Properties
 
         public string QuestName => name;
-        public IEnumerable<string> Objectives => _objectives;
+        public IEnumerable<Objective> Objectives => _objectives;
         public int ObjectiveCount => _objectives.Count;
+
+        // Structs
+
+        [System.Serializable]
+        public class Objective
+        {
+            public string Reference;
+            public string Description;
+        }
+
+        [System.Serializable]
+        private class Reward
+        {
+            public int Number;
+            public InventoryItemSO Item;
+        }
 
 
         // Methods
 
-        public bool HasObjective(string objectiveToCheck)
+        public bool HasObjective(string objectiveReference)
         {
-            return _objectives.Contains(objectiveToCheck);
+            foreach (Objective objective in Objectives)
+            {
+                if (objective.Reference == objectiveReference)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public static QuestSO GetQuestSOByName(string questName)

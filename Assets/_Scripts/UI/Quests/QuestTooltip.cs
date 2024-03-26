@@ -29,10 +29,10 @@ namespace RPG.UI.Quests
                 Destroy(child.gameObject);
             }
 
-            foreach (string objective in questStatus.QuestSO.Objectives)
+            foreach (QuestSO.Objective objective in questStatus.QuestSO.Objectives)
             {
                 GameObject objectToSpawn;
-                if (questStatus.IsCompletedObjective(objective))
+                if (questStatus.IsCompletedObjective(objective.Reference))
                 {
                     objectToSpawn = _objectiveCompletedPrefab;
                 }
@@ -44,7 +44,7 @@ namespace RPG.UI.Quests
                 GameObject objectiveInstance = Instantiate(objectToSpawn, _objectiveContainer);
                 TextMeshProUGUI objectiveText = objectiveInstance.GetComponentInChildren<TextMeshProUGUI>();
 
-                objectiveText.text = objective;
+                objectiveText.text = objective.Description;
             }
         }
     }

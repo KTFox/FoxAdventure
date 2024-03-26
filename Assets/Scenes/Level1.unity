@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _questSO: {fileID: 11400000, guid: 588b15f8531bdb04eb7e237edfcc51bb, type: 2}
-  _objective: 1
+  _objective: 0
 --- !u!1001 &17951870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1806,7 +1806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _questSO: {fileID: 11400000, guid: 588b15f8531bdb04eb7e237edfcc51bb, type: 2}
-  _objective: 3
+  _objective: 2
 --- !u!1001 &981282930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3369,7 +3369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _questSO: {fileID: 11400000, guid: 588b15f8531bdb04eb7e237edfcc51bb, type: 2}
-  _objective: 2
+  _objective: 1
 --- !u!1 &1743792260
 GameObject:
   m_ObjectHideFlags: 0

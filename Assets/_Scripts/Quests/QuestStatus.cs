@@ -4,6 +4,17 @@ namespace RPG.Quests
 {
     public class QuestStatus
     {
+        // Variables
+
+        private QuestSO _questSO;
+        private List<string> _completedObjectives = new List<string>();
+
+        // Properties
+
+        public QuestSO QuestSO => _questSO;
+        public List<string> CompletedObjectives => _completedObjectives;
+        public int CompletedObjectivesCount => _completedObjectives.Count;
+
         // Constructors
 
         public QuestStatus(QuestSO newQuest)
@@ -27,17 +38,6 @@ namespace RPG.Quests
             public string Name;
             public List<string> CompletedObjectives;
         }
-
-        // Variables
-
-        private QuestSO _questSO;
-        private List<string> _completedObjectives = new List<string>();
-
-        // Properties
-
-        public QuestSO QuestSO => _questSO;
-        public List<string> CompletedObjectives => _completedObjectives;
-        public int CompletedObjectivesCount => _completedObjectives.Count;
 
 
         // Methods
