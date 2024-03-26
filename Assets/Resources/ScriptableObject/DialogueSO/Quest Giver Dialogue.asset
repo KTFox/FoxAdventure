@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-2645546037137141880
+--- !u!114 &-7327459654112868696
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: 7ebfec2a-5595-43ce-9670-84a059e41261
+  m_Name: 0cb88dba-be38-4195-9488-950823adbdf2
   m_EditorClassIdentifier: 
   _isPlayerDialogue: 0
-  _text: ...
+  _text: Thanks!
   _childrenUniqueIds: []
   _rect:
     serializedVersion: 2
-    x: 834
-    y: 149.00003
+    x: 1818
+    y: 171.00002
     width: 200
     height: 100
   _onEnterAction: 
-  _onExitAction: Attack
---- !u!114 &-2248951092623459124
+  _onExitAction: GiveQuest
+--- !u!114 &-3881697090306504222
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -33,21 +33,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: 89156ad6-bf03-4048-a76e-7b5aa6ffe338
+  m_Name: ba2211fd-6522-415e-897c-429177f9eed7
   m_EditorClassIdentifier: 
-  _isPlayerDialogue: 1
-  _text: I'm from Viet Nam.
+  _isPlayerDialogue: 0
+  _text: There're some robbers nearby. Can you help me defeat them?
   _childrenUniqueIds:
-  - 31fbd47d-e368-4834-9809-f8ea053d3895
+  - c198a4f1-a40b-4bae-a452-171eaa712181
   _rect:
     serializedVersion: 2
-    x: 574
-    y: -8
+    x: 1318
+    y: 171.00002
     width: 200
     height: 100
   _onEnterAction: 
   _onExitAction: 
---- !u!114 &-418396938840964195
+--- !u!114 &-2383473033692538341
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,16 +57,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: 31fbd47d-e368-4834-9809-f8ea053d3895
+  m_Name: a5078541-5da7-40e6-b53f-9edaf6190ced
   m_EditorClassIdentifier: 
-  _isPlayerDialogue: 0
-  _text: What's your name?
+  _isPlayerDialogue: 1
+  _text: What's problem
   _childrenUniqueIds:
-  - 9f1258c8-e32e-4439-8014-824017395897
+  - ba2211fd-6522-415e-897c-429177f9eed7
   _rect:
     serializedVersion: 2
-    x: 837
-    y: 3
+    x: 1067
+    y: 171.00002
     width: 200
     height: 100
   _onEnterAction: 
@@ -81,19 +81,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d501b9c034abf664f939ee3af9ccc052, type: 3}
-  m_Name: New Dialogue SO 1
+  m_Name: Quest Giver Dialogue
   m_EditorClassIdentifier: 
   _dialogueNodes:
   - {fileID: 6509044971571121891}
-  - {fileID: -2248951092623459124}
-  - {fileID: 6944127853965376202}
-  - {fileID: -2645546037137141880}
-  - {fileID: -418396938840964195}
-  - {fileID: 1298951363845303338}
   - {fileID: 3498862170147322879}
-  - {fileID: 9011020873968834187}
+  - {fileID: 7199658764764391808}
+  - {fileID: 3624397641186593156}
+  - {fileID: 3865920221995723741}
+  - {fileID: -2383473033692538341}
+  - {fileID: -3881697090306504222}
+  - {fileID: 1359223697310500114}
+  - {fileID: -7327459654112868696}
   _newNodeOffset: {x: 250, y: 0}
---- !u!114 &1298951363845303338
+--- !u!114 &1359223697310500114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,16 +104,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: 9f1258c8-e32e-4439-8014-824017395897
+  m_Name: c198a4f1-a40b-4bae-a452-171eaa712181
   m_EditorClassIdentifier: 
   _isPlayerDialogue: 1
-  _text: Mind your business.
+  _text: No problem!
   _childrenUniqueIds:
-  - c47f5c0e-5329-4de3-8cd9-168586e077cd
+  - 0cb88dba-be38-4195-9488-950823adbdf2
   _rect:
     serializedVersion: 2
-    x: 1099
-    y: 2
+    x: 1568
+    y: 171.00002
     width: 200
     height: 100
   _onEnterAction: 
@@ -132,12 +133,60 @@ MonoBehaviour:
   _isPlayerDialogue: 0
   _text: Where are you from?
   _childrenUniqueIds:
-  - 89156ad6-bf03-4048-a76e-7b5aa6ffe338
-  - da50a035-fadf-4d07-840d-ce2424b1975e
+  - 010cee73-efcb-4d84-b1b0-46348316fd33
+  - f64d441f-ded0-4ef8-8099-848c0bb36756
   _rect:
     serializedVersion: 2
-    x: 299
-    y: 60.000015
+    x: 313
+    y: 165.00002
+    width: 200
+    height: 100
+  _onEnterAction: 
+  _onExitAction: 
+--- !u!114 &3624397641186593156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: f64d441f-ded0-4ef8-8099-848c0bb36756
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 1
+  _text: Mind your business.
+  _childrenUniqueIds:
+  - fd6c78ec-b132-48d6-ac2e-9d146e8e1149
+  _rect:
+    serializedVersion: 2
+    x: 560
+    y: 231.00002
+    width: 200
+    height: 100
+  _onEnterAction: 
+  _onExitAction: 
+--- !u!114 &3865920221995723741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: fd6c78ec-b132-48d6-ac2e-9d146e8e1149
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 0
+  _text: Can you help me?
+  _childrenUniqueIds:
+  - a5078541-5da7-40e6-b53f-9edaf6190ced
+  _rect:
+    serializedVersion: 2
+    x: 817
+    y: 171.00002
     width: 200
     height: 100
   _onEnterAction: 
@@ -160,13 +209,13 @@ MonoBehaviour:
   - 7d18c1ec-0b3b-4909-82dd-484b72f07777
   _rect:
     serializedVersion: 2
-    x: 32
-    y: 58.000015
+    x: 58
+    y: 165.00002
     width: 200
     height: 100
   _onEnterAction: 
   _onExitAction: 
---- !u!114 &6944127853965376202
+--- !u!114 &7199658764764391808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,40 +225,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: da50a035-fadf-4d07-840d-ce2424b1975e
+  m_Name: 010cee73-efcb-4d84-b1b0-46348316fd33
   m_EditorClassIdentifier: 
   _isPlayerDialogue: 1
-  _text: Mind your business.
+  _text: I'm from Fox village
   _childrenUniqueIds:
-  - 7ebfec2a-5595-43ce-9670-84a059e41261
+  - fd6c78ec-b132-48d6-ac2e-9d146e8e1149
   _rect:
     serializedVersion: 2
-    x: 568
-    y: 150.00002
+    x: 562
+    y: 101.000015
     width: 200
     height: 100
   _onEnterAction: 
   _onExitAction: 
---- !u!114 &9011020873968834187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: c47f5c0e-5329-4de3-8cd9-168586e077cd
-  m_EditorClassIdentifier: 
-  _isPlayerDialogue: 0
-  _text: Get away!!!
-  _childrenUniqueIds: []
-  _rect:
-    serializedVersion: 2
-    x: 1349
-    y: 1
-    width: 200
-    height: 100
-  _onEnterAction: 
-  _onExitAction: Attack

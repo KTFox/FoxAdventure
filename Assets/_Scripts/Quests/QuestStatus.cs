@@ -3,15 +3,19 @@ using UnityEngine;
 
 namespace RPG.Quests
 {
-    [System.Serializable]
     public class QuestStatus
     {
+        // Constructors
+
+        public QuestStatus(QuestSO newQuest)
+        {
+            _questSO = newQuest;
+        }
+
         // Variables
 
-        [SerializeField]
         private QuestSO _questSO;
-        [SerializeField]
-        private List<string> _completedObjectives;
+        private List<string> _completedObjectives = new List<string>();
 
         // Properties
 

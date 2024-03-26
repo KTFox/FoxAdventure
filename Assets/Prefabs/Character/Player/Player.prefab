@@ -260,7 +260,7 @@ PrefabInstance:
       addedObject: {fileID: 6763550396204615515}
     - targetCorrespondingSourceObject: {fileID: 1348450288652152666, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8434283636510748382}
+      addedObject: {fileID: 920553107478986587}
   m_SourcePrefab: {fileID: 100100000, guid: 8fb85149f85dbcd49aad869e36a4083f, type: 3}
 --- !u!4 &140518475945222082 stripped
 Transform:
@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerName: Mr.Fox
---- !u!114 &8434283636510748382
+--- !u!114 &920553107478986587
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -498,15 +498,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4931212515291373538}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9864cd0e0c6d7344f9aafb1cbcf18718, type: 3}
+  m_Script: {fileID: 11500000, guid: 434f01b8c0938fb42bd02d3c5edbaf38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _questStatuses:
-  - _questSO: {fileID: 11400000, guid: 588b15f8531bdb04eb7e237edfcc51bb, type: 2}
-    _completedObjectives:
-    - 1
-    - 2
-  - _questSO: {fileID: 11400000, guid: 5e510e0bdfc44d648bd5202a10f98d97, type: 2}
-    _completedObjectives:
-    - a
-    - b

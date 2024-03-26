@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29b8fa335458ed948a0d7f6c7637aee8, type: 3}
-  m_Name: Defeat Village's Guard
+  m_Name: Defeat Robbers
   m_EditorClassIdentifier: 
   _objectives:
   - 1
