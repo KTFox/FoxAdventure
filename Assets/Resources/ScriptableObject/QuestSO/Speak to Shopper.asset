@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Speak to Shopper
   m_EditorClassIdentifier: 
   _objectives:
-  - Go and speak to Shopper
+  - a
+  - b
+  - c

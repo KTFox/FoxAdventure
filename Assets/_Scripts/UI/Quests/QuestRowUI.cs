@@ -13,13 +13,20 @@ namespace RPG.UI.Quests
         [SerializeField]
         private TextMeshProUGUI _progress;
 
+        private QuestStatus _questStatus;
+
+        // Properties
+
+        public QuestStatus QuestStatus => _questStatus;
+
 
         // Methods
 
-        public void SetUp(QuestSO quest)
+        public void SetUp(QuestStatus questStatus)
         {
-            _title.text = quest.Title;
-            _progress.text = $"0/{quest.ObjectiveCount}";
+            _questStatus = questStatus;
+            _title.text = questStatus.QuestSO.Title;
+            _progress.text = $"{questStatus.CompletedObjectivesCount}/{questStatus.QuestSO.ObjectiveCount}";
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Quests
@@ -13,6 +14,7 @@ namespace RPG.Quests
         // Properties
 
         public string Title => name;
+        public IEnumerable<string> Objectives => _objectives;
         public int ObjectiveCount => _objectives.Length;
     }
 }

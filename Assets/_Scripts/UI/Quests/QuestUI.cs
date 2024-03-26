@@ -3,12 +3,10 @@ using RPG.Quests;
 
 namespace RPG.UI.Quests
 {
-    public class QuestListUI : MonoBehaviour
+    public class QuestUI : MonoBehaviour
     {
         // Variables
 
-        [SerializeField]
-        private QuestSO[] _tempQuests;
         [SerializeField]
         private QuestRowUI _questRowPrefab;
 
@@ -16,15 +14,17 @@ namespace RPG.UI.Quests
         // Methods
         private void Start()
         {
+            QuestList playerQuestList = GameObject.FindGameObjectWithTag("Player").GetComponent<QuestList>();
+
             foreach (Transform child in transform)
             {
                 Destroy(child.gameObject);
             }
 
-            foreach (QuestSO questSO in _tempQuests)
+            foreach (QuestStatus questStatus in playerQuestList.QuestStatuses)
             {
                 QuestRowUI questRowInstance = Instantiate(_questRowPrefab, transform);
-                questRowInstance.SetUp(questSO);
+                questRowInstance.SetUp(questStatus);
             }
         }
     }

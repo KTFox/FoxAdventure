@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Defeat Village's Guard
   m_EditorClassIdentifier: 
   _objectives:
-  - Kill 3 Guards
+  - 1
+  - 2
+  - 3

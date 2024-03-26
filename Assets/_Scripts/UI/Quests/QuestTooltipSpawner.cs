@@ -1,5 +1,6 @@
 using UnityEngine;
 using RPG.Utility.UI;
+using RPG.Quests;
 
 namespace RPG.UI.Quests
 {
@@ -13,6 +14,8 @@ namespace RPG.UI.Quests
 
         public override void UpdateTooltip(GameObject tooltip)
         {
+            QuestStatus questStatus = GetComponent<QuestRowUI>().QuestStatus;
+            tooltip.GetComponent<QuestTooltip>().SetUp(questStatus);
         }
         #endregion
     }

@@ -10,6 +10,7 @@ namespace RPG.Utility.UI
         [Tooltip("the prefab of the _tooltip to spawn.")]
         [SerializeField]
         private GameObject _tooltipPrefab;
+
         private GameObject _tooltip;
 
 
