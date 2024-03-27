@@ -1,5 +1,6 @@
 * Bugs
 1. Sau khi Save and Quit, Light bị thay đổi
+2. Enemy không di chuyển sang waypoint tiếp theo
 
 * Extension features
 1. Hiển thị các chỉ số Health, Attack, Defence, Mana, Mana Recovery trên Stat UI

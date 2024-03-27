@@ -185,6 +185,8 @@ namespace RPG.Control
 
         private void UpdateTimers()
         {
+            Debug.Log(_currentWaypointIndex);
+
             _timeSinceLastSawPlayer += Time.deltaTime;
             _timeSinceArrivedAtWaypoint += Time.deltaTime;
             _timeSinceLastAgrrevated += Time.deltaTime;
