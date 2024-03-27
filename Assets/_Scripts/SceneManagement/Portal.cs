@@ -50,19 +50,21 @@ namespace RPG.SceneManagement
 
             yield return fader.FadeOut(_fadeTime);
 
-            savingWrapper.SaveData();
+            savingWrapper.SaveGameState();
 
             yield return SceneManager.LoadSceneAsync(_sceneIndexToLoad);
 
             DisablePlayerController();
-            savingWrapper.LoadData();
+            savingWrapper.RestoreGameState();
+
             Portal otherPortal = GetSameIdentifierPortal();
             UpdatePlayerTransform(otherPortal);
-            savingWrapper.SaveData();
+
+            savingWrapper.SaveGameState();
 
             yield return new WaitForSeconds(_waitingTimeBeforeFadingIn);
+            yield return fader.FadeIn(_fadeTime);
 
-            fader.FadeIn(_fadeTime);
             EnablePlayerController();
             Destroy(gameObject);
         }
@@ -82,6 +84,14 @@ namespace RPG.SceneManagement
             player.GetComponent<PlayerController>().enabled = true;
         }
 
+        private void UpdatePlayerTransform(Portal portal)
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
+
+            player.GetComponent<NavMeshAgent>().Warp(portal._positionToSpawn.position);
+            player.transform.rotation = portal._positionToSpawn.rotation;
+        }
+
         private Portal GetSameIdentifierPortal()
         {
             Portal[] portals = FindObjectsOfType<Portal>();
@@ -95,14 +105,6 @@ namespace RPG.SceneManagement
             }
 
             return null;
-        }
-
-        private void UpdatePlayerTransform(Portal portal)
-        {
-            var player = GameObject.FindGameObjectWithTag("Player");
-
-            player.GetComponent<NavMeshAgent>().Warp(portal._positionToSpawn.position);
-            player.transform.rotation = portal._positionToSpawn.rotation;
         }
     }
 }

@@ -35,7 +35,7 @@ namespace GameDevTV.Saving
         }
 
         /// <summary>
-        /// SaveData the current scene to the provided save file.
+        /// SaveGameState the current scene to the provided save file.
         /// </summary>
         public void Save(string saveFile)
         {
@@ -45,7 +45,7 @@ namespace GameDevTV.Saving
         }
 
         /// <summary>
-        /// Delete the state in the given save file.
+        /// DeleteSavedFile the state in the given save file.
         /// </summary>
         public void Delete(string saveFile)
         {

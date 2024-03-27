@@ -9,9 +9,9 @@ namespace RPG.Saving
 {
     public class SavingSystem : MonoBehaviour
     {
-        public IEnumerator LoadLastScene(string saveFile)
+        public IEnumerator LoadLastSceneFromFile(string fileName)
         {
-            Dictionary<string, object> state = LoadFileFromPath(saveFile);
+            Dictionary<string, object> state = GetSavedStateFromFile(fileName);
             int buildIndex = SceneManager.GetActiveScene().buildIndex;
 
             if (state.ContainsKey("LastSceneIndex"))
@@ -21,25 +21,25 @@ namespace RPG.Saving
 
             yield return SceneManager.LoadSceneAsync(buildIndex);
 
-            RestoreAllSaveableEntities(state);
+            RestoreSaveableEntitiesBy(state);
         }
 
-        public void Save(string saveFile)
+        public void SaveGameStateIntoFile(string fileName)
         {
-            Dictionary<string, object> state = LoadFileFromPath(saveFile);
+            Dictionary<string, object> state = GetSavedStateFromFile(fileName);
 
-            CaptureAllSaveableEntities(state);
-            SaveFileToPath(saveFile, state);
+            CaptureSaveableEntitiesInto(state);
+            SaveStateIntoFile(fileName, state);
         }
 
-        public void Load(string saveFile)
+        public void RestoreGameStateFromFile(string fileName)
         {
-            RestoreAllSaveableEntities(LoadFileFromPath(saveFile));
+            RestoreSaveableEntitiesBy(GetSavedStateFromFile(fileName));
         }
 
-        public void Delete(string saveFile)
+        public void DeleteSavedFile(string fileName)
         {
-            File.Delete(GetPathFromSaveFile(saveFile));
+            File.Delete(GetPathOf(fileName));
         }
 
         public IEnumerable<string> GetSaveFileNames()
@@ -53,9 +53,9 @@ namespace RPG.Saving
             }
         }
 
-        private void SaveFileToPath(string saveFile, Dictionary<string, object> state)
+        private void SaveStateIntoFile(string saveFile, Dictionary<string, object> state)
         {
-            string path = GetPathFromSaveFile(saveFile);
+            string path = GetPathOf(saveFile);
 
             using (FileStream stream = File.Open(path, FileMode.Create))
             {
@@ -66,9 +66,9 @@ namespace RPG.Saving
             Debug.Log($"Saving to {path}");
         }
 
-        private Dictionary<string, object> LoadFileFromPath(string saveFile)
+        private Dictionary<string, object> GetSavedStateFromFile(string fileName)
         {
-            string path = GetPathFromSaveFile(saveFile);
+            string path = GetPathOf(fileName);
 
             if (!File.Exists(path))
             {
@@ -83,7 +83,7 @@ namespace RPG.Saving
             }
         }
 
-        private void CaptureAllSaveableEntities(Dictionary<string, object> state)
+        private void CaptureSaveableEntitiesInto(Dictionary<string, object> state)
         {
             SaveableEntity[] saveableEntities = FindObjectsOfType<SaveableEntity>();
 
@@ -95,7 +95,7 @@ namespace RPG.Saving
             state["LastSceneIndex"] = SceneManager.GetActiveScene().buildIndex;
         }
 
-        private void RestoreAllSaveableEntities(Dictionary<string, object> state)
+        private void RestoreSaveableEntitiesBy(Dictionary<string, object> state)
         {
             SaveableEntity[] saveableEntities = FindObjectsOfType<SaveableEntity>();
 
@@ -105,14 +105,14 @@ namespace RPG.Saving
 
                 if (state.ContainsKey(identifier))
                 {
-                    saveableEntity.RestoreAllISavableComponents(state[identifier]);
+                    saveableEntity.RestoreISaveableComponents(state[identifier]);
                 }
             }
         }
 
-        private string GetPathFromSaveFile(string saveFile)
+        private string GetPathOf(string fileName)
         {
-            return Path.Combine(Application.persistentDataPath, saveFile + ".sav");
+            return Path.Combine(Application.persistentDataPath, fileName + ".sav");
         }
     }
 }

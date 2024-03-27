@@ -35,7 +35,7 @@ namespace RPG.UI
                 Button button = buttonObject.GetComponent<Button>();
 
                 buttonText.text = savedFileName;
-                button.onClick.AddListener(() => savingWrapper.LoadGameFromSavedFile(savedFileName));
+                button.onClick.AddListener(() => savingWrapper.ContinueGame(savedFileName));
             }
         }
     }

@@ -49,7 +49,7 @@ namespace RPG.Control
         private IEnumerator RespawnCoroutine()
         {
             SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
-            savingWrapper.SaveData();
+            savingWrapper.SaveGameState();
 
             yield return new WaitForSeconds(_fadeDelay);
 
@@ -59,7 +59,7 @@ namespace RPG.Control
 
             RespawnPlayer();
             ResetEnemies();
-            savingWrapper.SaveData();
+            savingWrapper.SaveGameState();
 
             yield return fader.FadeIn(_fadeTime);
         }

@@ -13,7 +13,7 @@ namespace RPG.SceneManagement
         private const string CURRENT_SAVE_FILE_NAME = "CurrentSaveFileName";
 
         [SerializeField]
-        private float _fadeTime = 0.5f;
+        private float _fadeTime;
 
         private int _menuSceneBuildIndex = 0;
         private int _firstLevelBuildIndex = 1;
@@ -25,45 +25,48 @@ namespace RPG.SceneManagement
 
         // Methods
 
-        public void LoadMenuScene()
+        /// <summary>
+        /// Create new game and set the name of saving file equal fileName
+        /// </summary>
+        /// <param name="fileName"></param>
+        public void CreateNewGame(string fileName)
         {
-            StartCoroutine(LoadMenuSceneCoroutine());
+            SetCurrentSaveFileName(fileName);
+            StartCoroutine(LoadFirstSceneCoroutine());
         }
 
-        public void LoadGameFromSavedFile(string savedFile)
+        #region ContinueGame overloads
+        public void ContinueGame(string fileName)
         {
-            SetCurrentSaveFileName(savedFile);
+            SetCurrentSaveFileName(fileName);
             ContinueGame();
-        }
-
-        public void LoadData()
-        {
-            GetComponent<SavingSystem>().Load(GetCurrentSaveFileName());
-        }
-
-        public void SaveData()
-        {
-            GetComponent<SavingSystem>().Save(GetCurrentSaveFileName());
         }
 
         public void ContinueGame()
         {
             StartCoroutine(LoadLastSceneCoroutine());
         }
+        #endregion
 
-        public void CreateNewGame(string saveFile)
+        public void LoadMenuScene()
         {
-            SetCurrentSaveFileName(saveFile);
-            StartCoroutine(LoadFirstSceneCoroutine());
+            StartCoroutine(LoadMenuSceneCoroutine());
         }
 
-        private IEnumerator LoadLastSceneCoroutine()
+        /// <summary>
+        /// Restore game's state from current saved file
+        /// </summary>
+        public void RestoreGameState()
         {
-            Fader fader = FindObjectOfType<Fader>();
+            GetComponent<SavingSystem>().RestoreGameStateFromFile(GetCurrentSaveFileName());
+        }
 
-            yield return fader.FadeOut(_fadeTime);
-            yield return GetComponent<SavingSystem>().LoadLastScene(GetCurrentSaveFileName());
-            yield return fader.FadeIn(_fadeTime);
+        /// <summary>
+        /// Save game's state into current saved file
+        /// </summary>
+        public void SaveGameState()
+        {
+            GetComponent<SavingSystem>().SaveGameStateIntoFile(GetCurrentSaveFileName());
         }
 
         private IEnumerator LoadFirstSceneCoroutine()
@@ -72,6 +75,15 @@ namespace RPG.SceneManagement
 
             yield return fader.FadeOut(_fadeTime);
             yield return SceneManager.LoadSceneAsync(_firstLevelBuildIndex);
+            yield return fader.FadeIn(_fadeTime);
+        }
+
+        private IEnumerator LoadLastSceneCoroutine()
+        {
+            Fader fader = FindObjectOfType<Fader>();
+
+            yield return fader.FadeOut(_fadeTime);
+            yield return GetComponent<SavingSystem>().LoadLastSceneFromFile(GetCurrentSaveFileName());
             yield return fader.FadeIn(_fadeTime);
         }
 

@@ -33,13 +33,13 @@ namespace RPG.UI
         public void Save()
         {
             var savingWrapper = FindObjectOfType<SavingWrapper>();
-            savingWrapper.SaveData();
+            savingWrapper.SaveGameState();
         }
 
         public void SaveAndQuit()
         {
             var savingWrapper = FindObjectOfType<SavingWrapper>();
-            savingWrapper.SaveData();
+            savingWrapper.SaveGameState();
             savingWrapper.LoadMenuScene();
         }
         #endregion

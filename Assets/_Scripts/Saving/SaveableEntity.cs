@@ -33,7 +33,7 @@ namespace RPG.Saving
             return results;
         }
 
-        public void RestoreAllISavableComponents(object state)
+        public void RestoreISaveableComponents(object state)
         {
             var stateDict = (Dictionary<string, object>)state;
 
