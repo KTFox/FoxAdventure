@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using RPG.Core;
 
 namespace RPG.Dialogues
 {
@@ -59,7 +60,7 @@ namespace RPG.Dialogues
 
         public void MoveToNextDialogueNode()
         {
-            int numberOfPlayerResponses = _currentDialogue.GetPlayerDialogueNodeChildrenOf(_currentDialogueNode).Count();
+            int numberOfPlayerResponses = GetFilteredNodeOnCondition(_currentDialogue.GetPlayerDialogueNodeChildrenOf(_currentDialogueNode)).Count();
             if (numberOfPlayerResponses > 0)
             {
                 _isChoosing = true;
@@ -70,7 +71,7 @@ namespace RPG.Dialogues
                 return;
             }
 
-            DialogueNodeSO[] childNodes = _currentDialogue.GetAIDialogueChildrenOf(_currentDialogueNode).ToArray();
+            DialogueNodeSO[] childNodes = GetFilteredNodeOnCondition(_currentDialogue.GetAIDialogueChildrenOf(_currentDialogueNode)).ToArray();
             int randomIndex = UnityEngine.Random.Range(0, childNodes.Count());
 
             TriggerEnterAction();
@@ -95,10 +96,7 @@ namespace RPG.Dialogues
 
         public IEnumerable<DialogueNodeSO> GetChoices()
         {
-            foreach (DialogueNodeSO node in _currentDialogue.GetPlayerDialogueNodeChildrenOf(_currentDialogueNode))
-            {
-                yield return node;
-            }
+            return GetFilteredNodeOnCondition(_currentDialogue.GetPlayerDialogueNodeChildrenOf(_currentDialogueNode));
         }
 
         public string GetCurrentDialogueText()
@@ -118,7 +116,7 @@ namespace RPG.Dialogues
 
         public bool HasNextDialogueNode()
         {
-            return _currentDialogue.GetDialogueNodeChildrenOf(_currentDialogueNode).Count() > 0;
+            return GetFilteredNodeOnCondition(_currentDialogue.GetDialogueNodeChildrenOf(_currentDialogueNode)).Count() > 0;
         }
 
         public bool IsActiveDialogue()
@@ -150,6 +148,22 @@ namespace RPG.Dialogues
             {
                 trigger.TriggerAction(action);
             }
+        }
+
+        private IEnumerable<DialogueNodeSO> GetFilteredNodeOnCondition(IEnumerable<DialogueNodeSO> inputNodes)
+        {
+            foreach (DialogueNodeSO node in inputNodes)
+            {
+                if (node.CheckCondition(GetEvaluators()))
+                {
+                    yield return node;
+                }
+            }
+        }
+
+        private IEnumerable<IPredicateEvaluator> GetEvaluators()
+        {
+            return GetComponents<IPredicateEvaluator>();
         }
     }
 }

@@ -2,10 +2,11 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using RPG.Saving;
+using RPG.Core;
 
 namespace RPG.Inventories
 {
-    public class Inventory : MonoBehaviour, ISaveable
+    public class Inventory : MonoBehaviour, ISaveable, IPredicateEvaluator
     {
         // Variables
 
@@ -151,6 +152,19 @@ namespace RPG.Inventories
         {
             return slots[index].quantity;
         }
+
+        #region IPredicateEvaluator implements
+        public bool? Evaluate(string predicate, string[] parameters)
+        {
+            switch(predicate)
+            {
+                case "HasInventoryItem":
+                    return HasItem(InventoryItemSO.GetItemFromID(parameters[0]));
+            }
+
+            return null;
+        }
+        #endregion
 
         private int FindFirstEmptySlotIndex()
         {

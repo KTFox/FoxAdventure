@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isPlayerDialogue: 0
   _text: Thanks!
-  _childrenUniqueIds: []
+  _childrenUniqueIds:
+  - 4b125bf8-3e39-4fb6-a994-267f165d6b5c
   _rect:
     serializedVersion: 2
     x: 1818
@@ -23,6 +24,9 @@ MonoBehaviour:
     height: 100
   _onEnterAction: 
   _onExitAction: GiveQuest
+  _condition:
+    _predicate: 
+    _parameters: []
 --- !u!114 &-3881697090306504222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,6 +51,63 @@ MonoBehaviour:
     height: 100
   _onEnterAction: 
   _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
+--- !u!114 &-3664567991583344683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: aa0e8e6a-6431-4d8c-b25e-8937d25afd66
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 0
+  _text: Many thanks!
+  _childrenUniqueIds: []
+  _rect:
+    serializedVersion: 2
+    x: 2320
+    y: 168.00002
+    width: 200
+    height: 100
+  _onEnterAction: 
+  _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
+--- !u!114 &-3171871921816048709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: 4b125bf8-3e39-4fb6-a994-267f165d6b5c
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 1
+  _text: I have defeated them all
+  _childrenUniqueIds:
+  - aa0e8e6a-6431-4d8c-b25e-8937d25afd66
+  _rect:
+    serializedVersion: 2
+    x: 2070
+    y: 168.00002
+    width: 200
+    height: 100
+  _onEnterAction: 
+  _onExitAction: 
+  _condition:
+    _predicate: CompletedQuest
+    _parameters:
+    - Defeat Robbers
 --- !u!114 &-2383473033692538341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,6 +132,9 @@ MonoBehaviour:
     height: 100
   _onEnterAction: 
   _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,6 +157,8 @@ MonoBehaviour:
   - {fileID: -3881697090306504222}
   - {fileID: 1359223697310500114}
   - {fileID: -7327459654112868696}
+  - {fileID: -3171871921816048709}
+  - {fileID: -3664567991583344683}
   _newNodeOffset: {x: 250, y: 0}
 --- !u!114 &1359223697310500114
 MonoBehaviour:
@@ -118,6 +184,9 @@ MonoBehaviour:
     height: 100
   _onEnterAction: 
   _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
 --- !u!114 &3498862170147322879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +212,9 @@ MonoBehaviour:
     height: 100
   _onEnterAction: 
   _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
 --- !u!114 &3624397641186593156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +239,9 @@ MonoBehaviour:
     height: 100
   _onEnterAction: 
   _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
 --- !u!114 &3865920221995723741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +266,9 @@ MonoBehaviour:
     height: 100
   _onEnterAction: 
   _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
 --- !u!114 &6509044971571121891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,6 +293,9 @@ MonoBehaviour:
     height: 100
   _onEnterAction: 
   _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
 --- !u!114 &7199658764764391808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,3 +320,6 @@ MonoBehaviour:
     height: 100
   _onEnterAction: 
   _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []

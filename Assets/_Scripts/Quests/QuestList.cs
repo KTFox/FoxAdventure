@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Saving;
 using RPG.Inventories;
+using RPG.Core;
 
 namespace RPG.Quests
 {
-    public class QuestList : MonoBehaviour, ISaveable
+    public class QuestList : MonoBehaviour, ISaveable, IPredicateEvaluator
     {
         // Variables
 
@@ -45,6 +46,21 @@ namespace RPG.Quests
 
             OnQuestListUpdated?.Invoke();
         }
+
+        #region IPredicateEvaluator implements
+        public bool? Evaluate(string predicate, string[] parameters)
+        {
+            switch (predicate)
+            {
+                case "HasQuest":
+                    return HasQuest(QuestSO.GetQuestSOByName(parameters[0]));
+                case "CompletedQuest":
+                    return GetQuestStatusOf(QuestSO.GetQuestSOByName(parameters[0])).HasCompleted();
+            }
+
+            return null;
+        }
+        #endregion
 
         private void ReceiveQuestReward(QuestSO questSO)
         {
