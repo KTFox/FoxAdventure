@@ -59,9 +59,9 @@ MonoBehaviour:
     statProgresses:
     - stat: 0
       levels:
+      - 20
       - 50
       - 75
-      - 100
     - stat: 3
       levels:
       - 10

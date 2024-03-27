@@ -104,9 +104,6 @@ namespace RPG.Movement
         }
 
         #region IAction Interface implements
-        /// <summary>
-        /// Set _navMeshAgent.isStopped = true
-        /// </summary>
         public void Cancel()
         {
             _navMeshAgent.isStopped = true;

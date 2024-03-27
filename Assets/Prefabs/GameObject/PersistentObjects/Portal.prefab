@@ -126,9 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa646bcdabb5794ca785ddee3bfcfcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  identifier: 0
-  sceneToLoad: 0
-  fadeOutTime: 0.5
-  fadeInTime: 1
-  fadeWaitTime: 0.5
-  spawnPoint: {fileID: 444655666846192092}
+  _portalIdentifier: 0
+  _sceneIndexToLoad: 0
+  _fadeTime: 1
+  _waitingTimeBeforeFadingIn: 0
+  _positionToSpawn: {fileID: 444655666846192092}
