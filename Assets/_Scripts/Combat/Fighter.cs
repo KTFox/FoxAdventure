@@ -40,7 +40,12 @@ namespace RPG.Combat
         private void Awake()
         {
             _mover = GetComponent<Mover>();
+
             _equipment = GetComponent<Equipment>();
+            if (_equipment != null)
+            {
+                _equipment.OnEquipmentUpdated += Equipment_EquipmentUpdated;
+            }
 
             _currentWeaponSO = _defaultWeaponSO;
             _currentWeapon = new LazyValue<Weapon>(SetupDefaultWeapon);
@@ -54,11 +59,6 @@ namespace RPG.Combat
         private void Start()
         {
             _currentWeapon.ForceInit();
-
-            if (_equipment != null)
-            {
-                _equipment.OnEquipmentUpdated += Equipment_EquipmentUpdated;
-            }
         }
 
         void Equipment_EquipmentUpdated()
