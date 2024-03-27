@@ -1,1 +1,8 @@
-1. Sau khi bấm nút Continue Game, Player không cầm vũ khí đã lưu trên tay
+* Bugs
+1. Sau khi Save and Quit, Light bị thay đổi
+
+* Extension features
+1. Hiển thị các chỉ số Health, Attack, Defence, Mana, Mana Recovery trên Stat UI
+2. Giới hạn Camera
+3. Chỉ nhận thưởng sau khi trả nhiệm vụ
+4. Xóa nhiệm vụ sau khi đã hoàn thành
