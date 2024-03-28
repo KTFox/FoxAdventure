@@ -1,0 +1,211 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8514968799571821572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: 0e173fb1-83ef-4938-a5dc-f8e7133ca890
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 1
+  _text: ...
+  _childrenUniqueIds:
+  - 041ac504-343d-4cd0-ac3e-8ed752411545
+  _rect:
+    serializedVersion: 2
+    x: 526
+    y: 152
+    width: 200
+    height: 100
+  _onEnterAction: 
+  _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
+--- !u!114 &-6077745374902579278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: 95406d57-da04-4248-9aa2-e314253fa84d
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 0
+  _text: Thank you.
+  _childrenUniqueIds: []
+  _rect:
+    serializedVersion: 2
+    x: 1274
+    y: 263
+    width: 200
+    height: 100
+  _onEnterAction: 
+  _onExitAction: GiveQuest
+  _condition:
+    _predicate: 
+    _parameters: []
+--- !u!114 &-1951787527857352359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: e9d67bf9-e37a-4415-b41b-f8bc0eae9db7
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 1
+  _text: Sure!
+  _childrenUniqueIds:
+  - 95406d57-da04-4248-9aa2-e314253fa84d
+  _rect:
+    serializedVersion: 2
+    x: 1024
+    y: 263
+    width: 200
+    height: 100
+  _onEnterAction: 
+  _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
+--- !u!114 &-1863182751789021721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: 041ac504-343d-4cd0-ac3e-8ed752411545
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 0
+  _text: Please help me to defeat Boss.
+  _childrenUniqueIds:
+  - 6ea4ae92-e6b7-417b-881a-5ca7e45a421d
+  - e9d67bf9-e37a-4415-b41b-f8bc0eae9db7
+  _rect:
+    serializedVersion: 2
+    x: 776
+    y: 152
+    width: 200
+    height: 100
+  _onEnterAction: 
+  _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
+--- !u!114 &-5380869539740363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: a81e0b26-f379-4c18-a597-b15bf07982c6
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 0
+  _text: Please come back when you have prepared.
+  _childrenUniqueIds: []
+  _rect:
+    serializedVersion: 2
+    x: 1276
+    y: 152
+    width: 200
+    height: 100
+  _onEnterAction: 
+  _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d501b9c034abf664f939ee3af9ccc052, type: 3}
+  m_Name: Defeat Boss Dialogue
+  m_EditorClassIdentifier: 
+  _dialogueNodes:
+  - {fileID: 2100303155353581640}
+  - {fileID: -8514968799571821572}
+  - {fileID: -1863182751789021721}
+  - {fileID: 2220234947203384789}
+  - {fileID: -1951787527857352359}
+  - {fileID: -6077745374902579278}
+  - {fileID: -5380869539740363}
+  _newNodeOffset: {x: 250, y: 0}
+--- !u!114 &2100303155353581640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: 41d014f3-ef00-49d0-805e-7d2e357d333d
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 0
+  _text: It's nice to see you, Mr.Fox!!!
+  _childrenUniqueIds:
+  - 0e173fb1-83ef-4938-a5dc-f8e7133ca890
+  _rect:
+    serializedVersion: 2
+    x: 276
+    y: 153
+    width: 200
+    height: 100
+  _onEnterAction: 
+  _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
+--- !u!114 &2220234947203384789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: 6ea4ae92-e6b7-417b-881a-5ca7e45a421d
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 1
+  _text: I don't prepare for that.
+  _childrenUniqueIds:
+  - a81e0b26-f379-4c18-a597-b15bf07982c6
+  _rect:
+    serializedVersion: 2
+    x: 1026
+    y: 152
+    width: 200
+    height: 100
+  _onEnterAction: 
+  _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []

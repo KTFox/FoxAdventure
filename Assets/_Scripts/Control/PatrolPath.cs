@@ -6,7 +6,7 @@ namespace RPG.Control
     {
         // Variables
 
-        private float _waypointGizmosRadius = 0.3f;
+        private float _waypointGizmosRadius = 1f;
 
 
         // Methods
@@ -32,9 +32,9 @@ namespace RPG.Control
             }
         }
 
-        public Vector3 GetWaypointPosition(int index)
+        public Vector3 GetWaypointPosition(int waypointIndex)
         {
-            return transform.GetChild(index).position;
+            return transform.GetChild(waypointIndex).position;
         }
     }
 }

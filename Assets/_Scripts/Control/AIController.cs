@@ -139,7 +139,7 @@ namespace RPG.Control
             {
                 if (HasReachedWaypoint())
                 {
-                    CycleWaypoint();
+                    _currentWaypointIndex = _patrolPath.GetNextWaypointIndex(_currentWaypointIndex);
                     _timeSinceArrivedAtWaypoint = 0f;
                 }
 
@@ -173,11 +173,6 @@ namespace RPG.Control
             return distanceToWaypoint < _waypointTolerance;
         }
 
-        private void CycleWaypoint()
-        {
-            _currentWaypointIndex = _patrolPath.GetNextWaypointIndex(_currentWaypointIndex);
-        }
-
         private Vector3 GetCurrentWaypoint()
         {
             return _patrolPath.GetWaypointPosition(_currentWaypointIndex);
@@ -185,8 +180,6 @@ namespace RPG.Control
 
         private void UpdateTimers()
         {
-            Debug.Log(_currentWaypointIndex);
-
             _timeSinceLastSawPlayer += Time.deltaTime;
             _timeSinceArrivedAtWaypoint += Time.deltaTime;
             _timeSinceLastAgrrevated += Time.deltaTime;
