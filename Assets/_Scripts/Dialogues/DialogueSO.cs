@@ -27,6 +27,8 @@ namespace RPG.Dialogues
 
         private void OnValidate()
         {
+            if (_dialogueNodes[0] == null) return;
+
             _nodeLookup.Clear();
 
             foreach (DialogueNodeSO node in _dialogueNodes)
@@ -84,12 +86,13 @@ namespace RPG.Dialogues
             Undo.RecordObject(this, "Deleted Dialogue Node");
             _dialogueNodes.Remove(nodeToDelete);
 
+            OnValidate();
+
             foreach (DialogueNodeSO node in _dialogueNodes)
             {
                 node.RemoveChild(nodeToDelete.name);
             }
 
-            OnValidate();
             Undo.DestroyObjectImmediate(nodeToDelete);
         }
 
@@ -119,21 +122,20 @@ namespace RPG.Dialogues
         public void OnBeforeSerialize()
         {
 #if UNITY_EDITOR
-            if (_dialogueNodes.Count == 0)
-            {
-                var newNode = InstantiateNode(null);
-                AddNode(newNode);
-            }
-
             if (AssetDatabase.GetAssetPath(this) != "")
             {
                 foreach (DialogueNodeSO node in _dialogueNodes)
                 {
                     if (AssetDatabase.GetAssetPath(node) == "")
-                    {
                         AssetDatabase.AddObjectToAsset(node, this);
-                    }
                 }
+
+                if (_dialogueNodes.Count == 0)
+                {
+                    DialogueNodeSO newNode = InstantiateNode(null);
+                    AddNode(newNode);
+                }
+
             }
 #endif
         }

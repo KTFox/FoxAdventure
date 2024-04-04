@@ -9,15 +9,15 @@ namespace RPG.Dialogues.Editor
     {
         // Variables
 
-        private const float _canvasSize = 4000f;
-        private const float _backgroundSize = 50f;
+        private const float CANVAS_SIZE = 4000f;
+        private const float BACKGROUND_SIZE = 50f;
 
         private DialogueSO _selectedDialogue;
 
         [NonSerialized]
-        private GUIStyle _dialogueNodeStyle;
+        private GUIStyle _AINodeStyle;
         [NonSerialized]
-        private GUIStyle _playerDialogueNodeStyle;
+        private GUIStyle _playerNodeStyle;
 
         [NonSerialized]
         private DialogueNodeSO _beingDraggedNode;
@@ -31,9 +31,9 @@ namespace RPG.Dialogues.Editor
         [NonSerialized]
         private DialogueNodeSO _linkingParentNode;
 
-        private Vector2 _scrollViewPosition;
         [NonSerialized]
         private Vector2 _draggingCanvasOffset;
+        private Vector2 _scrollViewPosition;
 
 
         // Methods
@@ -65,15 +65,15 @@ namespace RPG.Dialogues.Editor
         {
             Selection.selectionChanged += OnSelectionChanged;
 
-            _dialogueNodeStyle = new GUIStyle();
-            _dialogueNodeStyle.normal.background = EditorGUIUtility.Load("Node0") as Texture2D;
-            _dialogueNodeStyle.padding = new RectOffset(10, 10, 10, 10);
-            _dialogueNodeStyle.border = new RectOffset(12, 12, 12, 12);
+            _AINodeStyle = new GUIStyle();
+            _AINodeStyle.normal.background = EditorGUIUtility.Load("Node0") as Texture2D;
+            _AINodeStyle.padding = new RectOffset(10, 10, 10, 10);
+            _AINodeStyle.border = new RectOffset(12, 12, 12, 12);
 
-            _playerDialogueNodeStyle = new GUIStyle();
-            _playerDialogueNodeStyle.normal.background = EditorGUIUtility.Load("Node1") as Texture2D;
-            _playerDialogueNodeStyle.padding = new RectOffset(10, 10, 10, 10);
-            _playerDialogueNodeStyle.border = new RectOffset(12, 12, 12, 12);
+            _playerNodeStyle = new GUIStyle();
+            _playerNodeStyle.normal.background = EditorGUIUtility.Load("Node1") as Texture2D;
+            _playerNodeStyle.padding = new RectOffset(10, 10, 10, 10);
+            _playerNodeStyle.border = new RectOffset(12, 12, 12, 12);
         }
 
         void OnSelectionChanged()
@@ -95,14 +95,14 @@ namespace RPG.Dialogues.Editor
 
                 _scrollViewPosition = EditorGUILayout.BeginScrollView(_scrollViewPosition);
 
-                Rect canvas = GUILayoutUtility.GetRect(_canvasSize, _canvasSize);
+                Rect canvas = GUILayoutUtility.GetRect(CANVAS_SIZE, CANVAS_SIZE);
                 Texture2D backgroundTexture = Resources.Load("background") as Texture2D;
-                Rect textureCoordinates = new Rect(0, 0, _canvasSize / _backgroundSize, _canvasSize / _backgroundSize);
+                Rect textureCoordinates = new Rect(0, 0, CANVAS_SIZE / BACKGROUND_SIZE, CANVAS_SIZE / BACKGROUND_SIZE);
                 GUI.DrawTextureWithTexCoords(canvas, backgroundTexture, textureCoordinates);
 
-                foreach (DialogueNodeSO dialogueNode in _selectedDialogue.DialogueNodes)
+                foreach (DialogueNodeSO node in _selectedDialogue.DialogueNodes)
                 {
-                    DrawConnections(dialogueNode);
+                    DrawConnections(node);
                 }
 
                 foreach (DialogueNodeSO dialogueNode in _selectedDialogue.DialogueNodes)
@@ -175,10 +175,10 @@ namespace RPG.Dialogues.Editor
 
         private void DrawNode(DialogueNodeSO dialogueNode)
         {
-            GUIStyle dialogueStyle = _dialogueNodeStyle;
+            GUIStyle dialogueStyle = _AINodeStyle;
             if (dialogueNode.IsPlayerDialogue())
             {
-                dialogueStyle = _playerDialogueNodeStyle;
+                dialogueStyle = _playerNodeStyle;
             }
 
             GUILayout.BeginArea(dialogueNode.GetRect(), dialogueStyle);
@@ -221,21 +221,6 @@ namespace RPG.Dialogues.Editor
             }
         }
 
-        private DialogueNodeSO GetNodeAtPoint(Vector2 point)
-        {
-            DialogueNodeSO foundNode = null;
-
-            foreach (DialogueNodeSO dialogueNode in _selectedDialogue.DialogueNodes)
-            {
-                if (dialogueNode.GetRect().Contains(point))
-                {
-                    foundNode = dialogueNode;
-                }
-            }
-
-            return foundNode;
-        }
-
         private void DrawLinkButton(DialogueNodeSO dialogueNode)
         {
             if (_linkingParentNode == null)
@@ -264,10 +249,26 @@ namespace RPG.Dialogues.Editor
             {
                 if (GUILayout.Button("child"))
                 {
+                    Undo.RecordObject(_selectedDialogue, "Add Dialogue link");
                     _linkingParentNode.AddChild(dialogueNode.name);
                     _linkingParentNode = null;
                 }
             }
+        }
+
+        private DialogueNodeSO GetNodeAtPoint(Vector2 point)
+        {
+            DialogueNodeSO foundNode = null;
+
+            foreach (DialogueNodeSO dialogueNode in _selectedDialogue.DialogueNodes)
+            {
+                if (dialogueNode.GetRect().Contains(point))
+                {
+                    foundNode = dialogueNode;
+                }
+            }
+
+            return foundNode;
         }
     }
 }

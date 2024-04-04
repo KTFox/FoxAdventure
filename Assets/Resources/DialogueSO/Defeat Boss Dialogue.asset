@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8514968799571821572
+--- !u!114 &-7483604254367644354
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: 0e173fb1-83ef-4938-a5dc-f8e7133ca890
+  m_Name: 36d3b0dc-dfbd-46f2-81e6-425715a39b7f
   m_EditorClassIdentifier: 
-  _isPlayerDialogue: 1
-  _text: ...
+  _isPlayerDialogue: 0
+  _text: Can you help me defeat boss?
   _childrenUniqueIds:
-  - 041ac504-343d-4cd0-ac3e-8ed752411545
+  - 99166523-ff03-4820-9e48-3eb70e47afd3
+  - 8a61b3a1-10d8-46d8-a48c-350193e1520c
   _rect:
     serializedVersion: 2
-    x: 526
-    y: 152
+    x: 1115
+    y: 146
     width: 200
     height: 100
   _onEnterAction: 
@@ -27,7 +28,7 @@ MonoBehaviour:
   _condition:
     _predicate: 
     _parameters: []
---- !u!114 &-6077745374902579278
+--- !u!114 &-3266726166779051920
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37,15 +38,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: 95406d57-da04-4248-9aa2-e314253fa84d
+  m_Name: 9e9f4494-2263-44ee-bfa6-fd3741ad55f7
   m_EditorClassIdentifier: 
   _isPlayerDialogue: 0
-  _text: Thank you.
+  _text: Come back later please.
   _childrenUniqueIds: []
   _rect:
     serializedVersion: 2
-    x: 1274
-    y: 263
+    x: 1612
+    y: 269
+    width: 200
+    height: 100
+  _onEnterAction: 
+  _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
+--- !u!114 &-2821959573006716062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: fa4618d3-e50e-44c5-915e-f4eb217b0f0a
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 0
+  _text: Thanks
+  _childrenUniqueIds: []
+  _rect:
+    serializedVersion: 2
+    x: 1614
+    y: 145
     width: 200
     height: 100
   _onEnterAction: 
@@ -53,7 +80,7 @@ MonoBehaviour:
   _condition:
     _predicate: 
     _parameters: []
---- !u!114 &-1951787527857352359
+--- !u!114 &-2021332170131809637
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,16 +90,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: e9d67bf9-e37a-4415-b41b-f8bc0eae9db7
+  m_Name: e224fd77-f69a-4355-bc48-21630d7cbec4
   m_EditorClassIdentifier: 
-  _isPlayerDialogue: 1
-  _text: Sure!
+  _isPlayerDialogue: 0
+  _text: Hello
   _childrenUniqueIds:
-  - 95406d57-da04-4248-9aa2-e314253fa84d
+  - 4522129c-e385-4433-b4fe-360ed07fb17b
   _rect:
     serializedVersion: 2
-    x: 1024
-    y: 263
+    x: 387
+    y: 140
     width: 200
     height: 100
   _onEnterAction: 
@@ -80,7 +107,7 @@ MonoBehaviour:
   _condition:
     _predicate: 
     _parameters: []
---- !u!114 &-1863182751789021721
+--- !u!114 &-758098449618025232
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,43 +117,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: 041ac504-343d-4cd0-ac3e-8ed752411545
+  m_Name: 4522129c-e385-4433-b4fe-360ed07fb17b
   m_EditorClassIdentifier: 
   _isPlayerDialogue: 0
-  _text: Please help me to defeat Boss.
+  _text: Can you help me?
   _childrenUniqueIds:
-  - 6ea4ae92-e6b7-417b-881a-5ca7e45a421d
-  - e9d67bf9-e37a-4415-b41b-f8bc0eae9db7
+  - d1c112a8-dbae-44b3-9489-e452eec3bf49
   _rect:
     serializedVersion: 2
-    x: 776
-    y: 152
-    width: 200
-    height: 100
-  _onEnterAction: 
-  _onExitAction: 
-  _condition:
-    _predicate: 
-    _parameters: []
---- !u!114 &-5380869539740363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: a81e0b26-f379-4c18-a597-b15bf07982c6
-  m_EditorClassIdentifier: 
-  _isPlayerDialogue: 0
-  _text: Please come back when you have prepared.
-  _childrenUniqueIds: []
-  _rect:
-    serializedVersion: 2
-    x: 1276
-    y: 152
+    x: 637
+    y: 140
     width: 200
     height: 100
   _onEnterAction: 
@@ -147,15 +147,16 @@ MonoBehaviour:
   m_Name: Defeat Boss Dialogue
   m_EditorClassIdentifier: 
   _dialogueNodes:
-  - {fileID: 2100303155353581640}
-  - {fileID: -8514968799571821572}
-  - {fileID: -1863182751789021721}
-  - {fileID: 2220234947203384789}
-  - {fileID: -1951787527857352359}
-  - {fileID: -6077745374902579278}
-  - {fileID: -5380869539740363}
+  - {fileID: -2021332170131809637}
+  - {fileID: -758098449618025232}
+  - {fileID: 1363523212646955273}
+  - {fileID: -7483604254367644354}
+  - {fileID: 8038823541482271362}
+  - {fileID: 7452149753786830318}
+  - {fileID: -2821959573006716062}
+  - {fileID: -3266726166779051920}
   _newNodeOffset: {x: 250, y: 0}
---- !u!114 &2100303155353581640
+--- !u!114 &1363523212646955273
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,16 +166,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: 41d014f3-ef00-49d0-805e-7d2e357d333d
+  m_Name: d1c112a8-dbae-44b3-9489-e452eec3bf49
   m_EditorClassIdentifier: 
-  _isPlayerDialogue: 0
-  _text: It's nice to see you, Mr.Fox!!!
+  _isPlayerDialogue: 1
+  _text: What's problem?
   _childrenUniqueIds:
-  - 0e173fb1-83ef-4938-a5dc-f8e7133ca890
+  - 36d3b0dc-dfbd-46f2-81e6-425715a39b7f
   _rect:
     serializedVersion: 2
-    x: 276
-    y: 153
+    x: 887
+    y: 140
     width: 200
     height: 100
   _onEnterAction: 
@@ -182,7 +183,7 @@ MonoBehaviour:
   _condition:
     _predicate: 
     _parameters: []
---- !u!114 &2220234947203384789
+--- !u!114 &7452149753786830318
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,16 +193,43 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: 6ea4ae92-e6b7-417b-881a-5ca7e45a421d
+  m_Name: 8a61b3a1-10d8-46d8-a48c-350193e1520c
   m_EditorClassIdentifier: 
   _isPlayerDialogue: 1
-  _text: I don't prepare for that.
+  _text: I am not sure.
   _childrenUniqueIds:
-  - a81e0b26-f379-4c18-a597-b15bf07982c6
+  - 9e9f4494-2263-44ee-bfa6-fd3741ad55f7
   _rect:
     serializedVersion: 2
-    x: 1026
-    y: 152
+    x: 1362
+    y: 269
+    width: 200
+    height: 100
+  _onEnterAction: 
+  _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
+--- !u!114 &8038823541482271362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: 99166523-ff03-4820-9e48-3eb70e47afd3
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 1
+  _text: No problem
+  _childrenUniqueIds:
+  - fa4618d3-e50e-44c5-915e-f4eb217b0f0a
+  _rect:
+    serializedVersion: 2
+    x: 1365
+    y: 146
     width: 200
     height: 100
   _onEnterAction: 

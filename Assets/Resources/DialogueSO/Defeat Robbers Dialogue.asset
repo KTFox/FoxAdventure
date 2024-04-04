@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7327459654112868696
+--- !u!114 &-7218696714137843488
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,42 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: 0cb88dba-be38-4195-9488-950823adbdf2
+  m_Name: 584cb95b-372a-47d2-9912-b45391415c2b
   m_EditorClassIdentifier: 
   _isPlayerDialogue: 0
-  _text: Thanks!
-  _childrenUniqueIds: []
-  _rect:
-    serializedVersion: 2
-    x: 1818
-    y: 171.00002
-    width: 200
-    height: 100
-  _onEnterAction: 
-  _onExitAction: GiveQuest
-  _condition:
-    _predicate: 
-    _parameters: []
---- !u!114 &-3881697090306504222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: ba2211fd-6522-415e-897c-429177f9eed7
-  m_EditorClassIdentifier: 
-  _isPlayerDialogue: 0
-  _text: There're some robbers nearby. Can you help me defeat them?
+  _text: Hi
   _childrenUniqueIds:
-  - c198a4f1-a40b-4bae-a452-171eaa712181
+  - 6790fe95-72ec-427e-b4ae-614d228f168c
   _rect:
     serializedVersion: 2
-    x: 1318
-    y: 171.00002
+    x: 399
+    y: 127
     width: 200
     height: 100
   _onEnterAction: 
@@ -53,7 +27,7 @@ MonoBehaviour:
   _condition:
     _predicate: 
     _parameters: []
---- !u!114 &-3664567991583344683
+--- !u!114 &-3312879859302545305
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,42 +37,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: aa0e8e6a-6431-4d8c-b25e-8937d25afd66
-  m_EditorClassIdentifier: 
-  _isPlayerDialogue: 0
-  _text: Many thanks!
-  _childrenUniqueIds: []
-  _rect:
-    serializedVersion: 2
-    x: 2320
-    y: 168.00002
-    width: 200
-    height: 100
-  _onEnterAction: 
-  _onExitAction: 
-  _condition:
-    _predicate: 
-    _parameters: []
---- !u!114 &-2383473033692538341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: a5078541-5da7-40e6-b53f-9edaf6190ced
+  m_Name: 6790fe95-72ec-427e-b4ae-614d228f168c
   m_EditorClassIdentifier: 
   _isPlayerDialogue: 1
-  _text: What's problem
+  _text: What's problem?
   _childrenUniqueIds:
-  - ba2211fd-6522-415e-897c-429177f9eed7
+  - b9b26267-6aaf-4a63-8160-6f82d3656a5b
   _rect:
     serializedVersion: 2
-    x: 1067
-    y: 171.00002
+    x: 649
+    y: 128
+    width: 200
+    height: 100
+  _onEnterAction: 
+  _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
+--- !u!114 &-1583615459433399640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: 6cccf3a2-0d81-433c-8b83-c8efc0be9413
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 0
+  _text: ...
+  _childrenUniqueIds: []
+  _rect:
+    serializedVersion: 2
+    x: 1397
+    y: 236
     width: 200
     height: 100
   _onEnterAction: 
@@ -119,18 +93,15 @@ MonoBehaviour:
   m_Name: Defeat Robbers Dialogue
   m_EditorClassIdentifier: 
   _dialogueNodes:
-  - {fileID: 6509044971571121891}
-  - {fileID: 3498862170147322879}
-  - {fileID: 7199658764764391808}
-  - {fileID: 3624397641186593156}
-  - {fileID: 3865920221995723741}
-  - {fileID: -2383473033692538341}
-  - {fileID: -3881697090306504222}
-  - {fileID: 1359223697310500114}
-  - {fileID: -7327459654112868696}
-  - {fileID: -3664567991583344683}
+  - {fileID: -7218696714137843488}
+  - {fileID: -3312879859302545305}
+  - {fileID: 8865250884589749698}
+  - {fileID: 6521472530228197841}
+  - {fileID: 6174860853738473757}
+  - {fileID: 2276147036071794683}
+  - {fileID: -1583615459433399640}
   _newNodeOffset: {x: 250, y: 0}
---- !u!114 &1359223697310500114
+--- !u!114 &2276147036071794683
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,52 +111,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: c198a4f1-a40b-4bae-a452-171eaa712181
-  m_EditorClassIdentifier: 
-  _isPlayerDialogue: 1
-  _text: No problem!
-  _childrenUniqueIds:
-  - 0cb88dba-be38-4195-9488-950823adbdf2
-  _rect:
-    serializedVersion: 2
-    x: 1568
-    y: 171.00002
-    width: 200
-    height: 100
-  _onEnterAction: 
-  _onExitAction: 
-  _condition:
-    _predicate: 
-    _parameters: []
---- !u!114 &3498862170147322879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: 7d18c1ec-0b3b-4909-82dd-484b72f07777
+  m_Name: e414775a-19ed-46c9-805c-02e31e7102c0
   m_EditorClassIdentifier: 
   _isPlayerDialogue: 0
-  _text: Where are you from?
-  _childrenUniqueIds:
-  - 010cee73-efcb-4d84-b1b0-46348316fd33
-  - f64d441f-ded0-4ef8-8099-848c0bb36756
+  _text: Thanks
+  _childrenUniqueIds: []
   _rect:
     serializedVersion: 2
-    x: 313
-    y: 165.00002
+    x: 1399
+    y: 126
     width: 200
     height: 100
   _onEnterAction: 
-  _onExitAction: 
+  _onExitAction: GiveQuest
   _condition:
     _predicate: 
     _parameters: []
---- !u!114 &3624397641186593156
+--- !u!114 &6174860853738473757
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,16 +137,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: f64d441f-ded0-4ef8-8099-848c0bb36756
+  m_Name: c002ca85-707e-47b8-b852-0b31e6400602
   m_EditorClassIdentifier: 
   _isPlayerDialogue: 1
-  _text: Mind your business.
+  _text: I am having my business.
   _childrenUniqueIds:
-  - fd6c78ec-b132-48d6-ac2e-9d146e8e1149
+  - 6cccf3a2-0d81-433c-8b83-c8efc0be9413
   _rect:
     serializedVersion: 2
-    x: 560
-    y: 231.00002
+    x: 1147
+    y: 236
     width: 200
     height: 100
   _onEnterAction: 
@@ -212,7 +154,7 @@ MonoBehaviour:
   _condition:
     _predicate: 
     _parameters: []
---- !u!114 &3865920221995723741
+--- !u!114 &6521472530228197841
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,70 +164,44 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: fd6c78ec-b132-48d6-ac2e-9d146e8e1149
-  m_EditorClassIdentifier: 
-  _isPlayerDialogue: 0
-  _text: Can you help me?
-  _childrenUniqueIds:
-  - a5078541-5da7-40e6-b53f-9edaf6190ced
-  _rect:
-    serializedVersion: 2
-    x: 817
-    y: 171.00002
-    width: 200
-    height: 100
-  _onEnterAction: 
-  _onExitAction: 
-  _condition:
-    _predicate: 
-    _parameters: []
---- !u!114 &6509044971571121891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: 1cf66fad-43fb-41c1-a35f-2a9312aba012
-  m_EditorClassIdentifier: 
-  _isPlayerDialogue: 0
-  _text: Hello, I'm village's guard.
-  _childrenUniqueIds:
-  - 7d18c1ec-0b3b-4909-82dd-484b72f07777
-  _rect:
-    serializedVersion: 2
-    x: 58
-    y: 165.00002
-    width: 200
-    height: 100
-  _onEnterAction: 
-  _onExitAction: 
-  _condition:
-    _predicate: 
-    _parameters: []
---- !u!114 &7199658764764391808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
-  m_Name: 010cee73-efcb-4d84-b1b0-46348316fd33
+  m_Name: 387749e6-3e6e-468e-9551-5b94e64c9234
   m_EditorClassIdentifier: 
   _isPlayerDialogue: 1
-  _text: I'm from Fox village
+  _text: Ok
   _childrenUniqueIds:
-  - fd6c78ec-b132-48d6-ac2e-9d146e8e1149
+  - e414775a-19ed-46c9-805c-02e31e7102c0
   _rect:
     serializedVersion: 2
-    x: 562
-    y: 101.000015
+    x: 1149
+    y: 126
+    width: 200
+    height: 100
+  _onEnterAction: 
+  _onExitAction: 
+  _condition:
+    _predicate: 
+    _parameters: []
+--- !u!114 &8865250884589749698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4309ad4953ac0aa479ec03d786c1e202, type: 3}
+  m_Name: b9b26267-6aaf-4a63-8160-6f82d3656a5b
+  m_EditorClassIdentifier: 
+  _isPlayerDialogue: 0
+  _text: Can you help me defeat robbers?
+  _childrenUniqueIds:
+  - 387749e6-3e6e-468e-9551-5b94e64c9234
+  - c002ca85-707e-47b8-b852-0b31e6400602
+  _rect:
+    serializedVersion: 2
+    x: 899
+    y: 128
     width: 200
     height: 100
   _onEnterAction: 

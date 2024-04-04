@@ -1853,7 +1853,7 @@ PrefabInstance:
     - target: {fileID: 1109802774076902216, guid: 2fcd54fe690929e4986eb7bf12f85f89, type: 3}
       propertyPath: _dialogueSO
       value: 
-      objectReference: {fileID: 11400000, guid: d9f1607badc1e2743a4e6a4742c47a13, type: 2}
+      objectReference: {fileID: 11400000, guid: f099d5f6758360a40a242adbe8692534, type: 2}
     - target: {fileID: 1109802774076902216, guid: 2fcd54fe690929e4986eb7bf12f85f89, type: 3}
       propertyPath: _conversantName
       value: Benjamin's Son
