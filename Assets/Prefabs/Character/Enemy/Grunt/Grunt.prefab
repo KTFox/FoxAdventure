@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grunt
       objectReference: {fileID: 0}
+    - target: {fileID: 2780925296645352734, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
+      propertyPath: _chaseDistance
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5422913865980319978, guid: f91155b28ed446e4899eec7bda66a103, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
