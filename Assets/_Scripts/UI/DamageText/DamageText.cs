@@ -10,7 +10,7 @@ namespace RPG.UI.DamageText
 
         public void UpdateText(float damageAmount)
         {
-            _damageText.text = $"{damageAmount:N2}";
+            _damageText.text = $"{damageAmount:N0}";
         }
 
         #region Animation events
