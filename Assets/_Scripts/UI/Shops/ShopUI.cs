@@ -7,6 +7,8 @@ namespace RPG.UI.Shops
 {
     public class ShopUI : MonoBehaviour
     {
+        // Variables
+
         [SerializeField]
         private TextMeshProUGUI _shopNameText;
         [SerializeField]
@@ -24,6 +26,9 @@ namespace RPG.UI.Shops
         private Shopper _shopper;
         private Color _originalTotalTextColor;
 
+
+        // Methods
+
         private void Awake()
         {
             _shopper = GameObject.FindGameObjectWithTag("Player").GetComponent<Shopper>();
@@ -33,14 +38,14 @@ namespace RPG.UI.Shops
         {
             _originalTotalTextColor = _totalText.color;
 
-            _shopper_OnActiveShopChanged();
+            shopper_OnActiveShopChanged();
 
-            _shopper.OnActiveShopChanged += _shopper_OnActiveShopChanged;
+            _shopper.OnActiveShopChanged += shopper_OnActiveShopChanged;
             _switchModeButton.onClick.AddListener(SwitchMode);
             _confirmButton.onClick.AddListener(ConfirmTransaction);
         }
 
-        void _shopper_OnActiveShopChanged()
+        void shopper_OnActiveShopChanged()
         {
             if (_currentShop != null)
             {
