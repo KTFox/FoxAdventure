@@ -1,21 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+using RPG.Stats;
+using TMPro;
 using UnityEngine;
 
-namespace RPG
+namespace RPG.UI
 {
     public class StatInfoUI : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        // Variables
+
+        [SerializeField]
+        private TextMeshProUGUI _value;
+        [SerializeField]
+        private Stat _stat;
+
+        private BaseStats _playerBaseStat;
+
+
+        // Methods
+
+        private void Start()
         {
-        
+            _playerBaseStat = GameObject.FindGameObjectWithTag("Player").GetComponent<BaseStats>();
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
-        
+            _value.text = _playerBaseStat.GetValueOfStat(_stat).ToString();
         }
     }
 }
