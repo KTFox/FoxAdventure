@@ -22,14 +22,6 @@ namespace RPG.Stats
 
         // Methods
 
-        private void Update()
-        {
-            if (Input.GetKey(KeyCode.E))
-            {
-                GainExperience(Time.deltaTime * 10);
-            }
-        }
-
         public void GainExperience(float experience)
         {
             _experiencePoints += experience;

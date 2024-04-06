@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 584cb95b-372a-47d2-9912-b45391415c2b
   m_EditorClassIdentifier: 
   _isPlayerDialogue: 0
-  _text: Hi
+  _text: 'Hi '
   _childrenUniqueIds:
   - 6790fe95-72ec-427e-b4ae-614d228f168c
   _rect:

@@ -15,6 +15,7 @@ namespace RPG.Attributes
 
         public float MaxMana => GetComponent<BaseStats>().GetValueOfStat(Stat.Mana);
         public float CurrentMana => _currentMana.Value;
+        public float CurrentManaFraction => _currentMana.Value / GetComponent<BaseStats>().GetValueOfStat(Stat.Mana);
         public float ManaRecover => GetComponent<BaseStats>().GetValueOfStat(Stat.ManaRecover);
 
 
