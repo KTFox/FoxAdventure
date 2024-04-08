@@ -2,6 +2,8 @@ using UnityEngine;
 using TMPro;
 using RPG.SceneManagement;
 using RPG.Utility;
+using UnityEngine.UI;
+using System.Linq;
 
 namespace RPG.UI
 {
@@ -10,7 +12,10 @@ namespace RPG.UI
         // Variables
 
         [SerializeField]
+        private Button _continueButton;
+        [SerializeField]
         private TMP_InputField _inputField;
+
         private LazyValue<SavingWrapper> _savingWrapper;
 
 
@@ -19,6 +24,11 @@ namespace RPG.UI
         private void Awake()
         {
             _savingWrapper = new LazyValue<SavingWrapper>(GetSavingWrapper);
+        }
+
+        private void Start()
+        {
+            _continueButton.interactable = _savingWrapper.Value.SavedFileNames.Count() > 0;
         }
 
         private SavingWrapper GetSavingWrapper()
