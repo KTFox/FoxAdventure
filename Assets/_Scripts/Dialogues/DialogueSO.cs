@@ -25,6 +25,11 @@ namespace RPG.Dialogues
 
         // Methods
 
+        private void Awake()
+        {
+            OnValidate();
+        }
+
         private void OnValidate()
         {
             if (_dialogueNodes[0] == null) return;
