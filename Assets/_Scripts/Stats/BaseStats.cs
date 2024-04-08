@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using RPG.Utility;
+using static Cinemachine.DocumentationSortingAttribute;
 
 namespace RPG.Stats
 {
@@ -30,6 +31,7 @@ namespace RPG.Stats
         // Properties
 
         public int CurrentLevel => _currentLevel.Value;
+        public float ExperienceToLevelUp => _progressionSO.GetStat(_characterClass, Stat.ExperienceToLevelUp, CurrentLevel);
 
         // Events
 
