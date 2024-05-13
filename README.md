@@ -4,11 +4,9 @@
 
 Welcome, this is the repository for my first 3D/RPG game made with Unity.
 
-This project is built on **Unity 2022.3.8f1 LTS**
-
-You can download and experience the game here ([itch.io](https://ktfox.itch.io/fox-adventure)).
-
-You can watch Game Demo here ([Youtube.com](https://youtu.be/6SDbkmY0nY0))
+* This project is built on **Unity 2022.3.8f1 LTS**
+* You can download and experience the game here ([itch.io](https://ktfox.itch.io/fox-adventure)).
+* You can watch Game Demo here ([Youtube.com](https://youtu.be/6SDbkmY0nY0))
 
 ## Features
 ### 1. Inventory
