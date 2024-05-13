@@ -23,7 +23,7 @@ Key features of our shop system include:
 * **Item Catalog**: The shop offers a comprehensive catalog of weapon, armor, and ability. Players can browse through different categories and view detailed information about each item before making a purchase.
 * **Currency System**: Our shop utilizes an in-game currency system, allowing players to earn currency through gameplay activities such as completing quests, defeating enemies, or selling items. Players can then use this currency to purchase items from the shop.
 * **Special Offers and Discounts**: the shop may offer special discounts on select items that depend on player's level and specific shop.
-* 
+  
 ![Shop system](/ReadmePictures/ShopFeature.png)
 
 ### 3. Dialogue system
@@ -34,3 +34,20 @@ The dialogue feature in our game offers players a rich and immersive narrative e
 
 ### 4. Ability
 Utilizing ScriptableObject to store strategy data, our ability system provides a flexible and modular framework for defining various aspects of abilities, including effect strategy, filter strategy, targeting strategy, and more.
+
+![Ability feature](/ReadmePictures/AbilitySystem1.png)
+![Ability feature](/ReadmePictures/AbilitySystem.png)
+![Ability feature](/ReadmePictures/AbilitySystem2.png)
+
+### 5. Multi-file saved system
+Players can create and manage multiple save slots, allowing them to maintain separate save files for different playthroughs, or characters. Each save slot stores a complete snapshot of the game state, including player progress, inventory, achievements, and other relevant data.
+
+![Multi-file saved system](/ReadmePictures/MultiSavedFile.png)
+
+##
+
+> **Thank you for taking the time to review my portfolio. Your interest and attention mean a lot to me, and I truly appreciate the opportunity to share my work with you. If you have any questions or feedback, please don't hesitate to reach out.** ❤
+> 
+> *Contact info:*
+> - Email: khoitran7122002@gmail.com
+> - Linked: www.linkedin.com/in/khoi-tran-xuan-534920272
